@@ -1,0 +1,32 @@
+--- 
+title: "R에 의한 시계열분석"
+author: "박동련"
+date: "`r Sys.Date()`"
+output:
+  bookdown::gitbook: default
+site: bookdown::bookdown_site
+documentclass: book
+bibliography: [book.bib, packages.bib]
+# url: your book url like https://bookdown.org/yihui/bookdown
+# cover-image: path to the social sharing image like images/cover.jpg
+description: |
+  
+link-citations: yes
+github-repo: yjyjpark/TS-with-R
+---
+
+# 소개하기{-}
+이 책은 한신대학교 응용통계학과의 **시계열분석** 과목의 교재이다. 
+
+```{r include=FALSE}
+knitr::opts_chunk$set(prompt = TRUE, comment = NULL, collapse = TRUE, fig.width=4, fig.asp=0.7)
+```
+
+
+
+```{r include=FALSE}
+# automatically create a bib database for R packages
+knitr::write_bib(c(
+  .packages(), 'bookdown', 'knitr', 'rmarkdown'
+), 'packages.bib')
+```
