@@ -302,6 +302,32 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb2-6"><a href="시계열-그래프.html#cb2-6" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1960</span>   <span class="dv">12</span></span>
 <span id="cb2-7"><a href="시계열-그래프.html#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">frequency</span>(AirPassengers)</span>
 <span id="cb2-8"><a href="시계열-그래프.html#cb2-8" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">12</span></span></code></pre></div>
+<p><code>AirPassengers'의 시작 시점은 1949년 1월이고, 종료 시점은 1960년 12월이다.  함수</code>frequency()`는 시계열자료의 주기, 즉 계절 요소의 반복 기간을 보여주고 있다.</p>
+<p>만일 일반 벡터를 <code>ts</code> 객체로 변환하려고 한다면, 함수 <code>ts()</code>를 사용해야 한다.
+사용법은 <code>ts(data, start, end, frequency)</code>와 같은데, <code>data</code>는 시계열자료로 변환할 벡터이고
+<code>start</code>는 자료의 시작점의 지정하는 것으로써, 2020년 1월을 시작점으로 지정한다면 <code>start = c(2020, 1)</code>과 같이
+지정하면 된다. <code>end</code>는 자료의 종료 시점을 지정하는 것이며, 방법은 <code>start</code>와 동일하다.
+만일 <code>start</code>를 생략한다면 <code>data</code>에 있는 모든 자료가 시계열자료로 변환된다.
+<code>frequency</code>는 자료의 주기를 지정하는 것으로써, 연간 자료는 1, 분기별 자료는 4, 월별 자료는 12를 지정하면 된다.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="시계열-그래프.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> depart <span class="ot">&lt;-</span> <span class="fu">scan</span>(<span class="st">&quot;Data/depart.txt&quot;</span>)</span>
+<span id="cb3-2"><a href="시계열-그래프.html#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> depart.ts <span class="ot">&lt;-</span> <span class="fu">ts</span>(depart, <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">1984</span>, <span class="dv">1</span>), <span class="at">frequency =</span> <span class="dv">12</span>)</span>
+<span id="cb3-3"><a href="시계열-그래프.html#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> depart.ts</span>
+<span id="cb3-4"><a href="시계열-그래프.html#cb3-4" aria-hidden="true" tabindex="-1"></a>      Jan  Feb  Mar  Apr  May  Jun  Jul  Aug  Sep  Oct  Nov  Dec</span>
+<span id="cb3-5"><a href="시계열-그래프.html#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="dv">1984</span>  <span class="dv">423</span>  <span class="dv">458</span>  <span class="dv">607</span>  <span class="dv">564</span>  <span class="dv">536</span>  <span class="dv">536</span>  <span class="dv">804</span>  <span class="dv">540</span>  <span class="dv">488</span>  <span class="dv">627</span>  <span class="dv">672</span> <span class="dv">1447</span></span>
+<span id="cb3-6"><a href="시계열-그래프.html#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="dv">1985</span>  <span class="dv">514</span>  <span class="dv">518</span>  <span class="dv">699</span>  <span class="dv">654</span>  <span class="dv">612</span>  <span class="dv">612</span>  <span class="dv">884</span>  <span class="dv">605</span>  <span class="dv">547</span>  <span class="dv">705</span>  <span class="dv">698</span> <span class="dv">1555</span></span>
+<span id="cb3-7"><a href="시계열-그래프.html#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="dv">1986</span>  <span class="dv">561</span>  <span class="dv">564</span>  <span class="dv">773</span>  <span class="dv">717</span>  <span class="dv">665</span>  <span class="dv">667</span>  <span class="dv">994</span>  <span class="dv">661</span>  <span class="dv">616</span>  <span class="dv">786</span>  <span class="dv">806</span> <span class="dv">1754</span></span>
+<span id="cb3-8"><a href="시계열-그래프.html#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="dv">1987</span>  <span class="dv">622</span>  <span class="dv">636</span>  <span class="dv">874</span>  <span class="dv">831</span>  <span class="dv">769</span>  <span class="dv">779</span> <span class="dv">1142</span>  <span class="dv">764</span>  <span class="dv">718</span>  <span class="dv">930</span>  <span class="dv">943</span> <span class="dv">2039</span></span>
+<span id="cb3-9"><a href="시계열-그래프.html#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="dv">1988</span>  <span class="dv">736</span>  <span class="dv">752</span> <span class="dv">1057</span>  <span class="dv">947</span>  <span class="dv">868</span>  <span class="dv">931</span> <span class="dv">1311</span>  <span class="dv">896</span>  <span class="dv">867</span> <span class="dv">1073</span> <span class="dv">1069</span> <span class="dv">2333</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="시계열-그래프.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">library</span>(fpp2)</span>
+<span id="cb4-2"><a href="시계열-그래프.html#cb4-2" aria-hidden="true" tabindex="-1"></a>Registered S3 method overwritten by <span class="st">&#39;quantmod&#39;</span><span class="sc">:</span></span>
+<span id="cb4-3"><a href="시계열-그래프.html#cb4-3" aria-hidden="true" tabindex="-1"></a>  method            from</span>
+<span id="cb4-4"><a href="시계열-그래프.html#cb4-4" aria-hidden="true" tabindex="-1"></a>  as.zoo.data.frame zoo </span>
+<span id="cb4-5"><a href="시계열-그래프.html#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="sc">--</span> Attaching packages <span class="sc">----------------------------------------------</span> fpp2 <span class="fl">2.4</span> <span class="sc">--</span></span>
+<span id="cb4-6"><a href="시계열-그래프.html#cb4-6" aria-hidden="true" tabindex="-1"></a>v ggplot2   <span class="dv">3</span>.<span class="fl">3.5</span>     v fma       <span class="fl">2.4</span>  </span>
+<span id="cb4-7"><a href="시계열-그래프.html#cb4-7" aria-hidden="true" tabindex="-1"></a>v forecast  <span class="fl">8.16</span>      v expsmooth <span class="fl">2.3</span>  </span>
+<span id="cb4-8"><a href="시계열-그래프.html#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="시계열-그래프.html#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">autoplot</span>(depart.ts)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-6-1.png" width="480" /></p>
 
 </div>
 </div>

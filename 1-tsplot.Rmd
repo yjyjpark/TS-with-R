@@ -99,7 +99,26 @@ end(AirPassengers)
 frequency(AirPassengers)
 ```
 
+`AirPassengers'의 시작 시점은 1949년 1월이고, 종료 시점은 1960년 12월이다. 
+함수 `frequency()`는 시계열자료의 주기, 즉 계절 요소의 반복 기간을 보여주고 있다. 
 
+만일 일반 벡터를 `ts` 객체로 변환하려고 한다면, 함수 `ts()`를 사용해야 한다. 
+사용법은 `ts(data, start, end, frequency)`와 같은데, `data`는 시계열자료로 변환할 벡터이고
+`start`는 자료의 시작점의 지정하는 것으로써, 2020년 1월을 시작점으로 지정한다면 `start = c(2020, 1)`과 같이
+지정하면 된다. `end`는 자료의 종료 시점을 지정하는 것이며, 방법은 `start`와 동일하다. 
+만일 `start`를 생략한다면 `data`에 있는 모든 자료가 시계열자료로 변환된다. 
+`frequency`는 자료의 주기를 지정하는 것으로써, 연간 자료는 1, 분기별 자료는 4, 월별 자료는 12를 지정하면 된다. 
+
+```{r}
+depart <- scan("Data/depart.txt")
+depart.ts <- ts(depart, start = c(1984, 1), frequency = 12)
+depart.ts
+```
+
+```{r}
+library(fpp2)
+autoplot(depart.ts)
+```
 
 
 
