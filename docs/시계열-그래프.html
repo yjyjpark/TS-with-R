@@ -139,7 +139,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.1.1" data-path="시계열-그래프.html"><a href="시계열-그래프.html#종단-자료cross-sectional-data와의-비교"><i class="fa fa-check"></i><b>1.1.1</b> 종단 자료(cross-sectional data)와의 비교</a></li>
 <li class="chapter" data-level="1.1.2" data-path="시계열-그래프.html"><a href="시계열-그래프.html#시계열-예측"><i class="fa fa-check"></i><b>1.1.2</b> 시계열 예측</a></li>
 </ul></li>
-<li class="chapter" data-level="1.2" data-path="시계열-그래프.html"><a href="시계열-그래프.html#시계열-그래프-작성"><i class="fa fa-check"></i><b>1.2</b> 시계열 그래프 작성</a></li>
+<li class="chapter" data-level="1.2" data-path="시계열-그래프.html"><a href="시계열-그래프.html#시계열-그래프-작성"><i class="fa fa-check"></i><b>1.2</b> 시계열 그래프 작성</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="시계열-그래프.html"><a href="시계열-그래프.html#ts-객체-생성"><i class="fa fa-check"></i><b>1.2.1</b> <code>ts</code> 객체 생성</a></li>
+<li class="chapter" data-level="1.2.2" data-path="시계열-그래프.html"><a href="시계열-그래프.html#시계열-그래프-작성-1"><i class="fa fa-check"></i><b>1.2.2</b> 시계열 그래프 작성</a></li>
+<li class="chapter" data-level="1.2.3" data-path="시계열-그래프.html"><a href="시계열-그래프.html#seasonal-그래프"><i class="fa fa-check"></i><b>1.2.3</b> Seasonal 그래프</a></li>
+</ul></li>
 </ul></li>
 </ul>
 
@@ -293,7 +298,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1-12"><a href="시계열-그래프.html#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="dv">1958</span> <span class="dv">340</span> <span class="dv">318</span> <span class="dv">362</span> <span class="dv">348</span> <span class="dv">363</span> <span class="dv">435</span> <span class="dv">491</span> <span class="dv">505</span> <span class="dv">404</span> <span class="dv">359</span> <span class="dv">310</span> <span class="dv">337</span></span>
 <span id="cb1-13"><a href="시계열-그래프.html#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="dv">1959</span> <span class="dv">360</span> <span class="dv">342</span> <span class="dv">406</span> <span class="dv">396</span> <span class="dv">420</span> <span class="dv">472</span> <span class="dv">548</span> <span class="dv">559</span> <span class="dv">463</span> <span class="dv">407</span> <span class="dv">362</span> <span class="dv">405</span></span>
 <span id="cb1-14"><a href="시계열-그래프.html#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="dv">1960</span> <span class="dv">417</span> <span class="dv">391</span> <span class="dv">419</span> <span class="dv">461</span> <span class="dv">472</span> <span class="dv">535</span> <span class="dv">622</span> <span class="dv">606</span> <span class="dv">508</span> <span class="dv">461</span> <span class="dv">390</span> <span class="dv">432</span></span></code></pre></div>
-<p><code>AirPassengers'는</code>ts<code>객체이다. 출력된 형태는 2차원 구조로 보이지만, 벡터와 같은 1차원 배열이다.</code>ts` 객체의 특성은 다음과 같이 알아볼 수 있다.</p>
+<p><code>AirPassengers</code>는 <code>ts</code> 객체이다. 출력된 형태는 2차원 구조로 보이지만, 벡터와 같은 1차원 배열이다.
+<code>ts</code> 객체의 특성은 다음과 같이 알아볼 수 있다.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="시계열-그래프.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">class</span>(AirPassengers)</span>
 <span id="cb2-2"><a href="시계열-그래프.html#cb2-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;ts&quot;</span></span>
 <span id="cb2-3"><a href="시계열-그래프.html#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">start</span>(AirPassengers)</span>
@@ -302,22 +308,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb2-6"><a href="시계열-그래프.html#cb2-6" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1960</span>   <span class="dv">12</span></span>
 <span id="cb2-7"><a href="시계열-그래프.html#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">frequency</span>(AirPassengers)</span>
 <span id="cb2-8"><a href="시계열-그래프.html#cb2-8" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">12</span></span></code></pre></div>
-<p><code>AirPassengers'의 시작 시점은 1949년 1월이고, 종료 시점은 1960년 12월이다.  함수</code>frequency()`는 시계열자료의 주기, 즉 계절 요소의 반복 기간을 보여주고 있다.</p>
-<ul>
-<li><code>ts</code> 객체 생성</li>
-</ul>
+<p><code>AirPassengers</code>의 시작 시점은 1949년 1월이고, 종료 시점은 1960년 12월이다.
+함수 <code>frequency()</code>는 시계열자료의 주기, 즉 계절 요소의 반복 기간을 보여주고 있다.</p>
+<div id="ts-객체-생성" class="section level3" number="1.2.1">
+<h3><span class="header-section-number">1.2.1</span> <code>ts</code> 객체 생성</h3>
 <p>만일 일반 벡터를 <code>ts</code> 객체로 변환하려고 한다면, 함수 <code>ts()</code>를 사용해야 한다.
 사용법은 <code>ts(data, start, end, frequency)</code>와 같은데, <code>data</code>는 시계열자료로 변환할 벡터이고
-<code>start</code>는 자료의 시작점의 지정하는 것으로써, 2020년 1월을 시작점으로 지정한다면 <code>start = c(2020, 1)</code>과 같이
+<code>start</code>는 자료의 시작점을 지정하는 것으로써, 2020년 1월을 시작점으로 지정한다면 <code>start = c(2020, 1)</code>과 같이
 지정하면 된다. <code>end</code>는 자료의 종료 시점을 지정하는 것이며, 방법은 <code>start</code>와 동일하다.
-만일 <code>start</code>를 생략한다면 <code>data</code>에 있는 모든 자료가 시계열자료로 변환된다.
+만일 <code>end</code>를 생략한다면 <code>data</code>에 있는 모든 자료가 시계열자료로 변환된다.
 <code>frequency</code>는 자료의 주기를 지정하는 것으로써, 연간 자료는 1, 분기별 자료는 4, 월별 자료는 12를 지정하면 된다.</p>
 <ul>
-<li>예제: 백화점 매출액 자료
-<code>depart.txt</code>는 어떤 백화점의 1984년 1월부터 1988년 12월까지의 월별 매출액이 입력되어 있다.
-이것을 R로 불러와서 <code>ts</code> 객체로 변환시켜보자.</li>
+<li>예제: 백화점 매출액 자료</li>
 </ul>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="시계열-그래프.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> depart <span class="ot">&lt;-</span> <span class="fu">scan</span>(<span class="st">&quot;Data/depart.txt&quot;</span>)</span>
+<p><code>depart.txt</code>는 어떤 백화점의 1984년 1월부터 1988년 12월까지의 월별 매출액이 입력되어 있다.
+이것을 R로 불러와서 <code>ts</code> 객체로 변환시켜보자.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="시계열-그래프.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> depart <span class="ot">&lt;-</span> <span class="fu">scan</span>(<span class="st">&quot;https://raw.githubusercontent.com/yjyjpark/TS-with-R/main/Data/depart.txt&quot;</span>)</span>
 <span id="cb3-2"><a href="시계열-그래프.html#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> depart.ts <span class="ot">&lt;-</span> <span class="fu">ts</span>(depart, <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">1984</span>, <span class="dv">1</span>), <span class="at">frequency =</span> <span class="dv">12</span>)</span>
 <span id="cb3-3"><a href="시계열-그래프.html#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> depart.ts</span>
 <span id="cb3-4"><a href="시계열-그래프.html#cb3-4" aria-hidden="true" tabindex="-1"></a>      Jan  Feb  Mar  Apr  May  Jun  Jul  Aug  Sep  Oct  Nov  Dec</span>
@@ -326,13 +332,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb3-7"><a href="시계열-그래프.html#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="dv">1986</span>  <span class="dv">561</span>  <span class="dv">564</span>  <span class="dv">773</span>  <span class="dv">717</span>  <span class="dv">665</span>  <span class="dv">667</span>  <span class="dv">994</span>  <span class="dv">661</span>  <span class="dv">616</span>  <span class="dv">786</span>  <span class="dv">806</span> <span class="dv">1754</span></span>
 <span id="cb3-8"><a href="시계열-그래프.html#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="dv">1987</span>  <span class="dv">622</span>  <span class="dv">636</span>  <span class="dv">874</span>  <span class="dv">831</span>  <span class="dv">769</span>  <span class="dv">779</span> <span class="dv">1142</span>  <span class="dv">764</span>  <span class="dv">718</span>  <span class="dv">930</span>  <span class="dv">943</span> <span class="dv">2039</span></span>
 <span id="cb3-9"><a href="시계열-그래프.html#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="dv">1988</span>  <span class="dv">736</span>  <span class="dv">752</span> <span class="dv">1057</span>  <span class="dv">947</span>  <span class="dv">868</span>  <span class="dv">931</span> <span class="dv">1311</span>  <span class="dv">896</span>  <span class="dv">867</span> <span class="dv">1073</span> <span class="dv">1069</span> <span class="dv">2333</span></span></code></pre></div>
-<ul>
-<li>시계열 그래프 작성</li>
-</ul>
+</div>
+<div id="시계열-그래프-작성-1" class="section level3" number="1.2.2">
+<h3><span class="header-section-number">1.2.2</span> 시계열 그래프 작성</h3>
 <p>시계열 그래프란 시계열자료를 관측된 순서대로 선으로 연결한 그래프를 의미한다.
 작성 함수는 <code>ggplot2::autoplot()</code>인데, 이 함수는 입력되는 객체의 특성에 가장 적합한 그래프를 작성해 주는 함수로서
 앞으로 매우 유용하게 사용된다.
-또한 시계열 그래프를 작성하기 위해서는 패키지 <code>forecast</code>도 필요한데,
+함수 <code>autoplot()</code>으로 시계열 그래프를 작성하기 위해서는 패키지 <code>forecast</code>도 필요한데,
 패키지 <code>fpp2</code>를 불러오면 필요한 패키지가 모두 같이 로딩된다.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="시계열-그래프.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">library</span>(fpp2)</span>
 <span id="cb4-2"><a href="시계열-그래프.html#cb4-2" aria-hidden="true" tabindex="-1"></a>Registered S3 method overwritten by <span class="st">&#39;quantmod&#39;</span><span class="sc">:</span></span>
@@ -341,11 +347,99 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb4-5"><a href="시계열-그래프.html#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="sc">--</span> Attaching packages <span class="sc">----------------------------------------------</span> fpp2 <span class="fl">2.4</span> <span class="sc">--</span></span>
 <span id="cb4-6"><a href="시계열-그래프.html#cb4-6" aria-hidden="true" tabindex="-1"></a>v ggplot2   <span class="dv">3</span>.<span class="fl">3.5</span>     v fma       <span class="fl">2.4</span>  </span>
 <span id="cb4-7"><a href="시계열-그래프.html#cb4-7" aria-hidden="true" tabindex="-1"></a>v forecast  <span class="fl">8.16</span>      v expsmooth <span class="fl">2.3</span>  </span></code></pre></div>
-<p>이제 백화점 매출액 자료인 <code>depart.ts</code>의 시계열 그래프를 작성해 보자.</p>
+<ul>
+<li>예제: 백화점 매출액 자료</li>
+</ul>
+<p>백화점 매출액 자료인 <code>depart.ts</code>의 시계열 그래프를 작성해 보자.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="시계열-그래프.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">autoplot</span>(depart.ts) <span class="sc">+</span></span>
 <span id="cb5-2"><a href="시계열-그래프.html#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Monthly sales of a department store&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Year&quot;</span>, <span class="at">y =</span> <span class="cn">NULL</span>)</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-7-1.png" width="576" /></p>
+<ul>
+<li>예제: 지구 온도 자료</li>
+</ul>
+<p>1856년 1월부터 2005년 12월까지 지구 온도 자료가 <code>global.txt</code>에 입력되어 있다.
+이 자료의 시계열 그래프를 작성해 보자.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="시계열-그래프.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> global <span class="ot">&lt;-</span> <span class="fu">scan</span>(<span class="st">&quot;https://raw.githubusercontent.com/yjyjpark/TS-with-R/main/Data/global.txt&quot;</span>)</span>
+<span id="cb6-2"><a href="시계열-그래프.html#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> global.ts <span class="ot">&lt;-</span> <span class="fu">ts</span>(global, <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">1856</span>, <span class="dv">1</span>), <span class="at">frequency =</span> <span class="dv">12</span>)</span>
+<span id="cb6-3"><a href="시계열-그래프.html#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">autoplot</span>(global.ts) <span class="sc">+</span></span>
+<span id="cb6-4"><a href="시계열-그래프.html#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Global Temperature 1985 ~ 2005&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Year&quot;</span>, <span class="at">y =</span> <span class="cn">NULL</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:global"></span>
+<img src="_main_files/figure-html/global-1.png" alt="1856년부터 2005년까지 지구 온도 시계열 그래프" width="576" />
+<p class="caption">
+Figure 1.1: 1856년부터 2005년까지 지구 온도 시계열 그래프
+</p>
+</div>
+<p>Figure <a href="시계열-그래프.html#fig:global">1.1</a>에서 볼 수 있는 것은 대략 1970년 이후로 지속적인 상승 패턴이 있다는 점이다.
+1970년 이후 자료에 대한 시계열 그래프를 다시 작성해 보자.
+이것을 위해서는 이미 생성된 <code>ts</code> 객체에서 일부분을 선택해야 하는데, 이 작업은 함수 <code>window()</code>로 할 수 있다.
+사용법은 <code>window(ts, start, end)</code>이다.</p>
+<p>이제 1970년 1월 이후 자료에 대한 시계열 그래프를 작성해 보자.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="시계열-그래프.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> global<span class="fl">.1970</span> <span class="ot">&lt;-</span> <span class="fu">window</span>(global.ts, <span class="at">start =</span> <span class="dv">1970</span>)</span>
+<span id="cb7-2"><a href="시계열-그래프.html#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">autoplot</span>(global<span class="fl">.1970</span>) <span class="sc">+</span></span>
+<span id="cb7-3"><a href="시계열-그래프.html#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Global Temperature 1970 ~ 2005&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Year&quot;</span>, <span class="at">y =</span> <span class="cn">NULL</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:global-1970"></span>
+<img src="_main_files/figure-html/global-1970-1.png" alt="1970년부터 2005년까지 지구 온도 시계열 그래프" width="576" />
+<p class="caption">
+Figure 1.2: 1970년부터 2005년까지 지구 온도 시계열 그래프
+</p>
+</div>
+<p>Figure <a href="시계열-그래프.html#fig:global-1970">1.2</a>의 시계열 그래프에 회귀직선을 추가하면, 상승 추세를 조금 더 명확하게 확인할 수 있다.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="시계열-그래프.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">autoplot</span>(global<span class="fl">.1970</span>) <span class="sc">+</span></span>
+<span id="cb8-2"><a href="시계열-그래프.html#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb8-3"><a href="시계열-그래프.html#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Global Temperature 1970 ~ 2005&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Year&quot;</span>, <span class="at">y =</span> <span class="cn">NULL</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:global-1970-lm"></span>
+<img src="_main_files/figure-html/global-1970-lm-1.png" alt="시계열 그래프에 회귀직선 추가" width="576" />
+<p class="caption">
+Figure 1.3: 시계열 그래프에 회귀직선 추가
+</p>
+</div>
+<ul>
+<li>예제: 다중 시계열 그래프</li>
+</ul>
+<p><code>cbe.txt</code>에는 호주에서 1958년부터 초콜릿, 맥주 및 전기의 월별 생산량이 입력되어 있다.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="시계열-그래프.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> CBE <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_table</span>(<span class="st">&quot;https://raw.githubusercontent.com/yjyjpark/TS-with-R/main/Data/cbe.txt&quot;</span>)</span>
+<span id="cb9-2"><a href="시계열-그래프.html#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> CBE <span class="sc">%&gt;%</span> <span class="fu">print</span>(<span class="at">n =</span> <span class="dv">3</span>)</span>
+<span id="cb9-3"><a href="시계열-그래프.html#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"># A tibble: 396 x 3</span></span>
+<span id="cb9-4"><a href="시계열-그래프.html#cb9-4" aria-hidden="true" tabindex="-1"></a>   choc  beer  elec</span>
+<span id="cb9-5"><a href="시계열-그래프.html#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="sc">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span></span>
+<span id="cb9-6"><a href="시계열-그래프.html#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>  <span class="dv">1451</span>  <span class="fl">96.3</span>  <span class="dv">1497</span></span>
+<span id="cb9-7"><a href="시계열-그래프.html#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span>  <span class="dv">2037</span>  <span class="fl">84.4</span>  <span class="dv">1463</span></span>
+<span id="cb9-8"><a href="시계열-그래프.html#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span>  <span class="dv">2477</span>  <span class="fl">91.2</span>  <span class="dv">1648</span></span>
+<span id="cb9-9"><a href="시계열-그래프.html#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="co"># ... with 393 more rows</span></span></code></pre></div>
+<p>tibble로 입력된 자료를 <code>ts</code> 객체로 변환해 보자.
+함수 <code>ts()</code>에 데이터 프레임을 입력하면 행렬로 변환되어 처리되는데, 열을 구성하는 벡터를 각각 <code>ts</code> 객체로 변환시킨다.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="시계열-그래프.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> cbe <span class="ot">&lt;-</span> <span class="fu">ts</span>(CBE, <span class="at">start =</span> <span class="dv">1958</span>, <span class="at">frequency =</span> <span class="dv">12</span>)</span>
+<span id="cb10-2"><a href="시계열-그래프.html#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">head</span>(CBE, <span class="at">n =</span> <span class="dv">3</span>)</span>
+<span id="cb10-3"><a href="시계열-그래프.html#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co"># A tibble: 3 x 3</span></span>
+<span id="cb10-4"><a href="시계열-그래프.html#cb10-4" aria-hidden="true" tabindex="-1"></a>   choc  beer  elec</span>
+<span id="cb10-5"><a href="시계열-그래프.html#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="sc">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span></span>
+<span id="cb10-6"><a href="시계열-그래프.html#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>  <span class="dv">1451</span>  <span class="fl">96.3</span>  <span class="dv">1497</span></span>
+<span id="cb10-7"><a href="시계열-그래프.html#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span>  <span class="dv">2037</span>  <span class="fl">84.4</span>  <span class="dv">1463</span></span>
+<span id="cb10-8"><a href="시계열-그래프.html#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span>  <span class="dv">2477</span>  <span class="fl">91.2</span>  <span class="dv">1648</span></span></code></pre></div>
+<p><code>cbe</code>에는 시계열자료 <code>choc</code>, <code>beer</code>와 <code>elec</code>로 구성되어 있음을 알 수 있다.
+이러한 다중 시계열 자료를 함수 <code>autoplot()</code>에 입력하면 다중 시계열 그래프가 작성된다.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="시계열-그래프.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">autoplot</span>(cbe) <span class="sc">+</span></span>
+<span id="cb11-2"><a href="시계열-그래프.html#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">ylab</span>(<span class="cn">NULL</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:cbe-1"></span>
+<img src="_main_files/figure-html/cbe-1-1.png" alt="다중 시계열 그래프" width="576" />
+<p class="caption">
+Figure 1.4: 다중 시계열 그래프
+</p>
+</div>
+<p>만일 다중 시계열자료의 scale에 큰 차이가 있다면 하나의 그래프에 작성하는 것보다는 facet 그래프를 작성하는 것이 더 효과적이다.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="시계열-그래프.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">autoplot</span>(cbe, <span class="at">facets =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb12-2"><a href="시계열-그래프.html#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">ylab</span>(<span class="cn">NULL</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:cbe-2"></span>
+<img src="_main_files/figure-html/cbe-2-1.png" alt="다중 시계열 그래프" width="576" />
+<p class="caption">
+Figure 1.5: 다중 시계열 그래프
+</p>
+</div>
+</div>
+<div id="seasonal-그래프" class="section level3" number="1.2.3">
+<h3><span class="header-section-number">1.2.3</span> Seasonal 그래프</h3>
 
+</div>
 </div>
 </div>
             </section>

@@ -1,5 +1,13 @@
+fig:global
+fig:global-1970
+fig:global-1970-lm
+fig:cbe-1
+fig:cbe-2
 시계열-그래프
 시계열-자료
 종단-자료cross-sectional-data와의-비교
 시계열-예측
 시계열-그래프-작성
+ts-객체-생성
+시계열-그래프-작성-1
+seasonal-그래프
