@@ -16,10 +16,10 @@ github-repo: yjyjpark/TS-with-R
 ---
 
 # 소개하기{-}
-이 책은 한신대학교 응용통계학과 **시계열분석** 과목의 교재이다. 
+이 책은 한신대학교 응용통계학과 2022학년도 1학기 **시계열분석**의 교재로 사용되고 있다. 
 
 ```{r include=FALSE}
-knitr::opts_chunk$set(prompt = TRUE, comment = NULL, message = FALSE, collapse = TRUE, fig.width=6, fig.asp=0.8)
+knitr::opts_chunk$set(prompt = TRUE, comment = NULL, message = FALSE, collapse = TRUE, fig.width=6, fig.asp=0.75)
 ```
 
 

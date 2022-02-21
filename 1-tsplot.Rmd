@@ -4,7 +4,7 @@ editor_options:
     wrap: sentence
 ---
 
-# 시계열 그래프
+# 시계열 그래프{#chapter-ts-plot}
 
 모든 통계자료 분석의 첫 번째 단계는 적절한 그래프를 작성하는 것이다.
 자료의 전체 모습을 확인하는데 자료의 시각화 만큼 효과적인 방법도 없을 것이다.
@@ -124,7 +124,7 @@ depart.ts
 ```
 
 
-### 시계열 그래프 작성
+### 시계열 그래프 작성{#section-ts-plot}
 
 시계열 그래프란 시계열자료를 관측된 순서대로 선으로 연결한 그래프를 의미한다. 
 작성 함수는 `ggplot2::autoplot()`인데, 이 함수는 입력되는 객체의 특성에 가장 적합한 그래프를 작성해 주는 함수로서
@@ -140,7 +140,7 @@ library(fpp2)
 
 백화점 매출액 자료인 `depart.ts`의 시계열 그래프를 작성해 보자. 
 
-```{r}
+```{r depart, fig.cap="백화점 월별 매출액"}
 autoplot(depart.ts) +
   labs(title = "Monthly sales of a department store", x = "Year", y = NULL)
 ```
@@ -213,14 +213,60 @@ autoplot(cbe, facets = TRUE) +
 ```
 
 
-### Seasonal 그래프
+### Seasonal 그래프{#section-seasonal-plot}
+
+시계열자료에 계절 변동 요소가 있는 경우에, 그 특성을 명확하게 나타낼 그래프가 있다면 많은 도움이 될 것이다. 
+계절 요소가 있는 시계열자료에 대해서 \@ref(section-ts-plot)절에서 살펴본 그래프를 작성해도 어느 정도 계절 요소를 확인할 수 있는 것은 사실이지만, 계절 요소만을 정밀하게 확인하기는 어려움이 있다고 하겠다. 
+이 절에서 살펴볼 seasonal 그래프는 기본적으로 시계열자료를 측정된 주기 (월 또는 분기)별로 나타낸 그래프이다.  
+이러한 그래프를 작성하면 계절 변동의 패턴을 쉽게 확인 할 수 있으며, 또한 전체 측정 기간 동안 계절 패턴에 어떤 변화가 있었는지, 변화가 있었던 시점 등을 쉽게 확인할 수 있게 된다.    
+
+살펴볼 그래프는 `forecast::ggseasonplot()`과 `forecast::ggsubseriesplot()`으로 작성되는 그래프와 분기별 나란히 서 있는 상자그림이다. 
+
+* 예제: `AirPassengers`
+
+우선 함수 `ggseasonplot()`으로 그래프를 작성해 보자.
+
+```{r season-AP-1, fig.cap="함수 `ggseasonalplot()`으로 작성된 seasonal 그래프"}
+ggseasonplot(AirPassengers)
+```
+
+X축 변수는 이 자료의 주기인 월이고, 각 연도는 색으로 구분되어 있다. 
+각 연도에 적용된 색은 그래프 오른쪽에 범례로 정리되어 있다. 
+연도에 대한 범례를 그래프 안에 일종의 라벨로 표시하고자 한다면 옵션 `year.labels = TRUE`를 포함시키면 된다. 
+
+```{r season-AP-2, fig.cap="함수 `ggseasonalplot()`으로 작성된 seasonal 그래프"}
+ggseasonplot(AirPassengers, year.labels = TRUE)
+```
 
 
+연도에 대한 라벨을 왼쪽에도 함께 나타낼 필요가 있다면 옵션 `year.labels.left = TRUE`를 포함시키면 된다. 
+```{r season-AP-3, fig.cap="함수 `ggseasonalplot()`으로 작성된 seasonal 그래프"}
+ggseasonplot(AirPassengers, year.labels = TRUE, year.labels.left = TRUE)
+```
 
+극좌표 형태롤 나타내고자 한다면, 옵션 `polar = TRUE`를 포함시키면 된다. 
 
+```{r season-AP-4, fig.cap="함수 `ggseasonalplot()`으로 작성된 seasonal 그래프"}
+ggseasonplot(AirPassengers, polar = TRUE)
+```
 
+이번에는 함수 `ggsubseriesplot()`으로 그래프를 작성해 보자. 
+월별로 자료를 구분해서 선 그래프를 작성하고, 파란 선으로 월별 평균을 표시한 그래프이다. 
 
+```{r season-AP-5, fig.cap="함수 `ggsubseriesplot()`으로 작성된 seasonal 그래프"}
+ggsubseriesplot(AirPassengers)
+```
 
+월별로 구분된 자료를 대상으로 상자그림을 작성해서 보는 것도 의미있는 분석이 될 수 있을 것이다. 
+상자그림을 작성하기 위해서는 `ts` 객체인 `AirPassengers`를 숫자형 벡터로 변환시키고,
+각 자료를 주기를 함수 `cycle()`로 추출해서 요인으로 변환시키는 것이 필요하다. 
+
+```{r season-AP-6, fig.cap="상자그림으로 나타낸 계절 변동 요소"}
+tibble::tibble(AP = as.numeric(AirPassengers), mon = as.factor(cycle(AirPassengers))) %>% 
+  ggplot(aes(x = mon, y = AP)) +
+  geom_boxplot() +
+  labs(x = "Month", y = "Air Passengers")
+```
 
 
 

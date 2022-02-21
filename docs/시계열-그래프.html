@@ -142,7 +142,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.2" data-path="시계열-그래프.html"><a href="시계열-그래프.html#시계열-그래프-작성"><i class="fa fa-check"></i><b>1.2</b> 시계열 그래프 작성</a>
 <ul>
 <li class="chapter" data-level="1.2.1" data-path="시계열-그래프.html"><a href="시계열-그래프.html#ts-객체-생성"><i class="fa fa-check"></i><b>1.2.1</b> <code>ts</code> 객체 생성</a></li>
-<li class="chapter" data-level="1.2.2" data-path="시계열-그래프.html"><a href="시계열-그래프.html#시계열-그래프-작성-1"><i class="fa fa-check"></i><b>1.2.2</b> 시계열 그래프 작성</a></li>
+<li class="chapter" data-level="1.2.2" data-path="시계열-그래프.html"><a href="시계열-그래프.html#ts-plot"><i class="fa fa-check"></i><b>1.2.2</b> 시계열 그래프 작성</a></li>
 <li class="chapter" data-level="1.2.3" data-path="시계열-그래프.html"><a href="시계열-그래프.html#seasonal-그래프"><i class="fa fa-check"></i><b>1.2.3</b> Seasonal 그래프</a></li>
 </ul></li>
 </ul></li>
@@ -333,7 +333,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb3-8"><a href="시계열-그래프.html#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="dv">1987</span>  <span class="dv">622</span>  <span class="dv">636</span>  <span class="dv">874</span>  <span class="dv">831</span>  <span class="dv">769</span>  <span class="dv">779</span> <span class="dv">1142</span>  <span class="dv">764</span>  <span class="dv">718</span>  <span class="dv">930</span>  <span class="dv">943</span> <span class="dv">2039</span></span>
 <span id="cb3-9"><a href="시계열-그래프.html#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="dv">1988</span>  <span class="dv">736</span>  <span class="dv">752</span> <span class="dv">1057</span>  <span class="dv">947</span>  <span class="dv">868</span>  <span class="dv">931</span> <span class="dv">1311</span>  <span class="dv">896</span>  <span class="dv">867</span> <span class="dv">1073</span> <span class="dv">1069</span> <span class="dv">2333</span></span></code></pre></div>
 </div>
-<div id="시계열-그래프-작성-1" class="section level3" number="1.2.2">
+<div id="ts-plot" class="section level3" number="1.2.2">
 <h3><span class="header-section-number">1.2.2</span> 시계열 그래프 작성</h3>
 <p>시계열 그래프란 시계열자료를 관측된 순서대로 선으로 연결한 그래프를 의미한다.
 작성 함수는 <code>ggplot2::autoplot()</code>인데, 이 함수는 입력되는 객체의 특성에 가장 적합한 그래프를 작성해 주는 함수로서
@@ -438,6 +438,70 @@ Figure 1.5: 다중 시계열 그래프
 </div>
 <div id="seasonal-그래프" class="section level3" number="1.2.3">
 <h3><span class="header-section-number">1.2.3</span> Seasonal 그래프</h3>
+<p>시계열자료에 계절 변동 요소가 있는 경우에, 그 특성을 명확하게 나타낼 그래프가 있다면 많은 도움이 될 것이다.
+계절 요소가 있는 시계열자료에 대해서 <a href="시계열-그래프.html#ts-plot">1.2.2</a>절에서 살펴본 그래프를 작성해도 어느 정도 계절 요소를 확인할 수 있는 것은 사실이지만, 계절 요소만을 정밀하게 확인하기는 어려움이 있다고 하겠다.
+이 절에서 살펴볼 seasonal 그래프는 기본적으로 시계열자료를 측정된 주기 (월 또는 분기)별로 나타낸 그래프이다.<br />
+이러한 그래프를 작성하면 계절 변동의 패턴을 쉽게 확인 할 수 있으며, 또한 전체 측정 기간 동안 계절 패턴에 어떤 변화가 있었는지, 변화가 있었던 시점 등을 쉽게 확인할 수 있게 된다.</p>
+<p>살펴볼 그래프는 <code>forecast::ggseasonplot()</code>과 <code>forecast::ggsubseriesplot()</code>으로 작성되는 그래프와 분기별 나란히 서 있는 상자그림이다.</p>
+<ul>
+<li>예제: <code>AirPassengers</code></li>
+</ul>
+<p>우선 함수 <code>ggseasonplot()</code>으로 그래프를 작성해 보자.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="시계열-그래프.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">ggseasonplot</span>(AirPassengers)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:season-AP-1"></span>
+<img src="_main_files/figure-html/season-AP-1-1.png" alt="함수 `ggseasonalplot()`으로 작성된 seasonal 그래프" width="576" />
+<p class="caption">
+Figure 1.6: 함수 <code>ggseasonalplot()</code>으로 작성된 seasonal 그래프
+</p>
+</div>
+<p>X축 변수는 이 자료의 주기인 월이고, 각 연도는 색으로 구분되어 있다.
+각 연도에 적용된 색은 그래프 오른쪽에 범례로 정리되어 있다.
+연도에 대한 범례를 그래프 안에 일종의 라벨로 표시하고자 한다면 옵션 <code>year.labels = TRUE</code>를 포함시키면 된다.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="시계열-그래프.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">ggseasonplot</span>(AirPassengers, <span class="at">year.labels =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:season-AP-2"></span>
+<img src="_main_files/figure-html/season-AP-2-1.png" alt="함수 `ggseasonalplot()`으로 작성된 seasonal 그래프" width="576" />
+<p class="caption">
+Figure 1.7: 함수 <code>ggseasonalplot()</code>으로 작성된 seasonal 그래프
+</p>
+</div>
+<p>연도에 대한 라벨을 왼쪽에도 함께 나타낼 필요가 있다면 옵션 <code>year.labels.left = TRUE</code>를 포함시키면 된다.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="시계열-그래프.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">ggseasonplot</span>(AirPassengers, <span class="at">year.labels =</span> <span class="cn">TRUE</span>, <span class="at">year.labels.left =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:season-AP-3"></span>
+<img src="_main_files/figure-html/season-AP-3-1.png" alt="함수 `ggseasonalplot()`으로 작성된 seasonal 그래프" width="576" />
+<p class="caption">
+Figure 1.8: 함수 <code>ggseasonalplot()</code>으로 작성된 seasonal 그래프
+</p>
+</div>
+<p>극좌표 형태롤 나타내고자 한다면, 옵션 <code>polar = TRUE</code>를 포함시키면 된다.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="시계열-그래프.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">ggseasonplot</span>(AirPassengers, <span class="at">polar =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:season-AP-4"></span>
+<img src="_main_files/figure-html/season-AP-4-1.png" alt="함수 `ggseasonalplot()`으로 작성된 seasonal 그래프" width="576" />
+<p class="caption">
+Figure 1.9: 함수 <code>ggseasonalplot()</code>으로 작성된 seasonal 그래프
+</p>
+</div>
+<p>이번에는 함수 <code>ggsubseriesplot()</code>으로 그래프를 작성해 보자.
+월별로 자료를 구분해서 선 그래프를 작성하고, 파란 선으로 월별 평균을 표시한 그래프이다.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="시계열-그래프.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">ggsubseriesplot</span>(AirPassengers)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:season-AP-5"></span>
+<img src="_main_files/figure-html/season-AP-5-1.png" alt="함수 `ggsubseriesplot()`으로 작성된 seasonal 그래프" width="576" />
+<p class="caption">
+Figure 1.10: 함수 <code>ggsubseriesplot()</code>으로 작성된 seasonal 그래프
+</p>
+</div>
+<p>월별로 구분된 자료를 대상으로 상자그림을 작성해서 보는 것도 의미있는 분석이 될 수 있을 것이다.
+상자그림을 작성하기 위해서는 <code>ts</code> 객체인 <code>AirPassengers</code>를 숫자형 벡터로 변환시키고,
+각 자료를 주기를 함수 <code>cycle()</code>로 추출해서 요인으로 변환시키는 것이 필요하다.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="시계열-그래프.html#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> tibble<span class="sc">::</span><span class="fu">tibble</span>(<span class="at">AP =</span> <span class="fu">as.numeric</span>(AirPassengers), <span class="at">mon =</span> <span class="fu">as.factor</span>(<span class="fu">cycle</span>(AirPassengers))) <span class="sc">%&gt;%</span> </span>
+<span id="cb18-2"><a href="시계열-그래프.html#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> mon, <span class="at">y =</span> AP)) <span class="sc">+</span></span>
+<span id="cb18-3"><a href="시계열-그래프.html#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb18-4"><a href="시계열-그래프.html#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Month&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Air Passengers&quot;</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:season-AP-6"></span>
+<img src="_main_files/figure-html/season-AP-6-1.png" alt="상자그림으로 나타낸 계절 변동 요소" width="576" />
+<p class="caption">
+Figure 1.11: 상자그림으로 나타낸 계절 변동 요소
+</p>
+</div>
 
 </div>
 </div>

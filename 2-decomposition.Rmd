@@ -1,0 +1,314 @@
+
+# 시계열 분해
+
+\@ref(chapter-ts-plot)장에서 우리는 시계열 그래프의 작성 방법을 알아봤다. 
+시계열 그래프는 시계열자료가 갖고 있는 특성에 따라 매우 다양한 형태를 취하고 있음을 알 수 있는데, 
+이러한 특성을 명확하게 파악하기 위해서 시계열자료를 몇 가지 성분으로 분해하는 것이 도움이 될 수 있다. 
+
+예를 들어 Figure \@ref(fig:depart)에서 우리는 월별 매출액이 지속적으로 상승하는 패턴이 있는 것을 볼 수 있는데, 
+이러한 패턴을 `추세 성분`이라고 한다. 또한 일년을 주기로 동일한 패턴이 반복되는 것도 볼 수 있는데, 
+이러한 패턴을 `계절 성분`이라고 한다.
+일반적으로 시계열자료은 다음의 네 가지 성분으로 분해해서 살펴보게 된다. 
+
+* 추세 성분 : 시간이 흐름에 따라 지속적으로 증가하거나 감소하는 형태의 변동을 의미한다. 
+Figure \@ref(fig:depart)와 Figure \@ref(fig:global-1970)에서 상승하는 패턴을 볼 수 있다.
+
+* 계절 성분 : 계절 요인에 의한 주기적 변동을 의미한다. 
+계절 요인이란 말 그대로 1년 단위로 반복되는 계절 또는 1주 단위로 반복되는 요일 등이 되는 것이며,
+계절 성분의 경우에는 반드시 고정된 주기가 존재하게 된다. 
+Figure \@ref(fig:depart)에서 1년을 주기로 동일한 패턴이 반복되는 것을 볼 수 있다. 
+
+* 순환 성분 : 계절 성분과 비슷한 주기적 변동을 의미하지만, 고정되거나 알려진 주기가 있는 것은 아니며, 계절 성분보다 휠씬 긴 주기를 갖고 있다. 
+
+* 불규칙 성분 : 추세, 계절 및 순환 성분으로 분류되지 않는 변동을 의미한다. 
+
+
+## 시계열 분해 모형
+
+추세, 계절, 순환 및 불규칙 성분이 어떻게 시계열자료를 구성하고 있는지를 나타내는 두 가지 모형이 있다. 
+첫 번째는 4가지 성분이 서로 더해진 상태를 나타내는 가법 모형이고, 두 번째는 4가지 성분이 서로 곱해진 상태를 나타내는 승법 모형이 있다. 
+
+가법 모형은 다음과 같이 나타낼 수 있다. 
+
+\begin{equation}
+Y_{t} = T_{t} + S_{t} + C_{t} + I_{t}
+\end{equation}
+
+$Y_{t}$는 $t$ 시점에서의 시계열자료이고, $T_{t}$는 추세 성분, $S_{t}$는 계절 성분, $C_{t}$는 순환 성분, 
+그리고 $I_{t}$는 불규칙 성분을 나타낸다. 
+
+승법 모형은 다음과 같이 표현된다. 
+
+\begin{equation}
+Y_{t} = T_{t} \times S_{t} \times C_{t} \times I_{t}
+\end{equation}
+
+각 성분이 시계열자료에 어떤 영향을 줄 수 있는지 몇 가지 예제 자료에 대한 시계열 그래프를 작성해서 살펴보자.
+먼저 불규칙 성분만이 있는 경우이다. 
+불규칙 성분은 어떠한 체계적인 요소가 없는, 단순히 우연적인 요소만이 남아 있는 상태를 의미한다. 
+
+```{r i, fig.cap="불규칙 성분만이 있는 시계열자료", echo=FALSE}
+set.seed(123)
+rnorm(100) %>% as.ts() %>% autoplot() + labs(y = NULL, x = "Time")
+```
+
+추세와 불규칙 성분이 있는 시계열자료의 그래프는 다음과 같다. 
+지속적인 상승 추세가 있는 그래프이다. 상승 추세의 기울기가 점점 증가하고 있음도 알 수 있다. 
+
+```{r t, echo=FALSE, fig.cap="추세와 불규칙 성분이 있는 시계열 자료"}
+autoplot(ausair) + 
+  labs(y = NULL, title = "Air Transport Passengers Australia")
+```
+
+이번에는 계절 성분과 불규칙 성분이 있는 시계열자료의 그래프를 살펴보자. 
+특별히 증가하거나 감소하는 추세는 없지만 매년 거의 동일한 패턴이 반복되고 있는 것을 알 수 있다. 
+
+```{r s, echo=FALSE, fig.cap="계절 성분과 불규칙 성분이 있는 시계열 자료"}
+autoplot(usdeaths) + labs(title = "Accidental deaths in USA", y = NULL)
+```
+
+추세와 계절 성분, 그리고 불규칙 성분이 가법 모형의 형태로 있는 경우에 대한 그래프를 살펴보자. 
+상승 추세가 있으며, 매년 반복되는 패턴인 계절 성분이 함께 있는 경우이다. 
+가법 모형에서는 계절 성분이 추세 성분에 더해진 것을 가정하고 있기 때문에 
+계절 성분에 의한 변동 폭이 시간의 흐름에 관계 없이 일정하다는 것을 볼 수 있다.  
+
+```{r t-s, echo=FALSE, fig.cap="가법 모형의 시계열 자료"}
+autoplot(window(elec, start=1988)) +
+  ggtitle("Australian monthly electricity production: 1988.01 ~ 1995.08") +
+  labs(y = NULL, x = "Year")
+```
+
+승법 모형에서는 계절 성분이 추세 성분에 곱해진 것을 가정하고 있기 때문에, 
+만일 상승 추세라면 시간이 흐를수록 변동 폭이 증가하는 현상이 나타날 것이다. 
+
+```{r t-s-multi, echo=FALSE, fig.cap="승법 모형의 시계열 자료"}
+autoplot(a10) +
+  ggtitle("Antidiabetic drug sales") +
+  labs(x = "Year", y = NULL)
+```
+
+승법 모형인 $Y_{t} = T_{t} \times S_{t} \times I_{t}$의 양변에 로그를 취하면 가법 모형의 형태인 
+$\log Y_{t} = \log T_{t} + \log S_{t} + \log I_{t}$로 변형되는 것을 알 수 있는데, 
+따라서 Figure \@ref(fig:t-s-multi)의 자료에 로그 변환을 취하면 변동 폭이 일정하게 변환되는 모습을 보이게 된다. 
+
+```{r t-s-add, echo=FALSE, fig.cap="로그 변환으로 변동 폭이 일정해진 시계열 자료"}
+autoplot(log(a10)) +
+  ggtitle("Log transformation of antidiabetic drug sales") +
+  labs(x = "Year", y = NULL)
+```
+
+
+* 순환 성분
+
+순환 성분은 계절 성분처럼 주기적인 변화이지만, 그 변화가 계절에 의한 것이 아니며, 주기도 계절 성분보다 훨씬 긴 변동이다. 
+또한 주기가 정확하게 주어지지 않은 경우가 대부분이고, 따라서 주기의 예측이 필요한 성분이라 하겠다. 
+
+뚜렷한 순환성분이 있는 시계열자료의 그래프를 살펴보자.
+첫 번째 그래프는 1749년부터 1983년까지 월별 태양 흑점 수 자료에 대한 시계열 그래프이다. 
+여러 개의 주기가 함께 있다는 것을 알 수 있으며, 정확한 주기 예측이 매우 어려워 보이는 자료이다.
+
+```{r, echo=FALSE, fig.cap="월별 태양 흑점 수: 1749 ~ 1983"}
+autoplot(sunspots) + 
+  labs(title = "Monthly Sunspot Numbers, 1749 ~ 1983", y = NULL)
+```
+
+두 번째 그래프는 1973년 1월부터 1995년 11월까지 미국에서 거래된 1인 가구 주택 월별 매매 건수이다. 
+1년 단위의 고정된 주기로 비슷한 패턴이 반복되고 있는 것을 볼 수 있는데, 이것은 계절 성분에 의한 변동이다. 
+또한 일정하지 않은 긴 주기로 비슷한 등락 패턴이 반복되고 있는 것을 볼 수 있는데, 이것이 순환 성분에 의한 변동이라고 할 수 있다. 하지만 이 변동을 등락이 반복되고 있는 추세 성분으로 이해한다면 굳이 주기를 예측할 필요 없이 조금 더 편하게 분석을 할 수 있을 것이다.  
+
+```{r, echo=FALSE, fig.cap="1인 가구 주택 매매 건수"}
+autoplot(hsales) + 
+  labs(title = "Monthly sales of one-family houses in USA since 1973", y = NULL)
+```
+
+순환 성분의 주기를 예측하는 것은 이 책의 수준을 넘어서는 상당히 어려운 작업이라 할 수 있다.   
+따라서 순환 성분을 개별적으로 분류해서 추정하지 않고, 추세 성분과 합쳐서 하나의 성분으로 보는 것이
+좋을 것으로 보인다. 
+이러한 접근 방식은 일반적으로 많이 이루어지는 분석 방식이라고 할 수 있으며, 
+앞으로 이 책에서는 추세 성분에 순환 성분이 포함되어 있다고 가정하겠다. 
+
+이런 이유로 해서 가법 모형은 $Y_{t} = T_{t} + S_{t} + I_{t}$으로, 승법 모형은  $Y_{t} = T_{t} \times S_{t} \times I_{t}$으로 표현을 하겠다.      
+
+
+
+## 전통적 시계열 분해 기법
+
+1920년대에 개발된 기법으로써 이동평균법을 활용한 방법이다. 
+비교적 단순한 방법이어서 최근에는 많이 사용되고 있지는 않지만, 다른 많은 기법의 기초가 되고 있다. 
+먼저 이동평균법에 대하여 알아보도록 하자. 
+
+
+### 이동 평균법
+
+이동평균법은 시계열자료에서 추세 성분을 추정하기 위해 개발된 기법이다.
+기본적인 방법은 시점 $t$에서의 추세 성분을 $t \pm  k$ 시차에 있는 자료의 평균 값으로 추정하는 것이다.
+비슷한 시점에 관측된 시계열자료는 그 값들이 크게 차이나지 않을 것으로 예상할 수 있는데, 
+이렇게 유사한 자료의 평균을 계산하면, 개별 자료에 포함된 약간의 불규칙 성분이 제거되는 효과를 볼 수 있다. 
+따라서 이동평균법으로 비교적 매끄러운 추세 성분을 추정할 수 있을 것이다.   
+
+$m$차 이동평균법 또는 $m$-MA는 다음과 같이 표현된다.
+
+\begin{equation}
+\hat{T}_{t} = \frac{1}{n}  \sum_{i = -k}^{k} Y_{t+i}
+\end{equation}
+
+단, $m=2k+1$이다. 
+따라서 이 표현식은 차수 $m$이 홀수인 $m$-MA에만 적용된다고 하겠다.
+예를 들어 1989년부터 2008년까지 호주 남부 지역의 연간 전기 사용량 자료인 `fpp2::elecsales`에 5-MA를 적용해서 결과를 산출해 보자. 
+
+```{r 5-MA, echo=FALSE}
+tibble::tibble(year = 1989:2008,
+               sales = elecsales,
+               ma = ma(elecsales, 5)) %>% 
+  knitr::kable(col.names = c("Year", "Sales", "5-MA"))
+```
+
+5차 이동평균법이 적용된 결과가 세 번째 열에 나타나 있다. $m=5$이므로 $k=2$가 되며, 처음과 마지막 $k$개 자료는 NA가 됨을 알 수 있다. 
+
+흔히 적용되는 홀수차 이동평균법의 예제로는 코로나 19 일일 감염 환자 수를 생각할 수 있다.
+이 자료에 $m = 7$의 이동평균법을 적용하면, 주간 계절 성분(weekly seasonality)이 제거된 추세 성분을 추정할 수 있게 된다. 
+
+계절 주기가 짝수인 월별 자료나 분기별 자료에 이동평균법을 적용시킨다면 차수 $m$을 짝수로 지정해야 할 것이다. 
+즉, 월별 자료에는 $m=12$, 분기별 자료에는 $m=4$를 적용해야 하는데, 
+짝수 차수 이동평균법의 문제는 평균 계산에 사용되는 자료가 시점 $t$를 중심으로 좌우 대칭이 될 수 없다는 점이다. 
+좌우 비대칭 문제를 해결하는 방법은 짝수 차수 이동평균법의 결과에 다시 2차 이동평균법을 적용시키는 것이다. 
+따라서 $m$이 짝수인 경우에는 $m$-MA가 아닌 $2 \times m$-MA를 사용하는 것이다. 
+
+이동평균법을 계산하는 함수는 `forecast::ma()`이고, 사용법은 `ma(x, order, centre = TRUE)`이다. 
+`x`는 시계열자료이고, `order`는 이동평균의 차수, 그리고 `centre`는 `order`가 짝수인 경우에 'centered MA', 즉 $2 \times m$-MA의 적용 여부이며, `TRUE`가 디폴트이다. 
+
+
+* 차수 $m$의 효과
+
+이동평균법의 차수를 증가시키면, 더 많은 자료를 이용해서 평균값을 계산하게 되고, 
+따라서 더 매끄러운 추세 곡선을 얻게 된다. 
+`elecsales`에 $m$-MA를 적용시켜 얻은 결과를 원자료와 함께 그래프로 나타내 보자. 
+우선 3-MA의 결과를 나타내 보자. 
+
+```{r 3-MA, fig.cap="`elecsales`에 3-MA를 적용한 결과", warning=FALSE}
+autoplot(elecsales, series = "Data") +
+  autolayer(ma(elecsales, 3), series = "3-MA") +
+  scale_color_manual(values = c("Data" = "blue", "3-MA" = "red")) +
+  labs(title = "3-MA", color = NULL, y = NULL)
+```
+
+3-MA의 결과는 원자료보다 매끄로운 형태를 보이고 있음을 알 수 있다. 
+이제 차수 $m$을 증가시키면 어떤 결과를 얻게 되는지 살펴보자. 
+
+```{r m-effect-1, fig.cap="elecsales 자료에 대한 차수 m의 효과", echo=FALSE, warning=FALSE}
+library(patchwork)
+p1 <- autoplot(elecsales) + autolayer(ma(elecsales, 3), size = 1, color = "red") + 
+  labs(y = NULL, title = "3-MA")
+p2 <- autoplot(elecsales) + autolayer(ma(elecsales, 5), size = 1, color = "red") + 
+  labs(y = NULL, title = "5-MA")
+p3 <- autoplot(elecsales) + autolayer(ma(elecsales, 7), size = 1, color = "red") + 
+  labs(y = NULL, title = "7-MA")
+p4 <- autoplot(elecsales) + autolayer(ma(elecsales, 9), size = 1, color = "red") + 
+  labs(y = NULL, title = "9-MA")
+(p1+p2)/(p3+p4)
+```
+
+
+이번에는 호주에서 1956년부터 2010년까지 분기별 맥주 생산량  자료인 `ausbeer`에 대하여 $2 \times m$-MA를 적용한 결과를 원자료와 함께 그래프로 나타내 보자. 
+
+```{r m-effect-2, fig.cap="`ausbeer` 자료에 대한 차수 m의 효과", echo=FALSE, warning=FALSE}
+library(patchwork)
+p1 <- autoplot(ausbeer) + autolayer(ma(ausbeer, 4), size = 1, color = "red") + 
+  labs(y = NULL, title = "4-MA")
+p2 <- autoplot(ausbeer) + autolayer(ma(ausbeer, 8), size = 1, color = "red") + 
+  labs(y = NULL, title = "8-MA")
+p3 <- autoplot(ausbeer) + autolayer(ma(ausbeer, 12), size = 1, color = "red") + 
+  labs(y = NULL, title = "12-MA")
+p4 <- autoplot(ausbeer) + autolayer(ma(ausbeer, 24), size = 1, color = "red") + 
+  labs(y = NULL, title = "24-MA")
+(p1+p2)/(p3+p4)
+```
+
+
+### 전통적 분해 기법
+
+전통적 분해 기법은 가법 모형과 승법 모형 모두에 대해  적용이 가능한 기법이다.
+추세 성분은 이동평균법으로 추정을 하고, 계절 성분은 전체 구간 동안 일정하다고 가정하고 있다.
+
+가법 모형$(Y_{t} = T_{t} + S_{t} + I_{t})$에 적용되는 분해 방법은 다음과 같다. 
+
+* 추세 성분: 차수가 홀수이면 $m$-MA를 적용하고, 짝수이면 $2 \times m$-MA를 적용하여 $\hat{T}_{t}$를 계산한다. 
+
+* 계절 성분: 추정된 추세 성분이 제거된 자료$( Y_{t} - \hat{T}_{t})$를 대상으로 계절 요소별 평균값으로 $\hat{S}_{t}$를 계산한다. 월별 자료인 경우, 1월에 대한 계절 성분의 추정 값은 추세 성분이 제거된 자료의 모든 1월 자료의 평균 값이 된다. $\hat{S}_{t}$는 합은 0이 되도록 조정한다.      
+
+* 불규칙 성분: 시계열자료에서 추세 및 계절 성분의 추정 값을 빼서 계산한다. 즉, $\hat{I}_{t} = Y_{t} - \hat{T}_{t} - \hat{S}_{t}$가 된다. 
+
+승법 모형에 대한 분해는 가법 모형에서와 동일하다. 다만, 추정된 성분을 제거할 때 뺄셈이 아닌 나눗셈을 사용하면 된다. 
+
+전통적 분해 기법이 많이 사용되지 않는 이유 중 하나는 이동평균법의 특성으로 인하여 처음과 마지막 $k$개 시점에 대한 추세 성분을 추정할 수 없다는 것이다. 
+또한 계절 성분이 항상 일정하다는 가정이 전체 기간이 짧은 단기 시계열의 경우에는 문제가 없겠지만, 장기 시계열자료에 대해서는 적용하기 어려운 가정일 수 있기 때문이다.  
+
+전통적 분해 기법은 함수 `decompose()`로 할 수 있으며, 사용법은 `decompose(x, type = c("additive", "multiplicative"))`이다. 
+`x`는 시계열자료이고, `type`은 가법모형과 승법모형을 지정하는 것이며, 디폴트는 가법 모형이다.  
+예를 들어 월별 자료인 `fpp2::elecequip`을 대상으로 전통적 분해 기법을 적용해 보자. 
+함수 `decompose()`의 결과를 함수 `autoplot()`에 입력시키면 분해된 각 성분을 그래프로 나타낸다. 
+
+```{r decompose-1, fig.cap="`elecequip` 자료에 대한 전통적 분해 기법 적용 결과"}
+decompose(elecequip) %>% 
+  autoplot() 
+```
+
+각 패널의 오른쪽 끝에 높이가 동일한 막대를 배치하여, 각 성분의 상대적 크기를 쉽게 확인할 수 있게 하였다. 
+불규칙 성분이 표시된 마지막 패널의 막대가 가장 크다는 것은 불규칙 성분의 크기가 가장 작다는 의미가 된다. 
+또한 추세 성분의 처음과 마지막 6개월 자료는 NA가 되기 때문에 해당 기간에는 결과가 표시 되지 않았음을 알 수 있으고, 
+계절 성분이 동일한 형태를 취하고 있음도 확인할 수 있다. 
+
+
+## STL 분해 기법
+
+STL은  "Seasonal and Trend decomposition using Loess"를 줄인 것이며, 
+loess는 "local regression"을 의미한다. 
+Local regression이란 비모수 회귀모형으로 분류되는 분석 방법으로써 변수들 사이에 존재하는 관계를 추정하는 기법이다. 
+선형회귀모형에서는 두 변수 사이에 선형 관계 ($Y = \beta_{0} + \beta_{1} X + \epsilon$)가 있다고 가정하고
+전체 자료를 모두 사용하여 모수 $\beta_{0}$와 $\beta_{1}$을 추정함으로써, 
+두 변수의 관계를 설명하는데 반하여,
+비모수 회귀모형에서는 두 변수 사이에 어떤 관계도 가정하지 않고, 
+$(t-\delta, t+\delta)$에 속한 자료만을 대상으로 일종의 가중 회귀모형으로 $t$ 시점에서 두 변수 사이의 
+관계를 추정하고 있다. 
+다양한 비모수 회귀모형 중에서 local regression은 매우 좋은 특성을 보이는 방법으로 알려져 있다. 
+
+STL 분해 기법은 함수 `stl()`로 할 수 있으며, 기본 사용법은 `stl(x, s.window, t.window, robust = FALSE)`이다.
+`x`는 시계열자료이고, `s.window`는 계절 성분을 추정하기 위한 loess 구간을 설정하는 것이며, 
+`t.window`는 추세 성분을 추정하기 위한 loess 구간을 설정하는 것이다. 
+`s.window`에는 디폴트 값이 지정되어 있지 않기 때문에  `"periodic"`  또는 홀수 중 하나를 반드시 지정해야 한다. `"periodic"`을 지정하면 매년 동일한 계절 성분이 추정되며, 작은 값의 홀수를 지정할수록 추정된 계절 성분에 큰 변동이 발생하게 된다. 
+`t.window`에는 홀수를 지정하거나, `s.window`에 지정된 값으로 계산되는 디폴트 값을 사용할 수 있다. 
+`robust`는 이상값에 영향을 덜 받는 방법의 적용 여부를 선택하는 것이며, `FALSE`가 디폴트이다. 
+
+월별 자료인 `fpp2::elecequip`을 대상으로 STL 분해 기법을 적용해 보자. 
+함수 `stl()`의 결과를 함수 `autoplot()`에 입력하면 분해된 각 성분이 그래프로 나타난다. 
+
+먼저 `s.window`의 값이 계절 성분의 추정 결과에 미치는 효과를 살펴보자. 
+
+```{r stl-1, fig.cap="`elecequip` 자료에 대한 STL 분해 기법 적용 결과: `s.window`의 효과", fig.width=8}
+library(patchwork)
+p1 <- stl(elecequip, s.window = "periodic") %>% 
+  autoplot() + labs(title = "s.window = 'periodic'")
+p2 <- stl(elecequip, s.window = 5) %>% 
+  autoplot() + labs(title = "s.window = 5")
+p1 + p2
+```
+
+이번에는 `t.window`의 값이 추세 성분 추정에 미치는 영향을 살펴보자. 
+작은 값을 지정할수록 추세 성분에 더 큰 변동이 있게 된다는 것을 알 수 있다. 
+
+```{r stl-2, fig.cap="`elecequip` 자료에 대한 STL 분해 기법 적용 결과: `t.window`의 효과", fig.width=8}
+library(patchwork)
+p3 <- stl(elecequip, s.window = "periodic", t.window = 7) %>% 
+  autoplot() + labs(title = "t.window = 7")
+p4 <- stl(elecequip, s.window = "periodic", t.window = 11) %>% 
+  autoplot() + labs(title = "t.window = 11")
+p3 + p4
+```
+
+
+
+
+
+
+
+
