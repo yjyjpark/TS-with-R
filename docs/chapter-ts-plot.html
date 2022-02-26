@@ -4,25 +4,27 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 1 시계열 그래프 | _main.knit</title>
-  <meta name="description" content="" />
+  <title>1 시계열 그래프 | R에 의한 시계열분석</title>
+  <meta name="description" content="1 시계열 그래프 | R에 의한 시계열분석" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 1 시계열 그래프 | _main.knit" />
+  <meta property="og:title" content="1 시계열 그래프 | R에 의한 시계열분석" />
   <meta property="og:type" content="book" />
   
   
   
-  
+  <meta name="github-repo" content="yjyjpark/TS-with-R" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 1 시계열 그래프 | _main.knit" />
+  <meta name="twitter:title" content="1 시계열 그래프 | R에 의한 시계열분석" />
   
   
   
 
+<meta name="author" content="박동련" />
 
 
+<meta name="date" content="2022-02-26" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -156,7 +158,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="2.3" data-path="시계열-분해.html"><a href="시계열-분해.html#stl-분해-기법"><i class="fa fa-check"></i><b>2.3</b> STL 분해 기법</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="지수-평활법.html"><a href="지수-평활법.html"><i class="fa fa-check"></i><b>3</b> 지수 평활법</a></li>
+<li class="chapter" data-level="3" data-path="지수평활법.html"><a href="지수평활법.html"><i class="fa fa-check"></i><b>3</b> 지수평활법</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="지수평활법.html"><a href="지수평활법.html#section-accuracy"><i class="fa fa-check"></i><b>3.1</b> 예측 모형의 평가</a></li>
+<li class="chapter" data-level="3.2" data-path="지수평활법.html"><a href="지수평활법.html#section-exponential"><i class="fa fa-check"></i><b>3.2</b> 전통적 지수평활법</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="지수평활법.html"><a href="지수평활법.html#simple-exponential-smoothing"><i class="fa fa-check"></i><b>3.2.1</b> Simple exponential smoothing</a></li>
+<li class="chapter" data-level="3.2.2" data-path="지수평활법.html"><a href="지수평활법.html#trend-method"><i class="fa fa-check"></i><b>3.2.2</b> Trend method</a></li>
+<li class="chapter" data-level="3.2.3" data-path="지수평활법.html"><a href="지수평활법.html#holt-winters-seasonal-method"><i class="fa fa-check"></i><b>3.2.3</b> Holt-Winters’ seasonal method</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="지수평활법.html"><a href="지수평활법.html#section-ets"><i class="fa fa-check"></i><b>3.3</b> ETS 모형</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="지수평활법.html"><a href="지수평활법.html#전통적-지수평활법의-확장"><i class="fa fa-check"></i><b>3.3.1</b> 전통적 지수평활법의 확장</a></li>
+<li class="chapter" data-level="3.3.2" data-path="지수평활법.html"><a href="지수평활법.html#모형-적합-및-최적-모형-선택"><i class="fa fa-check"></i><b>3.3.2</b> 모형 적합 및 최적 모형 선택</a></li>
+<li class="chapter" data-level="3.3.3" data-path="지수평활법.html"><a href="지수평활법.html#예측"><i class="fa fa-check"></i><b>3.3.3</b> 예측</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="지수평활법.html"><a href="지수평활법.html#모형의-가정-만족-여부-확인"><i class="fa fa-check"></i><b>3.4</b> 모형의 가정 만족 여부 확인</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="지수평활법.html"><a href="지수평활법.html#자기상관과-부분자기상관"><i class="fa fa-check"></i><b>3.4.1</b> 자기상관과 부분자기상관</a></li>
+<li class="chapter" data-level="3.4.2" data-path="지수평활법.html"><a href="지수평활법.html#독립성-검정"><i class="fa fa-check"></i><b>3.4.2</b> 독립성 검정</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="지수평활법.html"><a href="지수평활법.html#예제"><i class="fa fa-check"></i><b>3.5</b> 예제</a></li>
+</ul></li>
 </ul>
 
       </nav>
@@ -166,7 +189,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"></a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R에 의한 시계열분석</a>
           </h1>
         </div>
 
@@ -175,7 +198,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="chapter-ts-plot" class="section level1" number="1">
-<h1><span class="header-section-number">Chapter 1</span> 시계열 그래프</h1>
+<h1><span class="header-section-number">1</span> 시계열 그래프</h1>
 <p>모든 통계자료 분석의 첫 번째 단계는 적절한 그래프를 작성하는 것이다.
 자료의 전체 모습을 확인하는데 자료의 시각화 만큼 효과적인 방법도 없을 것이다.
 시계열분석에서도 이 규칙은 예외 없이 적용된다고 할 수 있다.
