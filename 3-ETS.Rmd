@@ -8,7 +8,7 @@
 
 ETS 모형을 시작으로 우리는 앞으로 다양한 시계열 예측 모형을 살펴볼 것이다. 각 예측 모형의 원리와 작동 방식 및 실제 적용 방법 등을 자세히 알아볼 것인데, 더 먼저 살펴봐야 하는 것은 예측모형의 평가 방법이다. 실제 상황에서 우리는 주어진 시계열자료에 대하여 다양한 예측모형을 사용하여 예측을 실시하게 된다. 문제는 예측모형이 다르면 예측 결과도 당연히 다르게 되는데, 그 중 어떤 것이 최선의 예측인지 선택해야 한다는 것이다.
 
-## 예측 모형의 평가{#section-accuracy}
+## 예측 모형의 평가 {#section-accuracy}
 
 미래 시점에 대한 예측 결과의 평가는 시간이 흘러 해당 시점에 대한 관측이 이루어져야 정확하게 이루어질 수 있지만, 이것에 준하는 현실적인 방안이 필요하다고 하겠다. 예측 모형의 평가에 사용되는 가장 일반적인 방법은 전체 자료를 training data와 test data로 분리해서, training data만으로 예측 모형을 적합하고 test data에 대한 예측을 실시하고 평가하는 것이다.
 
@@ -345,7 +345,7 @@ ETS 모형은 추세와 계절 및 오차 성분의 각 형태를 모두 조합�
 
 -   모수 추정
 
-ETS 모형의 모수에는 평활상수인 $\alpha$, $\beta$, $\gamma$, $\phi$와 level, trend 및 seasonal 요소의 초기값들이 있다. 예측 오차의 분포를 가정했기 때문에, ETS 모형의 모수들은 최우추정법 (Maximum likelihood estimation)으로 추정할 수 있다. 추정 과정에 대한 자세한 설명은 @hyndman2018을 참조하면 된다.
+ETS 모형의 모수에는 평활상수인 $\alpha$, $\beta$, $\gamma$, $\phi$와 level, trend 및 seasonal 요소의 초기값들이 있다. 예측 오차의 분포를 가정했기 때문에, ETS 모형의 모수들은 최우추정법 (Maximum likelihood estimation)으로 추정할 수 있다. 추정 과정에 대한 자세한 설명은 @hyndman2018 을 참조하면 된다.
 
 -   모형 선택
 
@@ -411,7 +411,7 @@ ETS 모형을 포함한 모든 통계적 모형에는 오차에 대한 가정 �
 
 ### 자기상관과 부분자기상관
 
-* 자기상관 (Autocorrelation)
+-   자기상관 (Autocorrelation)
 
 시계열자료의 자기상관이란 인접한 자료들 사이에 존재하는 상관을 의미한다. $k$차 자기상관계수 $\rho_{k}$는 시차가 $k$인 시계열자료 사이에 존재하는 상관계수로써, 자기상관함수 (Autocorrelation function; ACF)라고 불린다.
 
@@ -430,155 +430,105 @@ $$
 |    5     | $y_{5}$  |  $y_{4}$  |  $y_{3}$  |
 | $\vdots$ | $\vdots$ | $\vdots$  | $\vdots$  |
 
-주어진 시계열자료에 대한 표본 자기상관함수 (Sample ACF), $r_{k}$는 다음과 같이 계산된다. 
+주어진 시계열자료에 대한 표본 자기상관함수 (Sample ACF), $r_{k}$는 다음과 같이 계산된다.
 
 $$
 r_{k} = \frac{\sum_{t=k+1}^{T}(y_{t}-\bar{y})(y_{t-k}-\bar{y})}{\sum_{t=1}^{T}(y_{t}-\bar{y})^{2}}
 $$
 
-표본 자기상관함수는 함수 `forecast::ggAcf()`로 작성할 수 있다. 
+표본 자기상관함수는 함수 `forecast::ggAcf()`로 작성할 수 있다.
 
-예제로 시계열자료 `fpp2::oil`의 표본 자기상관함수를 작성해 보자. 
-먼저 시계열 그래프를 작성해 보자.
+예제로 시계열자료 `fpp2::oil`의 표본 자기상관함수를 작성해 보자. 먼저 시계열 그래프를 작성해 보자.
 
 ```{r, echo=FALSE}
 autoplot(oil) + labs(y = NULL)
 ```
 
-표본 ACF 값을 계산하기 전에 시차가 1, 2, 3인 자료끼리의 산점도를 먼저 작성해 보자. 
-시차가 증가함에 따라 산점도의 점들이 점점 더 흩어지는 것을 볼 수 있다. 
-따라서 시차가 증감함예 따라 표본 ACF의 값은 점점 즐어들 것이다. 
+표본 ACF 값을 계산하기 전에 시차가 1, 2, 3인 자료끼리의 산점도를 먼저 작성해 보자. 시차가 증가함에 따라 산점도의 점들이 점점 더 흩어지는 것을 볼 수 있다. 따라서 시차가 증감함에 따라 표본 ACF의 값은 점점 즐어들 것이다.
 
 ```{r oil-lagged, fig.cap="`oil` 자료의 lagged 산점도"}
 gglagplot(oil, lags = 3, do.lines = FALSE) + 
   theme(legend.position = "none")
 ```
 
-이제 함수 `ggAcf()`로 표본 ACF를 작성해 보자. 
+이제 함수 `ggAcf()`로 표본 ACF를 작성해 보자.
 
 ```{r oil-acf, fig.cap="`oil` 자료의 표본 ACF"}
 ggAcf(oil)
 ```
 
-시차 (lag) $k$ 에 대한 $r_{k}$ 의 값이 수직선으로 표시되었다. 
-그래프에는 두 개의 파란 색 수평 점선이 있는데, 이것은 독립성 가정에서 계산한 $\rho_{k}$의 95% 신뢰구간이다. 
-따라서 $r_{k}$ 의 값을 표시한 수직선이 파란 색 수평선 밖으로 뻗어 있다면, 해당 시점의 자기상관계수는 유의한 것이다. 
+시차 (lag) $k$ 에 대한 $r_{k}$ 의 값이 수직 선분으로 표시되었다. 그래프에는 두 개의 파란 색 수평 점선이 있는데, 이것은 독립성 가정에서 계산한 $\rho_{k}$의 95% 신뢰구간이다. 따라서 $r_{k}$ 의 값을 표시한 수직 선분이 파란 색 수평선 밖으로 뻗어 있다면, 해당 시점의 자기상관계수는 유의한 것이다.
 
+-   부분자기상관 (Partial autocorrelation)
 
-* 부분자기상관 (Partial autocorrelation)
+$k$ 차 부분자기상관 (PACF)이란 $y_{t}$와 $y_{t-k}$ 사이의 상관 관계에서 중간 시점인 $y_{t-1}$, $y_{t-2}$, $\ldots$, $y_{t-(k-1)}$의 영향력을 제거한 $y_{t}$ 와 $y_{t-k}$ 의 직접적인 상관 관계를 의미한다. 따라서 중간 시점이 없는 1차 부분자기상관계수는 1차 자기상관계수와 동일하게 된다.
 
-$k$ 차 부분자기상관 (PACF)이란 $y_{t}$와 $y_{t-k}$ 사이의 상관 관계에서 중간 시점인 $y_{t-1}$, $y_{t-2}$, $\ldots$, $y_{t-(k-1)}$의 영향력을 제거한 $y_{t}$ 와 $y_{t-k}$ 의 직접적인 상관 관계를 의미한다.
-따라서 중간 시점이 없는 1차 부분자기상관계수는 1차 자기상관계수와 동일하게 된다. 
-
-표본 부분자기상관함수 (PACF)는 함수 `forecast::ggPacf()`로 작성할 수 있다.
-예제로 시계열자료 `fpp2::oil`의 표본 부분자기상관함수를 작성해 보자. 
+표본 부분자기상관함수 (PACF)는 함수 `forecast::ggPacf()`로 작성할 수 있다. 예제로 시계열자료 `fpp2::oil`의 표본 부분자기상관함수를 작성해 보자.
 
 ```{r oil-pacf, fig.cap="`oil` 자료의 표본 PACF"}
 ggPacf(oil)
 ```
 
-파란 수평 점선은 독립성 가정에서 구한 $k$ 차 부분자기상관계수의 95% 신뢰구간이다. 
-Figure \@ref(fig:oil-pacf)의 경우에는 1차 부분자기상관계수만이 유의적임을 알 수 있다. 
+파란 수평 점선은 독립성 가정에서 구한 $k$ 차 부분자기상관계수의 95% 신뢰구간이다. Figure \@ref(fig:oil-pacf)의 경우에는 1차 부분자기상관계수만이 유의적임을 알 수 있다.
 
-어떤 시계열 분석을 실시하든지 주어진 시계열자료에 대한 시계열 그래프와 표본 ACF, 그리고 PACF는
-반드시 작성해야할 그래프이다.
-따로 작성하는 것도 좋겠지만, 
-세 가지 그래프를 한 번에 작성하려면, 함수 `forecast::ggtsdisplay()`를 사용하면 된다. 
-옵션 `lag.max`에 충분히 큰 수를 지정하면 긴 시차에 대한 그래프를 작성할 수 있다. 
+어떤 시계열 분석을 실시하든지 주어진 시계열자료에 대한 시계열 그래프와 표본 ACF, 그리고 PACF는 반드시 작성해야할 그래프이다. 따로 작성하는 것도 좋겠지만, 세 가지 그래프를 한 번에 작성하려면, 함수 `forecast::ggtsdisplay()`를 사용하면 된다. 옵션 `lag.max`에 충분히 큰 수를 지정하면 긴 시차에 대한 그래프를 작성할 수 있다.
 
 ```{r AP-ggtsdisplay, fig.cap="시계열 그래프, 표본 ACF, PACF 작성"}
 ggtsdisplay(AirPassengers, lag.max = 48)
 ```
 
-Figure \@ref(fig:AP-ggtsdisplay)에서 볼 수 있는 것은 먼저 명확하게 증가하는 추세와 계절 성분이 있으며, 
-자료의 level이 증가하면 계절 성분의 변동 폭도 함께 증가하고 있다.      
-또한 표본 ACF가 매우 천천히 감소하는 형태를 갖고 있으며, 
-ACF의 값이 주기 $(m = 12)$ 의 배수인 12, 24, 36에서 다시 상승하며 비교적 큰 값을 갖고 있다는 점이다.
-
+Figure \@ref(fig:AP-ggtsdisplay)에서 볼 수 있는 것은 먼저 명확하게 증가하는 추세와 계절 성분이 있으며, 자료의 level이 증가하면 계절 성분의 변동 폭도 함께 증가하고 있다.\
+또한 표본 ACF가 매우 천천히 감소하는 형태를 갖고 있으며, ACF의 값이 주기 $(m = 12)$ 의 배수인 12, 24, 36에서 다시 상승하며 비교적 큰 값을 갖고 있다는 점이다.
 
 ### 독립성 검정
 
-오차가 독립성 가정을 만족하고 있는지 확인하는 방법에 대해 살펴보자.
-먼저 표본 ACF를 활용한 검정이 있다.
-표본 ACF의 그래프로 간편하게 확인하는 방법이지만, 다중검정의 문제가 있기 때문에 조심해서 사용해야 한다. 
-다른 방법으로는 포트맨토 (Portmanteau) 검정을 사용하는 것이다. 
+오차가 독립성 가정을 만족하고 있는지 확인하는 방법에 대해 살펴보자. 먼저 표본 ACF를 활용한 검정이 있다. 표본 ACF의 그래프로 간편하게 확인하는 방법이지만, 다중검정의 문제가 있기 때문에 조심해서 사용해야 한다. 다른 방법으로는 포트맨토 (Portmanteau) 검정을 사용하는 것이다.
 
-* 표본 ACF를 이용한 독립성 검정
+-   표본 ACF를 이용한 독립성 검정
 
-Figure \@ref(fig:oil-acf)과 같은 표본 ACF 그래프에 표시된 95% 신뢰구간을 이용하는 방법이다. 
-신뢰구간과 양측검정의 관계에 의해서,
-만일 $r_{k}$ 의 값이 점선을 벗어나 있다면, 가설 $H_{0}:\rho_{k} = 0$, $H_{1}: \rho \ne 0$ 에서
-$H_{0}$ 을 5% 유의수준에서 기각할 수 있다. 
-따라서 표본 ACF 그래프에 표시된 모든 $r_{k}$ 가 점선 안에 있다면 독립이라고 판단할 수 있다는 것이다.
+Figure \@ref(fig:oil-acf)과 같은 표본 ACF 그래프에 표시된 95% 신뢰구간을 이용하는 방법이다. 신뢰구간과 양측검정의 관계에 의해서, 만일 $r_{k}$ 의 값이 점선을 벗어나 있다면, 가설 $H_{0}:\rho_{k} = 0$, $H_{1}: \rho \ne 0$ 에서 $H_{0}$ 을 5% 유의수준에서 기각할 수 있다. 따라서 표본 ACF 그래프에 표시된 모든 $r_{k}$ 가 점선 안에 있다면 독립이라고 판단할 수 있다는 것이다.
 
-그러나 이 방법은 실질적으로 다중검정에 해당되기 때문에 일종 오류의 확률이 증가하는 문제가 있다. 
-다중검정이란 여러 개의 독립된 검정을 실시해서 하나의 결론을 내리는 상황을 의미하는데,
-예를 들어, 3개의 귀무가설 $H_{0}: \rho_{k} = 0$, $k=1, 2, 3$ 이 모두 사실이라고 가정해 보자. 
-3개의 독립된 검정을 각각 유의수준 $\alpha$ 에서 실시했을 때, 
-3개 검정 모두에서 옳은 결론인, $H_{0}$ 을 기각하지 않을 확률은 $(1-\alpha)^{3}$ 이 된다. 
-다중검정의 일종오류는 3개의 독립된 검정 중 한 번이라도 $H_{0}$ 을 기각하는 사건이 된다. 
-따라서 다중검정의 일종오류 확률은 다음과 같다.
+그러나 이 방법은 실질적으로 다중검정에 해당되기 때문에 일종 오류의 확률이 증가하는 문제가 있다. 다중검정이란 여러 개의 독립된 검정을 실시해서 하나의 결론을 내리는 상황을 의미하는데, 예를 들어, 3개의 귀무가설 $H_{0}: \rho_{k} = 0$, $k=1, 2, 3$ 이 모두 사실이라고 가정해 보자. 3개의 독립된 검정을 각각 유의수준 $\alpha$ 에서 실시했을 때, 3개 검정 모두에서 옳은 결론인, $H_{0}$ 을 기각하지 않을 확률은 $(1-\alpha)^{3}$ 이 된다. 다중검정의 일종오류는 3개의 독립된 검정 중 한 번이라도 $H_{0}$ 을 기각하는 사건이 된다. 따라서 다중검정의 일종오류 확률은 다음과 같다.
 
+```{=tex}
 \begin{align*}
 P(다중검정~일종오류) &= P(3개~검정에서~적어도~한~번은~H_{0}~기각) \\
                      &= 1-P(3개~검정~모두에서~H_{0}~기각~못함) \\
                      &= 1-(1-\alpha)^{3} > (1-\alpha) 
 \end{align*}
+```
+예를 들어, $k=3$ 이면 다중검정의 일종오류 확률은 $1-(1-0.05)^{3} = 0.1426$ 이고, $k=15$ 이면 $1-(1-0.05)^{15} = 0.5367$ 이 된다. Figure \@ref(fig:oil-acf)에는 $k=16$ 까지 표시되어 있기 때문에, 이 그래프를 근거로 독립성 검정을 실시하면 상당히 높은 일종오류의 확률을 감수해야 하는 것이다.
 
-예를 들어, $k=3$ 이면 다중검정의 일종오류 확률은 $1-(1-0.05)^{3} = 0.1426$ 이고,
-$k=15$ 이면 $1-(1-0.05)^{15} = 0.5367$ 이 된다. 
-Figure \@ref(fig:oil-acf)에는 $k=16$ 까지 표시되어 있기 때문에, 
-이 그래프를 근거로 독립성 검정을 실시하면 상당히 높은 일종오류의 확률을 감수해야 하는 것이다. 
+요약하자면, 표본 ACF에 의한 독립성 검정은 실시할 수는 있지만, 이 방법만으로 결론을 내리는 것은 피하는 것이 좋을 것이다.
 
-요약하자면, 표본 ACF에 의한 독립성 검정은 실시할 수는 있지만, 
-이 방법만으로 결론을 내리는 것은 피하는 것이 좋을 것이다. 
+-   포트맨토 검정
 
-
-* 포트맨토 검정
-
-포트맨토 검정이란 귀무가설은 명확하게 정의되어 있으나, 
-대립가설은 상대적으로 느슨하게 정의된 가설에 대한 검정을 의미한다. 
-오차의 독립성 검정에 대한 귀무가설은 $K$ 차 자기상관계수까지 모두 0이라고 설정한다.
+포트맨토 검정이란 귀무가설은 명확하게 정의되어 있으나, 대립가설은 상대적으로 느슨하게 정의된 가설에 대한 검정을 의미한다. 오차의 독립성 검정에 대한 귀무가설은 $K$ 차 자기상관계수까지 모두 0이라고 설정한다.
 
 $$
 H_{0}: \rho_{1}=\rho_{2} = \cdots =\rho_{K}=0
-$$
-단, $K$ 에는 충분히 큰 값의 시차를 지정한다. 
+$$ 단, $K$ 에는 충분히 큰 값의 시차를 지정한다.
 
-대립가설은 '귀무가설은 사실이 아니다'. 
-또는 '독립이 아니다'인데 구체적인 상관관계의 구조를 명시할 필요가 없는 상황이다. 
+대립가설은 '귀무가설은 사실이 아니다'. 또는 '독립이 아니다'인데 구체적인 상관관계의 구조를 명시할 필요가 없는 상황이다.
 
-오차의 독립성 가설에 대한 포트맨토 검정으로 많이 사용되는 검정은 Ljung-Box 검정이다. 
-검정통계량은 $Q=T(T+2)\sum_{k=1}^{K} r_{k}^{2} / (T-k)$ 이며, 
-잔차 사이에 유의한 자기상관계수가 존재하면 검정통계량 $Q$ 가 큰 값을 갖게 될 것이다. 
-귀무가설이 사실인 경우 $Q$ 의 분포는 카이제곱 분포를 하며, 
-자유도는 $K - N_{par}$ 가 되는데, $N_{par}$ 는 모형에 포함된 모수의 개수이다.  
+오차의 독립성 가설에 대한 포트맨토 검정으로 많이 사용되는 검정은 Ljung-Box 검정이다. 검정통계량은 $Q=T(T+2)\sum_{k=1}^{K} r_{k}^{2} / (T-k)$ 이며, 잔차 사이에 유의한 자기상관계수가 존재하면 검정통계량 $Q$ 가 큰 값을 갖게 될 것이다. 귀무가설이 사실인 경우 $Q$ 의 분포는 카이제곱 분포를 하며, 자유도는 $K - N_{par}$ 가 되는데, $N_{par}$ 는 모형에 포함된 모수의 개수이다.
 
-포트맨토 검정을 실시하기 위한 함수는 `forecast::checkresiduals()`이며, 
-사용법은 `checkresiduals(object, lag, ...)`이다. 
-`object`는 함수 `ets()` 등으로 생성된 시계열 모형 객체이고,
-`lag`는 독립성 검정의 최고 시차 $K$ 값을 지정하는 것이다. 
-사용자가 직접 지정할 수 있고, 디폴트 값은 계절 요소가 없는 경우에는 $\min(10, T/5)$ 이고,
-계절 요소가 있는 경우에는 $\min(2m, T/5)$ 이다. 단, $T$ 는 자료의 크기이고 $m$ 은 계절 주기이다.
+포트맨토 검정을 실시하기 위한 함수는 `forecast::checkresiduals()`이며, 사용법은 `checkresiduals(object, lag, ...)`이다. `object`는 함수 `ets()` 등으로 생성된 시계열 모형 객체이고, `lag`는 독립성 검정의 최고 시차 $K$ 값을 지정하는 것이다. 사용자가 직접 지정할 수 있고, 디폴트 값은 계절 요소가 없는 경우에는 $\min(10, T/5)$ 이고, 계절 요소가 있는 경우에는 $\min(2m, T/5)$ 이다. 단, $T$ 는 자료의 크기이고 $m$ 은 계절 주기이다.
 
-결과물은 잔차의 시계열 그래프와 ACF 그래프, 히스토그램이 작성되고, Ljung-Box 검정 결과가 출력된다. 
+결과물은 잔차의 시계열 그래프와 ACF 그래프, 히스토그램이 작성되고, Ljung-Box 검정 결과가 출력된다.
 
 ## 예제
 
-* 예제 1: 1970년부터 2016년까지 연간 항공기 이용객 수 (`fpp2::ausair`)
+-   예제 1: 1970년부터 2016년까지 연간 항공기 이용객 수 (`fpp2::ausair`)
 
-`fpp2::ausair`는 1970년부터 2016년까지 호주의 연간 항공기 승객 수 자료이다.
-먼저 전체 자료 중 
-1970년부터 2011년까지의 자료를 training data로 하고,
-2012년 이후자료를 test data로 분리하자. 
+`fpp2::ausair`는 1970년부터 2016년까지 호주의 연간 항공기 승객 수 자료이다. 먼저 전체 자료 중 1970년부터 2011년까지의 자료를 training data로 하고, 2012년 이후자료를 test data로 분리하자.
 
 ```{r}
 train_air <- window(ausair, end = 2011)
 test_air <- window(ausair, start = 2012)
 ```
 
-`train_air`와 `test_air`의 시계열 그래프는 다음과 같다. 
-`test_air`는 빨간 선으로 나타냈다.
+`train_air`와 `test_air`의 시계열 그래프는 다음과 같다. `test_air`는 빨간 선으로 나타냈다.
 
 ```{r, echo=FALSE}
 autoplot(window(ausair, end = 2012)) +
@@ -587,19 +537,16 @@ autoplot(window(ausair, end = 2012)) +
   theme(legend.position = "none")
 ```
 
-함수 `ets()`로 ETS 모형을 적합하고, 그 결과를 확인해 보자. 
+함수 `ets()`로 ETS 모형을 적합하고, 그 결과를 확인해 보자.
 
 ```{r}
 fit_air <- ets(train_air)
 summary(fit_air)
 ```
 
-최적 모형은 ETS(M,A,N)으로 선정되었다. 
-추세는 additive이고 오차는 multiplicative인 모형이다. 
-평활모수는 $\alpha=0.999$ , $\beta=0.024$ 로 추정되었다. 
-따라서 시계열자료의 level에는 큰 변화가 있으나, 추세의 기울기에는 큰 변화 없이 일정하다는 것을 알 수 있다. 
+최적 모형은 ETS(M,A,N)으로 선정되었다. 추세는 additive이고 오차는 multiplicative인 모형이다. 평활모수는 $\alpha=0.999$ , $\beta=0.024$ 로 추정되었다. 따라서 시계열자료의 level에는 큰 변화가 있으나, 추세의 기울기에는 큰 변화 없이 일정하다는 것을 알 수 있다.
 
-ETS 모형의 각 요소에 대한 추정 결과를 그래프로 나타내 보자. 
+ETS 모형의 각 요소에 대한 추정 결과를 그래프로 나타내 보자.
 
 ```{r}
 autoplot(fit_air)
@@ -611,51 +558,40 @@ autoplot(fit_air)
 checkresiduals(fit_air)
 ```
 
-특별히 문제가 되는 가정 사항은 없는 것으로 보인다. 
+특별히 문제가 되는 가정 사항은 없는 것으로 보인다.
 
-이제 예측을 실시하고 예측 오차에 대한 평가를 실시해 보자. 
+이제 예측을 실시하고 예측 오차에 대한 평가를 실시해 보자.
 
 ```{r}
 fc_air <- forecast(fit_air, h = length(test_air))
 accuracy(fc_air, test_air)
 ```
 
-함수 `accuracy()`의 결과 중 `RMSE`, `MAE`, `MAPE`와 `MASE`는 \@ref(section-accuracy)절에서 살펴보았다.
-그 외의 측도로 `ME`는 Mean Error이고 `MPE`는 Mean Percentage Error를 의미한다. 
-또한 `ACF1`은 잔차의 1시차 자기상관계수이고, 
-`Theil's U`는 naive forecast의 예측 오차와 비교하는 것으로써 `MASE`와 유사한 특징을 갖고 있다. 
+함수 `accuracy()`의 결과 중 `RMSE`, `MAE`, `MAPE`와 `MASE`는 \@ref(section-accuracy)절에서 살펴보았다. 그 외의 측도로 `ME`는 Mean Error이고 `MPE`는 Mean Percentage Error를 의미한다. 또한 `ACF1`은 잔차의 1시차 자기상관계수이고, `Theil's U`는 naive forecast의 예측 오차와 비교하는 것으로써 `MASE`와 유사한 특징을 갖고 있다.
 
-예측 결과를 그래프로 나타내 보자. 
-함수 `autoplot()`에 함수 `forecast()`의 결과인 객체 `fc_air`를 입력하면 training data와 예측 결과를 함께 나타낸다.
-또한 옵션 `include`는 그래프에 포함시킬 training data의 개수를 지정하는 것이다. 
-따라서 `include = 0`을 입력하면 예측 부분만을 확대한 효과를 볼 수 있다. 
+예측 결과를 그래프로 나타내 보자. 함수 `autoplot()`에 함수 `forecast()`의 결과인 객체 `fc_air`를 입력하면 training data와 예측 결과를 함께 나타낸다. 옵션 `include`는 그래프에 포함시킬 training data의 개수를 지정하는 것이다. 따라서 `include = 0`을 입력하면 예측 부분만을 확대한 효과를 볼 수 있다.
 
-```{r aus-ETS-fore, fig.cap="`fpp2::ausair` 자료에 대한 ETS 모형의 예측 결과", fig.width=8, fig.asp=0.7}
+```{r aus-ETS-fore, fig.cap="`fpp2::ausair` 자료에 대한 ETS 모형의 예측 결과", fig.width=8}
 library(patchwork)
 p1 <- autoplot(fc_air) + 
-  autolayer(test_air, size = 1) +
-  labs(y = NULL, x = NULL) +
-  theme(legend.position = "none")
+  autolayer(test_air, color = "red", size = 1) +
+  labs(y = NULL, x = NULL) 
 p2 <- autoplot(fc_air, include = 0) + 
-  autolayer(test_air, size = 1) +
-  labs(y = NULL, x = NULL) +
-  theme(legend.position = "none")
+  autolayer(test_air, color = "red", size=1) +
+  labs(y = NULL, x = NULL) 
 p1 + p2
 ```
 
+-   예제 2: 1999년부터 2015년까지 분기별 호주 입국 외국인 관광객 수 (`fpp2::austourists`)
 
-
-* 예제 2: 1999년부터 2015년까지 분기별 호주 입국 외국인 관광객 수 (`fpp2::austourists`)
-
-`fpp2::austourists`는 1999년부터 2015년까지 분기별로 호주에 입국한 외국인 관광객 수 자료이다.
-2013년 4분기까지를 training data로 분리하고 2014년 1분기부터를 test data로 분리하자.
+`fpp2::austourists`는 1999년부터 2015년까지 분기별로 호주에 입국한 외국인 관광객 수 자료이다. 2013년 4분기까지를 training data로 분리하고 2014년 1분기부터를 test data로 분리하자.
 
 ```{r}
 train_tour <- window(austourists, end = c(2013, 4))
 test_tour <- window(austourists, start = c(2014, 1))
 ```
 
-두 자료의 시계열 그래프는 다음과 같다. 
+두 자료의 시계열 그래프는 다음과 같다.
 
 ```{r, echo=FALSE}
 autoplot(window(austourists, end = c(2014,1))) +
@@ -664,23 +600,21 @@ autoplot(window(austourists, end = c(2014,1))) +
   theme(legend.position = "none")
 ```
 
-함수 `ets()`로 최적 모형을 적합해 보자. 
+함수 `ets()`로 최적 모형을 적합해 보자.
 
 ```{r}
 fit_tour <- ets(train_tour)
 summary(fit_tour)
 ```
 
-ETS(M,A,M) 모형이 선택되었다. 
-승법 계절 성분이 선택되었다는 것은 계절 요소의 변동 폭이 증가한다는 의미가 된다.
-이런 경우에 시계열자료를 로그변환 시킨 후 다시 ETS 모형을 적합시키면 가법 계절 모형이 선택될 것이다. 함수 `ets()`의 Box_Cox 변환 모수인 옵션 `lambda`에 0을 입력하면 로그변환을 실행하게 된다.
+ETS(M,A,M) 모형이 선택되었다. 승법 계절 성분이 선택되었다는 것은 계절 요소의 변동 폭이 증가한다는 의미가 된다. 이런 경우에 시계열자료를 로그변환 시킨 후 다시 ETS 모형을 적합시키면 가법 계절 모형이 선택될 것이다. 함수 `ets()`의 Box_Cox 변환 모수인 옵션 `lambda`에 0을 입력하면 로그변환을 실행하게 된다.
 
 ```{r}
 fit_lntour <- ets(train_tour, lambda = 0)
 summary(fit_lntour)
 ```
 
-모형 `fit_tour`와 `fit_lntour`의 가정 만족 여부를 확인해 보자. 
+모형 `fit_tour`와 `fit_lntour`의 가정 만족 여부를 확인해 보자.
 
 ```{r}
 checkresiduals(fit_tour)
@@ -690,8 +624,7 @@ checkresiduals(fit_tour)
 checkresiduals(fit_lntour)
 ```
 
-두 모형 모두 가정은 만족시키는 것으로 보인다. 
-이제 두 모형의 예측을 실시하고, 그 결과를 비교해 보자.
+두 모형 모두 가정은 만족시키는 것으로 보인다. 이제 두 모형의 예측을 실시하고, 그 결과를 비교해 보자.
 
 ```{r}
 fc_tour <- forecast(fit_tour, h = length(test_tour)) 
@@ -703,58 +636,52 @@ accuracy(fc_tour, test_tour)
 accuracy(fc_lntour, test_tour)
 ```
 
-모형 ETS(A,A,A)인 `fit_lntour`의 test data에 대한 예측 오차가 조금 더 작은 것을 볼 수 있다. 
-두 모형의 예측 결과를 그래프로 비교해 보자. 
-함수 `autolayer()`에 `PI = FALSE`를 입력하면 예측 구간이 생략된다. 
-이것은 두 모형의 예측 구간이 함께 표시되면 서로 겹쳐지는 현상이 발생하기 때문에 생략한 것이다.
+모형 ETS(A,A,A)인 `fit_lntour`의 test data에 대한 예측 오차가 조금 더 작은 것을 볼 수 있다. 두 모형의 예측 결과를 그래프로 비교해 보자. 함수 `autolayer()`에 `PI = FALSE`를 입력하면 예측 구간이 생략된다. 이것은 두 모형의 예측 구간이 함께 표시되면 서로 겹쳐지는 현상이 발생하기 때문에 생략한 것이다.
 
 ```{r tour-ets-fore1, fig.cap="`tourists` 자료에 대한 예측 결과 비교"}
 autoplot(train_tour) +
   autolayer(test_tour, series = "Test data", size = 1) +
   autolayer(fc_tour, PI = FALSE, series = "ETS(M,A,M)", size = 1) +
   autolayer(fc_lntour, PI = FALSE, series = "ETS(A,A,A)", size = 1) +
-  labs(y = NULL, x = NULL)
+  labs(y = NULL, x = NULL, color = NULL) +
+  theme(legend.position = "top")
 ```
 
-Test data에 대한 예측만을 나타내 보자. 
-두 모형의 예측에는 큰 차이가 없음을 알 수 있다. 
+Test data에 대한 예측만을 나타내 보자. 두 모형의 예측에는 큰 차이가 없음을 알 수 있다.
 
 ```{r tour-ets-fore2, fig.cap="`tourists` 자료에 대한 예측 결과 비교"}
 autoplot(test_tour, series = "Test data", size = 1) +
   autolayer(fc_tour, PI = FALSE, series = "ETS(M,A,M)", size = 1) +
   autolayer(fc_lntour, PI = FALSE, series = "ETS(A,A,A)", size = 1) +
-  labs(y = NULL, x = NULL)
+  labs(y = NULL, x = NULL, color = NULL) +
+  theme(legend.position = "top")
 ```
 
-모형 ETS(A,A,A)인 `fit_lntour`의 test data에 대한 예측 결과를 예측 구간과 함께 나타내 보자. 
+모형 ETS(A,A,A)인 `fit_lntour`의 test data에 대한 예측 결과를 예측 구간과 함께 나타내 보자.
 
-```{r tour-ets-fore3, fig.cap="`tourists` 자료에 대한 예측 결과", fig.width=8, fig.asp=0.7, message=FALSE}
+```{r tour-ets-fore3, fig.cap="`tourists` 자료에 대한 예측 결과", fig.width=8, message=FALSE}
 library(patchwork)
 p1 <- autoplot(fc_lntour) +
-  autolayer(test_tour, series = "Test data", size = 1) +
-  labs(x = NULL, y = NULL) +
-  theme(legend.position = "none")
+  autolayer(test_tour, color = "red", size = 1) +
+  labs(x = NULL, y = NULL) 
 p2 <- autoplot(fc_lntour, include = 0) +
-  autolayer(test_tour, series = "Test data", size = 1) +
+  autolayer(test_tour, color = "red", size = 1) +
   labs(y = NULL, x = NULL) +
-  theme(legend.position = "none") + 
   scale_x_continuous(breaks = c(2014.0, 2014.5, 2015.0, 2015.5),
                      labels = c("2014.Q1", "2014.Q4", "2015.Q1", "2015.Q4"))
 p1 + p2
 ```
 
+-   예제 3: 1965년 1월부터 1992년 7월까지 월별 실업 급여 수급 인원 수 (`fma::dole`)
 
-* 예제 3: 1965년 1월부터 1992년 7월까지 월별 실업 급여 수급 인원 수 (`fma::dole`)
-
-`fma::dole`은 1965년 1월부터 1992년 7월까지 월별로 실업 급여를 받아간 인원 수 자료이다. 
-마지막 2년 자료를 test data로 분리해 보자. 
+`fma::dole`은 1965년 1월부터 1992년 7월까지 월별로 실업 급여를 받아간 인원 수 자료이다. 마지막 2년 자료를 test data로 분리해 보자.
 
 ```{r}
 train_d <- window(dole, end = c(1990, 7))
 test_d <- window(dole, start = c(1990, 8))
 ```
 
-두 자료에 대한 시계열 그래프는 다음과 같다. 
+두 자료에 대한 시계열 그래프는 다음과 같다.
 
 ```{r, echo=FALSE}
 autoplot(train_d) + 
@@ -762,50 +689,37 @@ autoplot(train_d) +
   labs(y = NULL, x = NULL)
 ```
 
-1990년부터 갑작스런 증가세를 보이고 있으며, test data가 대부분 그 시기에 관측된 것이다. 
-따라서 예측이 상당히 어려운 것으로 보이는 상황이다. 
+1990년부터 갑작스런 증가세를 보이고 있으며, test data가 대부분 그 시기에 관측된 것이다. 따라서 예측이 상당히 어려운 것으로 보이는 상황이다.
 
-ETS 모형을 적합해 보자. 
+ETS 모형을 적합해 보자.
 
 ```{r}
 fit_d <- ets(train_d)
 summary(fit_d)
 ```
 
-가정 만족 여부를 확인해 보니, 독립성 가정에 문제가 있는 것을 볼 수 있다.
-이런 경우, 점 예측값 (point forecast)에는 별다른 문제가 없겠지만,
-예측 구간을 신뢰하기 어렵다고 할 수 있다. 
+가정 만족 여부를 확인해 보니, 독립성 가정에 문제가 있는 것을 볼 수 있다. 이런 경우, 점 예측값 (point forecast)에는 별다른 문제가 없겠지만, 예측 구간을 신뢰하기 어렵다고 할 수 있다.
 
 ```{r}
 checkresiduals(fit_d)
 ```
 
-
-예측을 실시하고 평가해 보자. 
+예측을 실시하고 평가해 보자.
 
 ```{r}
 fc_d <- forecast(fit_d, h = length(test_d))
 accuracy(fc_d, test_d)
 ```
 
-MASE 값이 지나치게 큰 값이라는 것을 알 수 있다. 
-예측 결과를 그래프로 니타내 보자.
+MASE 값이 지나치게 큰 값이라는 것을 알 수 있다. 예측 결과를 그래프로 니타내 보자.
 
 ```{r dole-fore1, fig.cap="`dole` 자료에 대한 예측 결과"}
 autoplot(fc_d) +
-  autolayer(test_d, size = 1) +
-  labs(y = NULL, x = NULL) +
-  theme(legend.position = "none")
+  autolayer(test_d, color = "red", size = 1) +
+  labs(y = NULL, x = NULL) 
 ```
 
-예측이 완벽하게 벗어난 것을 볼 수 있다. 
-이와 같이 실업자 수가 갑자스럽게 증가하는 상황에서는 과거 자료만을 이용하는 시계열 모형으로는 
-효율적인 예측이 불가능하다고 하겠다.
-Test data의 기간을 축소시켜보자. 
-그러면 증가 추세가 training data에도 어느 정도 반영될 수 있을 것이다. 
-마지막 1년만을 test data로 남겨 놓고 모형 적합을 시도해 보자. 
-자료분리는 함수 `subset()`으로도 진행할 수 있다. 
-옵션 `end`와 `start`에 벡터에서 적용되는 방식의 인덱스를 지정할 수 있다. 
+예측이 완벽하게 벗어난 것을 볼 수 있다. 이와 같이 실업자 수가 갑자스럽게 증가하는 상황에서는 과거 자료만을 이용하는 시계열 모형으로는 효율적인 예측이 불가능하다고 하겠다. Test data의 기간을 축소시켜보자. 그러면 증가 추세가 training data에도 어느 정도 반영될 수 있을 것이다. 마지막 1년만을 test data로 남겨 놓고 모형 적합을 시도해 보자. 자료분리는 함수 `subset()`으로도 진행할 수 있다. 옵션 `end`와 `start`에 벡터에서 적용되는 방식의 인덱스를 지정할 수 있다.
 
 ```{r}
 train_d_1 <- subset(dole, end = length(dole) - 12)
@@ -826,31 +740,26 @@ accuracy(fc_d_1, test_d_1)
 
 이제 예측 결과를 그래프로 나타내 보자.
 
-```{r dole-fore-2, fig.cap="`dole` 자료에 대한 예측 결과", fig.width=8, fig.asp=0.7}
+```{r dole-fore-2, fig.cap="`dole` 자료에 대한 예측 결과", fig.width=8}
 library(patchwork)
 p1 <- autoplot(fc_d_1) + 
-  autolayer(test_d_1, size = 1) +
-  labs(y = NULL, x = NULL) +
-  theme(legend.position = "none")
+  autolayer(test_d_1, color = "red", size = 1) +
+  labs(y = NULL, x = NULL) 
 p2 <- autoplot(fc_d_1, include = 0) +
-  autolayer(test_d_1, size = 1) +
-  labs(y = NULL, x = NULL) +
-  theme(legend.position = "none") 
+  autolayer(test_d_1, color = "red", size = 1) +
+  labs(y = NULL, x = NULL) 
 p1 + p2
 ```
 
+-   예제 4: 2014년 4월 30일부터 1년간 Hyndsight 블로그 일일 방문자 수 (`fpp2::hyndsight`)
 
-* 예제 4: 2014년 4월 30일부터 1년간 Hyndsight 블로그 일일 방문자 수 (`fpp2::hyndsight`)
-
-`fpp2::hyndsight`는 2014년 4월 30일부터 1년간 Hyndman이 운영하는 블로그에 방문한 일일 방문자 수 자료이다. 
+`fpp2::hyndsight`는 2014년 4월 30일부터 1년간 Hyndman이 운영하는 블로그에 방문한 일일 방문자 수 자료이다.
 
 ```{r, echo=FALSE}
 autoplot(hyndsight) + labs(x = NULL, y = NULL)
 ```
 
-
-일일 자료의 경우에, 요일의 영향을 받는 자료라면 우선 $m=7$의 계절 주기를 갖게 된다. 
-자료 분리를 위해 2014년 4월 30일이 무슨 요일인지 확인해 보자. 
+일일 자료의 경우에, 요일의 영향을 받는 자료라면 우선 $m=7$의 계절 주기를 갖게 된다. 자료 분리를 위해 2014년 4월 30일이 무슨 요일인지 확인해 보자.
 
 ```{r}
 lubridate::wday(as.Date("2014-4-30"), label = TRUE)
@@ -858,38 +767,33 @@ start(hyndsight)
 end(hyndsight)
 ```
 
-2014년 4월 30일은 수요일이며, 자료의 시작 시점은 1주 4일 (수)이고 종료 시점은 53주 4일 (수)이 된다. 
-Training data는 1주 4일부터 48주 4일로 하고, test data는 48주 5일부터 53주 4일까지 5주간으로 설정하자. 
+2014년 4월 30일은 수요일이며, 자료의 시작 시점은 1주 4일 (수)이고 종료 시점은 53주 4일 (수)이 된다. Training data는 1주 4일부터 48주 4일로 하고, test data는 48주 5일부터 53주 4일까지 5주간으로 설정하자.
 
-자료 분리는 함수 `window()`로 보통 진행하지만, 이렇게 자료의 개수로 분리하는 것이 더 편리한 경우에는 함수 `subset()`으로 진행 할 수 있다. 
-즉, 마지막 34일 자료를 test data로 분리해 보자. 
+자료 분리는 함수 `window()`로 보통 진행하지만, 이렇게 자료의 개수로 분리하는 것이 더 편리한 경우에는 함수 `subset()`으로 진행 할 수 있다. 즉, 마지막 34일 자료를 test data로 분리해 보자.
 
 ```{r}
 train_hyn <- subset(hyndsight, end = length(hyndsight)-35)
 test_hyn <- subset(hyndsight, start = length(hyndsight)-34)
 ```
 
-ETS 모형을 적합해 보자. 추세는 없고, 오차와 계절 성분이 모두 가법 형태인 모형이 선택되었다. 
+ETS 모형을 적합해 보자. 추세는 없고, 오차와 계절 성분이 모두 가법 형태인 모형이 선택되었다.
 
 ```{r}
 fit_hyn <- ets(train_hyn)
 summary(fit_hyn)
 ```
 
-이제 예측을 진행해 보자. 
+이제 예측을 진행해 보자.
 
 ```{r}
 fc_hyn <- forecast(fit_hyn, h = length(test_hyn))
 accuracy(fc_hyn, test_hyn)
 ```
 
-예측 결과 그래프로 작성해 보자. 
+예측 결과 그래프로 작성해 보자.
 
 ```{r hyn-fore, fig.cap="`hynsight` 자료에 대한 예측 결과"}
 autoplot(fc_hyn, include = 0) +
-  autolayer(test_hyn, size = 1) +
-  labs(x = NULL, y = NULL) +
-  theme(legend.position = "none")
+  autolayer(test_hyn, color = "red", size = 1) +
+  labs(x = NULL, y = NULL) 
 ```
-
-

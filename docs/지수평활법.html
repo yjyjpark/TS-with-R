@@ -24,15 +24,15 @@
 <meta name="author" content="박동련" />
 
 
-<meta name="date" content="2022-02-26" />
+<meta name="date" content="2022-03-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="시계열-분해.html"/>
-
+<link rel="prev" href="chapter-decomposition.html"/>
+<link rel="next" href="arima-모형.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -120,6 +120,28 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
 
 </head>
 
@@ -148,15 +170,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.2.3" data-path="chapter-ts-plot.html"><a href="chapter-ts-plot.html#section-seasonal-plot"><i class="fa fa-check"></i><b>1.2.3</b> Seasonal 그래프</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="시계열-분해.html"><a href="시계열-분해.html"><i class="fa fa-check"></i><b>2</b> 시계열 분해</a>
+<li class="chapter" data-level="2" data-path="chapter-decomposition.html"><a href="chapter-decomposition.html"><i class="fa fa-check"></i><b>2</b> 시계열 분해</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="시계열-분해.html"><a href="시계열-분해.html#시계열-분해-모형"><i class="fa fa-check"></i><b>2.1</b> 시계열 분해 모형</a></li>
-<li class="chapter" data-level="2.2" data-path="시계열-분해.html"><a href="시계열-분해.html#전통적-시계열-분해-기법"><i class="fa fa-check"></i><b>2.2</b> 전통적 시계열 분해 기법</a>
+<li class="chapter" data-level="2.1" data-path="chapter-decomposition.html"><a href="chapter-decomposition.html#시계열-분해-모형"><i class="fa fa-check"></i><b>2.1</b> 시계열 분해 모형</a></li>
+<li class="chapter" data-level="2.2" data-path="chapter-decomposition.html"><a href="chapter-decomposition.html#전통적-시계열-분해-기법"><i class="fa fa-check"></i><b>2.2</b> 전통적 시계열 분해 기법</a>
 <ul>
-<li class="chapter" data-level="2.2.1" data-path="시계열-분해.html"><a href="시계열-분해.html#이동-평균법"><i class="fa fa-check"></i><b>2.2.1</b> 이동 평균법</a></li>
-<li class="chapter" data-level="2.2.2" data-path="시계열-분해.html"><a href="시계열-분해.html#전통적-분해-기법"><i class="fa fa-check"></i><b>2.2.2</b> 전통적 분해 기법</a></li>
+<li class="chapter" data-level="2.2.1" data-path="chapter-decomposition.html"><a href="chapter-decomposition.html#이동-평균법"><i class="fa fa-check"></i><b>2.2.1</b> 이동 평균법</a></li>
+<li class="chapter" data-level="2.2.2" data-path="chapter-decomposition.html"><a href="chapter-decomposition.html#전통적-분해-기법"><i class="fa fa-check"></i><b>2.2.2</b> 전통적 분해 기법</a></li>
 </ul></li>
-<li class="chapter" data-level="2.3" data-path="시계열-분해.html"><a href="시계열-분해.html#stl-분해-기법"><i class="fa fa-check"></i><b>2.3</b> STL 분해 기법</a></li>
+<li class="chapter" data-level="2.3" data-path="chapter-decomposition.html"><a href="chapter-decomposition.html#stl-분해-기법"><i class="fa fa-check"></i><b>2.3</b> STL 분해 기법</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="지수평활법.html"><a href="지수평활법.html"><i class="fa fa-check"></i><b>3</b> 지수평활법</a>
 <ul>
@@ -180,6 +202,33 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="3.5" data-path="지수평활법.html"><a href="지수평활법.html#예제"><i class="fa fa-check"></i><b>3.5</b> 예제</a></li>
 </ul></li>
+<li class="chapter" data-level="4" data-path="arima-모형.html"><a href="arima-모형.html"><i class="fa fa-check"></i><b>4</b> ARIMA 모형</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="arima-모형.html"><a href="arima-모형.html#시계열자료의-정상성"><i class="fa fa-check"></i><b>4.1</b> 시계열자료의 정상성</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="arima-모형.html"><a href="arima-모형.html#정상-시계열자료"><i class="fa fa-check"></i><b>4.1.1</b> 정상 시계열자료</a></li>
+<li class="chapter" data-level="4.1.2" data-path="arima-모형.html"><a href="arima-모형.html#section-make-stationary"><i class="fa fa-check"></i><b>4.1.2</b> 비정상 시계열 자료의 정상화</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="arima-모형.html"><a href="arima-모형.html#정상-시계열-모형"><i class="fa fa-check"></i><b>4.2</b> 정상 시계열 모형</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="arima-모형.html"><a href="arima-모형.html#자기회귀모형-autoregressive-model-ar-model"><i class="fa fa-check"></i><b>4.2.1</b> 자기회귀모형 (Autoregressive model; AR model)</a></li>
+<li class="chapter" data-level="4.2.2" data-path="arima-모형.html"><a href="arima-모형.html#이동평균모형-moving-average-model-ma-model"><i class="fa fa-check"></i><b>4.2.2</b> 이동평균모형 (Moving average model; MA model)</a></li>
+<li class="chapter" data-level="4.2.3" data-path="arima-모형.html"><a href="arima-모형.html#자기회귀이동평균모형-autoregressive-moving-average-model-arma-model"><i class="fa fa-check"></i><b>4.2.3</b> 자기회귀이동평균모형 (Autoregressive moving average model; ARMA model)</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="arima-모형.html"><a href="arima-모형.html#section-nonseasonal-arima"><i class="fa fa-check"></i><b>4.3</b> 비계절형 ARIMA 모형</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="arima-모형.html"><a href="arima-모형.html#모형-식별"><i class="fa fa-check"></i><b>4.3.1</b> 모형 식별</a></li>
+<li class="chapter" data-level="4.3.2" data-path="arima-모형.html"><a href="arima-모형.html#모형-추정-및-진단"><i class="fa fa-check"></i><b>4.3.2</b> 모형 추정 및 진단</a></li>
+<li class="chapter" data-level="4.3.3" data-path="arima-모형.html"><a href="arima-모형.html#예측-1"><i class="fa fa-check"></i><b>4.3.3</b> 예측</a></li>
+<li class="chapter" data-level="4.3.4" data-path="arima-모형.html"><a href="arima-모형.html#실습-예제"><i class="fa fa-check"></i><b>4.3.4</b> 실습 예제</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="arima-모형.html"><a href="arima-모형.html#section-seasonal-arima"><i class="fa fa-check"></i><b>4.4</b> 계절형 ARIMA 모형</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="arima-모형.html"><a href="arima-모형.html#계절형-arima-모형-적합-절차"><i class="fa fa-check"></i><b>4.4.1</b> 계절형 ARIMA 모형 적합 절차</a></li>
+<li class="chapter" data-level="4.4.2" data-path="arima-모형.html"><a href="arima-모형.html#실습-예제-1"><i class="fa fa-check"></i><b>4.4.2</b> 실습 예제</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="참고-문헌.html"><a href="참고-문헌.html"><i class="fa fa-check"></i>참고 문헌</a></li>
 </ul>
 
       </nav>
@@ -553,7 +602,7 @@ Figure 3.8: <code>austourists</code> 자료에 대한 Holt-Winters’ multiplica
 <ul>
 <li>모수 추정</li>
 </ul>
-<p>ETS 모형의 모수에는 평활상수인 <span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\beta\)</span>, <span class="math inline">\(\gamma\)</span>, <span class="math inline">\(\phi\)</span>와 level, trend 및 seasonal 요소의 초기값들이 있다. 예측 오차의 분포를 가정했기 때문에, ETS 모형의 모수들은 최우추정법 (Maximum likelihood estimation)으로 추정할 수 있다. 추정 과정에 대한 자세한 설명은 <span class="citation">(<a href="#ref-hyndman2018을" role="doc-biblioref"><strong>hyndman2018을?</strong></a>)</span> 참조하면 된다.</p>
+<p>ETS 모형의 모수에는 평활상수인 <span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\beta\)</span>, <span class="math inline">\(\gamma\)</span>, <span class="math inline">\(\phi\)</span>와 level, trend 및 seasonal 요소의 초기값들이 있다. 예측 오차의 분포를 가정했기 때문에, ETS 모형의 모수들은 최우추정법 (Maximum likelihood estimation)으로 추정할 수 있다. 추정 과정에 대한 자세한 설명은 <span class="citation">Hyndman and Athanasopoulos (<a href="#ref-hyndman2018" role="doc-biblioref">2018</a>)</span> 을 참조하면 된다.</p>
 <ul>
 <li>모형 선택</li>
 </ul>
@@ -662,12 +711,9 @@ BIC = -2\log(L) + k\log(T)
 r_{k} = \frac{\sum_{t=k+1}^{T}(y_{t}-\bar{y})(y_{t-k}-\bar{y})}{\sum_{t=1}^{T}(y_{t}-\bar{y})^{2}}
 \]</span></p>
 <p>표본 자기상관함수는 함수 <code>forecast::ggAcf()</code>로 작성할 수 있다.</p>
-<p>예제로 시계열자료 <code>fpp2::oil</code>의 표본 자기상관함수를 작성해 보자.
-먼저 시계열 그래프를 작성해 보자.</p>
-<p><img src="_main_files/figure-html/unnamed-chunk-13-1.png" width="576" /></p>
-<p>표본 ACF 값을 계산하기 전에 시차가 1, 2, 3인 자료끼리의 산점도를 먼저 작성해 보자.
-시차가 증가함에 따라 산점도의 점들이 점점 더 흩어지는 것을 볼 수 있다.
-따라서 시차가 증감함예 따라 표본 ACF의 값은 점점 즐어들 것이다.</p>
+<p>예제로 시계열자료 <code>fpp2::oil</code>의 표본 자기상관함수를 작성해 보자. 먼저 시계열 그래프를 작성해 보자.</p>
+<p><img src="_main_files/figure-html/unnamed-chunk-12-1.png" width="576" /></p>
+<p>표본 ACF 값을 계산하기 전에 시차가 1, 2, 3인 자료끼리의 산점도를 먼저 작성해 보자. 시차가 증가함에 따라 산점도의 점들이 점점 더 흩어지는 것을 볼 수 있다. 따라서 시차가 증감함에 따라 표본 ACF의 값은 점점 즐어들 것이다.</p>
 <div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="지수평활법.html#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">gglagplot</span>(oil, <span class="at">lags =</span> <span class="dv">3</span>, <span class="at">do.lines =</span> <span class="cn">FALSE</span>) <span class="sc">+</span> </span>
 <span id="cb31-2"><a href="지수평활법.html#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:oil-lagged"></span>
@@ -684,16 +730,12 @@ Figure 3.9: <code>oil</code> 자료의 lagged 산점도
 Figure 3.10: <code>oil</code> 자료의 표본 ACF
 </p>
 </div>
-<p>시차 (lag) <span class="math inline">\(k\)</span> 에 대한 <span class="math inline">\(r_{k}\)</span> 의 값이 수직선으로 표시되었다.
-그래프에는 두 개의 파란 색 수평 점선이 있는데, 이것은 독립성 가정에서 계산한 <span class="math inline">\(\rho_{k}\)</span>의 95% 신뢰구간이다.
-따라서 <span class="math inline">\(r_{k}\)</span> 의 값을 표시한 수직선이 파란 색 수평선 밖으로 뻗어 있다면, 해당 시점의 자기상관계수는 유의한 것이다.</p>
+<p>시차 (lag) <span class="math inline">\(k\)</span> 에 대한 <span class="math inline">\(r_{k}\)</span> 의 값이 수직 선분으로 표시되었다. 그래프에는 두 개의 파란 색 수평 점선이 있는데, 이것은 독립성 가정에서 계산한 <span class="math inline">\(\rho_{k}\)</span>의 95% 신뢰구간이다. 따라서 <span class="math inline">\(r_{k}\)</span> 의 값을 표시한 수직 선분이 파란 색 수평선 밖으로 뻗어 있다면, 해당 시점의 자기상관계수는 유의한 것이다.</p>
 <ul>
 <li>부분자기상관 (Partial autocorrelation)</li>
 </ul>
-<p><span class="math inline">\(k\)</span> 차 부분자기상관 (PACF)이란 <span class="math inline">\(y_{t}\)</span>와 <span class="math inline">\(y_{t-k}\)</span> 사이의 상관 관계에서 중간 시점인 <span class="math inline">\(y_{t-1}\)</span>, <span class="math inline">\(y_{t-2}\)</span>, <span class="math inline">\(\ldots\)</span>, <span class="math inline">\(y_{t-(k-1)}\)</span>의 영향력을 제거한 <span class="math inline">\(y_{t}\)</span> 와 <span class="math inline">\(y_{t-k}\)</span> 의 직접적인 상관 관계를 의미한다.
-따라서 중간 시점이 없는 1차 부분자기상관계수는 1차 자기상관계수와 동일하게 된다.</p>
-<p>표본 부분자기상관함수 (PACF)는 함수 <code>forecast::ggPacf()</code>로 작성할 수 있다.
-예제로 시계열자료 <code>fpp2::oil</code>의 표본 부분자기상관함수를 작성해 보자.</p>
+<p><span class="math inline">\(k\)</span> 차 부분자기상관 (PACF)이란 <span class="math inline">\(y_{t}\)</span>와 <span class="math inline">\(y_{t-k}\)</span> 사이의 상관 관계에서 중간 시점인 <span class="math inline">\(y_{t-1}\)</span>, <span class="math inline">\(y_{t-2}\)</span>, <span class="math inline">\(\ldots\)</span>, <span class="math inline">\(y_{t-(k-1)}\)</span>의 영향력을 제거한 <span class="math inline">\(y_{t}\)</span> 와 <span class="math inline">\(y_{t-k}\)</span> 의 직접적인 상관 관계를 의미한다. 따라서 중간 시점이 없는 1차 부분자기상관계수는 1차 자기상관계수와 동일하게 된다.</p>
+<p>표본 부분자기상관함수 (PACF)는 함수 <code>forecast::ggPacf()</code>로 작성할 수 있다. 예제로 시계열자료 <code>fpp2::oil</code>의 표본 부분자기상관함수를 작성해 보자.</p>
 <div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="지수평활법.html#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">ggPacf</span>(oil)</span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:oil-pacf"></span>
 <img src="_main_files/figure-html/oil-pacf-1.png" alt="`oil` 자료의 표본 PACF" width="576" />
@@ -701,13 +743,8 @@ Figure 3.10: <code>oil</code> 자료의 표본 ACF
 Figure 3.11: <code>oil</code> 자료의 표본 PACF
 </p>
 </div>
-<p>파란 수평 점선은 독립성 가정에서 구한 <span class="math inline">\(k\)</span> 차 부분자기상관계수의 95% 신뢰구간이다.
-Figure <a href="지수평활법.html#fig:oil-pacf">3.11</a>의 경우에는 1차 부분자기상관계수만이 유의적임을 알 수 있다.</p>
-<p>어떤 시계열 분석을 실시하든지 주어진 시계열자료에 대한 시계열 그래프와 표본 ACF, 그리고 PACF는
-반드시 작성해야할 그래프이다.
-따로 작성하는 것도 좋겠지만,
-세 가지 그래프를 한 번에 작성하려면, 함수 <code>forecast::ggtsdisplay()</code>를 사용하면 된다.
-옵션 <code>lag.max</code>에 충분히 큰 수를 지정하면 긴 시차에 대한 그래프를 작성할 수 있다.</p>
+<p>파란 수평 점선은 독립성 가정에서 구한 <span class="math inline">\(k\)</span> 차 부분자기상관계수의 95% 신뢰구간이다. Figure <a href="지수평활법.html#fig:oil-pacf">3.11</a>의 경우에는 1차 부분자기상관계수만이 유의적임을 알 수 있다.</p>
+<p>어떤 시계열 분석을 실시하든지 주어진 시계열자료에 대한 시계열 그래프와 표본 ACF, 그리고 PACF는 반드시 작성해야할 그래프이다. 따로 작성하는 것도 좋겠지만, 세 가지 그래프를 한 번에 작성하려면, 함수 <code>forecast::ggtsdisplay()</code>를 사용하면 된다. 옵션 <code>lag.max</code>에 충분히 큰 수를 지정하면 긴 시차에 대한 그래프를 작성할 수 있다.</p>
 <div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="지수평활법.html#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">ggtsdisplay</span>(AirPassengers, <span class="at">lag.max =</span> <span class="dv">48</span>)</span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:AP-ggtsdisplay"></span>
 <img src="_main_files/figure-html/AP-ggtsdisplay-1.png" alt="시계열 그래프, 표본 ACF, PACF 작성" width="576" />
@@ -715,66 +752,34 @@ Figure <a href="지수평활법.html#fig:oil-pacf">3.11</a>의 경우에는 1차
 Figure 3.12: 시계열 그래프, 표본 ACF, PACF 작성
 </p>
 </div>
-<p>Figure <a href="지수평활법.html#fig:AP-ggtsdisplay">3.12</a>에서 볼 수 있는 것은 먼저 명확하게 증가하는 추세와 계절 성분이 있으며,
-자료의 level이 증가하면 계절 성분의 변동 폭도 함께 증가하고 있다.<br />
-또한 표본 ACF가 매우 천천히 감소하는 형태를 갖고 있으며,
-ACF의 값이 주기 <span class="math inline">\((m = 12)\)</span> 의 배수인 12, 24, 36에서 다시 상승하며 비교적 큰 값을 갖고 있다는 점이다.</p>
+<p>Figure <a href="지수평활법.html#fig:AP-ggtsdisplay">3.12</a>에서 볼 수 있는 것은 먼저 명확하게 증가하는 추세와 계절 성분이 있으며, 자료의 level이 증가하면 계절 성분의 변동 폭도 함께 증가하고 있다.<br />
+또한 표본 ACF가 매우 천천히 감소하는 형태를 갖고 있으며, ACF의 값이 주기 <span class="math inline">\((m = 12)\)</span> 의 배수인 12, 24, 36에서 다시 상승하며 비교적 큰 값을 갖고 있다는 점이다.</p>
 </div>
 <div id="독립성-검정" class="section level3" number="3.4.2">
 <h3><span class="header-section-number">3.4.2</span> 독립성 검정</h3>
-<p>오차가 독립성 가정을 만족하고 있는지 확인하는 방법에 대해 살펴보자.
-먼저 표본 ACF를 활용한 검정이 있다.
-표본 ACF의 그래프로 간편하게 확인하는 방법이지만, 다중검정의 문제가 있기 때문에 조심해서 사용해야 한다.
-다른 방법으로는 포트맨토 (Portmanteau) 검정을 사용하는 것이다.</p>
+<p>오차가 독립성 가정을 만족하고 있는지 확인하는 방법에 대해 살펴보자. 먼저 표본 ACF를 활용한 검정이 있다. 표본 ACF의 그래프로 간편하게 확인하는 방법이지만, 다중검정의 문제가 있기 때문에 조심해서 사용해야 한다. 다른 방법으로는 포트맨토 (Portmanteau) 검정을 사용하는 것이다.</p>
 <ul>
 <li>표본 ACF를 이용한 독립성 검정</li>
 </ul>
-<p>Figure <a href="지수평활법.html#fig:oil-acf">3.10</a>과 같은 표본 ACF 그래프에 표시된 95% 신뢰구간을 이용하는 방법이다.
-신뢰구간과 양측검정의 관계에 의해서,
-만일 <span class="math inline">\(r_{k}\)</span> 의 값이 점선을 벗어나 있다면, 가설 <span class="math inline">\(H_{0}:\rho_{k} = 0\)</span>, <span class="math inline">\(H_{1}: \rho \ne 0\)</span> 에서
-<span class="math inline">\(H_{0}\)</span> 을 5% 유의수준에서 기각할 수 있다.
-따라서 표본 ACF 그래프에 표시된 모든 <span class="math inline">\(r_{k}\)</span> 가 점선 안에 있다면 독립이라고 판단할 수 있다는 것이다.</p>
-<p>그러나 이 방법은 실질적으로 다중검정에 해당되기 때문에 일종 오류의 확률이 증가하는 문제가 있다.
-다중검정이란 여러 개의 독립된 검정을 실시해서 하나의 결론을 내리는 상황을 의미하는데,
-예를 들어, 3개의 귀무가설 <span class="math inline">\(H_{0}: \rho_{k} = 0\)</span>, <span class="math inline">\(k=1, 2, 3\)</span> 이 모두 사실이라고 가정해 보자.
-3개의 독립된 검정을 각각 유의수준 <span class="math inline">\(\alpha\)</span> 에서 실시했을 때,
-3개 검정 모두에서 옳은 결론인, <span class="math inline">\(H_{0}\)</span> 을 기각하지 않을 확률은 <span class="math inline">\((1-\alpha)^{3}\)</span> 이 된다.
-다중검정의 일종오류는 3개의 독립된 검정 중 한 번이라도 <span class="math inline">\(H_{0}\)</span> 을 기각하는 사건이 된다.
-따라서 다중검정의 일종오류 확률은 다음과 같다.</p>
-<p><span class="math display">\[\begin{align*}
+<p>Figure <a href="지수평활법.html#fig:oil-acf">3.10</a>과 같은 표본 ACF 그래프에 표시된 95% 신뢰구간을 이용하는 방법이다. 신뢰구간과 양측검정의 관계에 의해서, 만일 <span class="math inline">\(r_{k}\)</span> 의 값이 점선을 벗어나 있다면, 가설 <span class="math inline">\(H_{0}:\rho_{k} = 0\)</span>, <span class="math inline">\(H_{1}: \rho \ne 0\)</span> 에서 <span class="math inline">\(H_{0}\)</span> 을 5% 유의수준에서 기각할 수 있다. 따라서 표본 ACF 그래프에 표시된 모든 <span class="math inline">\(r_{k}\)</span> 가 점선 안에 있다면 독립이라고 판단할 수 있다는 것이다.</p>
+<p>그러나 이 방법은 실질적으로 다중검정에 해당되기 때문에 일종 오류의 확률이 증가하는 문제가 있다. 다중검정이란 여러 개의 독립된 검정을 실시해서 하나의 결론을 내리는 상황을 의미하는데, 예를 들어, 3개의 귀무가설 <span class="math inline">\(H_{0}: \rho_{k} = 0\)</span>, <span class="math inline">\(k=1, 2, 3\)</span> 이 모두 사실이라고 가정해 보자. 3개의 독립된 검정을 각각 유의수준 <span class="math inline">\(\alpha\)</span> 에서 실시했을 때, 3개 검정 모두에서 옳은 결론인, <span class="math inline">\(H_{0}\)</span> 을 기각하지 않을 확률은 <span class="math inline">\((1-\alpha)^{3}\)</span> 이 된다. 다중검정의 일종오류는 3개의 독립된 검정 중 한 번이라도 <span class="math inline">\(H_{0}\)</span> 을 기각하는 사건이 된다. 따라서 다중검정의 일종오류 확률은 다음과 같다.</p>
+<span class="math display">\[\begin{align*}
 P(다중검정~일종오류) &amp;= P(3개~검정에서~적어도~한~번은~H_{0}~기각) \\
                      &amp;= 1-P(3개~검정~모두에서~H_{0}~기각~못함) \\
                      &amp;= 1-(1-\alpha)^{3} &gt; (1-\alpha)
-\end{align*}\]</span></p>
-<p>예를 들어, <span class="math inline">\(k=3\)</span> 이면 다중검정의 일종오류 확률은 <span class="math inline">\(1-(1-0.05)^{3} = 0.1426\)</span> 이고,
-<span class="math inline">\(k=15\)</span> 이면 <span class="math inline">\(1-(1-0.05)^{15} = 0.5367\)</span> 이 된다.
-Figure <a href="지수평활법.html#fig:oil-acf">3.10</a>에는 <span class="math inline">\(k=16\)</span> 까지 표시되어 있기 때문에,
-이 그래프를 근거로 독립성 검정을 실시하면 상당히 높은 일종오류의 확률을 감수해야 하는 것이다.</p>
-<p>요약하자면, 표본 ACF에 의한 독립성 검정은 실시할 수는 있지만,
-이 방법만으로 결론을 내리는 것은 피하는 것이 좋을 것이다.</p>
+\end{align*}\]</span>
+<p>예를 들어, <span class="math inline">\(k=3\)</span> 이면 다중검정의 일종오류 확률은 <span class="math inline">\(1-(1-0.05)^{3} = 0.1426\)</span> 이고, <span class="math inline">\(k=15\)</span> 이면 <span class="math inline">\(1-(1-0.05)^{15} = 0.5367\)</span> 이 된다. Figure <a href="지수평활법.html#fig:oil-acf">3.10</a>에는 <span class="math inline">\(k=16\)</span> 까지 표시되어 있기 때문에, 이 그래프를 근거로 독립성 검정을 실시하면 상당히 높은 일종오류의 확률을 감수해야 하는 것이다.</p>
+<p>요약하자면, 표본 ACF에 의한 독립성 검정은 실시할 수는 있지만, 이 방법만으로 결론을 내리는 것은 피하는 것이 좋을 것이다.</p>
 <ul>
 <li>포트맨토 검정</li>
 </ul>
-<p>포트맨토 검정이란 귀무가설은 명확하게 정의되어 있으나,
-대립가설은 상대적으로 느슨하게 정의된 가설에 대한 검정을 의미한다.
-오차의 독립성 검정에 대한 귀무가설은 <span class="math inline">\(K\)</span> 차 자기상관계수까지 모두 0이라고 설정한다.</p>
+<p>포트맨토 검정이란 귀무가설은 명확하게 정의되어 있으나, 대립가설은 상대적으로 느슨하게 정의된 가설에 대한 검정을 의미한다. 오차의 독립성 검정에 대한 귀무가설은 <span class="math inline">\(K\)</span> 차 자기상관계수까지 모두 0이라고 설정한다.</p>
 <p><span class="math display">\[
 H_{0}: \rho_{1}=\rho_{2} = \cdots =\rho_{K}=0
-\]</span>
-단, <span class="math inline">\(K\)</span> 에는 충분히 큰 값의 시차를 지정한다.</p>
-<p>대립가설은 ‘귀무가설은 사실이 아니다’.
-또는 ’독립이 아니다’인데 구체적인 상관관계의 구조를 명시할 필요가 없는 상황이다.</p>
-<p>오차의 독립성 가설에 대한 포트맨토 검정으로 많이 사용되는 검정은 Ljung-Box 검정이다.
-검정통계량은 <span class="math inline">\(Q=T(T+2)\sum_{k=1}^{K} r_{k}^{2} / (T-k)\)</span> 이며,
-잔차 사이에 유의한 자기상관계수가 존재하면 검정통계량 <span class="math inline">\(Q\)</span> 가 큰 값을 갖게 될 것이다.
-귀무가설이 사실인 경우 <span class="math inline">\(Q\)</span> 의 분포는 카이제곱 분포를 하며,
-자유도는 <span class="math inline">\(K - N_{par}\)</span> 가 되는데, <span class="math inline">\(N_{par}\)</span> 는 모형에 포함된 모수의 개수이다.</p>
-<p>포트맨토 검정을 실시하기 위한 함수는 <code>forecast::checkresiduals()</code>이며,
-사용법은 <code>checkresiduals(object, lag, ...)</code>이다.
-<code>object</code>는 함수 <code>ets()</code> 등으로 생성된 시계열 모형 객체이고,
-<code>lag</code>는 독립성 검정의 최고 시차 <span class="math inline">\(K\)</span> 값을 지정하는 것이다.
-사용자가 직접 지정할 수 있고, 디폴트 값은 계절 요소가 없는 경우에는 <span class="math inline">\(\min(10, T/5)\)</span> 이고,
-계절 요소가 있는 경우에는 <span class="math inline">\(\min(2m, T/5)\)</span> 이다. 단, <span class="math inline">\(T\)</span> 는 자료의 크기이고 <span class="math inline">\(m\)</span> 은 계절 주기이다.</p>
+\]</span> 단, <span class="math inline">\(K\)</span> 에는 충분히 큰 값의 시차를 지정한다.</p>
+<p>대립가설은 ‘귀무가설은 사실이 아니다’. 또는 ’독립이 아니다’인데 구체적인 상관관계의 구조를 명시할 필요가 없는 상황이다.</p>
+<p>오차의 독립성 가설에 대한 포트맨토 검정으로 많이 사용되는 검정은 Ljung-Box 검정이다. 검정통계량은 <span class="math inline">\(Q=T(T+2)\sum_{k=1}^{K} r_{k}^{2} / (T-k)\)</span> 이며, 잔차 사이에 유의한 자기상관계수가 존재하면 검정통계량 <span class="math inline">\(Q\)</span> 가 큰 값을 갖게 될 것이다. 귀무가설이 사실인 경우 <span class="math inline">\(Q\)</span> 의 분포는 카이제곱 분포를 하며, 자유도는 <span class="math inline">\(K - N_{par}\)</span> 가 되는데, <span class="math inline">\(N_{par}\)</span> 는 모형에 포함된 모수의 개수이다.</p>
+<p>포트맨토 검정을 실시하기 위한 함수는 <code>forecast::checkresiduals()</code>이며, 사용법은 <code>checkresiduals(object, lag, ...)</code>이다. <code>object</code>는 함수 <code>ets()</code> 등으로 생성된 시계열 모형 객체이고, <code>lag</code>는 독립성 검정의 최고 시차 <span class="math inline">\(K\)</span> 값을 지정하는 것이다. 사용자가 직접 지정할 수 있고, 디폴트 값은 계절 요소가 없는 경우에는 <span class="math inline">\(\min(10, T/5)\)</span> 이고, 계절 요소가 있는 경우에는 <span class="math inline">\(\min(2m, T/5)\)</span> 이다. 단, <span class="math inline">\(T\)</span> 는 자료의 크기이고 <span class="math inline">\(m\)</span> 은 계절 주기이다.</p>
 <p>결과물은 잔차의 시계열 그래프와 ACF 그래프, 히스토그램이 작성되고, Ljung-Box 검정 결과가 출력된다.</p>
 </div>
 </div>
@@ -783,15 +788,11 @@ H_{0}: \rho_{1}=\rho_{2} = \cdots =\rho_{K}=0
 <ul>
 <li>예제 1: 1970년부터 2016년까지 연간 항공기 이용객 수 (<code>fpp2::ausair</code>)</li>
 </ul>
-<p><code>fpp2::ausair</code>는 1970년부터 2016년까지 호주의 연간 항공기 승객 수 자료이다.
-먼저 전체 자료 중
-1970년부터 2011년까지의 자료를 training data로 하고,
-2012년 이후자료를 test data로 분리하자.</p>
+<p><code>fpp2::ausair</code>는 1970년부터 2016년까지 호주의 연간 항공기 승객 수 자료이다. 먼저 전체 자료 중 1970년부터 2011년까지의 자료를 training data로 하고, 2012년 이후자료를 test data로 분리하자.</p>
 <div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="지수평활법.html#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> train_air <span class="ot">&lt;-</span> <span class="fu">window</span>(ausair, <span class="at">end =</span> <span class="dv">2011</span>)</span>
 <span id="cb35-2"><a href="지수평활법.html#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> test_air <span class="ot">&lt;-</span> <span class="fu">window</span>(ausair, <span class="at">start =</span> <span class="dv">2012</span>)</span></code></pre></div>
-<p><code>train_air</code>와 <code>test_air</code>의 시계열 그래프는 다음과 같다.
-<code>test_air</code>는 빨간 선으로 나타냈다.</p>
-<p><img src="_main_files/figure-html/unnamed-chunk-15-1.png" width="576" /></p>
+<p><code>train_air</code>와 <code>test_air</code>의 시계열 그래프는 다음과 같다. <code>test_air</code>는 빨간 선으로 나타냈다.</p>
+<p><img src="_main_files/figure-html/unnamed-chunk-14-1.png" width="576" /></p>
 <p>함수 <code>ets()</code>로 ETS 모형을 적합하고, 그 결과를 확인해 보자.</p>
 <div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="지수평활법.html#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> fit_air <span class="ot">&lt;-</span> <span class="fu">ets</span>(train_air)</span>
 <span id="cb36-2"><a href="지수평활법.html#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">summary</span>(fit_air)</span>
@@ -816,16 +817,13 @@ H_{0}: \rho_{1}=\rho_{2} = \cdots =\rho_{K}=0
 <span id="cb36-21"><a href="지수평활법.html#cb36-21" aria-hidden="true" tabindex="-1"></a>Training set error measures<span class="sc">:</span></span>
 <span id="cb36-22"><a href="지수평활법.html#cb36-22" aria-hidden="true" tabindex="-1"></a>                    ME     RMSE    MAE       MPE     MAPE      MASE        ACF1</span>
 <span id="cb36-23"><a href="지수평활법.html#cb36-23" aria-hidden="true" tabindex="-1"></a>Training set <span class="fl">0.5550369</span> <span class="fl">2.138179</span> <span class="fl">1.3146</span> <span class="fl">0.7893247</span> <span class="fl">5.399428</span> <span class="fl">0.7649321</span> <span class="sc">-</span><span class="fl">0.09163575</span></span></code></pre></div>
-<p>최적 모형은 ETS(M,A,N)으로 선정되었다.
-추세는 additive이고 오차는 multiplicative인 모형이다.
-평활모수는 <span class="math inline">\(\alpha=0.999\)</span> , <span class="math inline">\(\beta=0.024\)</span> 로 추정되었다.
-따라서 시계열자료의 level에는 큰 변화가 있으나, 추세의 기울기에는 큰 변화 없이 일정하다는 것을 알 수 있다.</p>
+<p>최적 모형은 ETS(M,A,N)으로 선정되었다. 추세는 additive이고 오차는 multiplicative인 모형이다. 평활모수는 <span class="math inline">\(\alpha=0.999\)</span> , <span class="math inline">\(\beta=0.024\)</span> 로 추정되었다. 따라서 시계열자료의 level에는 큰 변화가 있으나, 추세의 기울기에는 큰 변화 없이 일정하다는 것을 알 수 있다.</p>
 <p>ETS 모형의 각 요소에 대한 추정 결과를 그래프로 나타내 보자.</p>
 <div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="지수평활법.html#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">autoplot</span>(fit_air)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-17-1.png" width="576" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-16-1.png" width="576" /></p>
 <p>모형의 가정 만족 여부를 확인해 보자.</p>
 <div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="지수평활법.html#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">checkresiduals</span>(fit_air)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-18-1.png" width="576" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-17-1.png" width="576" /></p>
 <pre><code>
     Ljung-Box test
 
@@ -843,24 +841,16 @@ Model df: 4.   Total lags used: 8</code></pre>
 <span id="cb40-6"><a href="지수평활법.html#cb40-6" aria-hidden="true" tabindex="-1"></a>                    ACF1 Theil<span class="st">&#39;s U</span></span>
 <span id="cb40-7"><a href="지수평활법.html#cb40-7" aria-hidden="true" tabindex="-1"></a><span class="st">Training set -0.09163575        NA</span></span>
 <span id="cb40-8"><a href="지수평활법.html#cb40-8" aria-hidden="true" tabindex="-1"></a><span class="st">Test set     -0.22513230  1.034042</span></span></code></pre></div>
-<p>함수 <code>accuracy()</code>의 결과 중 <code>RMSE</code>, <code>MAE</code>, <code>MAPE</code>와 <code>MASE</code>는 <a href="지수평활법.html#section-accuracy">3.1</a>절에서 살펴보았다.
-그 외의 측도로 <code>ME</code>는 Mean Error이고 <code>MPE</code>는 Mean Percentage Error를 의미한다.
-또한 <code>ACF1</code>은 잔차의 1시차 자기상관계수이고,
-<code>Theil's U</code>는 naive forecast의 예측 오차와 비교하는 것으로써 <code>MASE</code>와 유사한 특징을 갖고 있다.</p>
-<p>예측 결과를 그래프로 나타내 보자.
-함수 <code>autoplot()</code>에 함수 <code>forecast()</code>의 결과인 객체 <code>fc_air</code>를 입력하면 training data와 예측 결과를 함께 나타낸다.
-또한 옵션 <code>include</code>는 그래프에 포함시킬 training data의 개수를 지정하는 것이다.
-따라서 <code>include = 0</code>을 입력하면 예측 부분만을 확대한 효과를 볼 수 있다.</p>
+<p>함수 <code>accuracy()</code>의 결과 중 <code>RMSE</code>, <code>MAE</code>, <code>MAPE</code>와 <code>MASE</code>는 <a href="지수평활법.html#section-accuracy">3.1</a>절에서 살펴보았다. 그 외의 측도로 <code>ME</code>는 Mean Error이고 <code>MPE</code>는 Mean Percentage Error를 의미한다. 또한 <code>ACF1</code>은 잔차의 1시차 자기상관계수이고, <code>Theil's U</code>는 naive forecast의 예측 오차와 비교하는 것으로써 <code>MASE</code>와 유사한 특징을 갖고 있다.</p>
+<p>예측 결과를 그래프로 나타내 보자. 함수 <code>autoplot()</code>에 함수 <code>forecast()</code>의 결과인 객체 <code>fc_air</code>를 입력하면 training data와 예측 결과를 함께 나타낸다. 옵션 <code>include</code>는 그래프에 포함시킬 training data의 개수를 지정하는 것이다. 따라서 <code>include = 0</code>을 입력하면 예측 부분만을 확대한 효과를 볼 수 있다.</p>
 <div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="지수평활법.html#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">library</span>(patchwork)</span>
 <span id="cb41-2"><a href="지수평활법.html#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> p1 <span class="ot">&lt;-</span> <span class="fu">autoplot</span>(fc_air) <span class="sc">+</span> </span>
-<span id="cb41-3"><a href="지수평활법.html#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">autolayer</span>(test_air, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb41-4"><a href="지수평활법.html#cb41-4" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">labs</span>(<span class="at">y =</span> <span class="cn">NULL</span>, <span class="at">x =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
-<span id="cb41-5"><a href="지수평활법.html#cb41-5" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span>
-<span id="cb41-6"><a href="지수평활법.html#cb41-6" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> p2 <span class="ot">&lt;-</span> <span class="fu">autoplot</span>(fc_air, <span class="at">include =</span> <span class="dv">0</span>) <span class="sc">+</span> </span>
-<span id="cb41-7"><a href="지수평활법.html#cb41-7" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">autolayer</span>(test_air, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb41-8"><a href="지수평활법.html#cb41-8" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">labs</span>(<span class="at">y =</span> <span class="cn">NULL</span>, <span class="at">x =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
-<span id="cb41-9"><a href="지수평활법.html#cb41-9" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span>
-<span id="cb41-10"><a href="지수평활법.html#cb41-10" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> p1 <span class="sc">+</span> p2</span></code></pre></div>
+<span id="cb41-3"><a href="지수평활법.html#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">autolayer</span>(test_air, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb41-4"><a href="지수평활법.html#cb41-4" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">labs</span>(<span class="at">y =</span> <span class="cn">NULL</span>, <span class="at">x =</span> <span class="cn">NULL</span>) </span>
+<span id="cb41-5"><a href="지수평활법.html#cb41-5" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> p2 <span class="ot">&lt;-</span> <span class="fu">autoplot</span>(fc_air, <span class="at">include =</span> <span class="dv">0</span>) <span class="sc">+</span> </span>
+<span id="cb41-6"><a href="지수평활법.html#cb41-6" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">autolayer</span>(test_air, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">size=</span><span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb41-7"><a href="지수평활법.html#cb41-7" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">labs</span>(<span class="at">y =</span> <span class="cn">NULL</span>, <span class="at">x =</span> <span class="cn">NULL</span>) </span>
+<span id="cb41-8"><a href="지수평활법.html#cb41-8" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> p1 <span class="sc">+</span> p2</span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:aus-ETS-fore"></span>
 <img src="_main_files/figure-html/aus-ETS-fore-1.png" alt="`fpp2::ausair` 자료에 대한 ETS 모형의 예측 결과" width="768" />
 <p class="caption">
@@ -870,12 +860,11 @@ Figure 3.13: <code>fpp2::ausair</code> 자료에 대한 ETS 모형의 예측 결
 <ul>
 <li>예제 2: 1999년부터 2015년까지 분기별 호주 입국 외국인 관광객 수 (<code>fpp2::austourists</code>)</li>
 </ul>
-<p><code>fpp2::austourists</code>는 1999년부터 2015년까지 분기별로 호주에 입국한 외국인 관광객 수 자료이다.
-2013년 4분기까지를 training data로 분리하고 2014년 1분기부터를 test data로 분리하자.</p>
+<p><code>fpp2::austourists</code>는 1999년부터 2015년까지 분기별로 호주에 입국한 외국인 관광객 수 자료이다. 2013년 4분기까지를 training data로 분리하고 2014년 1분기부터를 test data로 분리하자.</p>
 <div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="지수평활법.html#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> train_tour <span class="ot">&lt;-</span> <span class="fu">window</span>(austourists, <span class="at">end =</span> <span class="fu">c</span>(<span class="dv">2013</span>, <span class="dv">4</span>))</span>
 <span id="cb42-2"><a href="지수평활법.html#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> test_tour <span class="ot">&lt;-</span> <span class="fu">window</span>(austourists, <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">2014</span>, <span class="dv">1</span>))</span></code></pre></div>
 <p>두 자료의 시계열 그래프는 다음과 같다.</p>
-<p><img src="_main_files/figure-html/unnamed-chunk-21-1.png" width="576" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-20-1.png" width="576" /></p>
 <p>함수 <code>ets()</code>로 최적 모형을 적합해 보자.</p>
 <div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="지수평활법.html#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> fit_tour <span class="ot">&lt;-</span> <span class="fu">ets</span>(train_tour)</span>
 <span id="cb43-2"><a href="지수평활법.html#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">summary</span>(fit_tour)</span>
@@ -904,9 +893,7 @@ Figure 3.13: <code>fpp2::ausair</code> 자료에 대한 ETS 모형의 예측 결
 <span id="cb43-25"><a href="지수평활법.html#cb43-25" aria-hidden="true" tabindex="-1"></a>Training set <span class="fl">0.004642325</span> <span class="fl">1.966538</span> <span class="fl">1.474615</span> <span class="sc">-</span><span class="fl">0.4054666</span> <span class="fl">4.196005</span> <span class="fl">0.5206241</span></span>
 <span id="cb43-26"><a href="지수평활법.html#cb43-26" aria-hidden="true" tabindex="-1"></a>                   ACF1</span>
 <span id="cb43-27"><a href="지수평활법.html#cb43-27" aria-hidden="true" tabindex="-1"></a>Training set <span class="sc">-</span><span class="fl">0.0243205</span></span></code></pre></div>
-<p>ETS(M,A,M) 모형이 선택되었다.
-승법 계절 성분이 선택되었다는 것은 계절 요소의 변동 폭이 증가한다는 의미가 된다.
-이런 경우에 시계열자료를 로그변환 시킨 후 다시 ETS 모형을 적합시키면 가법 계절 모형이 선택될 것이다. 함수 <code>ets()</code>의 Box_Cox 변환 모수인 옵션 <code>lambda</code>에 0을 입력하면 로그변환을 실행하게 된다.</p>
+<p>ETS(M,A,M) 모형이 선택되었다. 승법 계절 성분이 선택되었다는 것은 계절 요소의 변동 폭이 증가한다는 의미가 된다. 이런 경우에 시계열자료를 로그변환 시킨 후 다시 ETS 모형을 적합시키면 가법 계절 모형이 선택될 것이다. 함수 <code>ets()</code>의 Box_Cox 변환 모수인 옵션 <code>lambda</code>에 0을 입력하면 로그변환을 실행하게 된다.</p>
 <div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="지수평활법.html#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> fit_lntour <span class="ot">&lt;-</span> <span class="fu">ets</span>(train_tour, <span class="at">lambda =</span> <span class="dv">0</span>)</span>
 <span id="cb44-2"><a href="지수평활법.html#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">summary</span>(fit_lntour)</span>
 <span id="cb44-3"><a href="지수평활법.html#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ETS</span>(A,A,A) </span>
@@ -938,7 +925,7 @@ Figure 3.13: <code>fpp2::ausair</code> 자료에 대한 ETS 모형의 예측 결
 <span id="cb44-29"><a href="지수평활법.html#cb44-29" aria-hidden="true" tabindex="-1"></a>Training set <span class="fl">0.01619145</span></span></code></pre></div>
 <p>모형 <code>fit_tour</code>와 <code>fit_lntour</code>의 가정 만족 여부를 확인해 보자.</p>
 <div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="지수평활법.html#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">checkresiduals</span>(fit_tour)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-24-1.png" width="576" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-23-1.png" width="576" /></p>
 <pre><code>
     Ljung-Box test
 
@@ -947,7 +934,7 @@ Q* = 5.3591, df = 3, p-value = 0.1473
 
 Model df: 8.   Total lags used: 11</code></pre>
 <div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="지수평활법.html#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">checkresiduals</span>(fit_lntour)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-25-1.png" width="576" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-24-1.png" width="576" /></p>
 <pre><code>
     Ljung-Box test
 
@@ -955,8 +942,7 @@ data:  Residuals from ETS(A,A,A)
 Q* = 7.2993, df = 3, p-value = 0.06294
 
 Model df: 8.   Total lags used: 11</code></pre>
-<p>두 모형 모두 가정은 만족시키는 것으로 보인다.
-이제 두 모형의 예측을 실시하고, 그 결과를 비교해 보자.</p>
+<p>두 모형 모두 가정은 만족시키는 것으로 보인다. 이제 두 모형의 예측을 실시하고, 그 결과를 비교해 보자.</p>
 <div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="지수평활법.html#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> fc_tour <span class="ot">&lt;-</span> <span class="fu">forecast</span>(fit_tour, <span class="at">h =</span> <span class="fu">length</span>(test_tour)) </span>
 <span id="cb49-2"><a href="지수평활법.html#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> fc_lntour <span class="ot">&lt;-</span> <span class="fu">forecast</span>(fit_lntour, <span class="at">h =</span> <span class="fu">length</span>(test_tour))</span></code></pre></div>
 <div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="지수평활법.html#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">accuracy</span>(fc_tour, test_tour)</span>
@@ -973,27 +959,25 @@ Model df: 8.   Total lags used: 11</code></pre>
 <span id="cb50-12"><a href="지수평활법.html#cb50-12" aria-hidden="true" tabindex="-1"></a><span class="st">                   ACF1 Theil&#39;</span>s U</span>
 <span id="cb50-13"><a href="지수평활법.html#cb50-13" aria-hidden="true" tabindex="-1"></a>Training set <span class="fl">0.01619145</span>        <span class="cn">NA</span></span>
 <span id="cb50-14"><a href="지수평활법.html#cb50-14" aria-hidden="true" tabindex="-1"></a>Test set     <span class="fl">0.47705974</span> <span class="fl">0.1348746</span></span></code></pre></div>
-<p>모형 ETS(A,A,A)인 <code>fit_lntour</code>의 test data에 대한 예측 오차가 조금 더 작은 것을 볼 수 있다.
-두 모형의 예측 결과를 그래프로 비교해 보자.
-함수 <code>autolayer()</code>에 <code>PI = FALSE</code>를 입력하면 예측 구간이 생략된다.
-이것은 두 모형의 예측 구간이 함께 표시되면 서로 겹쳐지는 현상이 발생하기 때문에 생략한 것이다.</p>
+<p>모형 ETS(A,A,A)인 <code>fit_lntour</code>의 test data에 대한 예측 오차가 조금 더 작은 것을 볼 수 있다. 두 모형의 예측 결과를 그래프로 비교해 보자. 함수 <code>autolayer()</code>에 <code>PI = FALSE</code>를 입력하면 예측 구간이 생략된다. 이것은 두 모형의 예측 구간이 함께 표시되면 서로 겹쳐지는 현상이 발생하기 때문에 생략한 것이다.</p>
 <div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="지수평활법.html#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">autoplot</span>(train_tour) <span class="sc">+</span></span>
 <span id="cb51-2"><a href="지수평활법.html#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">autolayer</span>(test_tour, <span class="at">series =</span> <span class="st">&quot;Test data&quot;</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
 <span id="cb51-3"><a href="지수평활법.html#cb51-3" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">autolayer</span>(fc_tour, <span class="at">PI =</span> <span class="cn">FALSE</span>, <span class="at">series =</span> <span class="st">&quot;ETS(M,A,M)&quot;</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
 <span id="cb51-4"><a href="지수평활법.html#cb51-4" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">autolayer</span>(fc_lntour, <span class="at">PI =</span> <span class="cn">FALSE</span>, <span class="at">series =</span> <span class="st">&quot;ETS(A,A,A)&quot;</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb51-5"><a href="지수평활법.html#cb51-5" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">labs</span>(<span class="at">y =</span> <span class="cn">NULL</span>, <span class="at">x =</span> <span class="cn">NULL</span>)</span></code></pre></div>
+<span id="cb51-5"><a href="지수평활법.html#cb51-5" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">labs</span>(<span class="at">y =</span> <span class="cn">NULL</span>, <span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">color =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb51-6"><a href="지수평활법.html#cb51-6" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;top&quot;</span>)</span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:tour-ets-fore1"></span>
 <img src="_main_files/figure-html/tour-ets-fore1-1.png" alt="`tourists` 자료에 대한 예측 결과 비교" width="576" />
 <p class="caption">
 Figure 3.14: <code>tourists</code> 자료에 대한 예측 결과 비교
 </p>
 </div>
-<p>Test data에 대한 예측만을 나타내 보자.
-두 모형의 예측에는 큰 차이가 없음을 알 수 있다.</p>
+<p>Test data에 대한 예측만을 나타내 보자. 두 모형의 예측에는 큰 차이가 없음을 알 수 있다.</p>
 <div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="지수평활법.html#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">autoplot</span>(test_tour, <span class="at">series =</span> <span class="st">&quot;Test data&quot;</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
 <span id="cb52-2"><a href="지수평활법.html#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">autolayer</span>(fc_tour, <span class="at">PI =</span> <span class="cn">FALSE</span>, <span class="at">series =</span> <span class="st">&quot;ETS(M,A,M)&quot;</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
 <span id="cb52-3"><a href="지수평활법.html#cb52-3" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">autolayer</span>(fc_lntour, <span class="at">PI =</span> <span class="cn">FALSE</span>, <span class="at">series =</span> <span class="st">&quot;ETS(A,A,A)&quot;</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb52-4"><a href="지수평활법.html#cb52-4" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">labs</span>(<span class="at">y =</span> <span class="cn">NULL</span>, <span class="at">x =</span> <span class="cn">NULL</span>)</span></code></pre></div>
+<span id="cb52-4"><a href="지수평활법.html#cb52-4" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">labs</span>(<span class="at">y =</span> <span class="cn">NULL</span>, <span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">color =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb52-5"><a href="지수평활법.html#cb52-5" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;top&quot;</span>)</span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:tour-ets-fore2"></span>
 <img src="_main_files/figure-html/tour-ets-fore2-1.png" alt="`tourists` 자료에 대한 예측 결과 비교" width="576" />
 <p class="caption">
@@ -1003,16 +987,14 @@ Figure 3.15: <code>tourists</code> 자료에 대한 예측 결과 비교
 <p>모형 ETS(A,A,A)인 <code>fit_lntour</code>의 test data에 대한 예측 결과를 예측 구간과 함께 나타내 보자.</p>
 <div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="지수평활법.html#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">library</span>(patchwork)</span>
 <span id="cb53-2"><a href="지수평활법.html#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> p1 <span class="ot">&lt;-</span> <span class="fu">autoplot</span>(fc_lntour) <span class="sc">+</span></span>
-<span id="cb53-3"><a href="지수평활법.html#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">autolayer</span>(test_tour, <span class="at">series =</span> <span class="st">&quot;Test data&quot;</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb53-4"><a href="지수평활법.html#cb53-4" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
-<span id="cb53-5"><a href="지수평활법.html#cb53-5" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span>
-<span id="cb53-6"><a href="지수평활법.html#cb53-6" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> p2 <span class="ot">&lt;-</span> <span class="fu">autoplot</span>(fc_lntour, <span class="at">include =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
-<span id="cb53-7"><a href="지수평활법.html#cb53-7" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">autolayer</span>(test_tour, <span class="at">series =</span> <span class="st">&quot;Test data&quot;</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb53-8"><a href="지수평활법.html#cb53-8" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">labs</span>(<span class="at">y =</span> <span class="cn">NULL</span>, <span class="at">x =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
-<span id="cb53-9"><a href="지수평활법.html#cb53-9" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb53-10"><a href="지수평활법.html#cb53-10" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="fl">2014.0</span>, <span class="fl">2014.5</span>, <span class="fl">2015.0</span>, <span class="fl">2015.5</span>),</span>
-<span id="cb53-11"><a href="지수평활법.html#cb53-11" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                      <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;2014.Q1&quot;</span>, <span class="st">&quot;2014.Q4&quot;</span>, <span class="st">&quot;2015.Q1&quot;</span>, <span class="st">&quot;2015.Q4&quot;</span>))</span>
-<span id="cb53-12"><a href="지수평활법.html#cb53-12" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> p1 <span class="sc">+</span> p2</span></code></pre></div>
+<span id="cb53-3"><a href="지수평활법.html#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">autolayer</span>(test_tour, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb53-4"><a href="지수평활법.html#cb53-4" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="cn">NULL</span>) </span>
+<span id="cb53-5"><a href="지수평활법.html#cb53-5" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> p2 <span class="ot">&lt;-</span> <span class="fu">autoplot</span>(fc_lntour, <span class="at">include =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb53-6"><a href="지수평활법.html#cb53-6" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">autolayer</span>(test_tour, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb53-7"><a href="지수평활법.html#cb53-7" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">labs</span>(<span class="at">y =</span> <span class="cn">NULL</span>, <span class="at">x =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb53-8"><a href="지수평활법.html#cb53-8" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="fl">2014.0</span>, <span class="fl">2014.5</span>, <span class="fl">2015.0</span>, <span class="fl">2015.5</span>),</span>
+<span id="cb53-9"><a href="지수평활법.html#cb53-9" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                      <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;2014.Q1&quot;</span>, <span class="st">&quot;2014.Q4&quot;</span>, <span class="st">&quot;2015.Q1&quot;</span>, <span class="st">&quot;2015.Q4&quot;</span>))</span>
+<span id="cb53-10"><a href="지수평활법.html#cb53-10" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> p1 <span class="sc">+</span> p2</span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:tour-ets-fore3"></span>
 <img src="_main_files/figure-html/tour-ets-fore3-1.png" alt="`tourists` 자료에 대한 예측 결과" width="768" />
 <p class="caption">
@@ -1022,14 +1004,12 @@ Figure 3.16: <code>tourists</code> 자료에 대한 예측 결과
 <ul>
 <li>예제 3: 1965년 1월부터 1992년 7월까지 월별 실업 급여 수급 인원 수 (<code>fma::dole</code>)</li>
 </ul>
-<p><code>fma::dole</code>은 1965년 1월부터 1992년 7월까지 월별로 실업 급여를 받아간 인원 수 자료이다.
-마지막 2년 자료를 test data로 분리해 보자.</p>
+<p><code>fma::dole</code>은 1965년 1월부터 1992년 7월까지 월별로 실업 급여를 받아간 인원 수 자료이다. 마지막 2년 자료를 test data로 분리해 보자.</p>
 <div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="지수평활법.html#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> train_d <span class="ot">&lt;-</span> <span class="fu">window</span>(dole, <span class="at">end =</span> <span class="fu">c</span>(<span class="dv">1990</span>, <span class="dv">7</span>))</span>
 <span id="cb54-2"><a href="지수평활법.html#cb54-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> test_d <span class="ot">&lt;-</span> <span class="fu">window</span>(dole, <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">1990</span>, <span class="dv">8</span>))</span></code></pre></div>
 <p>두 자료에 대한 시계열 그래프는 다음과 같다.</p>
-<p><img src="_main_files/figure-html/unnamed-chunk-29-1.png" width="576" /></p>
-<p>1990년부터 갑작스런 증가세를 보이고 있으며, test data가 대부분 그 시기에 관측된 것이다.
-따라서 예측이 상당히 어려운 것으로 보이는 상황이다.</p>
+<p><img src="_main_files/figure-html/unnamed-chunk-28-1.png" width="576" /></p>
+<p>1990년부터 갑작스런 증가세를 보이고 있으며, test data가 대부분 그 시기에 관측된 것이다. 따라서 예측이 상당히 어려운 것으로 보이는 상황이다.</p>
 <p>ETS 모형을 적합해 보자.</p>
 <div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="지수평활법.html#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> fit_d <span class="ot">&lt;-</span> <span class="fu">ets</span>(train_d)</span>
 <span id="cb55-2"><a href="지수평활법.html#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">summary</span>(fit_d)</span>
@@ -1058,11 +1038,9 @@ Figure 3.16: <code>tourists</code> 자료에 대한 예측 결과
 <span id="cb55-25"><a href="지수평활법.html#cb55-25" aria-hidden="true" tabindex="-1"></a>Training set error measures<span class="sc">:</span></span>
 <span id="cb55-26"><a href="지수평활법.html#cb55-26" aria-hidden="true" tabindex="-1"></a>                  ME     RMSE      MAE       MPE     MAPE      MASE      ACF1</span>
 <span id="cb55-27"><a href="지수평활법.html#cb55-27" aria-hidden="true" tabindex="-1"></a>Training set <span class="fl">307.438</span> <span class="fl">16094.96</span> <span class="fl">9474.828</span> <span class="fl">0.5940649</span> <span class="fl">6.112239</span> <span class="fl">0.2965093</span> <span class="fl">0.5103798</span></span></code></pre></div>
-<p>가정 만족 여부를 확인해 보니, 독립성 가정에 문제가 있는 것을 볼 수 있다.
-이런 경우, 점 예측값 (point forecast)에는 별다른 문제가 없겠지만,
-예측 구간을 신뢰하기 어렵다고 할 수 있다.</p>
+<p>가정 만족 여부를 확인해 보니, 독립성 가정에 문제가 있는 것을 볼 수 있다. 이런 경우, 점 예측값 (point forecast)에는 별다른 문제가 없겠지만, 예측 구간을 신뢰하기 어렵다고 할 수 있다.</p>
 <div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="지수평활법.html#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">checkresiduals</span>(fit_d)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-31-1.png" width="576" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-30-1.png" width="576" /></p>
 <pre><code>
     Ljung-Box test
 
@@ -1079,26 +1057,17 @@ Model df: 17.   Total lags used: 24</code></pre>
 <span id="cb58-6"><a href="지수평활법.html#cb58-6" aria-hidden="true" tabindex="-1"></a>                  ACF1 Theil<span class="st">&#39;s U</span></span>
 <span id="cb58-7"><a href="지수평활법.html#cb58-7" aria-hidden="true" tabindex="-1"></a><span class="st">Training set 0.5103798        NA</span></span>
 <span id="cb58-8"><a href="지수평활법.html#cb58-8" aria-hidden="true" tabindex="-1"></a><span class="st">Test set     0.8895083  8.715368</span></span></code></pre></div>
-<p>MASE 값이 지나치게 큰 값이라는 것을 알 수 있다.
-예측 결과를 그래프로 니타내 보자.</p>
+<p>MASE 값이 지나치게 큰 값이라는 것을 알 수 있다. 예측 결과를 그래프로 니타내 보자.</p>
 <div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="지수평활법.html#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">autoplot</span>(fc_d) <span class="sc">+</span></span>
-<span id="cb59-2"><a href="지수평활법.html#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">autolayer</span>(test_d, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb59-3"><a href="지수평활법.html#cb59-3" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">labs</span>(<span class="at">y =</span> <span class="cn">NULL</span>, <span class="at">x =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
-<span id="cb59-4"><a href="지수평활법.html#cb59-4" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
+<span id="cb59-2"><a href="지수평활법.html#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">autolayer</span>(test_d, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb59-3"><a href="지수평활법.html#cb59-3" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">labs</span>(<span class="at">y =</span> <span class="cn">NULL</span>, <span class="at">x =</span> <span class="cn">NULL</span>) </span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:dole-fore1"></span>
 <img src="_main_files/figure-html/dole-fore1-1.png" alt="`dole` 자료에 대한 예측 결과" width="576" />
 <p class="caption">
 Figure 3.17: <code>dole</code> 자료에 대한 예측 결과
 </p>
 </div>
-<p>예측이 완벽하게 벗어난 것을 볼 수 있다.
-이와 같이 실업자 수가 갑자스럽게 증가하는 상황에서는 과거 자료만을 이용하는 시계열 모형으로는
-효율적인 예측이 불가능하다고 하겠다.
-Test data의 기간을 축소시켜보자.
-그러면 증가 추세가 training data에도 어느 정도 반영될 수 있을 것이다.
-마지막 1년만을 test data로 남겨 놓고 모형 적합을 시도해 보자.
-자료분리는 함수 <code>subset()</code>으로도 진행할 수 있다.
-옵션 <code>end</code>와 <code>start</code>에 벡터에서 적용되는 방식의 인덱스를 지정할 수 있다.</p>
+<p>예측이 완벽하게 벗어난 것을 볼 수 있다. 이와 같이 실업자 수가 갑자스럽게 증가하는 상황에서는 과거 자료만을 이용하는 시계열 모형으로는 효율적인 예측이 불가능하다고 하겠다. Test data의 기간을 축소시켜보자. 그러면 증가 추세가 training data에도 어느 정도 반영될 수 있을 것이다. 마지막 1년만을 test data로 남겨 놓고 모형 적합을 시도해 보자. 자료분리는 함수 <code>subset()</code>으로도 진행할 수 있다. 옵션 <code>end</code>와 <code>start</code>에 벡터에서 적용되는 방식의 인덱스를 지정할 수 있다.</p>
 <div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="지수평활법.html#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> train_d_1 <span class="ot">&lt;-</span> <span class="fu">subset</span>(dole, <span class="at">end =</span> <span class="fu">length</span>(dole) <span class="sc">-</span> <span class="dv">12</span>)</span>
 <span id="cb60-2"><a href="지수평활법.html#cb60-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> test_d_1 <span class="ot">&lt;-</span> <span class="fu">subset</span>(dole, <span class="at">start =</span> <span class="fu">length</span>(dole) <span class="sc">-</span> <span class="dv">11</span>)</span></code></pre></div>
 <p>적합된 모형으로 예측을 실시한 결과, 훨씬 개선된 결과를 볼 수 있다.</p>
@@ -1115,14 +1084,12 @@ Test data의 기간을 축소시켜보자.
 <p>이제 예측 결과를 그래프로 나타내 보자.</p>
 <div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="지수평활법.html#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">library</span>(patchwork)</span>
 <span id="cb63-2"><a href="지수평활법.html#cb63-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> p1 <span class="ot">&lt;-</span> <span class="fu">autoplot</span>(fc_d_1) <span class="sc">+</span> </span>
-<span id="cb63-3"><a href="지수평활법.html#cb63-3" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">autolayer</span>(test_d_1, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb63-4"><a href="지수평활법.html#cb63-4" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">labs</span>(<span class="at">y =</span> <span class="cn">NULL</span>, <span class="at">x =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
-<span id="cb63-5"><a href="지수평활법.html#cb63-5" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span>
-<span id="cb63-6"><a href="지수평활법.html#cb63-6" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> p2 <span class="ot">&lt;-</span> <span class="fu">autoplot</span>(fc_d_1, <span class="at">include =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
-<span id="cb63-7"><a href="지수평활법.html#cb63-7" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">autolayer</span>(test_d_1, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb63-8"><a href="지수평활법.html#cb63-8" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">labs</span>(<span class="at">y =</span> <span class="cn">NULL</span>, <span class="at">x =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
-<span id="cb63-9"><a href="지수평활법.html#cb63-9" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>) </span>
-<span id="cb63-10"><a href="지수평활법.html#cb63-10" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> p1 <span class="sc">+</span> p2</span></code></pre></div>
+<span id="cb63-3"><a href="지수평활법.html#cb63-3" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">autolayer</span>(test_d_1, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb63-4"><a href="지수평활법.html#cb63-4" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">labs</span>(<span class="at">y =</span> <span class="cn">NULL</span>, <span class="at">x =</span> <span class="cn">NULL</span>) </span>
+<span id="cb63-5"><a href="지수평활법.html#cb63-5" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> p2 <span class="ot">&lt;-</span> <span class="fu">autoplot</span>(fc_d_1, <span class="at">include =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb63-6"><a href="지수평활법.html#cb63-6" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">autolayer</span>(test_d_1, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb63-7"><a href="지수평활법.html#cb63-7" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">labs</span>(<span class="at">y =</span> <span class="cn">NULL</span>, <span class="at">x =</span> <span class="cn">NULL</span>) </span>
+<span id="cb63-8"><a href="지수평활법.html#cb63-8" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> p1 <span class="sc">+</span> p2</span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:dole-fore-2"></span>
 <img src="_main_files/figure-html/dole-fore-2-1.png" alt="`dole` 자료에 대한 예측 결과" width="768" />
 <p class="caption">
@@ -1133,9 +1100,8 @@ Figure 3.18: <code>dole</code> 자료에 대한 예측 결과
 <li>예제 4: 2014년 4월 30일부터 1년간 Hyndsight 블로그 일일 방문자 수 (<code>fpp2::hyndsight</code>)</li>
 </ul>
 <p><code>fpp2::hyndsight</code>는 2014년 4월 30일부터 1년간 Hyndman이 운영하는 블로그에 방문한 일일 방문자 수 자료이다.</p>
-<p><img src="_main_files/figure-html/unnamed-chunk-36-1.png" width="576" /></p>
-<p>일일 자료의 경우에, 요일의 영향을 받는 자료라면 우선 <span class="math inline">\(m=7\)</span>의 계절 주기를 갖게 된다.
-자료 분리를 위해 2014년 4월 30일이 무슨 요일인지 확인해 보자.</p>
+<p><img src="_main_files/figure-html/unnamed-chunk-35-1.png" width="576" /></p>
+<p>일일 자료의 경우에, 요일의 영향을 받는 자료라면 우선 <span class="math inline">\(m=7\)</span>의 계절 주기를 갖게 된다. 자료 분리를 위해 2014년 4월 30일이 무슨 요일인지 확인해 보자.</p>
 <div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="지수평활법.html#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> lubridate<span class="sc">::</span><span class="fu">wday</span>(<span class="fu">as.Date</span>(<span class="st">&quot;2014-4-30&quot;</span>), <span class="at">label =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb64-2"><a href="지수평활법.html#cb64-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] 수</span>
 <span id="cb64-3"><a href="지수평활법.html#cb64-3" aria-hidden="true" tabindex="-1"></a>Levels<span class="sc">:</span> 일 <span class="sc">&lt;</span> 월 <span class="sc">&lt;</span> 화 <span class="sc">&lt;</span> 수 <span class="sc">&lt;</span> 목 <span class="sc">&lt;</span> 금 <span class="sc">&lt;</span> 토</span>
@@ -1143,10 +1109,8 @@ Figure 3.18: <code>dole</code> 자료에 대한 예측 결과
 <span id="cb64-5"><a href="지수평활법.html#cb64-5" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1</span> <span class="dv">4</span></span>
 <span id="cb64-6"><a href="지수평활법.html#cb64-6" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">end</span>(hyndsight)</span>
 <span id="cb64-7"><a href="지수평활법.html#cb64-7" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">53</span>  <span class="dv">4</span></span></code></pre></div>
-<p>2014년 4월 30일은 수요일이며, 자료의 시작 시점은 1주 4일 (수)이고 종료 시점은 53주 4일 (수)이 된다.
-Training data는 1주 4일부터 48주 4일로 하고, test data는 48주 5일부터 53주 4일까지 5주간으로 설정하자.</p>
-<p>자료 분리는 함수 <code>window()</code>로 보통 진행하지만, 이렇게 자료의 개수로 분리하는 것이 더 편리한 경우에는 함수 <code>subset()</code>으로 진행 할 수 있다.
-즉, 마지막 34일 자료를 test data로 분리해 보자.</p>
+<p>2014년 4월 30일은 수요일이며, 자료의 시작 시점은 1주 4일 (수)이고 종료 시점은 53주 4일 (수)이 된다. Training data는 1주 4일부터 48주 4일로 하고, test data는 48주 5일부터 53주 4일까지 5주간으로 설정하자.</p>
+<p>자료 분리는 함수 <code>window()</code>로 보통 진행하지만, 이렇게 자료의 개수로 분리하는 것이 더 편리한 경우에는 함수 <code>subset()</code>으로 진행 할 수 있다. 즉, 마지막 34일 자료를 test data로 분리해 보자.</p>
 <div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="지수평활법.html#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> train_hyn <span class="ot">&lt;-</span> <span class="fu">subset</span>(hyndsight, <span class="at">end =</span> <span class="fu">length</span>(hyndsight)<span class="sc">-</span><span class="dv">35</span>)</span>
 <span id="cb65-2"><a href="지수평활법.html#cb65-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> test_hyn <span class="ot">&lt;-</span> <span class="fu">subset</span>(hyndsight, <span class="at">start =</span> <span class="fu">length</span>(hyndsight)<span class="sc">-</span><span class="dv">34</span>)</span></code></pre></div>
 <p>ETS 모형을 적합해 보자. 추세는 없고, 오차와 계절 성분이 모두 가법 형태인 모형이 선택되었다.</p>
@@ -1185,9 +1149,8 @@ Training data는 1주 4일부터 48주 4일로 하고, test data는 48주 5일�
 <span id="cb67-8"><a href="지수평활법.html#cb67-8" aria-hidden="true" tabindex="-1"></a><span class="st">Test set     0.3712518 0.5878683</span></span></code></pre></div>
 <p>예측 결과 그래프로 작성해 보자.</p>
 <div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="지수평활법.html#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">autoplot</span>(fc_hyn, <span class="at">include =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
-<span id="cb68-2"><a href="지수평활법.html#cb68-2" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">autolayer</span>(test_hyn, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb68-3"><a href="지수평활법.html#cb68-3" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
-<span id="cb68-4"><a href="지수평활법.html#cb68-4" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
+<span id="cb68-2"><a href="지수평활법.html#cb68-2" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">autolayer</span>(test_hyn, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb68-3"><a href="지수평활법.html#cb68-3" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="cn">NULL</span>) </span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:hyn-fore"></span>
 <img src="_main_files/figure-html/hyn-fore-1.png" alt="`hynsight` 자료에 대한 예측 결과" width="576" />
 <p class="caption">
@@ -1197,13 +1160,19 @@ Figure 3.19: <code>hynsight</code> 자료에 대한 예측 결과
 
 </div>
 </div>
+<h3>참고 문헌</h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-hyndman2018" class="csl-entry">
+Hyndman, Rob J, and George Athanasopoulos. 2018. <em>Forecasting: Priciples and Practice</em>. 2nd ed. OTexts. <a href="http://OTexts.com/fpp2/">http://OTexts.com/fpp2/</a>.
+</div>
+</div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="시계열-분해.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="chapter-decomposition.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="arima-모형.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

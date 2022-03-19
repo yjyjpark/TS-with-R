@@ -24,7 +24,7 @@
 <meta name="author" content="박동련" />
 
 
-<meta name="date" content="2022-02-26" />
+<meta name="date" content="2022-03-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="index.html"/>
-<link rel="next" href="시계열-분해.html"/>
+<link rel="next" href="chapter-decomposition.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -120,6 +120,28 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
 
 </head>
 
@@ -148,15 +170,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.2.3" data-path="chapter-ts-plot.html"><a href="chapter-ts-plot.html#section-seasonal-plot"><i class="fa fa-check"></i><b>1.2.3</b> Seasonal 그래프</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="시계열-분해.html"><a href="시계열-분해.html"><i class="fa fa-check"></i><b>2</b> 시계열 분해</a>
+<li class="chapter" data-level="2" data-path="chapter-decomposition.html"><a href="chapter-decomposition.html"><i class="fa fa-check"></i><b>2</b> 시계열 분해</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="시계열-분해.html"><a href="시계열-분해.html#시계열-분해-모형"><i class="fa fa-check"></i><b>2.1</b> 시계열 분해 모형</a></li>
-<li class="chapter" data-level="2.2" data-path="시계열-분해.html"><a href="시계열-분해.html#전통적-시계열-분해-기법"><i class="fa fa-check"></i><b>2.2</b> 전통적 시계열 분해 기법</a>
+<li class="chapter" data-level="2.1" data-path="chapter-decomposition.html"><a href="chapter-decomposition.html#시계열-분해-모형"><i class="fa fa-check"></i><b>2.1</b> 시계열 분해 모형</a></li>
+<li class="chapter" data-level="2.2" data-path="chapter-decomposition.html"><a href="chapter-decomposition.html#전통적-시계열-분해-기법"><i class="fa fa-check"></i><b>2.2</b> 전통적 시계열 분해 기법</a>
 <ul>
-<li class="chapter" data-level="2.2.1" data-path="시계열-분해.html"><a href="시계열-분해.html#이동-평균법"><i class="fa fa-check"></i><b>2.2.1</b> 이동 평균법</a></li>
-<li class="chapter" data-level="2.2.2" data-path="시계열-분해.html"><a href="시계열-분해.html#전통적-분해-기법"><i class="fa fa-check"></i><b>2.2.2</b> 전통적 분해 기법</a></li>
+<li class="chapter" data-level="2.2.1" data-path="chapter-decomposition.html"><a href="chapter-decomposition.html#이동-평균법"><i class="fa fa-check"></i><b>2.2.1</b> 이동 평균법</a></li>
+<li class="chapter" data-level="2.2.2" data-path="chapter-decomposition.html"><a href="chapter-decomposition.html#전통적-분해-기법"><i class="fa fa-check"></i><b>2.2.2</b> 전통적 분해 기법</a></li>
 </ul></li>
-<li class="chapter" data-level="2.3" data-path="시계열-분해.html"><a href="시계열-분해.html#stl-분해-기법"><i class="fa fa-check"></i><b>2.3</b> STL 분해 기법</a></li>
+<li class="chapter" data-level="2.3" data-path="chapter-decomposition.html"><a href="chapter-decomposition.html#stl-분해-기법"><i class="fa fa-check"></i><b>2.3</b> STL 분해 기법</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="지수평활법.html"><a href="지수평활법.html"><i class="fa fa-check"></i><b>3</b> 지수평활법</a>
 <ul>
@@ -180,6 +202,33 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="3.5" data-path="지수평활법.html"><a href="지수평활법.html#예제"><i class="fa fa-check"></i><b>3.5</b> 예제</a></li>
 </ul></li>
+<li class="chapter" data-level="4" data-path="arima-모형.html"><a href="arima-모형.html"><i class="fa fa-check"></i><b>4</b> ARIMA 모형</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="arima-모형.html"><a href="arima-모형.html#시계열자료의-정상성"><i class="fa fa-check"></i><b>4.1</b> 시계열자료의 정상성</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="arima-모형.html"><a href="arima-모형.html#정상-시계열자료"><i class="fa fa-check"></i><b>4.1.1</b> 정상 시계열자료</a></li>
+<li class="chapter" data-level="4.1.2" data-path="arima-모형.html"><a href="arima-모형.html#section-make-stationary"><i class="fa fa-check"></i><b>4.1.2</b> 비정상 시계열 자료의 정상화</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="arima-모형.html"><a href="arima-모형.html#정상-시계열-모형"><i class="fa fa-check"></i><b>4.2</b> 정상 시계열 모형</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="arima-모형.html"><a href="arima-모형.html#자기회귀모형-autoregressive-model-ar-model"><i class="fa fa-check"></i><b>4.2.1</b> 자기회귀모형 (Autoregressive model; AR model)</a></li>
+<li class="chapter" data-level="4.2.2" data-path="arima-모형.html"><a href="arima-모형.html#이동평균모형-moving-average-model-ma-model"><i class="fa fa-check"></i><b>4.2.2</b> 이동평균모형 (Moving average model; MA model)</a></li>
+<li class="chapter" data-level="4.2.3" data-path="arima-모형.html"><a href="arima-모형.html#자기회귀이동평균모형-autoregressive-moving-average-model-arma-model"><i class="fa fa-check"></i><b>4.2.3</b> 자기회귀이동평균모형 (Autoregressive moving average model; ARMA model)</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="arima-모형.html"><a href="arima-모형.html#section-nonseasonal-arima"><i class="fa fa-check"></i><b>4.3</b> 비계절형 ARIMA 모형</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="arima-모형.html"><a href="arima-모형.html#모형-식별"><i class="fa fa-check"></i><b>4.3.1</b> 모형 식별</a></li>
+<li class="chapter" data-level="4.3.2" data-path="arima-모형.html"><a href="arima-모형.html#모형-추정-및-진단"><i class="fa fa-check"></i><b>4.3.2</b> 모형 추정 및 진단</a></li>
+<li class="chapter" data-level="4.3.3" data-path="arima-모형.html"><a href="arima-모형.html#예측-1"><i class="fa fa-check"></i><b>4.3.3</b> 예측</a></li>
+<li class="chapter" data-level="4.3.4" data-path="arima-모형.html"><a href="arima-모형.html#실습-예제"><i class="fa fa-check"></i><b>4.3.4</b> 실습 예제</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="arima-모형.html"><a href="arima-모형.html#section-seasonal-arima"><i class="fa fa-check"></i><b>4.4</b> 계절형 ARIMA 모형</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="arima-모형.html"><a href="arima-모형.html#계절형-arima-모형-적합-절차"><i class="fa fa-check"></i><b>4.4.1</b> 계절형 ARIMA 모형 적합 절차</a></li>
+<li class="chapter" data-level="4.4.2" data-path="arima-모형.html"><a href="arima-모형.html#실습-예제-1"><i class="fa fa-check"></i><b>4.4.2</b> 실습 예제</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="참고-문헌.html"><a href="참고-문헌.html"><i class="fa fa-check"></i>참고 문헌</a></li>
 </ul>
 
       </nav>
@@ -551,7 +600,7 @@ Figure 1.12: 상자그림으로 나타낸 계절 변동 요소
         </div>
       </div>
 <a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="시계열-분해.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="chapter-decomposition.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

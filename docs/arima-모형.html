@@ -1,0 +1,1635 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>4 ARIMA 모형 | R에 의한 시계열분석</title>
+  <meta name="description" content="4 ARIMA 모형 | R에 의한 시계열분석" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="4 ARIMA 모형 | R에 의한 시계열분석" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  <meta name="github-repo" content="yjyjpark/TS-with-R" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="4 ARIMA 모형 | R에 의한 시계열분석" />
+  
+  
+  
+
+<meta name="author" content="박동련" />
+
+
+<meta name="date" content="2022-03-19" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="지수평활법.html"/>
+<link rel="next" href="참고-문헌.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>소개하기</a></li>
+<li class="chapter" data-level="1" data-path="chapter-ts-plot.html"><a href="chapter-ts-plot.html"><i class="fa fa-check"></i><b>1</b> 시계열 그래프</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="chapter-ts-plot.html"><a href="chapter-ts-plot.html#시계열-자료"><i class="fa fa-check"></i><b>1.1</b> 시계열 자료</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="chapter-ts-plot.html"><a href="chapter-ts-plot.html#종단-자료cross-sectional-data와의-비교"><i class="fa fa-check"></i><b>1.1.1</b> 종단 자료(cross-sectional data)와의 비교</a></li>
+<li class="chapter" data-level="1.1.2" data-path="chapter-ts-plot.html"><a href="chapter-ts-plot.html#시계열-예측"><i class="fa fa-check"></i><b>1.1.2</b> 시계열 예측</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="chapter-ts-plot.html"><a href="chapter-ts-plot.html#시계열-그래프-작성"><i class="fa fa-check"></i><b>1.2</b> 시계열 그래프 작성</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="chapter-ts-plot.html"><a href="chapter-ts-plot.html#ts-객체-생성"><i class="fa fa-check"></i><b>1.2.1</b> <code>ts</code> 객체 생성</a></li>
+<li class="chapter" data-level="1.2.2" data-path="chapter-ts-plot.html"><a href="chapter-ts-plot.html#section-ts-plot"><i class="fa fa-check"></i><b>1.2.2</b> 시계열 그래프 작성</a></li>
+<li class="chapter" data-level="1.2.3" data-path="chapter-ts-plot.html"><a href="chapter-ts-plot.html#section-seasonal-plot"><i class="fa fa-check"></i><b>1.2.3</b> Seasonal 그래프</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="chapter-decomposition.html"><a href="chapter-decomposition.html"><i class="fa fa-check"></i><b>2</b> 시계열 분해</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="chapter-decomposition.html"><a href="chapter-decomposition.html#시계열-분해-모형"><i class="fa fa-check"></i><b>2.1</b> 시계열 분해 모형</a></li>
+<li class="chapter" data-level="2.2" data-path="chapter-decomposition.html"><a href="chapter-decomposition.html#전통적-시계열-분해-기법"><i class="fa fa-check"></i><b>2.2</b> 전통적 시계열 분해 기법</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="chapter-decomposition.html"><a href="chapter-decomposition.html#이동-평균법"><i class="fa fa-check"></i><b>2.2.1</b> 이동 평균법</a></li>
+<li class="chapter" data-level="2.2.2" data-path="chapter-decomposition.html"><a href="chapter-decomposition.html#전통적-분해-기법"><i class="fa fa-check"></i><b>2.2.2</b> 전통적 분해 기법</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="chapter-decomposition.html"><a href="chapter-decomposition.html#stl-분해-기법"><i class="fa fa-check"></i><b>2.3</b> STL 분해 기법</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="지수평활법.html"><a href="지수평활법.html"><i class="fa fa-check"></i><b>3</b> 지수평활법</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="지수평활법.html"><a href="지수평활법.html#section-accuracy"><i class="fa fa-check"></i><b>3.1</b> 예측 모형의 평가</a></li>
+<li class="chapter" data-level="3.2" data-path="지수평활법.html"><a href="지수평활법.html#section-exponential"><i class="fa fa-check"></i><b>3.2</b> 전통적 지수평활법</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="지수평활법.html"><a href="지수평활법.html#simple-exponential-smoothing"><i class="fa fa-check"></i><b>3.2.1</b> Simple exponential smoothing</a></li>
+<li class="chapter" data-level="3.2.2" data-path="지수평활법.html"><a href="지수평활법.html#trend-method"><i class="fa fa-check"></i><b>3.2.2</b> Trend method</a></li>
+<li class="chapter" data-level="3.2.3" data-path="지수평활법.html"><a href="지수평활법.html#holt-winters-seasonal-method"><i class="fa fa-check"></i><b>3.2.3</b> Holt-Winters’ seasonal method</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="지수평활법.html"><a href="지수평활법.html#section-ets"><i class="fa fa-check"></i><b>3.3</b> ETS 모형</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="지수평활법.html"><a href="지수평활법.html#전통적-지수평활법의-확장"><i class="fa fa-check"></i><b>3.3.1</b> 전통적 지수평활법의 확장</a></li>
+<li class="chapter" data-level="3.3.2" data-path="지수평활법.html"><a href="지수평활법.html#모형-적합-및-최적-모형-선택"><i class="fa fa-check"></i><b>3.3.2</b> 모형 적합 및 최적 모형 선택</a></li>
+<li class="chapter" data-level="3.3.3" data-path="지수평활법.html"><a href="지수평활법.html#예측"><i class="fa fa-check"></i><b>3.3.3</b> 예측</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="지수평활법.html"><a href="지수평활법.html#모형의-가정-만족-여부-확인"><i class="fa fa-check"></i><b>3.4</b> 모형의 가정 만족 여부 확인</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="지수평활법.html"><a href="지수평활법.html#자기상관과-부분자기상관"><i class="fa fa-check"></i><b>3.4.1</b> 자기상관과 부분자기상관</a></li>
+<li class="chapter" data-level="3.4.2" data-path="지수평활법.html"><a href="지수평활법.html#독립성-검정"><i class="fa fa-check"></i><b>3.4.2</b> 독립성 검정</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="지수평활법.html"><a href="지수평활법.html#예제"><i class="fa fa-check"></i><b>3.5</b> 예제</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="arima-모형.html"><a href="arima-모형.html"><i class="fa fa-check"></i><b>4</b> ARIMA 모형</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="arima-모형.html"><a href="arima-모형.html#시계열자료의-정상성"><i class="fa fa-check"></i><b>4.1</b> 시계열자료의 정상성</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="arima-모형.html"><a href="arima-모형.html#정상-시계열자료"><i class="fa fa-check"></i><b>4.1.1</b> 정상 시계열자료</a></li>
+<li class="chapter" data-level="4.1.2" data-path="arima-모형.html"><a href="arima-모형.html#section-make-stationary"><i class="fa fa-check"></i><b>4.1.2</b> 비정상 시계열 자료의 정상화</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="arima-모형.html"><a href="arima-모형.html#정상-시계열-모형"><i class="fa fa-check"></i><b>4.2</b> 정상 시계열 모형</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="arima-모형.html"><a href="arima-모형.html#자기회귀모형-autoregressive-model-ar-model"><i class="fa fa-check"></i><b>4.2.1</b> 자기회귀모형 (Autoregressive model; AR model)</a></li>
+<li class="chapter" data-level="4.2.2" data-path="arima-모형.html"><a href="arima-모형.html#이동평균모형-moving-average-model-ma-model"><i class="fa fa-check"></i><b>4.2.2</b> 이동평균모형 (Moving average model; MA model)</a></li>
+<li class="chapter" data-level="4.2.3" data-path="arima-모형.html"><a href="arima-모형.html#자기회귀이동평균모형-autoregressive-moving-average-model-arma-model"><i class="fa fa-check"></i><b>4.2.3</b> 자기회귀이동평균모형 (Autoregressive moving average model; ARMA model)</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="arima-모형.html"><a href="arima-모형.html#section-nonseasonal-arima"><i class="fa fa-check"></i><b>4.3</b> 비계절형 ARIMA 모형</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="arima-모형.html"><a href="arima-모형.html#모형-식별"><i class="fa fa-check"></i><b>4.3.1</b> 모형 식별</a></li>
+<li class="chapter" data-level="4.3.2" data-path="arima-모형.html"><a href="arima-모형.html#모형-추정-및-진단"><i class="fa fa-check"></i><b>4.3.2</b> 모형 추정 및 진단</a></li>
+<li class="chapter" data-level="4.3.3" data-path="arima-모형.html"><a href="arima-모형.html#예측-1"><i class="fa fa-check"></i><b>4.3.3</b> 예측</a></li>
+<li class="chapter" data-level="4.3.4" data-path="arima-모형.html"><a href="arima-모형.html#실습-예제"><i class="fa fa-check"></i><b>4.3.4</b> 실습 예제</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="arima-모형.html"><a href="arima-모형.html#section-seasonal-arima"><i class="fa fa-check"></i><b>4.4</b> 계절형 ARIMA 모형</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="arima-모형.html"><a href="arima-모형.html#계절형-arima-모형-적합-절차"><i class="fa fa-check"></i><b>4.4.1</b> 계절형 ARIMA 모형 적합 절차</a></li>
+<li class="chapter" data-level="4.4.2" data-path="arima-모형.html"><a href="arima-모형.html#실습-예제-1"><i class="fa fa-check"></i><b>4.4.2</b> 실습 예제</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="참고-문헌.html"><a href="참고-문헌.html"><i class="fa fa-check"></i>참고 문헌</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R에 의한 시계열분석</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="arima-모형" class="section level1" number="4">
+<h1><span class="header-section-number">4</span> ARIMA 모형</h1>
+<p>ARIMA 모형은 ETS 모형과 더불어 가장 많이 사용되는 예측 모형이다.
+ETS 모형은 자료에 있는 추세와 계절성분의 형태를 추정하고, 이것을 근거로 예측을 실시하는 방법이다.
+이에 반하여 ARIMA 모형은 자료 사이에 존재하는 자기상관함수의 구조를 이용하여 자료의 변동을 설명하고 예측을 실시하는 방법이다.</p>
+<p>ARIMA 모형은 <code>정상성</code>을 만족하는 자료를 대상으로 적용되는 모형이다.
+정상성을 만족하지 않는 자료는 변환 과정을 거쳐서 정상성을 만족시킨 후 모형을 적합하게 된다.</p>
+<div id="시계열자료의-정상성" class="section level2" number="4.1">
+<h2><span class="header-section-number">4.1</span> 시계열자료의 정상성</h2>
+<p>정상 시계열자료의 특징은 먼저 장기적으로 예측할 뚜렷한 패턴이 없는 것으로 보인다는 것이다.
+또한 자료의 진폭도 일정한 것으로 보인다는 것인데,
+이것은 자료의 특성이 관측된 시점과 관계 없이 일정하다는 것이다.
+따라서 추세 또는 계절 변동이 있다면 정상 시계열자료가 아닌 것이다.
+Figure <a href="arima-모형.html#fig:stationary-1">4.1</a>는 정상 시계열자료의 시계열 그래프이다.</p>
+<div class="figure"><span style="display:block;" id="fig:stationary-1"></span>
+<img src="_main_files/figure-html/stationary-1-1.png" alt="정상 시계열자료의 시계열 그래프" width="576" />
+<p class="caption">
+Figure 4.1: 정상 시계열자료의 시계열 그래프
+</p>
+</div>
+<div id="정상-시계열자료" class="section level3" number="4.1.1">
+<h3><span class="header-section-number">4.1.1</span> 정상 시계열자료</h3>
+<ul>
+<li>정상 시계열자료의 조건</li>
+</ul>
+<p>시계열자료의 특성이 관측된 시점과 관계 없이 일정하다는 것은 시계열자료 <span class="math inline">\(\{ y_{t}, y_{t+1}, \ldots, y_{t+s}\}\)</span> 의 결합확률분포가 시점 <span class="math inline">\(t\)</span> 와 시차 <span class="math inline">\(s\)</span> 의 값에 관계 없이 항상 동일하다는 것으로 표현할 수 있는데, 이것을 ’강한 의미의 정상성 조건’이라고 한다.
+시계열자료의 결합 분포가 시간대가 변경되어도 항상 동일하다는 것이 정상성에 대한 정확한 표현이라고 하겠다.
+문제는 주어진 자료가 이 조건을 만족하고 있는지 확인하기 상당히 어렵다는 점이다.</p>
+<p>만족 여부의 확인이 어렵지 않도록 조건을 약화시켜서 ’약한 의미의 정상성 조건’이라고 불리기도 하지만, 일반적으로 통용되는 ’정상성 조건’은 다음과 같다.</p>
+<p>시계열자료 <span class="math inline">\(y_{t}\)</span> 가 정상 시계열자료가 되기 위해서는 다음의 세 가지 조건을 모두 만족시켜야 한다.</p>
+<ol style="list-style-type: decimal">
+<li><p><span class="math inline">\(E(y_{t}) = \mu\)</span> : 시계열자료의 평균이 시점 <span class="math inline">\(t\)</span> 와 관계 없이 일정</p></li>
+<li><p><span class="math inline">\(Var(y_{t}) = \sigma^{2}\)</span> : 시계열자료의 분산이 시점 <span class="math inline">\(t\)</span> 와 관계 없이 일정</p></li>
+<li><p><span class="math inline">\(Cov(y_{t}, t_{t-k}) = \gamma_{k}\)</span> : 시계열자료의 자기공분산이 시점 <span class="math inline">\(t\)</span> 가 아닌 시차 <span class="math inline">\(k\)</span> 에만 의존</p></li>
+</ol>
+<ul>
+<li>정상성 만족 여부 확인 방법</li>
+</ul>
+<p>평균이 일정하기 위해서는 추세와 계절 변동이 없어야 하며, 분산이 일정하기 위해서는 자료의 진폭이 일정해야 한다.
+따라서 평균과 분산이 일정한지 여부는 시계열 그래프로 확인을 할 수 있을 것이다.
+그러나 자기공분산 또는 자기상관이 시차에만 의존한다는 것은 시계열 그래프로는 확인할 수 없는 내용이다.
+주어진 시계열자료의 정상성 만족 여부를 확인하기 위해 일반적으로 사용되는 방법은 다음과 같다.</p>
+<ol style="list-style-type: decimal">
+<li>시계열 그래프</li>
+</ol>
+<p>특별한 추세 및 계절 변동 요소가 없으며 일정한 폭을 갖고 있는 불규칙 변동인지 확인한다.</p>
+<ol start="2" style="list-style-type: decimal">
+<li>표본 ACF 그래프</li>
+</ol>
+<p>시차 <span class="math inline">\(k\)</span> 값이 증가함에 따라 <span class="math inline">\(r_{k}\)</span> 값이 빠르게 0으로 수렴하는지 여부를 확인한다.</p>
+<ol start="3" style="list-style-type: decimal">
+<li>단위근 검정</li>
+</ol>
+<p>정상성 만족 여부를 확인하기 위한 검정으로써,
+특성함수의 근 중에 1이 포함되어 있다는 ‘비정상성’ 가설을 검정한다.
+특성함수에 대한 설명은 <span class="citation">조신섭 (<a href="#ref-cho2015" role="doc-biblioref">2015</a>)</span> 에서 찾아 볼 수 있다.
+단위근 검정에는 다수의 검정방법이 있으며,
+그 중 하나인 KPSS 단위근 검정은 귀무가설이 정상성 만족인 검정으로써 함수 <code>urca::ur.kpss()</code>로 진행할 수 있다.</p>
+<p>정상성 만족 여부를 확인하기 위해서는 시계열 그래프와 표본 ACF, 그리고 단위근 검정 결과를 함께 고려해야 한다.
+3가지 방법이 항상 같은 결과를 보이는 것은 아니기 때문에 주어진 상황에 따라 적절한 판단을 해야할 것이다.</p>
+<ul>
+<li>정상 시계열자료의 예 : 백색잡음 (White noise)</li>
+</ul>
+<p>백색잡음은 대표적인 정상 시계열 모형이다.
+확률 변수 <span class="math inline">\(\epsilon_{t}\)</span> 를 서로 독립이고, 평균이 0, 분산이 <span class="math inline">\(\sigma^{2}\)</span> 라고 할 때, <span class="math inline">\(y_{t} = \epsilon_{t}\)</span>, <span class="math inline">\(t=1,2,\ldots\)</span> 라고 두면, <span class="math inline">\(y_{t}\)</span>는 백색잡음이라고 불리는 정상 시계열자료가 된다.</p>
+<p>백색잡음에 해당하는 모의자료를 생성해서 함수 <code>ggtsdisplay()</code>로 시계열 그래프와 ACF, PACF를 작성한 것이 Figure <a href="arima-모형.html#fig:wn-1">4.2</a>에 있다.</p>
+<div class="figure"><span style="display:block;" id="fig:wn-1"></span>
+<img src="_main_files/figure-html/wn-1-1.png" alt="정상 시계열 그래프 예: 백색잡음" width="576" />
+<p class="caption">
+Figure 4.2: 정상 시계열 그래프 예: 백색잡음
+</p>
+</div>
+</div>
+<div id="section-make-stationary" class="section level3" number="4.1.2">
+<h3><span class="header-section-number">4.1.2</span> 비정상 시계열 자료의 정상화</h3>
+<p>ARIMA 모형은 정상성을 만족하는 시계열자료만을 대상으로 적용할 수 있기 때문에, 비정상 시계열자료에 대해서는 비정상성 요소를 제거할 수 있는 변환 과정이 필요하다.
+정상화 방법에 대해서는 분산이 일정하지 않은 경우와 level이 일정하지 않은 경우로 구분해서 살펴볼 수 있다.
+만일 두 가지 비정상 요소가 모두 있는 경우에는 분산 안정화 변환을 먼저 실행해야 한다.</p>
+<div id="분산이-일정하지-않은-경우" class="section level4" number="4.1.2.1">
+<h4><span class="header-section-number">4.1.2.1</span> 분산이 일정하지 않은 경우</h4>
+<ul>
+<li>Box-Cox 변환</li>
+</ul>
+<p>자료의 변동 폭이 level에 따라 달라지는 경우가 있다.
+예를 들어, 자료에 추세 성분이 있으며, 그 추세가 증가함에 따라 변동 폭이 함께 증가하는 경우가 많이 있다.
+이런 경우에는 자료 <span class="math inline">\(y_{t}\)</span> 를 로그 변환시키면 <span class="math inline">\(w_{t} = \log(y_{t})\)</span>, 변환된 자료 <span class="math inline">\(w_{t}\)</span> 의 변동 폭이 일정해지는 효과를 보는 경우가 있다.
+로그 변환을 시키면 숫자가 작아지게 되는데, 원자료의 크기가 클수록 줄어드는 정도가 더 커지는 효과가 있으며, 이러한 효과로 자료의 변동 폭을 일정하게 만들 수 있다.
+또한 로그 변환은 <a href="chapter-decomposition.html#chapter-decomposition">2</a>장에서 승법 모형을 가법 모형으로 변환시킬 때 사용했던 변환 방법으로써, 변환의 의미를 해석할 수 있다는 장점이 있다.</p>
+<p>다른 방법으로 <span class="math inline">\(w_{t} = y_{t}^{p}\)</span> 형태의 변환인 거듭제곱 변환을 생각해 볼 수 있다.
+<span class="math inline">\(p=1/2\)</span> 라 두면 제곱근 변환이 되는데, 로그 변환과 비슷한 효과를 볼 수 있는 변환이다.
+로그 변환보다는 원자료의 축소 정도가 작은 변환이어서 변동 폭이 커지는 정도가 상대적으로 작은 경우에 적합한 변환이다.</p>
+<p>Figure <a href="arima-모형.html#fig:log-sqrt">4.3</a>에서 로그 변환과 제곱근 변환의 효과를 볼 수 있다.
+X축은 원자료 값이고 Y축은 변환된 자료의 값을 나타낸다.
+로그 변환과 제곱근 변환된 자료는 원자료의 값이 증가함에 따라 원자료와 차이가 증가하는 것을 볼 수 있으며,
+그 차이는 로그 변환의 경우가 더 크다는 것을 볼 수 있다.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:log-sqrt"></span>
+<img src="_main_files/figure-html/log-sqrt-1.png" alt="로그 변환과 제곱근 변환의 효과" width="384" />
+<p class="caption">
+Figure 4.3: 로그 변환과 제곱근 변환의 효과
+</p>
+</div>
+<p>로그 변환과 제곱근 변환을 포함한 변환 방법으로 Box-Cox 변환이 있다.
+이 변환은 변환 모수 <span class="math inline">\(\lambda\)</span> 값에 따라 다음과 같이 정의된다.</p>
+<span class="math display">\[\begin{equation}
+w_{t} =
+\begin{cases}
+\log(y_{t}) &amp; \quad \text{if } \lambda = 0 \\
+(y_{t}^{\lambda}-1)/\lambda &amp; \quad \text{otherwise}
+\end{cases}
+\end{equation}\]</span>
+<p>Box-Cox 변환은 모든 자료가 양수인 경우에만 적용이 가능한 방법이며, 변환 모수 <span class="math inline">\(\lambda\)</span> 는 최적화 조건에 의해 적정 값을 추정해서 사용하게 된다.</p>
+<p>변환을 실행하면, 변환된 자료인 <span class="math inline">\(w_{t}\)</span>를 사용하여 모형을 적합하고 예측하게 되는데, 이렇게 예측된 결과는 <span class="math inline">\(y_{t}\)</span> 단위로 역변환을 하게 된다.
+예컨대, <span class="math inline">\(w_{t}=\log(y_{t})\)</span> 라면,
+로그 변환된 자료를 사용한 모형의 예측 결과인 <span class="math inline">\(\hat{w}_{T+h}\)</span> 에 역 변환인 지수 변환을 적용한 <span class="math inline">\(\exp(\hat{w}_{T+h})\)</span> 를 최종 예측 결과인 <span class="math inline">\(\hat{y}_{T+h}\)</span> 으로 사용한다는 것이다.
+Box-Cox 변환의 효과는 예측값인 <span class="math inline">\(\hat{y}_{T+h}\)</span> 보다는 예측구간에 더 큰 영향을 주게 된다.</p>
+<ul>
+<li>예제: 호주의 1956년 1월부터 1995년 8월까지 월별 전기 생산량 자료 (<code>fma::elec</code>)</li>
+</ul>
+<p>분산 안정화 변환이 필요한 자료의 예로써 1956년 1월부터 1995년 8월까지 호주의 월별 전기 생산량 자료인 <code>fma::elec</code>을 살펴보자.
+시계열 그래프는 Figure <a href="arima-모형.html#fig:elec-1">4.4</a>에서 볼 수 있다.</p>
+<div class="figure"><span style="display:block;" id="fig:elec-1"></span>
+<img src="_main_files/figure-html/elec-1-1.png" alt="`elec` 자료의 시계열 그래프" width="576" />
+<p class="caption">
+Figure 4.4: <code>elec</code> 자료의 시계열 그래프
+</p>
+</div>
+<p>증가하는 추세가 있으며, 명확한 계절 성분이 있는 자료임을 알 수 있다.
+또한 계절 성분의 변동 폭이 추세가 증가함에 따라 함께 증가하는 현상도 볼 수 있다.</p>
+<p>Box-Cox 변환을 위한 함수에는 <code>forecast::BoxCox.lambda()</code>와 <code>forecast::BoxCox()</code>가 있다.
+함수 <code>BoxCox.lambda()</code>는 변환 모수 <span class="math inline">\(\lambda\)</span> 의 적정 값을 추정하는 기능이 있고, 함수 <code>BoxCox()</code>는 입력된 <span class="math inline">\(\lambda\)</span> 값으로 변환을 실시하는 기능이 있다.</p>
+<p>이제 <code>elec</code> 자료에 대해 Box-Cox 변화을 실시해 보자.</p>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="arima-모형.html#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> (lambda <span class="ot">&lt;-</span> <span class="fu">BoxCox.lambda</span>(elec))</span>
+<span id="cb69-2"><a href="arima-모형.html#cb69-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.2654076</span></span>
+<span id="cb69-3"><a href="arima-모형.html#cb69-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">autoplot</span>(<span class="fu">BoxCox</span>(elec, lambda)) <span class="sc">+</span> </span>
+<span id="cb69-4"><a href="arima-모형.html#cb69-4" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="cn">NULL</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:elec-2"></span>
+<img src="_main_files/figure-html/elec-2-1.png" alt="`elec` 자료에 Box-Cox 변환 실시" width="576" />
+<p class="caption">
+Figure 4.5: <code>elec</code> 자료에 Box-Cox 변환 실시
+</p>
+</div>
+<p>Figure <a href="arima-모형.html#fig:elec-2">4.5</a>에서 볼 수 있듯이 Box-Cox 변환된 자료는 전체적으로 일정한 변동 폭을 유지하고 있음을 알 수 있다.
+그러나 변환된 자료인 <span class="math inline">\(y_{t}^{0.2654}\)</span> 에 대한 의미가 명확하지 않아서 해석에 문제가 있을 수 있다.
+비교 차원에서 로그 변환을 실시해 보고, 결과를 비교해 보자.</p>
+<div class="figure"><span style="display:block;" id="fig:elec-3"></span>
+<img src="_main_files/figure-html/elec-3-1.png" alt="`elec` 자료에 대한 분산안정화 변환의 비교" width="768" />
+<p class="caption">
+Figure 4.6: <code>elec</code> 자료에 대한 분산안정화 변환의 비교
+</p>
+</div>
+<p>두 변환 결과에는 큰 차이가 없다는 것을 Figure <a href="arima-모형.html#fig:elec-3">4.6</a>에서 확인 할 수 있다.
+따라서 이 경우에는 승법 모형을 가법 모형으로 변환한다는 의미를 갖고 있어서 해석이 비교적 용이한 로그 변환을 사용하는 것이 더 좋을 것으로 보인다.</p>
+</div>
+<div id="자료의-level이-일정하지-않은-경우" class="section level4" number="4.1.2.2">
+<h4><span class="header-section-number">4.1.2.2</span> 자료의 level이 일정하지 않은 경우</h4>
+<p>자료의 level이 일정하지 않다는 것은 추세 성분과 계절 성분이 있다는 것을 의미한다.
+이런 경우에는 차분을 실시하여 비정상 요소를 제거하게 된다.</p>
+<ul>
+<li>차분</li>
+</ul>
+<p>차분이란 연속된 자료의 차이를 의미하는 것으로써 다음과 같이 정의된다.</p>
+<p><span class="math display">\[
+\nabla y_{t} = y_{t} - y_{t-1}
+\]</span> 차분을 실시하면 선형 추세를 제거할 수 있다.
+만일 <span class="math inline">\(y_{t} = a + bt\)</span> 라면, <span class="math inline">\(\nabla y_{t} = (a + bt) - (a + b(t-1)) = b\)</span> 가 되어 추세가 제거된 자료가 생성된다.
+원자료의 개수가 <span class="math inline">\(T\)</span> 개라면, 차분된 자료의 개수는 첫 번째 자료가 누락되어서 <span class="math inline">\(T-1\)</span> 개가 된다.</p>
+<p>차분을 실시해야 하는 경우에는 일반적으로 표본 ACF에서 <span class="math inline">\(r_{1}\)</span> 이 큰 값을 갖고 있으며, <span class="math inline">\(r_{k}\)</span> 가 매우 천천히 감소하는 모습을 볼 수 있다.</p>
+<p>차분된 자료에 여전히 추세 성분이 남아 있는 경우가 있을 수 있다.
+이런 현상은 추세 성분이 2차 곡선의 형태를 갖는 경우에 발생할 수 있다.
+이런 경우에는 차분된 자료에 두 번째 차분을 실시하면 남아 있는 추세 성분을 제거할 수 있다.</p>
+<span class="math display">\[\begin{align*}
+\nabla^{2} y_{t} &amp;= \nabla y_{t} - \nabla y_{t-1} \\
+                 &amp;= (y_{t}-y_{t-1})-(y_{t-1}-y_{t-2}) \\
+                 &amp;= y_{t} - 2y_{t-1} + y_{t-2}
+\end{align*}\]</span>
+<p>2차 차분을 실시하면 처음 두 자료가 누락되어 자료의 개수는 <span class="math inline">\(T-2\)</span> 개가 된다.</p>
+<ul>
+<li>계절 차분</li>
+</ul>
+<p>주기가 <span class="math inline">\(m\)</span> 인 계절 성분이 존재하면, <span class="math inline">\(m\)</span> 시차 떨어진 자료들 사이에 강한 상관 관계가 존재하게 된다.
+따라서 이러한 계절 성분을 제거하기 위해서는 <span class="math inline">\(m\)</span> 시차 떨어진 자료들 사이의 차이를 계산하는 계절 차분을 실시해야 한다.</p>
+<p><span class="math display">\[
+\nabla_{m} ~y_{t} = y_{t} - y_{t-m}
+\]</span> 예를 들어 <span class="math inline">\(m=12\)</span> 인 자료의 경우에, 계절 차분이란 연속된 두 연도의 월별 자료 차이를 의미하는 것이다.
+계절 차분된 자료는 처음 <span class="math inline">\(m\)</span> 개의 자료가 누락되어 자료 개수는 <span class="math inline">\(T-m\)</span> 개가 된다.</p>
+<p>계절 성분이 강하게 존재하게 되면, 계절 주기 <span class="math inline">\(m\)</span>의 배수인 <span class="math inline">\(m, 2m, \ldots\)</span> 에서 표본 ACF <span class="math inline">\(r_{k}\)</span> 가 천천히 감소하는 형태를 보이게 된다.</p>
+<p>강한 추세와 계절 성분이 모두 존재하는 경우에는 차분과 계절 차분을 모두 실시해야 비정상 요소를 제거할 수 있게 된다.</p>
+<p><span class="math display">\[
+\nabla \nabla_{m} ~y_{t} = (y_{t}-y_{t-m})-(y_{t-1}-y_{t-m-1})
+\]</span></p>
+<p>이 때 계절 차분과 차분 중 어떤 것을 먼저 실시하든지 결과는 동일하다.
+그러나 강한 계절 성분이 있는 경우 계절 차분을 먼저 실시하면 추세가 함께 제거되는 경우도 있다.</p>
+<ul>
+<li>후진작용소</li>
+</ul>
+<p>후진작용소 <span class="math inline">\(B\)</span> 는 시차를 사용해야 하는 경우에 매우 유용하게 사용되는 기호이며, 다음과 같이 정의된다.
+<span class="math display">\[
+By_{t} = y_{t-1}
+\]</span> 즉, <span class="math inline">\(B\)</span> 가 <span class="math inline">\(y_{t}\)</span> 에 적용되면 시점을 하나 뒤로 옮기는 역할을 한다.
+두 시점 뒤로 옮기는 작업은 후진 작용소를 두 번 적용시키면 된다.</p>
+<p><span class="math display">\[
+B(By_{t})=B^{2}y_{t}=y_{t-2}
+\]</span> 월별 자료의 경우에 이전 연도의 동일한 월 시점으로 옮기는 것은 <span class="math inline">\(B^{12}y_{t}=y_{t-12}\)</span> 로 나타낼 수 있다.
+또한 차분을 후진작용소를 이용해서 표현할 수 있는데, 1차 차분은</p>
+<p><span class="math display">\[
+\nabla y_{t} = y_{t} - y_{t-1} = y_{t} - By_{t} = (1-B)y_{t}
+\]</span> 가 되고, 2차 차분은</p>
+<p><span class="math display">\[
+\nabla^{2} y_{t} = (1-B)^{2} y_{t}
+\]</span> 가 되며, 계절 차분은</p>
+<p><span class="math display">\[
+\nabla_{m} ~y_{t} = y_{t} - y_{t-m} = y_{t} - B^{m}y_{t} = (1-B^{m})y_{t}
+\]</span></p>
+<p>가 된다.</p>
+<ul>
+<li>비정상 시계열자료의 예</li>
+</ul>
+<p>대표적인 비정상 시계열 모형으로 확률보행 (Random walk) 모형이 있다.
+확률보행 모형은 절편이 있는 모형과 절편이 없는 모형으로 구분할 수 있으며, 절편이 없는 확률보행 모형은 다음과 같이 정의된다.</p>
+<p><span class="math display">\[
+y_{t} = y_{t-1} + \epsilon_{t}
+\]</span> 단, <span class="math inline">\(\epsilon_{t}\)</span> 는 백색잡음이다.
+따라서 절편이 없는 확률보행 자료에 차분을 실시하면 백색잡음이 된다.</p>
+<p>또한 절편이 있는 확률보행 모형은 다음과 같다.</p>
+<p><span class="math display">\[
+y_{t} = \delta + y_{t-1} + \epsilon_{t}
+\]</span> 확률보행 자료의 일반적인 시계열 그래프 형태는 일정 기간 동안 상승하거나 하강하는 추세를 보이지만, 갑작스런 추세 방향의 전환이 발생할 수 있다.
+절편이 있는 확률보행의 경우에는 절편의 크기가 충분히 큰 경우에는 계속적인 상승 혹은 하강하는 추세를 보일 수 있다.
+확률보행 자료의 경우에는 효과적인 예측 방법이 존재하지 않는다.
+자료를 차분하면 순수 random 요소만 남기 때문인데, 따라서 naive forecast <span class="math inline">\((\hat{y}_{t+1}=y_{t})\)</span> 가 유일하게 사용할 수 있는 예측 방법이 된다.</p>
+<p>확률보행 모형에서 모의 자료를 발생시켜 시계열 그래프와 표본 ACF를 작성해 보자.
+먼저 Figure <a href="arima-모형.html#fig:rw-1">4.7</a>는 절편이 없는 확률보행 자료의 경우이다.
+감소하다 갑자기 증가하는 추세가 있으며, 표본 ACF가 매우 천천히 감소하는 것을 볼 수 있다.</p>
+<div class="figure"><span style="display:block;" id="fig:rw-1"></span>
+<img src="_main_files/figure-html/rw-1-1.png" alt="절편이 없는 확률보행 자료 예" width="768" />
+<p class="caption">
+Figure 4.7: 절편이 없는 확률보행 자료 예
+</p>
+</div>
+<p>다음에 Figure <a href="arima-모형.html#fig:rw-2">4.8</a>는 절편이 있는 확률보행 자료의 경우이다.
+절편이 양수인 경우이며, 백색잡음의 변동 폭에 비해 충분히 큰 값을 지정했다.
+계속적인 증가 추세가 있으며 표본 ACF는 매우 천천히 감소하는 것을 볼 수 있다.</p>
+<div class="figure"><span style="display:block;" id="fig:rw-2"></span>
+<img src="_main_files/figure-html/rw-2-1.png" alt="절편이 있는 확률보행 자료 예" width="768" />
+<p class="caption">
+Figure 4.8: 절편이 있는 확률보행 자료 예
+</p>
+</div>
+<ul>
+<li>예제 : Google 주가 자료 (<code>fpp2::goog200</code>)</li>
+</ul>
+<p>Google 주가 자료인 <code>goog200</code>의 시계열 그래프와 표본 ACF를 작성해 보자.
+대체적으로 증가하는 추세가 있으며, 표본 ACF가 매우 천천히 감소하고 있다.</p>
+<div class="figure"><span style="display:block;" id="fig:goog200-1"></span>
+<img src="_main_files/figure-html/goog200-1-1.png" alt="`goog200` 자료의 시계열 그래프와 ACF" width="768" />
+<p class="caption">
+Figure 4.9: <code>goog200</code> 자료의 시계열 그래프와 ACF
+</p>
+</div>
+<p>차분을 실시하기 위해 사용할 함수는 <code>diff()</code>이다.
+사용법은 <code>diff(x, lag = 1, differences = 1)</code>이며, <code>x</code>는 차분하려는 자료이고, <code>lag</code>에는 차분 시차를 지정하는데, 디폴트는 1차 차분이고 계절 차분을 원한다면 계절 주기를 입력하면 된다.
+또한 <code>differences</code>는 차분 차수를 지정하는 것으로써, 만일 <code>lag = 1</code>이고 <code>differences = 2</code>가 되면 2차 차분 <span class="math inline">\((1-B)^{2}y_{t}\)</span> 가 계산된다.</p>
+<p>이제 <code>goog200</code> 자료를 1차 차분하고 결과를 확인해 보자.</p>
+<div class="figure"><span style="display:block;" id="fig:goog200-2"></span>
+<img src="_main_files/figure-html/goog200-2-1.png" alt="`goog200`의 1차 차분된 자료의 시계열 그래프와 ACF" width="768" />
+<p class="caption">
+Figure 4.10: <code>goog200</code>의 1차 차분된 자료의 시계열 그래프와 ACF
+</p>
+</div>
+<p>차분된 자료는 하나의 이상값을 제외하면 일정한 level을 유지하고 있으며, 표본 ACF의 모든 값들이 신뢰구간 안에 존재하고 있음을 알 수 있다.
+따라서 차분된 자료는 백색잡음 자료로 보이며, 이것은 원자료가 확률보행 자료임을 나타내는 것이 된다.</p>
+<p><code>goog200</code> 자료를 대상으로 단위근 검정을 실시해 보자.
+단위근 검정은 <code>urca::ur.kpss()</code>로 실시할 수 있지만, 함수 <code>forecast::ndiffs()</code>를 사용하면 정상성을 만족시키기 위한 차분의 횟수를 단위근 검정에 근거를 두고 추정해 준다.</p>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="arima-모형.html#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">ndiffs</span>(goog200)</span>
+<span id="cb70-2"><a href="arima-모형.html#cb70-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1</span></span></code></pre></div>
+<p>즉, 1차 차분을 실시하면 정상성을 만족시킬 수 있다고 제안하는 것이다.
+물론 <code>urca::ur.kpss()</code>로 단위근 검정을 실시해서 주어진 자료의 정상성 여부를 확인할 수 있다.</p>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="arima-모형.html#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">library</span>(urca)</span>
+<span id="cb71-2"><a href="arima-모형.html#cb71-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">library</span>(tidyverse)</span>
+<span id="cb71-3"><a href="arima-모형.html#cb71-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> goog200 <span class="sc">%&gt;%</span> </span>
+<span id="cb71-4"><a href="arima-모형.html#cb71-4" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">ur.kpss</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb71-5"><a href="arima-모형.html#cb71-5" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">summary</span>()</span>
+<span id="cb71-6"><a href="arima-모형.html#cb71-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb71-7"><a href="arima-모형.html#cb71-7" aria-hidden="true" tabindex="-1"></a><span class="do">####################### </span></span>
+<span id="cb71-8"><a href="arima-모형.html#cb71-8" aria-hidden="true" tabindex="-1"></a><span class="co"># KPSS Unit Root Test # </span></span>
+<span id="cb71-9"><a href="arima-모형.html#cb71-9" aria-hidden="true" tabindex="-1"></a><span class="do">####################### </span></span>
+<span id="cb71-10"><a href="arima-모형.html#cb71-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb71-11"><a href="arima-모형.html#cb71-11" aria-hidden="true" tabindex="-1"></a>Test is of type<span class="sc">:</span> mu with <span class="dv">4</span> lags. </span>
+<span id="cb71-12"><a href="arima-모형.html#cb71-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb71-13"><a href="arima-모형.html#cb71-13" aria-hidden="true" tabindex="-1"></a>Value of test<span class="sc">-</span>statistic is<span class="sc">:</span> <span class="fl">2.7441</span> </span>
+<span id="cb71-14"><a href="arima-모형.html#cb71-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb71-15"><a href="arima-모형.html#cb71-15" aria-hidden="true" tabindex="-1"></a>Critical value <span class="cf">for</span> a significance level of<span class="sc">:</span> </span>
+<span id="cb71-16"><a href="arima-모형.html#cb71-16" aria-hidden="true" tabindex="-1"></a>                10pct  5pct <span class="fl">2.5</span>pct  1pct</span>
+<span id="cb71-17"><a href="arima-모형.html#cb71-17" aria-hidden="true" tabindex="-1"></a>critical values <span class="fl">0.347</span> <span class="fl">0.463</span>  <span class="fl">0.574</span> <span class="fl">0.739</span></span></code></pre></div>
+<p>계산된 검정 통계량 값이 1% 유의수준의 임계값보다 크기 때문에 정상이라는 귀무가설을 기각할 수 있다.
+1차 차분을 실시한 자료를 대상으로 단위근 검정을 실시해 보면, 귀무가설을 기각할 수 없기 때문에 1차 차분으로 정상성을 확보했다고 볼 수 있다.</p>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="arima-모형.html#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> goog200 <span class="sc">%&gt;%</span> </span>
+<span id="cb72-2"><a href="arima-모형.html#cb72-2" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">diff</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb72-3"><a href="arima-모형.html#cb72-3" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">ur.kpss</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb72-4"><a href="arima-모형.html#cb72-4" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">summary</span>()</span>
+<span id="cb72-5"><a href="arima-모형.html#cb72-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-6"><a href="arima-모형.html#cb72-6" aria-hidden="true" tabindex="-1"></a><span class="do">####################### </span></span>
+<span id="cb72-7"><a href="arima-모형.html#cb72-7" aria-hidden="true" tabindex="-1"></a><span class="co"># KPSS Unit Root Test # </span></span>
+<span id="cb72-8"><a href="arima-모형.html#cb72-8" aria-hidden="true" tabindex="-1"></a><span class="do">####################### </span></span>
+<span id="cb72-9"><a href="arima-모형.html#cb72-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-10"><a href="arima-모형.html#cb72-10" aria-hidden="true" tabindex="-1"></a>Test is of type<span class="sc">:</span> mu with <span class="dv">4</span> lags. </span>
+<span id="cb72-11"><a href="arima-모형.html#cb72-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-12"><a href="arima-모형.html#cb72-12" aria-hidden="true" tabindex="-1"></a>Value of test<span class="sc">-</span>statistic is<span class="sc">:</span> <span class="fl">0.1163</span> </span>
+<span id="cb72-13"><a href="arima-모형.html#cb72-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-14"><a href="arima-모형.html#cb72-14" aria-hidden="true" tabindex="-1"></a>Critical value <span class="cf">for</span> a significance level of<span class="sc">:</span> </span>
+<span id="cb72-15"><a href="arima-모형.html#cb72-15" aria-hidden="true" tabindex="-1"></a>                10pct  5pct <span class="fl">2.5</span>pct  1pct</span>
+<span id="cb72-16"><a href="arima-모형.html#cb72-16" aria-hidden="true" tabindex="-1"></a>critical values <span class="fl">0.347</span> <span class="fl">0.463</span>  <span class="fl">0.574</span> <span class="fl">0.739</span></span></code></pre></div>
+<ul>
+<li>예제 : 호주의 1956년 1월부터 1995년 8월까지 월별 전기 생산량 자료 (<code>fma::elec</code>)</li>
+</ul>
+<p>Figure <a href="arima-모형.html#fig:elec-1">4.4</a>에서 살펴본 <code>elec</code>는 증가하는 추세와 뚜렷한 계절 성분이 있으며,
+분산이 시간이 흐름에 따라 증가하는 자료이다.
+정상성을 만족시키기 위한 변환 절차에서 분산 안정화는 항상 가장 먼저 시행해야 한다.
+로그 변환을 시행해서 분산을 안정화 시킨 자료의 시계열 그래프와 ACF를 작성해 보자.</p>
+<div class="figure"><span style="display:block;" id="fig:elec-d1"></span>
+<img src="_main_files/figure-html/elec-d1-1.png" alt="`elec`에 로그 변환한 자료의 시계열 그래프와 ACF" width="768" />
+<p class="caption">
+Figure 4.11: <code>elec</code>에 로그 변환한 자료의 시계열 그래프와 ACF
+</p>
+</div>
+<p>계절 성분을 제거하기 위해 계절 차분을 실시할 필요가 있는 것으로 보인다.
+계절 차분의 경우에는 함수 <code>forecast::nsdiffs()</code>를 사용하면 계절 단위근 검정을 근거로 하여 계절 차분 횟수를 추정할 수 있다.<br />
+함수 <code>nsdiffs()</code>는 seasonal strength를 측정하는 통계량을 근거로 하여 차분 횟수를 추정하는 것이 디폴트이다.</p>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="arima-모형.html#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> elec <span class="sc">%&gt;%</span> </span>
+<span id="cb73-2"><a href="arima-모형.html#cb73-2" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">log</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb73-3"><a href="arima-모형.html#cb73-3" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">nsdiffs</span>()</span>
+<span id="cb73-4"><a href="arima-모형.html#cb73-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1</span></span></code></pre></div>
+<p>계절 차분을 실시한 자료를 대상으로 시계열 그래프와 ACF를 작성해 보자.</p>
+<div class="figure"><span style="display:block;" id="fig:elec-d2"></span>
+<img src="_main_files/figure-html/elec-d2-1.png" alt="로그 변환된`elec`에 계절차분을 실시한 자료의 시계열 그래프와 ACF" width="768" />
+<p class="caption">
+Figure 4.12: 로그 변환된<code>elec</code>에 계절차분을 실시한 자료의 시계열 그래프와 ACF
+</p>
+</div>
+<p>Figure <a href="arima-모형.html#fig:elec-d2">4.12</a>에서 볼 수 있듯이 추세 성분이 아직 남아 있는 것으로 보인다.
+이제 계절 차분된 자료에 1차 차분을 더 실시해서 결과를 살펴보자.
+Figure <a href="arima-모형.html#fig:elec-d3">4.13</a>에 나타난 패턴을 보면, 비정상 요소가 모두 제거되었음을 알 수 있다.</p>
+<div class="figure"><span style="display:block;" id="fig:elec-d3"></span>
+<img src="_main_files/figure-html/elec-d3-1.png" alt="로그 변환된`elec`에 계절차분과 1차 차분을 실시한 자료의 시계열 그래프와 ACF" width="768" />
+<p class="caption">
+Figure 4.13: 로그 변환된<code>elec</code>에 계절차분과 1차 차분을 실시한 자료의 시계열 그래프와 ACF
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="정상-시계열-모형" class="section level2" number="4.2">
+<h2><span class="header-section-number">4.2</span> 정상 시계열 모형</h2>
+<p>ARIMA 모형을 구성하고 있는 정상 시계열 자료를 위한 세 가지 모형은 다음과 같다.</p>
+<ul>
+<li><p>자기회귀 (Autoregressive; AR) 모형</p></li>
+<li><p>이동평균 모형 (Moving average; MA) 모형</p></li>
+<li><p>자기회귀이동평균 (Autoregressive Moving average; ARMA) 모형</p></li>
+</ul>
+<div id="자기회귀모형-autoregressive-model-ar-model" class="section level3" number="4.2.1">
+<h3><span class="header-section-number">4.2.1</span> 자기회귀모형 (Autoregressive model; AR model)</h3>
+<p>과거 자료의 선형 결합으로 미래 자료를 예측하려는 모형으로써,
+<span class="math inline">\(p\)</span> 차 자기회귀 모형 또는 AR(p)라고 불리는 모형은 다음과 같이 표현된다.</p>
+<p><span class="math display">\[
+y_{t} - \mu = \phi_{1}(y_{t-1}-\mu) + \cdots + \phi_{p}(y_{t-p}-\mu) + \epsilon_{t}
+\]</span> 단, <span class="math inline">\(\epsilon_{t}\)</span> 는 평균이 0이고 분산이 <span class="math inline">\(\sigma^{2}\)</span> 인 백색잡음, 즉 <span class="math inline">\(\epsilon_{t} \sim WN(0, \sigma^{2})\)</span> , 이고 <span class="math inline">\(E(y_{t}) = \mu\)</span> 이다.</p>
+<p>또한 평균 <span class="math inline">\(\mu\)</span> 를 절편의 형식으로 정리한 표현식은 다음과 같다.</p>
+<p><span class="math display" id="eq:ar-delta">\[
+y_{t} = \delta + \phi_{1}y_{t-1} + \cdots + \phi_{p}y_{t-p} + \epsilon_{t}  \tag{4.1}
+\]</span> 단, <span class="math inline">\(\delta = \mu(1-\phi_{1}- \cdots -\phi_{p})\)</span> .</p>
+<p>시계열자료 <span class="math inline">\(y_{t}\)</span> 가 과거 시점 자료인 <span class="math inline">\(y_{t-1}, y_{t-2}, \ldots, y_{t-p}\)</span> 의 선형결합으로 나타낼 수 있음을 알 수 있다.
+따라서 자기회귀, 즉 자기 자신의 과거 값과의 회귀라는 용어로 표현할 수 있는 것이다.</p>
+<p>후진작용소에 의한 표현식은 식 <a href="arima-모형.html#eq:ar-delta">(4.1)</a>에서 다음과 같이 유도할 수 있다.</p>
+<span class="math display">\[\begin{align*}
+y_{t} - \phi_{1}y_{t-1} - \cdots - \phi_{p}y_{t-p} &amp;= \delta + \epsilon_{t} \\
+(1-\phi_{1}B- \cdots - \phi_{p}B^{p})y_{t} &amp;= \delta + \epsilon_{t} \\
+\phi(B)y_{t} &amp;= \delta + \epsilon_{t}
+\end{align*}\]</span>
+<p>단, <span class="math inline">\(\phi(B) = 1 - \phi_{1}B - \cdots - \phi_{p}B^{p}\)</span></p>
+<ul>
+<li>AR(1) 모형 : <span class="math inline">\(y_{t} = \delta + \phi_{1} y_{t-1} + \epsilon_{t}\)</span></li>
+</ul>
+<p>AR(1) 모형에서는 현 시점의 자료가 1시차 이전 자료와 직접적인 관련이 있고, 그 이전 시점의 자료와는 직접적인 연관이 없는 모형이다.
+자료의 형태는 모수 <span class="math inline">\(\phi_{1}\)</span> 값에 따라 달라지게 된다.
+예를 들어, <span class="math inline">\(\mu = 0\)</span> 를 가정한 상태에서 <span class="math inline">\(\phi_{1} = 0.8\)</span> 과 <span class="math inline">\(\phi_{1} = -0.8\)</span> 인 경우에 대한 모의자료를 발생시켜 작성한 시계열 그래프가 Figure <a href="arima-모형.html#fig:ar1-1">4.14</a>이다.</p>
+<div class="figure"><span style="display:block;" id="fig:ar1-1"></span>
+<img src="_main_files/figure-html/ar1-1-1.png" alt="AR(1) 모형에서 발생시킨 모의자료 시계열 그래프" width="768" />
+<p class="caption">
+Figure 4.14: AR(1) 모형에서 발생시킨 모의자료 시계열 그래프
+</p>
+</div>
+<p>AR(1) 모형에서 <span class="math inline">\(\phi_{1} &gt; 0\)</span> 인 경우에는, 일단 양의 값 (또는 음의 값)이 되면 일정 기간 지속되는 경향이 있음을 알 수 있고, <span class="math inline">\(\phi_{1} &lt; 0\)</span> 인 경우에는, 양의 값과 음의 값이 번갈아 반복되는 경향이 있음을 알 수 있다.
+이것은 AR(1) 모형의 1차 자기상관계수, <span class="math inline">\(\rho_{1}\)</span> 이 <span class="math inline">\(y_{t-1}\)</span> 의 계수인 <span class="math inline">\(\phi_{1}\)</span> 과 같기 때문이다.</p>
+<p>AR(1) 모형은 <span class="math inline">\(\phi_{1}\)</span> 의 값에 따라서 다른 모형과 동일한 모형이 되는데, <span class="math inline">\(\phi_{1} = 0\)</span> 이면, <span class="math inline">\(y_{t} = \epsilon_{t}\)</span> 가 되어 백색잡음 모형이 되고, <span class="math inline">\(\phi_{1} = 1, \delta = 0\)</span> 이면, <span class="math inline">\(y_{y} = y_{t-1} + \epsilon_{t}\)</span> 가 되어, 절편이 없는 확률보행 모형이 되고, <span class="math inline">\(\phi_{1} = 1, \delta \ne 0\)</span> 이면, <span class="math inline">\(y_{y} = \delta + y_{t-1} + \epsilon_{t}\)</span> 가 되어, 절편이 있는 확률보행 모형이 된다.</p>
+<p>이렇듯 AR(1) 모형은 <span class="math inline">\(\phi_{1}\)</span> 값에 따라서 정상 시계열 모형 또는 비정상 시계열 모형이 된다.
+따라서 AR(1) 모형이 정상 시계열 모형이 되기 위해서는 ’정상성 조건’을 만족시켜야 한다.
+AR(1) 모형에서의 정상성 조건은 <span class="math inline">\(-1&lt;\phi_{1}&lt;1\)</span> 이다.</p>
+<p>AR(1) 모형의 이론적 ACF와 PACF의 형태를 살펴보자.
+<span class="math inline">\(\phi_{1} = 0.8\)</span> 인 경우에 대한 이론적 ACF와 PACF가 Figure <a href="arima-모형.html#fig:ar1-2">4.15</a>에 있다.
+ACF는 지수적으로 감소하는 형태를 취하고 있고, PACF는 1시차 이후에는 0이 되는 절단 현상을 보이고 있다.</p>
+<div class="figure"><span style="display:block;" id="fig:ar1-2"></span>
+<img src="_main_files/figure-html/ar1-2-1.png" alt="AR(1) 모형의 이론적 ACF, PACF" width="768" />
+<p class="caption">
+Figure 4.15: AR(1) 모형의 이론적 ACF, PACF
+</p>
+</div>
+<p><span class="math inline">\(\phi_{1} = -0.8\)</span> 인 경우에 대한 이론적 ACF와 PACF가 Figure <a href="arima-모형.html#fig:ar1-3">4.16</a>에 있다.
+ACF는 양과 음의 값을 번갈아 가지며 지수적으로 감소하고 있고, PACF는 1시차 이후 절단된 모습이다.</p>
+<div class="figure"><span style="display:block;" id="fig:ar1-3"></span>
+<img src="_main_files/figure-html/ar1-3-1.png" alt="AR(1) 모형의 이론적 ACF, PACF" width="768" />
+<p class="caption">
+Figure 4.16: AR(1) 모형의 이론적 ACF, PACF
+</p>
+</div>
+<ul>
+<li>AR(2) 모형: <span class="math inline">\(y_{t} = \delta + \phi_{1}y_{t-1} + \phi_{2} y_{t-2} + \epsilon_{t}\)</span></li>
+</ul>
+<p>AR(2) 모형에서 <span class="math inline">\(y_{t}\)</span> 는 <span class="math inline">\(y_{t-1}\)</span> 과 <span class="math inline">\(y_{t-2}\)</span> 의 선형결합으로 표현된다.
+즉, 현 시점의 자료는 가장 최근 두 시점의 자료와 직접적인 관련이 있고, 그 이전 시점의 자료는 간접적인 관련만 있다는 것을 의미한다.
+따라서 직접적인 상관 관계를 측정하는 부분상관계수는 AR(2) 모형의 경우에는 2시차 이후에는 0의 값을 갖게 된다.</p>
+<p>AR(2) 모형의 정상성 조건은 <span class="math inline">\(-1&lt;\phi_{2}&lt;1\)</span> , <span class="math inline">\(\phi_{1} + \phi_{2} &lt;1\)</span> , <span class="math inline">\(\phi_{2}-\phi_{1} &lt;1\)</span> 이다.</p>
+<p>AR(2) 모형의 이론적 ACF와 PACF의 형태를 살펴보자.
+<span class="math inline">\(\phi_{1}\)</span> 과 <span class="math inline">\(\phi_{2}\)</span> 값의 조합에 따라 다른 형태를 보이는데, 차이가 나는 것은 ACF의 형태이고 PACF는 항상 2시차 이후 절단 형태를 보인다.
+이론적 ACF의 첫 번째 유형은 지수적 감소이고, 두 번째 유형은 소멸하는 sine 함수 형태이다.
+Figure <a href="arima-모형.html#fig:ar2-1">4.17</a>는 <span class="math inline">\(\phi_{1} = -0.5, \phi_{2} = 0.2\)</span> 의 모형에 대한 것이고, Figure <a href="arima-모형.html#fig:ar2-2">4.18</a>는 <span class="math inline">\(\phi_{1} = 0.7, \phi_{2} = 0.2\)</span>의 모형에 대한 것이다.
+두 경우 모두 첫 번째 ACF 유형인 지수적 감소 형태이다.</p>
+<div class="figure"><span style="display:block;" id="fig:ar2-1"></span>
+<img src="_main_files/figure-html/ar2-1-1.png" alt="AR(2) 모형의 이론적 ACF, PACF" width="768" />
+<p class="caption">
+Figure 4.17: AR(2) 모형의 이론적 ACF, PACF
+</p>
+</div>
+<div class="figure"><span style="display:block;" id="fig:ar2-2"></span>
+<img src="_main_files/figure-html/ar2-2-1.png" alt="AR(2) 모형의 이론적 ACF, PACF" width="768" />
+<p class="caption">
+Figure 4.18: AR(2) 모형의 이론적 ACF, PACF
+</p>
+</div>
+<p>Figure <a href="arima-모형.html#fig:ar2-3">4.19</a>는 <span class="math inline">\(\phi_{1} = -0.8, \phi_{2} = -0.7\)</span> 의 모형에 대한 것이고, Figure <a href="arima-모형.html#fig:ar2-4">4.20</a>는 <span class="math inline">\(\phi_{1} = 1.3, \phi_{2} = -0.6\)</span>의 모형에 대한 것이다.
+두 경우 모두 두 번째 ACF 유형인 소멸하는 sine 함수 형태이다.</p>
+<div class="figure"><span style="display:block;" id="fig:ar2-3"></span>
+<img src="_main_files/figure-html/ar2-3-1.png" alt="AR(2) 모형의 이론적 ACF, PACF" width="768" />
+<p class="caption">
+Figure 4.19: AR(2) 모형의 이론적 ACF, PACF
+</p>
+</div>
+<div class="figure"><span style="display:block;" id="fig:ar2-4"></span>
+<img src="_main_files/figure-html/ar2-4-1.png" alt="AR(2) 모형의 이론적 ACF, PACF" width="768" />
+<p class="caption">
+Figure 4.20: AR(2) 모형의 이론적 ACF, PACF
+</p>
+</div>
+<ul>
+<li>AR(p) 모형, <span class="math inline">\(p \geq 3\)</span></li>
+</ul>
+<p>3차 이상의 차수를 갖는 AR 모형의 경우에는 정상성 조건이 매우 복잡한 형태가 된다.
+그러나 R 함수가 정상성 조건을 고려해서 모수를 추정하기 때문에 사용자가 일일이 확인할 필요는 없다.</p>
+<p>AR(p) 모형의 이론적 ACF와 PACF의 형태는 AR(2)의 경우와 유사한 패턴을 보이게 되는데, ACF는 지수적 감소 혹은 소멸하는 sine 함수의 형태를 취하고 있고, PACF는 p 시차까지는 0이 아닌 값을 갖고 있지만 그 이후에는 0이 되는 절단 현상을 보이게 된다.
+따라서 AR(p) 모형의 경우에는 PACF를 이용하여 차수 p를 인식할 수 있게 된다.</p>
+</div>
+<div id="이동평균모형-moving-average-model-ma-model" class="section level3" number="4.2.2">
+<h3><span class="header-section-number">4.2.2</span> 이동평균모형 (Moving average model; MA model)</h3>
+<p><span class="math inline">\(q\)</span> 차 이동평균모형 혹은 MA(q)라고 불리는 모형은 다음과 같이 표현된다.</p>
+<span class="math display">\[\begin{align*}
+y_{t}-\mu &amp;= \epsilon_{t} + \theta_{1}\epsilon_{t-1} + \cdots + \theta_{q}\epsilon_{t-q} \\
+          &amp;= (1+\theta_{1}B + \cdots + \theta_{q}B^{q}) \epsilon_{t} \\
+          &amp;= \theta(B)\epsilon_{t}
+\end{align*}\]</span>
+<p>단, <span class="math inline">\(\theta(B) = 1 + \theta_{1}B + \cdots + \theta_{q}B^{q}\)</span> 이고, <span class="math inline">\(\epsilon \sim WN(0, \sigma^{2})\)</span> 이며, <span class="math inline">\(E(y_{t})=\mu\)</span> 이다.</p>
+<p>MA(q) 모형은 현 시점의 백색잡음 오차와 과거 <span class="math inline">\(q\)</span> 시차까지의 백색잡음 오차의 선형결합으로 표현된다.
+유한개의 백색잡음의 선형결합이기 때문에 정상성은 항상 만족된다.</p>
+<p>분해법에서 추세 성분 추정에 사용되었던 Moving average smoothing과는 명칭이 비슷해서 혼동될 수 있지만 전혀 다른 모형이다.</p>
+<ul>
+<li>MA(1) 모형 : <span class="math inline">\(y_{t} - \mu = \epsilon_{t} + \theta_{1}\epsilon_{t-1} = (1+\theta_{1}B)\epsilon_{t}\)</span></li>
+</ul>
+<p>MA(1) 모형에서 생성된 자료의 형태는 모수 <span class="math inline">\(\theta_{1}\)</span> 값에 따라 달라지게 된다.
+예를 들어, <span class="math inline">\(\mu = 0\)</span> 를 가정한 상태에서 <span class="math inline">\(\theta_{1} = 0.8\)</span> 과 <span class="math inline">\(\theta_{1} = -0.8\)</span> 인 경우에 대한 모의자료를 발생시켜 작성한 시계열 그래프가 Figure <a href="arima-모형.html#fig:ma1-1">4.21</a>이다.</p>
+<div class="figure"><span style="display:block;" id="fig:ma1-1"></span>
+<img src="_main_files/figure-html/ma1-1-1.png" alt="MA(1) 모형에서 발생시킨 모의자료 사계열 그래프" width="768" />
+<p class="caption">
+Figure 4.21: MA(1) 모형에서 발생시킨 모의자료 사계열 그래프
+</p>
+</div>
+<p>AR(1) 모형에서 관찰된 것과 매우 흡사한 패턴을 MA(1)에서도 볼 수 있다.
+<span class="math inline">\(\theta_{1} &gt; 0\)</span> 인 경우에는 일단 양의 값 (혹은 음의 값)이 되면 일정 기간 지속되는 경향이 있으며, <span class="math inline">\(\theta_{1} &lt; 0\)</span> 인 경우에는 양과 음의 값이 번갈아 반복되는 경향이 있음을 알 수 있다.</p>
+<p>MA(1) 모형의 이론적 ACF와 PACF의 형태를 살펴보자.
+<span class="math inline">\(\theta_{1} = 0.8\)</span> 인 경우에 대한 이론적 ACF와 PACF가 Figure <a href="arima-모형.html#fig:ma1-2">4.22</a>에 있다.
+ACF는 1시차 이후 절단 현상을 보이고 있고, PACF는 양과 음의 값을 번갈아 가지며 지수적인 감소 형태를 취하고 있다.</p>
+<div class="figure"><span style="display:block;" id="fig:ma1-2"></span>
+<img src="_main_files/figure-html/ma1-2-1.png" alt="MA(1) 모형의 이론적 ACF, PACF" width="768" />
+<p class="caption">
+Figure 4.22: MA(1) 모형의 이론적 ACF, PACF
+</p>
+</div>
+<p><span class="math inline">\(\theta_{1} = -0.8\)</span> 인 경우에 대한 이론적 ACF와 PACF는 Figure <a href="arima-모형.html#fig:ma1-3">4.23</a>에 있다.
+ACF는 1시차 이후 절단 현상을 보이고 있고, PACF는 지수적인 감소 형태를 취하고 있다.</p>
+<div class="figure"><span style="display:block;" id="fig:ma1-3"></span>
+<img src="_main_files/figure-html/ma1-3-1.png" alt="MA(1) 모형의 이론적 ACF, PACF" width="768" />
+<p class="caption">
+Figure 4.23: MA(1) 모형의 이론적 ACF, PACF
+</p>
+</div>
+<ul>
+<li>AR 모형과 MA 모형의 관계</li>
+</ul>
+<p>정상성 조건을 만족하는 AR(p) 모형은 MA(<span class="math inline">\(\infty\)</span>) 모형으로 표현하는 것이 가능하다.
+예를 들어, AR(1) 모형에서 정상성 조건인 <span class="math inline">\(-1&lt;\phi_{1}&lt;1\)</span> 이 만족된다고 가정하자.
+<span class="math inline">\(\mu=0\)</span> 이라 두면, AR(1) 모형은 <span class="math inline">\(y_{t} =\phi_{1}y_{t-1}+\epsilon_{t}\)</span> 가 되는데, 여기에서 <span class="math inline">\(y_{t-1} = \phi_{1}y_{t-2} + \epsilon_{t-1}\)</span> 으로 표현되는 것을 이용하면 다음의 결과를 유도해 볼 수 있다.</p>
+<span class="math display" id="eq:ar-ma-1">\[\begin{align*}
+y_{t} &amp;= \phi_{1}y_{t-1} + \epsilon_{t} \\
+      &amp;= \phi_{1}(\phi_{1}y_{t-2} + \epsilon_{t-1}) + \epsilon_{t} \\
+      &amp;\vdots \\
+      &amp;= \epsilon_{t} + \phi_{1}\epsilon_{t-1} + \phi_{1}^{2}\epsilon_{t-2} + \cdots
+\tag{4.2}
+\end{align*}\]</span>
+<p>식 <a href="arima-모형.html#eq:ar-ma-1">(4.2)</a>의 첫 번째 식은 AR(1) 모형을 나타낸 것이고, 마지막 수식은 MA(<span class="math inline">\(\infty\)</span>) 모형을 표현한 것이 된다.
+<span class="math inline">\(-1&lt;\phi_{1}&lt;1\)</span> 의 조건이 있기 때문에 <span class="math inline">\(k \to \infty\)</span> 가 되면, <span class="math inline">\(\phi_{1}^{k} \to 0\)</span> 되어서 무한합으로 인한 문제는 없게 된다.
+따라서 정상 AR(1) 모형은 MA(<span class="math inline">\(\infty\)</span>) 모형으로 표현이 되며, 비슷한 방식으로 정상 AR(p) 모형을 MA(<span class="math inline">\(\infty\)</span>) 로 표현됨을 보일 수 있다.</p>
+<p>또한 MA(q) 모형도 AR(<span class="math inline">\(\infty\)</span>) 모형으로 표현할 수 있다.
+예를 들어, MA(1) 모형인 <span class="math inline">\(y_{t} = \epsilon_{t} + \theta_{1}\epsilon_{t-1}\)</span> 경우에 다음과 같은 결과를 유도할 수 있다.</p>
+<span class="math display">\[\begin{align*}
+\epsilon_{t} &amp;= y_{t} - \theta_{1}\epsilon_{t-1} \\
+             &amp;= y_{t} - \theta_{1}(y_{t-1}-\theta_{1}\epsilon_{t-2}) = y_{t} - \theta_{1}y_{t-1} + \theta_{1}^{2}\epsilon_{t-2} \\
+             &amp;\vdots \\
+             &amp;= y_{t} + \sum_{j=1}^{\infty}(-\theta_{1})^{j}y_{t-j}
+\end{align*}\]</span>
+<p>무한합으로 인한 문제는 <span class="math inline">\(\sum_{j=1}^{\infty}(-\theta_{1})^{j} &lt; \infty\)</span> 가 만족되면 해결되는데, 이것이 만족되기 위해서는 <span class="math inline">\(|\theta_{1}|&lt;1\)</span> 의 조건이 필요하게 되며, 이것을 가역성 조건이라고 한다.
+즉, 가역성 조건을 만족하는 MA(q) 모형은 AR(<span class="math inline">\(\infty\)</span>) 모형으로 표현할 수 있다.</p>
+<ul>
+<li>MA(q) 모형의 가역성 조건</li>
+</ul>
+<p>일반적으로 MA(q) 모형은 <span class="math inline">\(2^{q}\)</span> 개의 모형이 동일한 ACF 형태를 가질 수 있다.
+예를 들어, 다음의 두 MA(1) 모형의 ACF는 동일하다.</p>
+<p><span class="math display">\[
+y_{t} = \epsilon_{t} + \theta_{1} \epsilon_{t-1}
+\]</span></p>
+<p><span class="math display">\[
+y_{t} = \epsilon_{t} + \frac{1}{\theta_{1}}\epsilon_{t-1}
+\]</span>
+이런 경우에 ACF만으로는 MA 모형을 인식할 수 없다는 문제가 발생한다.
+이러한 문제는 가역성 조건을 사용함으로써 해결될 수 있는데, <span class="math inline">\(2^{q}\)</span> 개의 MA(q) 모형 중 가역성 조건을 만족하는 모형은 하나 밖에 없기 때문이다.
+따라서 MA(q) 모형은 반드시 가역성 조건을 만족시켜야 하며, MA(1) 모형의 경우에는 <span class="math inline">\(-1&lt;\theta_{1}&lt;1\)</span> 이 가역성 조건이다.</p>
+<ul>
+<li>MA(2) 모형 : <span class="math inline">\(y_{t}-\mu=\epsilon_{t}+\theta_{1}\epsilon_{t-1}+\theta_{2}\epsilon_{t-2}= (1+\theta_{1}B+\theta_{2}B^{2})\epsilon_{t}\)</span></li>
+</ul>
+<p>가역성 조건은 AR(2) 모형의 정상성 조건과 유사한데, <span class="math inline">\(-1&lt;\theta_{2}&lt;1\)</span> , <span class="math inline">\(\theta_{1} + \theta_{2}&gt;-1\)</span> , <span class="math inline">\(\theta_{1} - \theta_{2} &lt; 1\)</span> 이다.</p>
+<p>MA(2) 모형의 이론적 ACF와 PACF의 형태를 살펴보자.
+Figure <a href="arima-모형.html#fig:ma2-1">4.24</a>은 <span class="math inline">\(\theta_{1}=1.6, \theta_{2}=0.7\)</span> 의 모형에 대한 이론적 ACF와 PACF이다.
+ACF는 2시차 이후 절단 햔상을 보이고 있고, PACF는 지수적 감소의 형태를 보이고 있다.</p>
+<div class="figure"><span style="display:block;" id="fig:ma2-1"></span>
+<img src="_main_files/figure-html/ma2-1-1.png" alt="MA(2) 모형의 이론적 ACF, PACF" width="768" />
+<p class="caption">
+Figure 4.24: MA(2) 모형의 이론적 ACF, PACF
+</p>
+</div>
+<p>Figure <a href="arima-모형.html#fig:ma2-2">4.25</a>는 <span class="math inline">\(\theta_{1}=-0.8, \theta_{2}=0.7\)</span> 의 모형에 대한 이론적 ACF와 PACF이다.
+ACF는 2시차 이후 절단 햔상을 보이고 있고, PACF는 소멸하는 sine 함수의 형태를 보이고 있다.</p>
+<div class="figure"><span style="display:block;" id="fig:ma2-2"></span>
+<img src="_main_files/figure-html/ma2-2-1.png" alt="MA(2) 모형의 이론적 ACF, PACF" width="768" />
+<p class="caption">
+Figure 4.25: MA(2) 모형의 이론적 ACF, PACF
+</p>
+</div>
+<ul>
+<li>MA(q) 모형, <span class="math inline">\(q \geq 3\)</span></li>
+</ul>
+<p>3차 이상의 차수를 갖는 MA 모형의 경우에는 가역성 조건이 매우 복잡한 형태가 된다.
+그러나 R 함수가 정상성 조건을 고려해서 모수를 추정하기 때문에 사용자가 일일이 확인할 필요는 없다.</p>
+<p>MA(q) 모형의 이론적 ACF와 PACF의 형태는 MA(2)의 경우와 유사한 패턴을 보이게 되는데, ACF는 q 시차까지는 0이 아닌 값을 갖고 있지만 그 이후에는 0이 되는 절단 현상을 보이고, PACF는 지수적 감소 혹은 소멸하는 sine 함수의 형태를 보이게 된다.
+따라서 MA(q) 모형의 경우에는 ACF를 이용하여 차수 q를 인식할 수 있게 된다.</p>
+</div>
+<div id="자기회귀이동평균모형-autoregressive-moving-average-model-arma-model" class="section level3" number="4.2.3">
+<h3><span class="header-section-number">4.2.3</span> 자기회귀이동평균모형 (Autoregressive moving average model; ARMA model)</h3>
+<p>자기회귀이동평균 모형은 자기회귀모형과 이동평균 모형의 혼합모형이다.
+AR(p) 모형과 MA(q) 모형의 혼합 모형은 ARMA(p,q) 모형이 되며, 모형식은 다음과 같다.</p>
+<p><span class="math display" id="eq:arma-1">\[
+y_{t} = \delta + \phi_{1}y_{t-1} + \cdots + \phi_{p}y_{t-p} + \epsilon_{t} + \theta_{1}\epsilon_{t-1} + \cdots + \theta_{q}\epsilon_{t-q}  \tag{4.3}
+\]</span> 단, <span class="math inline">\(\delta = \mu(1-\phi_{1}-\cdots-\phi_{p})\)</span> 이다.</p>
+<p>후진작용소를 사용한 모형식은 식 <a href="arima-모형.html#eq:arma-1">(4.3)</a>에서 다음과 같이 표현할 수 있다.</p>
+<span class="math display">\[\begin{align*}
+(1-\phi_{1}B-\cdots-\phi_{p}B^{p})y_{t} &amp;= \delta + (1+\theta_{1}B+\cdots+\theta_{q}B^{q})\epsilon_{t} \\
+\phi(B) y_{t} &amp;= \delta + \theta(B) \epsilon_{t}
+\end{align*}\]</span>
+<p>주어진 시계열자료가 AR 혹은 MA 성분만으로 설명하기 위해서는 지나치게 고차의 모형이 되어야 하는 경우가 있다.
+즉, ACF 또는 PACF의 절단 시점이 지나치게 큰 값이 되면,
+AR(p) 또는 MA(q) 모형의 p 또는 q의 값이 큰 값이 될 수 있으며,
+그렇게 되면 모수의 개수가 너무 많은 모형, 즉 복잡한 모형을 사용해야 하는 것이다.
+이러한 경우에는 AR과 MA의 성분이 함께 들어있는 혼합 모형을 사용한다면 훨씬 단순한 형태의 모형으로 주어진 자료를 잘 설명할 수 있을 것이다.</p>
+<p>ARMA(p,q) 모형에는 AR 성분과 MA 성분이 모두 있기 때문에, 정상성 조건과 가역성 조건을 모두 만족시켜야 한다.
+정상성 조건은 AR(p) 모형의 조건과 동일하며, 가역성 조건은 MA(q) 모형의 조건과 동일하다.</p>
+<p>ARMA(p,q) 모형의 이론적 ACF와 PACF의 형태를 살펴보자.
+ACF는 시차 q부터 지수적 감소 혹은 소멸하는 sine 함수의 형태를 보이고 있고, PACF는 시차 p부터 지수적 감소 혹은 소멸하는 sine 함수의 형태를 보이고 있다.
+ACF와 PACF가 모두 감소하는 형태를 보이고 있으며, 감소 시작 시점을 확인하는 것은 실질적으로 불가능하기 때문에 ARMA(p,q) 모형의 차수 p와 q를 ACF와 PACF로 인식하기 매우 어렵다.</p>
+<p>ARMA(1,1) 모형에서 <span class="math inline">\(\phi_{1} = -0.9\)</span>, <span class="math inline">\(\theta_{1} = 0.5\)</span>인 경우의 이론적 ACF와 PACF의 형태가 Figure <a href="arima-모형.html#fig:arma-1-1">4.26</a>에 있다.</p>
+<div class="figure"><span style="display:block;" id="fig:arma-1-1"></span>
+<img src="_main_files/figure-html/arma-1-1-1.png" alt="ARMA(1,1) 모형의 이론적 ACF, PACF" width="768" />
+<p class="caption">
+Figure 4.26: ARMA(1,1) 모형의 이론적 ACF, PACF
+</p>
+</div>
+<p>ARMA(2,2) 모형에서 <span class="math inline">\(\phi_{1} = 0.7, \phi_{2} = 0.2\)</span>, <span class="math inline">\(\theta_{1} = 1.6, \theta_{2} = 0.7\)</span>인 경우의 이론적 ACF와 PACF의 형태가 Figure <a href="arima-모형.html#fig:arma-2-2">4.27</a>에 있다.</p>
+<div class="figure"><span style="display:block;" id="fig:arma-2-2"></span>
+<img src="_main_files/figure-html/arma-2-2-1.png" alt="ARMA(2,2) 모형의 이론적 ACF, PACF" width="768" />
+<p class="caption">
+Figure 4.27: ARMA(2,2) 모형의 이론적 ACF, PACF
+</p>
+</div>
+</div>
+</div>
+<div id="section-nonseasonal-arima" class="section level2" number="4.3">
+<h2><span class="header-section-number">4.3</span> 비계절형 ARIMA 모형</h2>
+<p>시계열자료 <span class="math inline">\(y_{t}\)</span> 의 모형이 ARIMA(p,d,q)라는 것은 <span class="math inline">\(d\)</span> 차 차분된 자료인 <span class="math inline">\((1-B)^{d}y_{t}\)</span> 가 ARMA(p,q) 모형을 따른다는 것을 의미한다.</p>
+<p>ARIMA(p,d,q)의 모형식은 다음과 같이 표현된다.</p>
+<span class="math display">\[\begin{align*}
+(1-\phi_{1}B-\cdots-\phi_{p}B^{p})(1-B)^{d}~y_{t} &amp;= \delta + (1+\theta_{1}B+\cdots+\theta_{q}B^{q})~\epsilon_{t}  \\
+\phi(B)(1-B)^{d}~y_{t} &amp;= \delta + \theta(B)~\epsilon_{t}
+\end{align*}\]</span>
+<p>단, <span class="math inline">\(\delta = \mu(1-\phi_{1}-\cdots-\phi_{p})\)</span> 이고, <span class="math inline">\(\mu\)</span> 는 <span class="math inline">\((1-B)^{d}~y_{t}\)</span> 의 평균이다.</p>
+<p>지금까지 살펴본 모형은 ARIMA(p,d,q) 모형으로 다시 표현할 수 있는데, 백색잡음 모형은 ARIMA(0,0,0)으로, 확률보행 모형은 ARIMA(0,1,0)으로, AR(p) 모형은 ARIMA(p,0,0)으로, MA(q) 모형은 ARIMA(0,0,q)으로, ARMA(p,q) 모형은 ARIMA(p,0,q) 모형으로 각각 표현할 수 있다.</p>
+<p>ARIMA 모형의 적합 절차는 주어진 시계열자료를 대상으로 <code>모형식별</code> <span class="math inline">\(\to\)</span> <code>모수 추정</code> <span class="math inline">\(\to\)</span> <code>모형 진단</code>의 순서로 이루어지며, 모형진단 단계에서 문제가 발견되지 않으면, 적합된 모형으로 <code>예측</code>을 실시할 수 있지만, 모형진단 단계를 통과하지 못하면, 모형식별 단계로 되돌아가 다른 모형을 찾아야 한다.</p>
+<div id="모형-식별" class="section level3" number="4.3.1">
+<h3><span class="header-section-number">4.3.1</span> 모형 식별</h3>
+<p>모형식별 단계에서는 주어진 시계열자료의 정상성 확인과 AR 차수 및 MR 차수의 결정, 그리고 절편의 포함 여부를 결정하게 된다.</p>
+<ol style="list-style-type: decimal">
+<li>시계열 정상화: 차분 차수 d 결정</li>
+</ol>
+<p>모형식별의 첫 번째 단계는 시계열자료의 정상화이다.
+<a href="arima-모형.html#section-make-stationary">4.1.2</a>절에서 살펴본 분산 안정화 변환과 차분을 실시하여 비정상성이 제거된 시계열자료를 생성하는 것이다.</p>
+<ol start="2" style="list-style-type: decimal">
+<li>모형식별: AR 차수 p와 MA 차수 q 결정</li>
+</ol>
+<p>주어진 자료에 가장 적합한 AR 차수와 MA 차수를 결정하는 단계이다.
+사용자가 표본 ACF와 PACF 등을 근거로 가장 적합한 모형을 직접 식별할 수도 있지만, 많은 경험이 필요하며, 특히 ARMA 혼합모형인 경우에는 ACF와 PACF로는 찾을 수 없다는 문제도 있다.</p>
+<p>모형식별의 다른 방법은 함수 <code>forecast::auto.arima()</code>에 의한 모형 선택이다.
+함수 <code>auto.arima()</code>를 사용하면 AICc가 가장 작은 모형을 찾을 수 있다.</p>
+<ol start="3" style="list-style-type: decimal">
+<li>모형에 절편 포함 여부 결정</li>
+</ol>
+<p><span class="math inline">\(d \leq 1\)</span> 인 경우에는 모형에 절편 <span class="math inline">\(\delta\)</span> 를 포함하는 것이 가능하다.
+포함 여부는 유의성 측면과 IC 측면으로 구분해서 생각할 수 있다.
+유의성 측면에서는 <span class="math inline">\(H_{0}:\mu=0\)</span> 이 기각되면 절편을 포함시키는 것이고, IC 측면에서는 AICc가 더 작아지면 포함시키는 것이다.
+통계적으로 유의한 변수를 모형에 포함시킨다고 해서 예측의 정확도가 항상 높아지는 것은 아니기 때문에 어떤 방법을 적용할지는 상황에 따라 선택해야 할 것이다.</p>
+<p><span class="math inline">\(d \geq 2\)</span> 의 경우에는 모형에 절편을 포함시키지 않는 것이 일반적이다.
+이것은 절편이 장기예측에 미치는 영향력이 차분 차수가 증가할수록 급격하게 커지기 때문이다.</p>
+<p>예를 들어, <span class="math inline">\(d=0\)</span> 인 경우에 장기예측값은 <span class="math inline">\(\delta=0\)</span> 이면 0으로 수렴하고, <span class="math inline">\(\delta \ne 0\)</span> 이면 자료의 평균으로 수렴하며, <span class="math inline">\(d=1\)</span> 인 경우에는 <span class="math inline">\(\delta=0\)</span> 이면 장기예측값이 0이 아닌 상수로 수렴하지만, <span class="math inline">\(\delta \ne 0\)</span> 이면 직선의 형태를 보이게 되고, <span class="math inline">\(d=2\)</span> 인 경우에는 <span class="math inline">\(\delta=0\)</span> 이면 직선의 형태를 보이게 되지만, <span class="math inline">\(\delta \ne 0\)</span> 이면 2차 함수의 형태를 보이게 된다.</p>
+<p>지속적인 상승 또는 하락 추세를 보이는 장기예측은 상당히 부담스러운 결과라 할 수 있기 때문에, 차분이 이루어진 경우에는 절편 포함 여부를 신중하게 결정해야 한다.</p>
+</div>
+<div id="모형-추정-및-진단" class="section level3" number="4.3.2">
+<h3><span class="header-section-number">4.3.2</span> 모형 추정 및 진단</h3>
+<p>ARMA(p,q) 모형에는 추정해야 할 모수가 p+q+2개 있다.
+AR 모형의 모수인 <span class="math inline">\(\phi_{1}, \ldots, \phi_{p}\)</span> 와 MA 모형의 모수인 <span class="math inline">\(\theta_{1}, \ldots, \theta_{q}\)</span>, 그리고 모평균 <span class="math inline">\(\mu\)</span> 와 오차의 분산 <span class="math inline">\(\sigma^{2}\)</span> 를 추정해야 한다.</p>
+<p>ARIMA 모형 추정에는 몇 가지 방법이 있는데, 함수 <code>forecast::Arima()</code>에서는 최우추정법을 사용한다.
+최우추정법은 오차항의 분포가 가정되어 있는 경우에 많이 사용되는 추정법으로써, 주어진 자료가 추출될 확률이 최대가 되도록 모수의 값을 결정하는 방법이다.</p>
+<p>ARIMA 모형은 회귀모형 등에 비하여 상대적으로 복잡한 모형이기 때문에 적용되는 최적화 방식 등에 따라 최우추정법에 의한 추정 결과가 약간 다르게 나올 수 있다.</p>
+<p>최우추정법을 사용해서 모수를 추정할 수 있었던 이유는 오차가 백색잡음을 따른다는 가정을 했기 때문이다.
+또한 예측 구간을 효과적으로 추정하기 위해서는 정규분포의 가정도 추가적으로 필요하게 된다.<br />
+따라서 모형의 모수를 추정한 후에는 잔차를 근거로 해서 오차의 정규분포 백색잡음 여부를 반드시 확인해야 한다.
+확인 방법은 <a href="지수평활법.html#section-ets">3.3</a>절에서 소개했던 함수 <code>forecast::checkresiduals()</code>을 사용하면 된다.
+추정된 모형이 진단 단계를 큰 문제 없이 통과하면 예측 모형으로 사용할 수 있다.
+하지만 어떤 자료의 경우에는 진단 단계를 통과할 수 있는 모형이 마땅치 않을 수도 있다.
+이런 경우에는 추정된 모형에 의한 예측 결과를 적용할 때 신중해야 한다.</p>
+<p>ARIMA 모형의 식별 및 추정을 위한 함수인 <code>forecast::Arima()</code>와 <code>forecast::auto.arima()</code>의 사용법을 살펴보자.
+함수 <code>Arima()</code>는 사용자가 직접 식별한 모형의 모수 추정을 위한 함수이며, 사용법은 다음과 같다.</p>
+<p><img src="Figures/Arima.PNG" width="400" /></p>
+<p><code>order = c(0,0,0)</code>은 비계절형 ARIMA 모형의 차수를 지정하는 것으로써, (p,d,q) 순서로 지정한다.
+<code>seasonal = c(0,0,0)</code>은 <a href="arima-모형.html#section-seasonal-arima">4.4</a>절에서 살펴볼 계절형 ARIMA 모형의 차수를 지정하는 것으로써, (P,D,Q) 순서로 지정한다.
+<code>include.mean</code>은 <span class="math inline">\(d=0\)</span> 의 경우 절편 <span class="math inline">\(\delta\)</span> 를 모형에 포함할지 여부를 지정하는 것으로써, 디폴트는 <code>TRUE</code>이다.
+<code>include.drift</code>는 <span class="math inline">\(d=1\)</span> 의 경우 절편 <span class="math inline">\(\delta\)</span> 를 모형에 포함할지 여부를 지정하는 것으로써, 디폴트는<code>FALSE</code>이다.<code>lambda</code>에는 Box-Cox 변환 모수 <span class="math inline">\(\lambda\)</span> 값을 지정한다.</p>
+<p>함수 <code>auto.arima()</code>는 IC를 기준으로 최적의 모형을 선택하고자 할 때 사용하는 함수이다.
+사용자가 ACF와 PACF를 근거로 직접 모형식별을 할 필요가 없기 때문에 편하게 사용할 수는 있으나, 자동 선택된 결과는 반드시 확인 과정을 거쳐서 사용해야 할 것이다.
+사용법은 다음과 같다.</p>
+<p><img src="Figures/auto-arima.PNG" width="550" /></p>
+<p><span class="math inline">\(d\)</span> 와 <span class="math inline">\(D\)</span> 는 차분과 계절 차분 횟수를 지정하는 것이다.
+디폴트인 <code>NA</code>가 지정되면, 함수 <code>ndiffs()</code>와 <code>nsdiffs()</code>의 결과가 지정된다.
+<code>max.p</code>와 <code>max.q</code>에는 비계절형 AR 및 MA 차수인 p, q의 최댓값을 각각 지정하고,
+<code>max.P</code>와 <code>max.Q</code>에는 계절형 AR 및 MA 차수인 P, Q의 최대값을 각각 지정한다.
+<code>max.order</code>에는 <code>stepwise = FALSE</code>인 경우에 비교 대상 모형의 범위를 결정하는데 적용되는 p+q+P+Q의 최댓값을 지정한다.
+<code>max.d</code>와 <code>max.D</code>는 차분과 계절 차분의 최대 횟수를 지정한다.
+<code>seasonal</code>이 <code>FALSE</code>인 경우에는 비계절형 모형만 비교 대상으로 고려가 되며, <code>ic</code>는 모형 선택에 사용되는 IC를 지정한다.
+디폴트는 AICc가 된다.
+<code>stepwise</code>에는 빠른 모형 선택을 위해 stepwise 기법을 사용할 것인지 (<code>TRUE</code>), 아니면 비교 대상에 포함되는 모든 모형의 IC를 비교해서 모형을 선택할 것인지 (<code>FALSE</code>)를 지정한다.
+<code>approximation</code>에는 자료의 개수가 많거나 계절 주기가 매우 큰 값인 경우에는 빠른 계산 방법으로 모수를 추정하도록 지정할 수 있다.</p>
+</div>
+<div id="예측-1" class="section level3" number="4.3.3">
+<h3><span class="header-section-number">4.3.3</span> 예측</h3>
+<p>예측은 점 예측 (point forecast), <span class="math inline">\(\hat{y}_{T+h}\)</span> 과 예측 구간 추정으로 나누어 볼 수 있다.
+점 예측 <span class="math inline">\(\hat{y}_{T+h}\)</span> 은 과거 자료인 <span class="math inline">\(y_{1}, \ldots, y_{T}\)</span> 를 이용하여 추정된 모형으로 <span class="math inline">\(h\)</span> 시차 후를 예측한 결과이며, 추정에 사용되었던 시계열자료의 패턴이 지속된다는 가정이 필요하게 된다.</p>
+<p>예측 구간은 <span class="math inline">\(h\)</span> 가 커짐에 따라 구간의 폭은 일단 증가하지만, 차분이 적용되지 않는 자료의 경우에는 구간의 폭이 점차 일정해지고, 차분이 적용된 비정상 시계열자료의 경우에는 구간의 폭이 계속 증가하게 된다.</p>
+<p>오차의 가정 사항이 만족되지 않게 되면 예측의 신뢰도에 전반적인 문제가 발생하게 되는데, 점 예측보다는 예측 구간에 더 큰 문제가 생기게 된다.
+예측 구간은 점 예측값의 분산과 분포에 의해 추정되는데, 가정 사항이 만족되지 않으면 추정된 분산과 분포가 정확하지 않을 수 있기 때문이다.</p>
+<p>예측은 함수 <code>forecast::forecast()</code>로 실시한다.
+함수 <code>Arima()</code> 혹은 <code>auto.arima()</code>로 생성된 객체를 입력하면 되며, 예측 시점 <span class="math inline">\(h\)</span> 는 주기가 1이면 10, 1을 초과하면 주기의 2배가 되는 것이 디폴트이다.</p>
+</div>
+<div id="실습-예제" class="section level3" number="4.3.4">
+<h3><span class="header-section-number">4.3.4</span> 실습 예제</h3>
+<ul>
+<li>예제 1: gas 자료</li>
+</ul>
+<p>자료 파일 <code>gas.csv</code>에는 9초 간격으로 측정된 입력 가스 비율 (<code>rate</code>)에 따른 이산화탄소 배출 농도 (<code>co2</code>)가 입력되어 있다.
+변수 <code>rate</code>에 대한 ARIMA 모형을 적합해 보자.</p>
+<p>먼저 자료를 입력해서 ts 객체로 변환하고, 시계열 그래프를 작성해 보자.</p>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="arima-모형.html#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">library</span>(fpp2)</span>
+<span id="cb74-2"><a href="arima-모형.html#cb74-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> gas <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/yjyjpark/TS-with-R/main/Data/gas.csv&quot;</span>)</span>
+<span id="cb74-3"><a href="arima-모형.html#cb74-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> gas <span class="sc">%&gt;%</span> <span class="fu">print</span>(<span class="at">n =</span> <span class="dv">5</span>)</span>
+<span id="cb74-4"><a href="arima-모형.html#cb74-4" aria-hidden="true" tabindex="-1"></a><span class="co"># A tibble: 296 x 2</span></span>
+<span id="cb74-5"><a href="arima-모형.html#cb74-5" aria-hidden="true" tabindex="-1"></a>    rate   co2</span>
+<span id="cb74-6"><a href="arima-모형.html#cb74-6" aria-hidden="true" tabindex="-1"></a>   <span class="sc">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span></span>
+<span id="cb74-7"><a href="arima-모형.html#cb74-7" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span><span class="fl">0.109</span>  <span class="fl">53.8</span></span>
+<span id="cb74-8"><a href="arima-모형.html#cb74-8" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span>  <span class="dv">0</span>      <span class="fl">53.6</span></span>
+<span id="cb74-9"><a href="arima-모형.html#cb74-9" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span>  <span class="fl">0.178</span>  <span class="fl">53.5</span></span>
+<span id="cb74-10"><a href="arima-모형.html#cb74-10" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span>  <span class="fl">0.339</span>  <span class="fl">53.5</span></span>
+<span id="cb74-11"><a href="arima-모형.html#cb74-11" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span>  <span class="fl">0.373</span>  <span class="fl">53.4</span></span>
+<span id="cb74-12"><a href="arima-모형.html#cb74-12" aria-hidden="true" tabindex="-1"></a><span class="co"># ... with 291 more rows</span></span>
+<span id="cb74-13"><a href="arima-모형.html#cb74-13" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> rate.ts <span class="ot">&lt;-</span> <span class="fu">as.ts</span>(gas<span class="sc">$</span>rate)</span>
+<span id="cb74-14"><a href="arima-모형.html#cb74-14" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">autoplot</span>(rate.ts) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">y =</span> <span class="cn">NULL</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-45-1.png" width="576" /></p>
+<p>전체 자료를 training data와 test data로 분리해서 분석에 사용해 보자.
+Test data는 마지막 10개 자료로 한다.</p>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="arima-모형.html#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> train_r <span class="ot">&lt;-</span> <span class="fu">window</span>(rate.ts, <span class="at">end =</span> <span class="fu">length</span>(rate.ts) <span class="sc">-</span> <span class="dv">10</span>)</span>
+<span id="cb75-2"><a href="arima-모형.html#cb75-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> test_r <span class="ot">&lt;-</span> <span class="fu">window</span>(rate.ts, <span class="at">start =</span> <span class="fu">length</span>(rate.ts) <span class="sc">-</span> <span class="dv">9</span>)</span></code></pre></div>
+<p>Training data를 대상으로 최적의 모형을 적합해 보자.
+먼저 자료의 정상성 여부를 확인하자.</p>
+<div class="figure"><span style="display:block;" id="fig:train-r-1"></span>
+<img src="_main_files/figure-html/train-r-1-1.png" alt="자료 `train_r`의 정상성 여부 확인" width="576" />
+<p class="caption">
+Figure 4.28: 자료 <code>train_r</code>의 정상성 여부 확인
+</p>
+</div>
+<p>Figure <a href="arima-모형.html#fig:train-r-1">4.28</a>의 시계열 그래프에는 명확한 추세가 없는 것으로 보이지만, 표본 ACF가 비교적 천천히 모습이 보인다.
+단위근 검정 결과는 차분이 필요한 것으로 나온다.</p>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="arima-모형.html#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">ndiffs</span>(train_r)</span>
+<span id="cb76-2"><a href="arima-모형.html#cb76-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1</span></span></code></pre></div>
+<p>단위근 검정 결과에 따라 정상성이 만족되지 않는 것으로 보고 차분을 실시할 수 있지만, 시계열 그래프와 ACF를 근거로 정상성이 만족된 것으로 볼 수도 있기 때문에, 차분을 실시하는 것과 실시하지 않는 두 가지 상황을 모두 고려해서 모형 식별을 진행하는 것이 좋을 것으로 보인다.</p>
+<p>먼저 차분을 실시하지 않는 경우에 대해서 모형 적합을 진행해 보자.
+차분을 실시하지 않기 위해서 <code>d = 0</code>을 입력하고, 이어서 <code>stepwise</code>, <code>approximation</code>, <code>seasonal</code>을 모두 <code>FALSE</code>로 지정하자.
+<code>trace = TRUE</code>를 추가하면 비교 대상 모형의 AICc 값이 출력된다.</p>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="arima-모형.html#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> fit1 <span class="ot">&lt;-</span> <span class="fu">auto.arima</span>(train_r, <span class="at">d =</span> <span class="dv">0</span>, <span class="at">stepwise =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb77-2"><a href="arima-모형.html#cb77-2" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                    <span class="at">approximation =</span> <span class="cn">FALSE</span>, <span class="at">seasonal =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb77-3"><a href="arima-모형.html#cb77-3" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                    <span class="at">trace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb77-4"><a href="arima-모형.html#cb77-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-5"><a href="arima-모형.html#cb77-5" aria-hidden="true" tabindex="-1"></a> <span class="fu">ARIMA</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>) with zero mean     <span class="sc">:</span> <span class="fl">862.9984</span></span>
+<span id="cb77-6"><a href="arima-모형.html#cb77-6" aria-hidden="true" tabindex="-1"></a> <span class="fu">ARIMA</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>) with non<span class="sc">-</span>zero mean <span class="sc">:</span> <span class="fl">864.2264</span></span>
+<span id="cb77-7"><a href="arima-모형.html#cb77-7" aria-hidden="true" tabindex="-1"></a> <span class="fu">ARIMA</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>) with zero mean     <span class="sc">:</span> <span class="fl">502.5603</span></span>
+<span id="cb77-8"><a href="arima-모형.html#cb77-8" aria-hidden="true" tabindex="-1"></a> <span class="fu">ARIMA</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>) with non<span class="sc">-</span>zero mean <span class="sc">:</span> <span class="fl">503.849</span></span>
+<span id="cb77-9"><a href="arima-모형.html#cb77-9" aria-hidden="true" tabindex="-1"></a> <span class="fu">ARIMA</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">2</span>) with zero mean     <span class="sc">:</span> <span class="fl">245.7837</span></span>
+<span id="cb77-10"><a href="arima-모형.html#cb77-10" aria-hidden="true" tabindex="-1"></a> <span class="fu">ARIMA</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">2</span>) with non<span class="sc">-</span>zero mean <span class="sc">:</span> <span class="fl">247.1783</span></span>
+<span id="cb77-11"><a href="arima-모형.html#cb77-11" aria-hidden="true" tabindex="-1"></a> <span class="fu">ARIMA</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">3</span>) with zero mean     <span class="sc">:</span> <span class="fl">81.487</span></span>
+<span id="cb77-12"><a href="arima-모형.html#cb77-12" aria-hidden="true" tabindex="-1"></a> <span class="fu">ARIMA</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">3</span>) with non<span class="sc">-</span>zero mean <span class="sc">:</span> <span class="fl">83.02667</span></span>
+<span id="cb77-13"><a href="arima-모형.html#cb77-13" aria-hidden="true" tabindex="-1"></a> <span class="fu">ARIMA</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">4</span>) with zero mean     <span class="sc">:</span> <span class="sc">-</span><span class="fl">20.65077</span></span>
+<span id="cb77-14"><a href="arima-모형.html#cb77-14" aria-hidden="true" tabindex="-1"></a> <span class="fu">ARIMA</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">4</span>) with non<span class="sc">-</span>zero mean <span class="sc">:</span> <span class="sc">-</span><span class="fl">19.01766</span></span>
+<span id="cb77-15"><a href="arima-모형.html#cb77-15" aria-hidden="true" tabindex="-1"></a> <span class="fu">ARIMA</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">5</span>) with zero mean     <span class="sc">:</span> <span class="sc">-</span><span class="fl">84.62715</span></span>
+<span id="cb77-16"><a href="arima-모형.html#cb77-16" aria-hidden="true" tabindex="-1"></a> <span class="fu">ARIMA</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">5</span>) with non<span class="sc">-</span>zero mean <span class="sc">:</span> <span class="sc">-</span><span class="fl">82.85418</span></span>
+<span id="cb77-17"><a href="arima-모형.html#cb77-17" aria-hidden="true" tabindex="-1"></a> <span class="fu">ARIMA</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>) with zero mean     <span class="sc">:</span> <span class="fl">184.3482</span></span>
+<span id="cb77-18"><a href="arima-모형.html#cb77-18" aria-hidden="true" tabindex="-1"></a> <span class="fu">ARIMA</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>) with non<span class="sc">-</span>zero mean <span class="sc">:</span> <span class="fl">186.3166</span></span>
+<span id="cb77-19"><a href="arima-모형.html#cb77-19" aria-hidden="true" tabindex="-1"></a> <span class="fu">ARIMA</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>) with zero mean     <span class="sc">:</span> <span class="sc">-</span><span class="fl">16.72114</span></span>
+<span id="cb77-20"><a href="arima-모형.html#cb77-20" aria-hidden="true" tabindex="-1"></a> <span class="fu">ARIMA</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>) with non<span class="sc">-</span>zero mean <span class="sc">:</span> <span class="sc">-</span><span class="fl">14.73886</span></span>
+<span id="cb77-21"><a href="arima-모형.html#cb77-21" aria-hidden="true" tabindex="-1"></a> <span class="fu">ARIMA</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">2</span>) with zero mean     <span class="sc">:</span> <span class="sc">-</span><span class="fl">74.34891</span></span>
+<span id="cb77-22"><a href="arima-모형.html#cb77-22" aria-hidden="true" tabindex="-1"></a> <span class="fu">ARIMA</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">2</span>) with non<span class="sc">-</span>zero mean <span class="sc">:</span> <span class="sc">-</span><span class="fl">72.35703</span></span>
+<span id="cb77-23"><a href="arima-모형.html#cb77-23" aria-hidden="true" tabindex="-1"></a> <span class="fu">ARIMA</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">3</span>) with zero mean     <span class="sc">:</span> <span class="sc">-</span><span class="fl">115.7122</span></span>
+<span id="cb77-24"><a href="arima-모형.html#cb77-24" aria-hidden="true" tabindex="-1"></a> <span class="fu">ARIMA</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">3</span>) with non<span class="sc">-</span>zero mean <span class="sc">:</span> <span class="sc">-</span><span class="fl">113.7137</span></span>
+<span id="cb77-25"><a href="arima-모형.html#cb77-25" aria-hidden="true" tabindex="-1"></a> <span class="fu">ARIMA</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">4</span>) with zero mean     <span class="sc">:</span> <span class="sc">-</span><span class="fl">133.8983</span></span>
+<span id="cb77-26"><a href="arima-모형.html#cb77-26" aria-hidden="true" tabindex="-1"></a> <span class="fu">ARIMA</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">4</span>) with non<span class="sc">-</span>zero mean <span class="sc">:</span> <span class="sc">-</span><span class="fl">131.9025</span></span>
+<span id="cb77-27"><a href="arima-모형.html#cb77-27" aria-hidden="true" tabindex="-1"></a> <span class="fu">ARIMA</span>(<span class="dv">2</span>,<span class="dv">0</span>,<span class="dv">0</span>) with zero mean     <span class="sc">:</span> <span class="sc">-</span><span class="fl">89.86221</span></span>
+<span id="cb77-28"><a href="arima-모형.html#cb77-28" aria-hidden="true" tabindex="-1"></a> <span class="fu">ARIMA</span>(<span class="dv">2</span>,<span class="dv">0</span>,<span class="dv">0</span>) with non<span class="sc">-</span>zero mean <span class="sc">:</span> <span class="sc">-</span><span class="fl">88.00051</span></span>
+<span id="cb77-29"><a href="arima-모형.html#cb77-29" aria-hidden="true" tabindex="-1"></a> <span class="fu">ARIMA</span>(<span class="dv">2</span>,<span class="dv">0</span>,<span class="dv">1</span>) with zero mean     <span class="sc">:</span> <span class="sc">-</span><span class="fl">113.8044</span></span>
+<span id="cb77-30"><a href="arima-모형.html#cb77-30" aria-hidden="true" tabindex="-1"></a> <span class="fu">ARIMA</span>(<span class="dv">2</span>,<span class="dv">0</span>,<span class="dv">1</span>) with non<span class="sc">-</span>zero mean <span class="sc">:</span> <span class="sc">-</span><span class="fl">111.8785</span></span>
+<span id="cb77-31"><a href="arima-모형.html#cb77-31" aria-hidden="true" tabindex="-1"></a> <span class="fu">ARIMA</span>(<span class="dv">2</span>,<span class="dv">0</span>,<span class="dv">2</span>) with zero mean     <span class="sc">:</span> <span class="sc">-</span><span class="fl">116.6196</span></span>
+<span id="cb77-32"><a href="arima-모형.html#cb77-32" aria-hidden="true" tabindex="-1"></a> <span class="fu">ARIMA</span>(<span class="dv">2</span>,<span class="dv">0</span>,<span class="dv">2</span>) with non<span class="sc">-</span>zero mean <span class="sc">:</span> <span class="sc">-</span><span class="fl">114.6669</span></span>
+<span id="cb77-33"><a href="arima-모형.html#cb77-33" aria-hidden="true" tabindex="-1"></a> <span class="fu">ARIMA</span>(<span class="dv">2</span>,<span class="dv">0</span>,<span class="dv">3</span>) with zero mean     <span class="sc">:</span> <span class="sc">-</span><span class="fl">130.7106</span></span>
+<span id="cb77-34"><a href="arima-모형.html#cb77-34" aria-hidden="true" tabindex="-1"></a> <span class="fu">ARIMA</span>(<span class="dv">2</span>,<span class="dv">0</span>,<span class="dv">3</span>) with non<span class="sc">-</span>zero mean <span class="sc">:</span> <span class="sc">-</span><span class="fl">128.7274</span></span>
+<span id="cb77-35"><a href="arima-모형.html#cb77-35" aria-hidden="true" tabindex="-1"></a> <span class="fu">ARIMA</span>(<span class="dv">3</span>,<span class="dv">0</span>,<span class="dv">0</span>) with zero mean     <span class="sc">:</span> <span class="sc">-</span><span class="fl">123.114</span></span>
+<span id="cb77-36"><a href="arima-모형.html#cb77-36" aria-hidden="true" tabindex="-1"></a> <span class="fu">ARIMA</span>(<span class="dv">3</span>,<span class="dv">0</span>,<span class="dv">0</span>) with non<span class="sc">-</span>zero mean <span class="sc">:</span> <span class="sc">-</span><span class="fl">121.1507</span></span>
+<span id="cb77-37"><a href="arima-모형.html#cb77-37" aria-hidden="true" tabindex="-1"></a> <span class="fu">ARIMA</span>(<span class="dv">3</span>,<span class="dv">0</span>,<span class="dv">1</span>) with zero mean     <span class="sc">:</span> <span class="sc">-</span><span class="fl">125.3355</span></span>
+<span id="cb77-38"><a href="arima-모형.html#cb77-38" aria-hidden="true" tabindex="-1"></a> <span class="fu">ARIMA</span>(<span class="dv">3</span>,<span class="dv">0</span>,<span class="dv">1</span>) with non<span class="sc">-</span>zero mean <span class="sc">:</span> <span class="sc">-</span><span class="fl">123.3294</span></span>
+<span id="cb77-39"><a href="arima-모형.html#cb77-39" aria-hidden="true" tabindex="-1"></a> <span class="fu">ARIMA</span>(<span class="dv">3</span>,<span class="dv">0</span>,<span class="dv">2</span>) with zero mean     <span class="sc">:</span> <span class="sc">-</span><span class="fl">123.8663</span></span>
+<span id="cb77-40"><a href="arima-모형.html#cb77-40" aria-hidden="true" tabindex="-1"></a> <span class="fu">ARIMA</span>(<span class="dv">3</span>,<span class="dv">0</span>,<span class="dv">2</span>) with non<span class="sc">-</span>zero mean <span class="sc">:</span> <span class="sc">-</span><span class="fl">121.8527</span></span>
+<span id="cb77-41"><a href="arima-모형.html#cb77-41" aria-hidden="true" tabindex="-1"></a> <span class="fu">ARIMA</span>(<span class="dv">4</span>,<span class="dv">0</span>,<span class="dv">0</span>) with zero mean     <span class="sc">:</span> <span class="sc">-</span><span class="fl">125.2705</span></span>
+<span id="cb77-42"><a href="arima-모형.html#cb77-42" aria-hidden="true" tabindex="-1"></a> <span class="fu">ARIMA</span>(<span class="dv">4</span>,<span class="dv">0</span>,<span class="dv">0</span>) with non<span class="sc">-</span>zero mean <span class="sc">:</span> <span class="sc">-</span><span class="fl">123.2711</span></span>
+<span id="cb77-43"><a href="arima-모형.html#cb77-43" aria-hidden="true" tabindex="-1"></a> <span class="fu">ARIMA</span>(<span class="dv">4</span>,<span class="dv">0</span>,<span class="dv">1</span>) with zero mean     <span class="sc">:</span> <span class="sc">-</span><span class="fl">123.4833</span></span>
+<span id="cb77-44"><a href="arima-모형.html#cb77-44" aria-hidden="true" tabindex="-1"></a> <span class="fu">ARIMA</span>(<span class="dv">4</span>,<span class="dv">0</span>,<span class="dv">1</span>) with non<span class="sc">-</span>zero mean <span class="sc">:</span> <span class="sc">-</span><span class="fl">121.4641</span></span>
+<span id="cb77-45"><a href="arima-모형.html#cb77-45" aria-hidden="true" tabindex="-1"></a> <span class="fu">ARIMA</span>(<span class="dv">5</span>,<span class="dv">0</span>,<span class="dv">0</span>) with zero mean     <span class="sc">:</span> <span class="sc">-</span><span class="fl">124.0066</span></span>
+<span id="cb77-46"><a href="arima-모형.html#cb77-46" aria-hidden="true" tabindex="-1"></a> <span class="fu">ARIMA</span>(<span class="dv">5</span>,<span class="dv">0</span>,<span class="dv">0</span>) with non<span class="sc">-</span>zero mean <span class="sc">:</span> <span class="sc">-</span><span class="fl">121.9828</span></span>
+<span id="cb77-47"><a href="arima-모형.html#cb77-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-48"><a href="arima-모형.html#cb77-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-49"><a href="arima-모형.html#cb77-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-50"><a href="arima-모형.html#cb77-50" aria-hidden="true" tabindex="-1"></a> Best model<span class="sc">:</span> <span class="fu">ARIMA</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">4</span>) with zero mean     </span></code></pre></div>
+<p>적합 결과를 확인해 보자.
+ARMA(1,4) 모형이 선택되었다.</p>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="arima-모형.html#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> fit1</span>
+<span id="cb78-2"><a href="arima-모형.html#cb78-2" aria-hidden="true" tabindex="-1"></a>Series<span class="sc">:</span> train_r </span>
+<span id="cb78-3"><a href="arima-모형.html#cb78-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ARIMA</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">4</span>) with zero mean </span>
+<span id="cb78-4"><a href="arima-모형.html#cb78-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb78-5"><a href="arima-모형.html#cb78-5" aria-hidden="true" tabindex="-1"></a>Coefficients<span class="sc">:</span></span>
+<span id="cb78-6"><a href="arima-모형.html#cb78-6" aria-hidden="true" tabindex="-1"></a>         ar1     ma1     ma2     ma3     ma4</span>
+<span id="cb78-7"><a href="arima-모형.html#cb78-7" aria-hidden="true" tabindex="-1"></a>      <span class="fl">0.7769</span>  <span class="fl">1.1456</span>  <span class="fl">1.0384</span>  <span class="fl">0.7892</span>  <span class="fl">0.3022</span></span>
+<span id="cb78-8"><a href="arima-모형.html#cb78-8" aria-hidden="true" tabindex="-1"></a>s.e.  <span class="fl">0.0450</span>  <span class="fl">0.0657</span>  <span class="fl">0.0922</span>  <span class="fl">0.0880</span>  <span class="fl">0.0627</span></span>
+<span id="cb78-9"><a href="arima-모형.html#cb78-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb78-10"><a href="arima-모형.html#cb78-10" aria-hidden="true" tabindex="-1"></a>sigma<span class="sc">^</span><span class="dv">2</span> <span class="ot">=</span> <span class="fl">0.03511</span><span class="sc">:</span>  log likelihood <span class="ot">=</span> <span class="fl">73.1</span></span>
+<span id="cb78-11"><a href="arima-모형.html#cb78-11" aria-hidden="true" tabindex="-1"></a>AIC<span class="ot">=</span><span class="sc">-</span><span class="fl">134.2</span>   AICc<span class="ot">=</span><span class="sc">-</span><span class="fl">133.9</span>   BIC<span class="ot">=</span><span class="sc">-</span><span class="fl">112.26</span></span></code></pre></div>
+<p>이번에는 차분을 실시하는 경우에 대한 모형 적합을 진행해 보자.
+ARIMA(3,1,1) 모형이 선택된 것을 볼 수 있다.</p>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="arima-모형.html#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> fit2 <span class="ot">&lt;-</span> <span class="fu">auto.arima</span>(train_r, <span class="at">stepwise =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb79-2"><a href="arima-모형.html#cb79-2" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                    <span class="at">approximation =</span> <span class="cn">FALSE</span>, <span class="at">seasonal =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb79-3"><a href="arima-모형.html#cb79-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> fit2</span>
+<span id="cb79-4"><a href="arima-모형.html#cb79-4" aria-hidden="true" tabindex="-1"></a>Series<span class="sc">:</span> train_r </span>
+<span id="cb79-5"><a href="arima-모형.html#cb79-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ARIMA</span>(<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">1</span>) </span>
+<span id="cb79-6"><a href="arima-모형.html#cb79-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb79-7"><a href="arima-모형.html#cb79-7" aria-hidden="true" tabindex="-1"></a>Coefficients<span class="sc">:</span></span>
+<span id="cb79-8"><a href="arima-모형.html#cb79-8" aria-hidden="true" tabindex="-1"></a>         ar1      ar2     ar3      ma1</span>
+<span id="cb79-9"><a href="arima-모형.html#cb79-9" aria-hidden="true" tabindex="-1"></a>      <span class="fl">1.9589</span>  <span class="sc">-</span><span class="fl">1.3503</span>  <span class="fl">0.3304</span>  <span class="sc">-</span><span class="fl">0.9855</span></span>
+<span id="cb79-10"><a href="arima-모형.html#cb79-10" aria-hidden="true" tabindex="-1"></a>s.e.  <span class="fl">0.0580</span>   <span class="fl">0.1032</span>  <span class="fl">0.0576</span>   <span class="fl">0.0148</span></span>
+<span id="cb79-11"><a href="arima-모형.html#cb79-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb79-12"><a href="arima-모형.html#cb79-12" aria-hidden="true" tabindex="-1"></a>sigma<span class="sc">^</span><span class="dv">2</span> <span class="ot">=</span> <span class="fl">0.03717</span><span class="sc">:</span>  log likelihood <span class="ot">=</span> <span class="fl">65.4</span></span>
+<span id="cb79-13"><a href="arima-모형.html#cb79-13" aria-hidden="true" tabindex="-1"></a>AIC<span class="ot">=</span><span class="sc">-</span><span class="fl">120.81</span>   AICc<span class="ot">=</span><span class="sc">-</span><span class="fl">120.59</span>   BIC<span class="ot">=</span><span class="sc">-</span><span class="fl">102.55</span></span></code></pre></div>
+<p>두 모형의 모형 진단을 실시해 보자.</p>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="arima-모형.html#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">checkresiduals</span>(fit1)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-51-1.png" width="576" /></p>
+<pre><code>
+    Ljung-Box test
+
+data:  Residuals from ARIMA(1,0,4) with zero mean
+Q* = 1.5628, df = 5, p-value = 0.9057
+
+Model df: 5.   Total lags used: 10</code></pre>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="arima-모형.html#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">checkresiduals</span>(fit2)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-52-1.png" width="576" /></p>
+<pre><code>
+    Ljung-Box test
+
+data:  Residuals from ARIMA(3,1,1)
+Q* = 11.352, df = 6, p-value = 0.07809
+
+Model df: 4.   Total lags used: 10</code></pre>
+<p>모든 가정이 만족되는 것으로 보인다.</p>
+<p>두 모형을 사용하여 예측을 실시하고 test data와 비교해 보자.
+모형 <code>fit1</code>은 차분을 하지 않은 자료를 사용한 것이고, 모형 <code>fit2</code>는 차분을 실시한 자료를 사용한 것이다.
+즉, 서로 다른 자료를 사용하여 적합한 모형이기 때문에, 두 모형의 AICc 등의 값을 비교하는 것은 의미가 없다.</p>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="arima-모형.html#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> fc1 <span class="ot">&lt;-</span> <span class="fu">forecast</span>(fit1)</span>
+<span id="cb84-2"><a href="arima-모형.html#cb84-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> fc2 <span class="ot">&lt;-</span> <span class="fu">forecast</span>(fit2)</span>
+<span id="cb84-3"><a href="arima-모형.html#cb84-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">accuracy</span>(fc1, test_r)</span>
+<span id="cb84-4"><a href="arima-모형.html#cb84-4" aria-hidden="true" tabindex="-1"></a>                       ME      RMSE       MAE      MPE     MAPE      MASE</span>
+<span id="cb84-5"><a href="arima-모형.html#cb84-5" aria-hidden="true" tabindex="-1"></a>Training set <span class="sc">-</span><span class="fl">0.003485182</span> <span class="fl">0.1857419</span> <span class="fl">0.1308396</span>      <span class="cn">NaN</span>      <span class="cn">Inf</span> <span class="fl">0.5071232</span></span>
+<span id="cb84-6"><a href="arima-모형.html#cb84-6" aria-hidden="true" tabindex="-1"></a>Test set      <span class="fl">0.197714969</span> <span class="fl">0.2984918</span> <span class="fl">0.2589217</span> <span class="fl">261.7854</span> <span class="fl">282.7786</span> <span class="fl">1.0035587</span></span>
+<span id="cb84-7"><a href="arima-모형.html#cb84-7" aria-hidden="true" tabindex="-1"></a>                   ACF1 Theil<span class="st">&#39;s U</span></span>
+<span id="cb84-8"><a href="arima-모형.html#cb84-8" aria-hidden="true" tabindex="-1"></a><span class="st">Training set 0.01278907        NA</span></span>
+<span id="cb84-9"><a href="arima-모형.html#cb84-9" aria-hidden="true" tabindex="-1"></a><span class="st">Test set     0.63693511  1.231509</span></span>
+<span id="cb84-10"><a href="arima-모형.html#cb84-10" aria-hidden="true" tabindex="-1"></a><span class="st">&gt; accuracy(fc2, test_r)</span></span>
+<span id="cb84-11"><a href="arima-모형.html#cb84-11" aria-hidden="true" tabindex="-1"></a><span class="st">                       ME      RMSE       MAE      MPE     MAPE      MASE</span></span>
+<span id="cb84-12"><a href="arima-모형.html#cb84-12" aria-hidden="true" tabindex="-1"></a><span class="st">Training set -0.008064075 0.1911149 0.1333927      NaN      Inf 0.5170188</span></span>
+<span id="cb84-13"><a href="arima-모형.html#cb84-13" aria-hidden="true" tabindex="-1"></a><span class="st">Test set      0.325580419 0.3713446 0.3255804 390.3076 437.7347 1.2619224</span></span>
+<span id="cb84-14"><a href="arima-모형.html#cb84-14" aria-hidden="true" tabindex="-1"></a><span class="st">                    ACF1 Theil&#39;</span>s U</span>
+<span id="cb84-15"><a href="arima-모형.html#cb84-15" aria-hidden="true" tabindex="-1"></a>Training set <span class="sc">-</span><span class="fl">0.03694615</span>        <span class="cn">NA</span></span>
+<span id="cb84-16"><a href="arima-모형.html#cb84-16" aria-hidden="true" tabindex="-1"></a>Test set      <span class="fl">0.57275035</span>  <span class="fl">1.400976</span></span></code></pre></div>
+<p>함수 <code>accuracy()</code>의 결과를 보면, ARMA(1,4) 모형인 <code>fit1</code>의 예측 오차가 조금 더 작은 것으로 보인다.
+따라서 이 모형을 최종 예측모형으로 선택하기로 하자.
+최종 예측모형의 모형식은 다음과 같다.</p>
+<p><span class="math display">\[
+(1-0.7769B)~y_{t} = (1+1.145B+1.038B^{2}+0.789B^{3}+0.302B^{4})~\epsilon_{t}
+\]</span></p>
+<p>예측 결과를 그래프로 나타내 보자.
+Test data와 함께 표시하는 것이 비교하기 좋을 것이다.</p>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="arima-모형.html#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">autoplot</span>(fc1, <span class="at">include =</span> <span class="dv">20</span>) <span class="sc">+</span> </span>
+<span id="cb85-2"><a href="arima-모형.html#cb85-2" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">autolayer</span>(test_r, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb85-3"><a href="arima-모형.html#cb85-3" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;rate&quot;</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:test-r-1"></span>
+<img src="_main_files/figure-html/test-r-1-1.png" alt="`rate` 자료에 대한 예측 결과 그래프" width="576" />
+<p class="caption">
+Figure 4.29: <code>rate</code> 자료에 대한 예측 결과 그래프
+</p>
+</div>
+<ul>
+<li>예제 2 : 1996년 1월부터 2012년 3월까지 Euro 지역에서의 월별 전자 제품 생산량 자료 (<code>fpp2::elecequip</code>)</li>
+</ul>
+<p>자료 <code>elecequip</code>은 계절 요인이 존재하는 월별 자료이다.
+비계절형 ARIMA 모형을 적합하기 위해서는 계절 요소를 자료에서 제거해야 한다.
+함수 <code>stl()</code>로 자료를 분해하고, 이어서 함수 <code>forecast::seasadj()</code>를 적용해서 계절 요소를 제거해 보자.</p>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="arima-모형.html#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> elecequip_desea <span class="ot">&lt;-</span> <span class="fu">stl</span>(elecequip, <span class="at">s.window=</span><span class="st">&quot;periodic&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb86-2"><a href="arima-모형.html#cb86-2" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">seasadj</span>()</span></code></pre></div>
+<p>원자료와 계절 조정된 자료의 시계열 그래프를 비교해 보자.</p>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="arima-모형.html#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">autoplot</span>(elecequip, <span class="at">series =</span> <span class="st">&quot;Monthly data&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb87-2"><a href="arima-모형.html#cb87-2" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">autolayer</span>(elecequip_desea, <span class="at">series =</span> <span class="st">&quot;Seasonally adjusted&quot;</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb87-3"><a href="arima-모형.html#cb87-3" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;Monthly data&quot;</span> <span class="ot">=</span> <span class="st">&quot;blue&quot;</span>, <span class="st">&quot;Seasonally adjusted&quot;</span> <span class="ot">=</span> <span class="st">&quot;red&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb87-4"><a href="arima-모형.html#cb87-4" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;top&quot;</span>) <span class="sc">+</span></span>
+<span id="cb87-5"><a href="arima-모형.html#cb87-5" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">labs</span>(<span class="at">y =</span> <span class="cn">NULL</span>, <span class="at">color =</span> <span class="cn">NULL</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:equip-1"></span>
+<img src="_main_files/figure-html/equip-1-1.png" alt="`elecequip` 원자료와 계절 조정된 자료의 비교" width="576" />
+<p class="caption">
+Figure 4.30: <code>elecequip</code> 원자료와 계절 조정된 자료의 비교
+</p>
+</div>
+<p>계절 조정된 자료를 대상으로 자료 분리를 실시해 보자.
+Test data는 마지막 2년 자료로 한다.</p>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="arima-모형.html#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> train_eq <span class="ot">&lt;-</span> <span class="fu">window</span>(elecequip_desea, <span class="at">end =</span> <span class="fu">c</span>(<span class="dv">2010</span>,<span class="dv">3</span>))</span>
+<span id="cb88-2"><a href="arima-모형.html#cb88-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> test_eq <span class="ot">&lt;-</span> <span class="fu">window</span>(elecequip_desea, <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">2010</span>,<span class="dv">4</span>))</span></code></pre></div>
+<p>정상성 판단을 위한 그래프를 작성해 보자.</p>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="arima-모형.html#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">ggtsdisplay</span>(train_eq)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-56-1.png" width="576" /></p>
+<p>시간에 따른 level의 변화가 보이고, 표본 ACF가 매우 천천히 감소하는 것도 알 수 있다.
+단위근 검정에서도 차분이 필요한 것으로 나타난다.</p>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="arima-모형.html#cb90-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">ndiffs</span>(train_eq)</span>
+<span id="cb90-2"><a href="arima-모형.html#cb90-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1</span></span></code></pre></div>
+<p>차분된 자료를 대상으로 시계열 그래프와 ACF를 작성해 보자.</p>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="arima-모형.html#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> train_eq <span class="sc">%&gt;%</span> </span>
+<span id="cb91-2"><a href="arima-모형.html#cb91-2" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">diff</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb91-3"><a href="arima-모형.html#cb91-3" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">ggtsdisplay</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-58-1.png" width="576" /></p>
+<p>차분된 자료는 정상성을 만족하는 것으로 보인다.
+또한 ACF는 지수적 감소, PACF는 3시차 이후 절단으로 볼 수 있기 때문에 차분된 자료는 AR(3) 모형으로 식별할 수 있고, 따라서 원자료는 ARIMA(3,1,0) 모형으로 식별할 수 있다.</p>
+<p>함수 <code>auto.arima()</code>에 의한 모형 선택을 실시해 보자.</p>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="arima-모형.html#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> fit1 <span class="ot">&lt;-</span> <span class="fu">auto.arima</span>(train_eq, <span class="at">stepwise =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb92-2"><a href="arima-모형.html#cb92-2" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                    <span class="at">approximation =</span> <span class="cn">FALSE</span>, <span class="at">seasonal =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb92-3"><a href="arima-모형.html#cb92-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> fit1</span>
+<span id="cb92-4"><a href="arima-모형.html#cb92-4" aria-hidden="true" tabindex="-1"></a>Series<span class="sc">:</span> train_eq </span>
+<span id="cb92-5"><a href="arima-모형.html#cb92-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ARIMA</span>(<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">0</span>) </span>
+<span id="cb92-6"><a href="arima-모형.html#cb92-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb92-7"><a href="arima-모형.html#cb92-7" aria-hidden="true" tabindex="-1"></a>Coefficients<span class="sc">:</span></span>
+<span id="cb92-8"><a href="arima-모형.html#cb92-8" aria-hidden="true" tabindex="-1"></a>          ar1      ar2     ar3</span>
+<span id="cb92-9"><a href="arima-모형.html#cb92-9" aria-hidden="true" tabindex="-1"></a>      <span class="sc">-</span><span class="fl">0.2922</span>  <span class="sc">-</span><span class="fl">0.0635</span>  <span class="fl">0.3710</span></span>
+<span id="cb92-10"><a href="arima-모형.html#cb92-10" aria-hidden="true" tabindex="-1"></a>s.e.   <span class="fl">0.0713</span>   <span class="fl">0.0748</span>  <span class="fl">0.0718</span></span>
+<span id="cb92-11"><a href="arima-모형.html#cb92-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb92-12"><a href="arima-모형.html#cb92-12" aria-hidden="true" tabindex="-1"></a>sigma<span class="sc">^</span><span class="dv">2</span> <span class="ot">=</span> <span class="fl">9.169</span><span class="sc">:</span>  log likelihood <span class="ot">=</span> <span class="sc">-</span><span class="fl">428.36</span></span>
+<span id="cb92-13"><a href="arima-모형.html#cb92-13" aria-hidden="true" tabindex="-1"></a>AIC<span class="ot">=</span><span class="fl">864.73</span>   AICc<span class="ot">=</span><span class="fl">864.97</span>   BIC<span class="ot">=</span><span class="fl">877.27</span></span></code></pre></div>
+<p>ARIMA(3,1,0) 모형이 선택되었다.
+모형식은 다음과 같다.</p>
+<p><span class="math display">\[
+(1+0.292B+0.064B^{2}-0.371B^{3})(1-B)~y_{t}=\epsilon_{t}
+\]</span></p>
+<p>적합된 모형의 검진을 실시해 보자.
+잔차는 백색잡음 자료라고 할 수 있으며, 정규분포 가정에도 문제가 없는 것으로 보인다.</p>
+<p>예측을 실시하고, 예측 오차를 확인해 보자.</p>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="arima-모형.html#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> fc1 <span class="ot">&lt;-</span> <span class="fu">forecast</span>(fit1)</span>
+<span id="cb93-2"><a href="arima-모형.html#cb93-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">accuracy</span>(fc1, test_eq)</span>
+<span id="cb93-3"><a href="arima-모형.html#cb93-3" aria-hidden="true" tabindex="-1"></a>                       ME     RMSE      MAE         MPE     MAPE      MASE</span>
+<span id="cb93-4"><a href="arima-모형.html#cb93-4" aria-hidden="true" tabindex="-1"></a>Training set <span class="sc">-</span><span class="fl">0.002219982</span> <span class="fl">2.992424</span> <span class="fl">2.301026</span> <span class="sc">-</span><span class="fl">0.05081691</span> <span class="fl">2.411491</span> <span class="fl">0.2786977</span></span>
+<span id="cb93-5"><a href="arima-모형.html#cb93-5" aria-hidden="true" tabindex="-1"></a>Test set      <span class="fl">8.727507127</span> <span class="fl">9.330976</span> <span class="fl">8.727507</span>  <span class="fl">9.28015517</span> <span class="fl">9.280155</span> <span class="fl">1.0570657</span></span>
+<span id="cb93-6"><a href="arima-모형.html#cb93-6" aria-hidden="true" tabindex="-1"></a>                    ACF1 Theil<span class="st">&#39;s U</span></span>
+<span id="cb93-7"><a href="arima-모형.html#cb93-7" aria-hidden="true" tabindex="-1"></a><span class="st">Training set -0.03178277        NA</span></span>
+<span id="cb93-8"><a href="arima-모형.html#cb93-8" aria-hidden="true" tabindex="-1"></a><span class="st">Test set      0.38874430  2.481532</span></span></code></pre></div>
+<p>예측 결과를 그래프로 나타내 보자.</p>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="arima-모형.html#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">autoplot</span>(fc1, <span class="at">include =</span> <span class="dv">20</span>) <span class="sc">+</span> </span>
+<span id="cb94-2"><a href="arima-모형.html#cb94-2" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">autolayer</span>(test_eq, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb94-3"><a href="arima-모형.html#cb94-3" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">ylab</span>(<span class="st">&quot;Electrical equipment manufactured&quot;</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:equip-2"></span>
+<img src="_main_files/figure-html/equip-2-1.png" alt="`elecequip` 자료에 대한 예측 결과" width="576" />
+<p class="caption">
+Figure 4.31: <code>elecequip</code> 자료에 대한 예측 결과
+</p>
+</div>
+<p>예측 결과가 test data와는 차이가 있음을 알 수 있다.</p>
+</div>
+</div>
+<div id="section-seasonal-arima" class="section level2" number="4.4">
+<h2><span class="header-section-number">4.4</span> 계절형 ARIMA 모형</h2>
+<p>ARIMA 모형은 계절 요소가 있는 자료에도 매우 효과적으로 사용될 수 있다.
+비계절형 ARIMA 요소와 계절형 ARIMA 요소를 모두 갖고 있는 경우에는 ARIMA(p,d,q)(P,D,Q)<sub>m</sub> 로 모형을 표시할 수 있는데, (p,d,q)는 비계절형 ARIMA 모형의 AR 차수, 차분 차수, MA 차수를 각각 의미하고,
+(P,D,Q)<sub>m</sub> 은 계절 주기가 m인 자료에 대한 계절형 AR 차수, 계절 차분 차수, 계절형 MA 차수를 각각 의미하는 것이다.</p>
+<p>ARIMA(p,d,q)(P,D,Q)<sub>m</sub> 모형의 모형식은 다음과 같이 나타낼 수 있다.</p>
+<p><span class="math display">\[
+\phi(B)~ \Phi(B)~(1-B^{m})^{D}~(1-B)^{d}~y_{t} = \delta + \theta(B)~\Theta(B) ~\epsilon_{t}
+\]</span></p>
+<p>단,</p>
+<p><span class="math display">\[\begin{align*}
+\phi(B) &amp;= 1-\phi_{1}B-\cdots-\phi_{p}B^{p} \\
+\Phi(B) &amp;= 1-\Phi_{1}B^{m}-\cdots-\Phi_{P}B^{mP}\\
+\theta(B) &amp;= 1 + \theta_{1}B + \cdots + \theta_{q}B^{q} \\
+\Theta(B) &amp;= 1 + \Theta_{1}B^{m} + \cdots + \Theta_{Q}B^{mQ}
+\end{align*}\]</span></p>
+<div id="계절형-arima-모형-적합-절차" class="section level3" number="4.4.1">
+<h3><span class="header-section-number">4.4.1</span> 계절형 ARIMA 모형 적합 절차</h3>
+<p>계절형 ARIMA 모형의 적합 절차는 <a href="arima-모형.html#section-nonseasonal-arima">4.3</a>절에서 살펴본 비계절형 ARIMA 모형의 경우와 거의 비슷하다.</p>
+<ol style="list-style-type: decimal">
+<li>정상화 단계</li>
+</ol>
+<p>먼저 분산 안정화를 위한 변환이 필요한지 결정해야 한다.
+시계열 그래프에서 변동 진폭이 일정한지 여부를 확인하거나,
+Box-Cox 변환 모수 <span class="math inline">\(\lambda\)</span> 값을 추정해서 변환의 필요성을 결정할 수 있다.</p>
+<p>이어서 추세가 있거나 계절요소가 있는 경우에는 차분 차수를 결정해야 하는데,
+우선 시계열 그래프를 근거로 확인할 수 있다.
+또한 표본 ACF의 형태도 상세히 파악해야 하는데,
+차분 차수는 ACF의 시차 <span class="math inline">\(1, 2, \ldots, m/2\)</span> 의 형태를 근거로 결정해야 하고,
+시차 <span class="math inline">\(m, 2m, 3m, \ldots\)</span> 에서는 계절 차분 차수를 결정해야 한다.
+단위근 검정을 사용하는 함수 <code>ndiffs()</code> 또는 <code>nsdiffs()</code>의 결과를 근거로 결정을 할 수도 있다.
+일반적으로 계절 차분 차수는 <span class="math inline">\(D \leq 1\)</span> 로 제한하고 있고,
+차분 차수와 계절 차분 차수의 합은 <span class="math inline">\(d+D \leq 2\)</span> 가 되도록 결정한다.</p>
+<ol start="2" style="list-style-type: decimal">
+<li>모형 식별</li>
+</ol>
+<p>사용자가 표본 ACF와 PACF를 근거로 직접 모형 식별을 시도할 수 있다.
+비계절형 차수인 p와 q는 표본 ACF와 PACF의 시차 <span class="math inline">\(1, 2, \ldots, m/2\)</span> 을 대상으로 결정하고,
+계절형 차수 P와 Q는 표본 ACF와 PACF의 시차 <span class="math inline">\(m, 2m, 3m, \ldots\)</span> 을 대상으로 결정해야 한다.</p>
+<p>IC를 기준으로 선택한다면 비계절형 ARIMA의 경우와 동일하게 함수 <code>auto.arima()</code>를 이용하면 된다.</p>
+<ol start="3" style="list-style-type: decimal">
+<li>절편 포함 여부 결정</li>
+</ol>
+<p><span class="math inline">\(d+D \leq 1\)</span> 인 경우에는, 모평균에 대한 검정 또는 AICc의 향상 여부로 절편을 포함시킬 수 있지만, <span class="math inline">\(d+D \geq 2\)</span> 인 경우에는 절편을 포함시키지 않는 것이 일반적이다.</p>
+<ol start="4" style="list-style-type: decimal">
+<li>모수 추정, 진단 및 예측</li>
+</ol>
+<p>비계절형 ARIMA 모형의 경우와 동일한 절차 및 방법을 사용하면 된다.</p>
+</div>
+<div id="실습-예제-1" class="section level3" number="4.4.2">
+<h3><span class="header-section-number">4.4.2</span> 실습 예제</h3>
+<ul>
+<li>예제 1 : 1984년 1월부터 1988년 12월 국내 백화점 매출액</li>
+</ul>
+<p>1984년 1월부터 1988년 12월까지 국내 어떤 백화점의 매출액 자료를 계절형 ARIMA 모형으로 적합하고 예측을 실시해 보자.
+비교적 소규모 자료이기 때문에 자료를 training data와 test data로 분리하지 않고 전체 자료를 모두 사용하여 모형 적합을 진행하기로 하자.</p>
+<p>자료를 불러오고 시계열 그래프를 작성해 보자.
+Figure <a href="arima-모형.html#fig:depart-1">4.32</a>의 시계열 그래프에서 뚜렷한 증가 추세와 계절 요소가 있음을 확인할 수 있다.
+또한 계절 요소의 변동 폭이 증가 추세에 따라 함께 증가하고 있는 것도 볼 수 있다.</p>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="arima-모형.html#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> depart <span class="ot">&lt;-</span> <span class="fu">scan</span>(<span class="st">&quot;https://raw.githubusercontent.com/yjyjpark/TS-with-R/main/Data/depart.txt&quot;</span>)</span>
+<span id="cb95-2"><a href="arima-모형.html#cb95-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> depart.ts <span class="ot">&lt;-</span> <span class="fu">ts</span>(depart, <span class="at">start =</span> <span class="dv">1984</span>, <span class="at">freq =</span> <span class="dv">12</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:depart-1"></span>
+<img src="_main_files/figure-html/depart-1-1.png" alt="국내 백화점 매출액 자료" width="576" />
+<p class="caption">
+Figure 4.32: 국내 백화점 매출액 자료
+</p>
+</div>
+<p>분산이 동일하지 않고, 추세와 계절 요소가 모두 있는 비정상 시계열자료임을 알 수 있다.
+우선 로그변환을 실시해서 분산을 동일하게 만들어 보자.</p>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="arima-모형.html#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> lndepart <span class="ot">&lt;-</span> <span class="fu">log</span>(depart.ts)</span>
+<span id="cb96-2"><a href="arima-모형.html#cb96-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">autoplot</span>(lndepart) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;log(depart.ts)&quot;</span>, <span class="at">y =</span> <span class="cn">NULL</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:depart-2"></span>
+<img src="_main_files/figure-html/depart-2-1.png" alt="로그 변환된 백화점 매출액 자료" width="576" />
+<p class="caption">
+Figure 4.33: 로그 변환된 백화점 매출액 자료
+</p>
+</div>
+<p>계절 요소의 변동 폭이 일정하게 유지되고 있음을 알 수 있다.
+이제 추세와 계절 요소를 제거하기 위한 차분 차수를 결정해 보자.
+차분 차수는 시계열 그래프와 표본 ACF, 그리고 단위근 검정 결과를 모두 반영해서 결정하는 것이 좋다.
+먼저 단위근 검정 결과를 확인해 보자.
+1차 차분과 계절 차분이 모두 필요한 것으로 나타났다.</p>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="arima-모형.html#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">ndiffs</span>(lndepart)</span>
+<span id="cb97-2"><a href="arima-모형.html#cb97-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1</span></span>
+<span id="cb97-3"><a href="arima-모형.html#cb97-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">nsdiffs</span>(lndepart)</span>
+<span id="cb97-4"><a href="arima-모형.html#cb97-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1</span></span></code></pre></div>
+<p>이제 시계열 그래프와 표본 ACF의 형태를 확인해 보자.</p>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="arima-모형.html#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">ggtsdisplay</span>(lndepart, <span class="at">lag.max =</span> <span class="dv">36</span>, <span class="at">main =</span> <span class="st">&quot;lndepart: log transformed data&quot;</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:depart-3"></span>
+<img src="_main_files/figure-html/depart-3-1.png" alt="`lndepart`의 시계열 그래프, ACF와 PACF" width="576" />
+<p class="caption">
+Figure 4.34: <code>lndepart</code>의 시계열 그래프, ACF와 PACF
+</p>
+</div>
+<p>차분과 계절 차분이 모두 필요한 것으로 보이는 경우에는 계절 차분을 먼저 실시하는 것이 좋다.
+계절차분을 실시한 자료를 대상으로 시계열 그래프와 ACF를 작성해 보자.
+Figure <a href="arima-모형.html#fig:depart-4">4.35</a>에서 표본 ACF가 1시차에서 6시차까지 매우 천천히 감소하는 것을 볼 수 있고,
+따라서 차분도 필요한 것으로 보인다.</p>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="arima-모형.html#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> lndepart_12 <span class="ot">&lt;-</span> <span class="fu">diff</span>(lndepart, <span class="at">lag =</span> <span class="dv">12</span>)</span>
+<span id="cb99-2"><a href="arima-모형.html#cb99-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">ggtsdisplay</span>(lndepart_12, <span class="at">lag.max =</span> <span class="dv">36</span>, <span class="at">main =</span> <span class="st">&quot;Seasonally differenced lndepart&quot;</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:depart-4"></span>
+<img src="_main_files/figure-html/depart-4-1.png" alt="계절 차분을 실시한 `lndepart`의 시계열 그래프, ACF와 PACF" width="576" />
+<p class="caption">
+Figure 4.35: 계절 차분을 실시한 <code>lndepart</code>의 시계열 그래프, ACF와 PACF
+</p>
+</div>
+<p>차분과 계절 차분을 모두 실시한 자료의 시계열 그래프와 ACF를 작성해 보자.
+더 이상 비정상성 요소가 남아 있지 않다는 것을 Figure <a href="arima-모형.html#fig:depart-5">4.36</a>에서 확인할 수 있다.</p>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="arima-모형.html#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> lndepart_12_1 <span class="ot">&lt;-</span> <span class="fu">diff</span>(lndepart_12)</span>
+<span id="cb100-2"><a href="arima-모형.html#cb100-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">ggtsdisplay</span>(lndepart_12_1, <span class="at">lag.max =</span> <span class="dv">36</span>, <span class="at">main =</span> <span class="st">&quot;Doubly differenced lndepart&quot;</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:depart-5"></span>
+<img src="_main_files/figure-html/depart-5-1.png" alt="계절 차분과 1차 차분을 실시한 `lndepart`의 시계열 그래프, ACF와 PACF" width="576" />
+<p class="caption">
+Figure 4.36: 계절 차분과 1차 차분을 실시한 <code>lndepart</code>의 시계열 그래프, ACF와 PACF
+</p>
+</div>
+<p>단위근 검정과 시계열 그래프, 그리고 표본 ACF를 근거로 계절 차분과 1차 차분이 모두 필요한 것으로 결정할 수 있다.</p>
+<p>로그 변환과 계절 차분 및 1차 차분으로 비장상성을 모두 제거한 후에는 변환된 자료에 가장 적합한 모형을 식별해야 한다. Figure <a href="arima-모형.html#fig:depart-5">4.36</a>에서 볼 수 있는 표본 ACF와 PACF를 근거로 모형을 식별해 보자.
+비계절형 AR 차수와 MA 차수는 시차 1에서 시차 6까지의 패턴을 보고 결정해야 하는데,
+표본 ACF는 1 시차만 유의한 값이고, 이후 시차는 모두 파란 점선 안으로 들어와 있음을 알 수 있고,
+표본 PACF는 1, 2 시차가 비교적 큰 값이고, 이후 시차는 모두 점선 안으로 확실하게 들어와 있는 작은 값이다.
+따라서 ACF는 1시차 이후 절단, PACF는 감소 형태로 판단할 수 있어서,
+비계절형은 <code>p=0, q=1</code>인 MA(1)으로 식별할 수 있다.</p>
+<p>계절형 요소는 시차 12, 24, 36의 패턴으로 판단해야 하는데,
+ACF와 PACF가 12, 24, 36 시차에서 모두 작은 값을 보이고 있는 것을 볼 수 있다.
+이러한 경우에는 <code>P=0, Q=0</code>으로 식별할 수도 있지만, <code>P=1, Q=0</code> 또는 <code>P=0, Q=1</code>으로 식별하는 것도 가능하다.</p>
+<p>따라서 표본 ACF와 PACF를 근거로 식별을 시도한다면,
+ARIMA(0,1,1)(0,1,0)<sub>12</sub> 모형과 ARIMA(0,1,1)(1,1,0)<sub>12</sub> 모형, 그리고
+ARIMA(0,1,1)(0,1,1)<sub>12</sub> 모형으로 식별할 수 있다.</p>
+<p>이제 함수 <code>auto.arima()</code>를 사용하여 최적 모형을 식별해 보자.
+함수 <code>auto.arima()</code>에서는 차분 차수를 단위근 검정에 의해 결정하는 것이 디폴트이며,
+백화점 자료의 경우에는 가장 적절한 차분 차수가 단위근 검정 결과와 일치하기 때문에,
+<code>d</code>와 <code>D</code>에 다른 값을 지정할 필요는 없다.
+또한 분산 안정화를 위해 로그 변환을 시행해야 하기 때문에 <code>lambda</code>에 로그변환에 해당하는 값인 0을 지정해야 한다.</p>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="arima-모형.html#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> fit_d <span class="ot">&lt;-</span> <span class="fu">auto.arima</span>(depart.ts, <span class="at">lambda =</span> <span class="dv">0</span>, </span>
+<span id="cb101-2"><a href="arima-모형.html#cb101-2" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>            <span class="at">stepwise =</span> <span class="cn">FALSE</span>, <span class="at">approximation =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb101-3"><a href="arima-모형.html#cb101-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> fit_d</span>
+<span id="cb101-4"><a href="arima-모형.html#cb101-4" aria-hidden="true" tabindex="-1"></a>Series<span class="sc">:</span> depart.ts </span>
+<span id="cb101-5"><a href="arima-모형.html#cb101-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ARIMA</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>)(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>)[<span class="dv">12</span>] </span>
+<span id="cb101-6"><a href="arima-모형.html#cb101-6" aria-hidden="true" tabindex="-1"></a>Box Cox transformation<span class="sc">:</span> lambda<span class="ot">=</span> <span class="dv">0</span> </span>
+<span id="cb101-7"><a href="arima-모형.html#cb101-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb101-8"><a href="arima-모형.html#cb101-8" aria-hidden="true" tabindex="-1"></a>Coefficients<span class="sc">:</span></span>
+<span id="cb101-9"><a href="arima-모형.html#cb101-9" aria-hidden="true" tabindex="-1"></a>          ma1     sma1</span>
+<span id="cb101-10"><a href="arima-모형.html#cb101-10" aria-hidden="true" tabindex="-1"></a>      <span class="sc">-</span><span class="fl">0.5840</span>  <span class="sc">-</span><span class="fl">0.4159</span></span>
+<span id="cb101-11"><a href="arima-모형.html#cb101-11" aria-hidden="true" tabindex="-1"></a>s.e.   <span class="fl">0.1093</span>   <span class="fl">0.1946</span></span>
+<span id="cb101-12"><a href="arima-모형.html#cb101-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb101-13"><a href="arima-모형.html#cb101-13" aria-hidden="true" tabindex="-1"></a>sigma<span class="sc">^</span><span class="dv">2</span> <span class="ot">=</span> <span class="fl">0.0005401</span><span class="sc">:</span>  log likelihood <span class="ot">=</span> <span class="fl">110.29</span></span>
+<span id="cb101-14"><a href="arima-모형.html#cb101-14" aria-hidden="true" tabindex="-1"></a>AIC<span class="ot">=</span><span class="sc">-</span><span class="fl">214.59</span>   AICc<span class="ot">=</span><span class="sc">-</span><span class="fl">214.03</span>   BIC<span class="ot">=</span><span class="sc">-</span><span class="fl">209.04</span></span></code></pre></div>
+<p>ARIMA(0,1,1)(0,1,1)<sub>12</sub>가 선택되었고, 추정된 모형식은 다음과 같다.</p>
+<p><span class="math display">\[
+(1-B^{12})(1-B)~\log y_{t} = (1-0.584B)(1-0.4159B^{12})~\epsilon_{t}
+\]</span></p>
+<p>적합된 모형의 진단을 실시해 보자.</p>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="arima-모형.html#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">checkresiduals</span>(fit_d)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-64-1.png" width="576" /></p>
+<pre><code>
+    Ljung-Box test
+
+data:  Residuals from ARIMA(0,1,1)(0,1,1)[12]
+Q* = 12.817, df = 10, p-value = 0.2341
+
+Model df: 2.   Total lags used: 12</code></pre>
+<p>잔차가 정규분포 백색잡음을 하는 것으로 보인다.
+예측 결과를 그래프로 나타내보자.
+예측 결과는 정상성 확보 과정에서 이루어진 변환의 역변환을 실시해서 얻어진 것이다.</p>
+<div class="figure"><span style="display:block;" id="fig:depart-6"></span>
+<img src="_main_files/figure-html/depart-6-1.png" alt="백화점 자료 예측 결과" width="576" />
+<p class="caption">
+Figure 4.37: 백화점 자료 예측 결과
+</p>
+</div>
+<ul>
+<li>예제 2 : 1981년 1월부터 1992년 12월까지 국내에 입국한 월별 관광객 수</li>
+</ul>
+<p>1981년 1월부터 1992년 12월까지 12년 동안 국내에 입국한 월별 관광객 수 자료를 대상으로 ARIMA 모형과 ETS 모형으로 예측 모형을 각각 적합하고, 예측 결과를 비교해 보자.
+예측 결과의 비교를 위해 마지막 2년 자료를 test data로 남겨두고,
+이전 10년 동안의 자료를 이용하여 모형 적합을 실시해 보자.</p>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="arima-모형.html#cb104-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> tour <span class="ot">&lt;-</span> <span class="fu">scan</span>(<span class="st">&quot;https://raw.githubusercontent.com/yjyjpark/TS-with-R/main/Data/Ktour.txt&quot;</span>)</span>
+<span id="cb104-2"><a href="arima-모형.html#cb104-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> tour.ts <span class="ot">&lt;-</span> <span class="fu">ts</span>(tour, <span class="at">start =</span> <span class="dv">1981</span>, <span class="at">freq =</span> <span class="dv">12</span>)</span>
+<span id="cb104-3"><a href="arima-모형.html#cb104-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> train_K <span class="ot">&lt;-</span> <span class="fu">window</span>(tour.ts, <span class="at">end =</span> <span class="fu">c</span>(<span class="dv">1990</span>,<span class="dv">12</span>))</span>
+<span id="cb104-4"><a href="arima-모형.html#cb104-4" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> test_K <span class="ot">&lt;-</span> <span class="fu">window</span>(tour.ts, <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">1991</span>,<span class="dv">1</span>))</span></code></pre></div>
+<p>Training data에 대한 시계열 그래프를 작성해 보자.</p>
+<div class="figure"><span style="display:block;" id="fig:tour-1"></span>
+<img src="_main_files/figure-html/tour-1-1.png" alt="국내 입국 관광객 수 자료" width="576" />
+<p class="caption">
+Figure 4.38: 국내 입국 관광객 수 자료
+</p>
+</div>
+<p>계절형 ARIMA 모형을 먼저 적합시켜 보자.
+시계열자료가 증가하는 추세가 있고, 뚜렷한 계절 요소가 있으며, 계절 변동 폭이 점차 증가하는 모습을 보이는 비정상 시계열자료이다.
+분산 안정화 변화가 필요한 것으로 보이며, 적절한 변환 형태를 결정하기 위해 Box-Cox 변환 모수 <span class="math inline">\(\lambda\)</span> 의 값을 추정해 보자.</p>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="arima-모형.html#cb105-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">BoxCox.lambda</span>(train_K) </span>
+<span id="cb105-2"><a href="arima-모형.html#cb105-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.09573094</span></span></code></pre></div>
+<p><span class="math inline">\(\hat{\lambda}=0.09\)</span> 로 추정되었는데, 이 결과를 그대로 적용해서 <span class="math inline">\(y_{t}^{0.09}\)</span> 로 변환시키는 것보다
+추정된 <span class="math inline">\(\lambda\)</span> 값과 차이가 없으면서, 변환의 해석도 가능한 <span class="math inline">\(\hat{\lambda}=0\)</span> 에 해당하는 로그 변환을 선택하는 것이 더 좋을 듯 하다.</p>
+<p>로그 변환된 자료에 대한 차분 차수를 결정해 보자.
+먼저 로그 변환된 시계열자료의 시계열 그래프와 ACF를 작성해 보자.</p>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="arima-모형.html#cb106-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> lntrain_K <span class="ot">&lt;-</span> <span class="fu">log</span>(train_K)</span>
+<span id="cb106-2"><a href="arima-모형.html#cb106-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">ggtsdisplay</span>(lntrain_K, <span class="at">main =</span> <span class="st">&quot;log transformed:lntrain_K&quot;</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:tour-2"></span>
+<img src="_main_files/figure-html/tour-2-1.png" alt="`lntrain_K`의 시계열 그래프, ACF와 PACF" width="576" />
+<p class="caption">
+Figure 4.39: <code>lntrain_K</code>의 시계열 그래프, ACF와 PACF
+</p>
+</div>
+<p>계절 차분을 먼저 실시해 보고, 그 결과를 살펴보자.
+Figure <a href="arima-모형.html#fig:tour-3">4.40</a>의 시계열 그래프에서 추세 성분이 남아 있는 것을 볼 수 있고,
+ACF의 1~6시차에서 상당히 큰 값을 볼 수 있다.
+1차 차분이 필요한 것으로 보인다.</p>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="arima-모형.html#cb107-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> lntrain_K_12 <span class="ot">&lt;-</span> <span class="fu">diff</span>(lntrain_K, <span class="at">lag =</span> <span class="dv">12</span>)</span>
+<span id="cb107-2"><a href="arima-모형.html#cb107-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">ggtsdisplay</span>(lntrain_K_12, <span class="at">main =</span> <span class="st">&quot;Seasonally differenced&quot;</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:tour-3"></span>
+<img src="_main_files/figure-html/tour-3-1.png" alt="계절 차분된 `lntrain_K`의 시계열 그래프, ACF와 PACF" width="576" />
+<p class="caption">
+Figure 4.40: 계절 차분된 <code>lntrain_K</code>의 시계열 그래프, ACF와 PACF
+</p>
+</div>
+<p>계절 차분된 자료에 다시 1차 차분을 실시하고, 그 결과를 살펴보자.</p>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="arima-모형.html#cb108-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> lntrain_K_12_1 <span class="ot">&lt;-</span> <span class="fu">diff</span>(lntrain_K_12)</span>
+<span id="cb108-2"><a href="arima-모형.html#cb108-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">ggtsdisplay</span>(lntrain_K_12_1, <span class="at">main =</span> <span class="st">&quot;Doubly differenced&quot;</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:tour-4"></span>
+<img src="_main_files/figure-html/tour-4-1.png" alt="계절 차분과 1차 차분된 `lntrain_K`의 시계열 그래프, ACF와 PACF" width="576" />
+<p class="caption">
+Figure 4.41: 계절 차분과 1차 차분된 <code>lntrain_K</code>의 시계열 그래프, ACF와 PACF
+</p>
+</div>
+<p>비정상 요소가 모두 사라진 것을 알 수 있다.
+단위근 검정에서도 일치된 결과를 볼 수 있다.</p>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="arima-모형.html#cb109-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">ndiffs</span>(lntrain_K)</span>
+<span id="cb109-2"><a href="arima-모형.html#cb109-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1</span></span>
+<span id="cb109-3"><a href="arima-모형.html#cb109-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">nsdiffs</span>(lntrain_K)</span>
+<span id="cb109-4"><a href="arima-모형.html#cb109-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1</span></span></code></pre></div>
+<p>Figure <a href="arima-모형.html#fig:tour-4">4.41</a>의 ACF와 PACF를 이용하여 모형 식별을 시도해 보자.
+1시차에서 6시차까지의 패턴으로 비계절 ARIMA 성분을 파악해 보자.
+ACF는 2시차까지 유의한 값을 보이고 있고,
+PACF는 1시차는 유의하고, 2시차의 값은 기준이 되는 파란 점선보다 약간 작은 값으로 보인다.
+이런 경우에는 둘 중 하나를 절단으로 보든지, 아니면 둘 다 감소로 보는 것이 가능하기 떄문에
+AR(1), AR(2), MA(2), 또는 ARMA(1,1) 등이 가능한 것으로 보인다.</p>
+<p>계절형 ARIMA 성분은 ACF와 PACF 모두 12시차에서 유의한 값을 보이지만,
+24시차와 36시차에서는 매우 작은 값을 보이고 있기 때문에
+ACF와 PACF 중 하나를 절단으로 보든지, 둘 다 감소로 보는 것이 가능하며,
+AR(1)<sub>12</sub>, MA(1)<sub>12</sub>, 또는 ARMA(1,1)<sub>12</sub> 등이 가능한 것으로 보인다.</p>
+<p>식별된 비계절형과 계절형을 조합해서 보면, 많은 모형이 가능한 것으로 보인다.
+ARIMA(1,1,0)(1,1,0)<sub>12</sub>모형, ARIMA(1,1,0)(0,1,1)<sub>12</sub>모형, ARIMA(1,1,0)(1,1,1)<sub>12</sub>모형과
+ARIMA(2,1,0)(1,1,0)<sub>12</sub>모형, ARIMA(2,1,0)(0,1,1)<sub>12</sub>모형, ARIMA(2,1,0)(1,1,1)<sub>12</sub>모형, 그리고
+ARIMA(1,1,1)(1,1,0)<sub>12</sub>모형, ARIMA(1,1,1)(0,1,1)<sub>12</sub>모형, ARIMA(1,1,1)(1,1,1)<sub>12</sub>모형 등이 가능한 모형으로 보인다.</p>
+<p>ACF와 PACF를 근거로 직접 모형 식별하는 것은 이렇듯 명확한 결과가 나오는 것이 아니어서,
+많은 후보 모형을 식별하고 이어서 그 모형들을 비교하는 과정을 거쳐서 최종 모형을 선택해야 하는,
+어렵고 긴 작업 절차가 필요한 방법임을 알 수 있다.<br />
+따라서 이 과정이 모든 분석에서 반드시 필요하다고 생각하지는 않지만,
+함수 <code>auto.arima()</code>로 선택된 모형이 ACF와 PACF를 근거로 식별된 후보 모형 중에 포함되는지 여부는 확인하는 것이 필요하다고 본다.</p>
+<p>함수 <code>auto.arima()</code>로 모형을 선택해 보자.</p>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="arima-모형.html#cb110-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> fit_K <span class="ot">&lt;-</span> <span class="fu">auto.arima</span>(train_K, <span class="at">lambda =</span> <span class="dv">0</span>, <span class="at">stepwise =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb110-2"><a href="arima-모형.html#cb110-2" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>            <span class="at">approximation =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb110-3"><a href="arima-모형.html#cb110-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> fit_K</span>
+<span id="cb110-4"><a href="arima-모형.html#cb110-4" aria-hidden="true" tabindex="-1"></a>Series<span class="sc">:</span> train_K </span>
+<span id="cb110-5"><a href="arima-모형.html#cb110-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ARIMA</span>(<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">0</span>)(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>)[<span class="dv">12</span>] </span>
+<span id="cb110-6"><a href="arima-모형.html#cb110-6" aria-hidden="true" tabindex="-1"></a>Box Cox transformation<span class="sc">:</span> lambda<span class="ot">=</span> <span class="dv">0</span> </span>
+<span id="cb110-7"><a href="arima-모형.html#cb110-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-8"><a href="arima-모형.html#cb110-8" aria-hidden="true" tabindex="-1"></a>Coefficients<span class="sc">:</span></span>
+<span id="cb110-9"><a href="arima-모형.html#cb110-9" aria-hidden="true" tabindex="-1"></a>          ar1      ar2     sar1     sma1</span>
+<span id="cb110-10"><a href="arima-모형.html#cb110-10" aria-hidden="true" tabindex="-1"></a>      <span class="sc">-</span><span class="fl">0.6995</span>  <span class="sc">-</span><span class="fl">0.2496</span>  <span class="sc">-</span><span class="fl">0.2892</span>  <span class="sc">-</span><span class="fl">0.3817</span></span>
+<span id="cb110-11"><a href="arima-모형.html#cb110-11" aria-hidden="true" tabindex="-1"></a>s.e.   <span class="fl">0.0956</span>   <span class="fl">0.0947</span>   <span class="fl">0.1695</span>   <span class="fl">0.1736</span></span>
+<span id="cb110-12"><a href="arima-모형.html#cb110-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-13"><a href="arima-모형.html#cb110-13" aria-hidden="true" tabindex="-1"></a>sigma<span class="sc">^</span><span class="dv">2</span> <span class="ot">=</span> <span class="fl">0.002917</span><span class="sc">:</span>  log likelihood <span class="ot">=</span> <span class="fl">159.82</span></span>
+<span id="cb110-14"><a href="arima-모형.html#cb110-14" aria-hidden="true" tabindex="-1"></a>AIC<span class="ot">=</span><span class="sc">-</span><span class="fl">309.63</span>   AICc<span class="ot">=</span><span class="sc">-</span><span class="fl">309.04</span>   BIC<span class="ot">=</span><span class="sc">-</span><span class="fl">296.27</span></span></code></pre></div>
+<p>ARIMA(2,1,0)(1,1,1)<sub>12</sub>모형이 선택되었고, 이 모형은 ACF와 PACF를 근거로 선택한 후보 모형 중에 하나이다.
+적합된 모형식은 다음과 같다.</p>
+<p><span class="math display">\[
+(1+0.6995B+0.2496B^{2})(1+0.2892B^{12})(1-B)(1-B^{12})~\log y_{t} = (1-0.3817B^{12})~\epsilon_{t}
+\]</span></p>
+<p>이제는 ETS 모형을 적합해 보자.
+로그 변환시킨 자료에 대하여 함수 <code>ets()</code>를 적용했는데,
+ETS 모형에서는 승법모형이 가능하기 때문에 로그 변환을 반드시 실시할 필요는 없다.</p>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="arima-모형.html#cb111-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> fit_K_ets <span class="ot">&lt;-</span> <span class="fu">ets</span>(train_K, <span class="at">lambda =</span> <span class="dv">0</span>)</span>
+<span id="cb111-2"><a href="arima-모형.html#cb111-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> fit_K_ets</span>
+<span id="cb111-3"><a href="arima-모형.html#cb111-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ETS</span>(A,Ad,A) </span>
+<span id="cb111-4"><a href="arima-모형.html#cb111-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb111-5"><a href="arima-모형.html#cb111-5" aria-hidden="true" tabindex="-1"></a>Call<span class="sc">:</span></span>
+<span id="cb111-6"><a href="arima-모형.html#cb111-6" aria-hidden="true" tabindex="-1"></a> <span class="fu">ets</span>(<span class="at">y =</span> train_K, <span class="at">lambda =</span> <span class="dv">0</span>) </span>
+<span id="cb111-7"><a href="arima-모형.html#cb111-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb111-8"><a href="arima-모형.html#cb111-8" aria-hidden="true" tabindex="-1"></a>  Box<span class="sc">-</span>Cox transformation<span class="sc">:</span> lambda<span class="ot">=</span> <span class="dv">0</span> </span>
+<span id="cb111-9"><a href="arima-모형.html#cb111-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb111-10"><a href="arima-모형.html#cb111-10" aria-hidden="true" tabindex="-1"></a>  Smoothing parameters<span class="sc">:</span></span>
+<span id="cb111-11"><a href="arima-모형.html#cb111-11" aria-hidden="true" tabindex="-1"></a>    alpha <span class="ot">=</span> <span class="fl">0.3998</span> </span>
+<span id="cb111-12"><a href="arima-모형.html#cb111-12" aria-hidden="true" tabindex="-1"></a>    beta  <span class="ot">=</span> <span class="fl">0.0242</span> </span>
+<span id="cb111-13"><a href="arima-모형.html#cb111-13" aria-hidden="true" tabindex="-1"></a>    gamma <span class="ot">=</span> <span class="fl">1e-04</span> </span>
+<span id="cb111-14"><a href="arima-모형.html#cb111-14" aria-hidden="true" tabindex="-1"></a>    phi   <span class="ot">=</span> <span class="fl">0.978</span> </span>
+<span id="cb111-15"><a href="arima-모형.html#cb111-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb111-16"><a href="arima-모형.html#cb111-16" aria-hidden="true" tabindex="-1"></a>  Initial states<span class="sc">:</span></span>
+<span id="cb111-17"><a href="arima-모형.html#cb111-17" aria-hidden="true" tabindex="-1"></a>    l <span class="ot">=</span> <span class="fl">11.3617</span> </span>
+<span id="cb111-18"><a href="arima-모형.html#cb111-18" aria-hidden="true" tabindex="-1"></a>    b <span class="ot">=</span> <span class="fl">0.0098</span> </span>
+<span id="cb111-19"><a href="arima-모형.html#cb111-19" aria-hidden="true" tabindex="-1"></a>    s <span class="ot">=</span> <span class="sc">-</span><span class="fl">0.2089</span> <span class="sc">-</span><span class="fl">0.0012</span> <span class="fl">0.1585</span> <span class="fl">0.0577</span> <span class="fl">0.1123</span> <span class="fl">0.035</span></span>
+<span id="cb111-20"><a href="arima-모형.html#cb111-20" aria-hidden="true" tabindex="-1"></a>           <span class="fl">0.0516</span> <span class="fl">0.1154</span> <span class="fl">0.0989</span> <span class="fl">0.0121</span> <span class="sc">-</span><span class="fl">0.2092</span> <span class="sc">-</span><span class="fl">0.2221</span></span>
+<span id="cb111-21"><a href="arima-모형.html#cb111-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb111-22"><a href="arima-모형.html#cb111-22" aria-hidden="true" tabindex="-1"></a>  sigma<span class="sc">:</span>  <span class="fl">0.0548</span></span>
+<span id="cb111-23"><a href="arima-모형.html#cb111-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb111-24"><a href="arima-모형.html#cb111-24" aria-hidden="true" tabindex="-1"></a>       AIC       AICc        BIC </span>
+<span id="cb111-25"><a href="arima-모형.html#cb111-25" aria-hidden="true" tabindex="-1"></a><span class="sc">-</span><span class="fl">104.72171</span>  <span class="sc">-</span><span class="fl">97.94943</span>  <span class="sc">-</span><span class="fl">54.54685</span> </span></code></pre></div>
+<p>ETS(A,A<sub>d</sub>,A) 모형이 선택되었다.
+이제 적합된 ARIMA 모형과 ETS 모형의 모형 진단을 각각 실시해 보자.
+먼저 ARIMA 모형의 경우에는 오차에 대한 가정이 모두 만족되는 것으로 보인다.</p>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="arima-모형.html#cb112-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">checkresiduals</span>(fit_K)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-70-1.png" width="576" /></p>
+<pre><code>
+    Ljung-Box test
+
+data:  Residuals from ARIMA(2,1,0)(1,1,1)[12]
+Q* = 27.495, df = 20, p-value = 0.1219
+
+Model df: 4.   Total lags used: 24</code></pre>
+<p>ETS 모형의 경우에는 Ljung-Box 검정의 p-value가 매우 작은 값으로 계산되었고,
+따라서 오차의 독립성은 만족되지 않았다.
+이런 경우에는 ETS 모형으로 예측된 결과에 대한 신빙성이 떨어진다고 볼 수 있는데,
+점 예측값보다는 예측 구간에 대한 신뢰도에 더 큰 손상이 있었다고 할 수 있다.</p>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="arima-모형.html#cb114-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">checkresiduals</span>(fit_K_ets)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-71-1.png" width="576" /></p>
+<pre><code>
+    Ljung-Box test
+
+data:  Residuals from ETS(A,Ad,A)
+Q* = 36.158, df = 7, p-value = 6.769e-06
+
+Model df: 17.   Total lags used: 24</code></pre>
+<p>두 모형을 사용해서 test data에 대한 예측을 실시하고 예측 오차를 비교해 보자.</p>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="arima-모형.html#cb116-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> fc_K <span class="ot">&lt;-</span> <span class="fu">forecast</span>(fit_K)</span>
+<span id="cb116-2"><a href="arima-모형.html#cb116-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> fc_K_ets <span class="ot">&lt;-</span> <span class="fu">forecast</span>(fit_K_ets)</span>
+<span id="cb116-3"><a href="arima-모형.html#cb116-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">accuracy</span>(fc_K, test_K)</span>
+<span id="cb116-4"><a href="arima-모형.html#cb116-4" aria-hidden="true" tabindex="-1"></a>                      ME      RMSE       MAE         MPE      MAPE      MASE</span>
+<span id="cb116-5"><a href="arima-모형.html#cb116-5" aria-hidden="true" tabindex="-1"></a>Training set   <span class="sc">-</span><span class="fl">117.8446</span>  <span class="fl">8079.833</span>  <span class="fl">5752.686</span>  <span class="sc">-</span><span class="fl">0.1325567</span>  <span class="fl">3.815935</span> <span class="fl">0.3223641</span></span>
+<span id="cb116-6"><a href="arima-모형.html#cb116-6" aria-hidden="true" tabindex="-1"></a>Test set     <span class="sc">-</span><span class="fl">33473.2740</span> <span class="fl">45118.350</span> <span class="fl">37348.980</span> <span class="sc">-</span><span class="fl">12.4581745</span> <span class="fl">13.967241</span> <span class="fl">2.0929303</span></span>
+<span id="cb116-7"><a href="arima-모형.html#cb116-7" aria-hidden="true" tabindex="-1"></a>                  ACF1 Theil<span class="st">&#39;s U</span></span>
+<span id="cb116-8"><a href="arima-모형.html#cb116-8" aria-hidden="true" tabindex="-1"></a><span class="st">Training set 0.1387895        NA</span></span>
+<span id="cb116-9"><a href="arima-모형.html#cb116-9" aria-hidden="true" tabindex="-1"></a><span class="st">Test set     0.6467465   1.67741</span></span>
+<span id="cb116-10"><a href="arima-모형.html#cb116-10" aria-hidden="true" tabindex="-1"></a><span class="st">&gt; accuracy(fc_K_ets, test_K)</span></span>
+<span id="cb116-11"><a href="arima-모형.html#cb116-11" aria-hidden="true" tabindex="-1"></a><span class="st">                     ME      RMSE       MAE        MPE      MAPE      MASE</span></span>
+<span id="cb116-12"><a href="arima-모형.html#cb116-12" aria-hidden="true" tabindex="-1"></a><span class="st">Training set   1116.089  8322.678  5764.589  0.4909287  3.788076 0.3230311</span></span>
+<span id="cb116-13"><a href="arima-모형.html#cb116-13" aria-hidden="true" tabindex="-1"></a><span class="st">Test set     -26763.496 38813.714 33571.599 -9.9007782 12.507782 1.8812566</span></span>
+<span id="cb116-14"><a href="arima-모형.html#cb116-14" aria-hidden="true" tabindex="-1"></a><span class="st">                   ACF1 Theil&#39;</span>s U</span>
+<span id="cb116-15"><a href="arima-모형.html#cb116-15" aria-hidden="true" tabindex="-1"></a>Training set <span class="fl">0.09314822</span>        <span class="cn">NA</span></span>
+<span id="cb116-16"><a href="arima-모형.html#cb116-16" aria-hidden="true" tabindex="-1"></a>Test set     <span class="fl">0.55156580</span>  <span class="fl">1.469369</span></span></code></pre></div>
+<p>큰 차이는 없지만 ETS 모형의 예측 오차가 조금 더 작은 것으로 나타났다.
+두 모형의 예측 결과를 그래프로 비교해 보자.</p>
+<div class="figure"><span style="display:block;" id="fig:tour-5"></span>
+<img src="_main_files/figure-html/tour-5-1.png" alt="국내 입국 관광객 수 자료에 대한 예측 결과" width="768" />
+<p class="caption">
+Figure 4.42: 국내 입국 관광객 수 자료에 대한 예측 결과
+</p>
+</div>
+
+</div>
+</div>
+</div>
+<h3>참고 문헌</h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-cho2015" class="csl-entry">
+조신섭성병찬. 2015. <em>시계열분석</em>. 5th ed. 율곡출판사.
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="지수평활법.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="참고-문헌.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
