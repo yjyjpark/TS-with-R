@@ -1,0 +1,1258 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>3 ETS 모형 | R에 의한 시계열분석</title>
+  <meta name="description" content="3 ETS 모형 | R에 의한 시계열분석" />
+  <meta name="generator" content="bookdown 0.25 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="3 ETS 모형 | R에 의한 시계열분석" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta name="github-repo" content="yjyjpark/TS-with-R" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="3 ETS 모형 | R에 의한 시계열분석" />
+  
+  
+  
+
+<meta name="author" content="박동련" />
+
+
+<meta name="date" content="2022-04-19" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="chapter-decomposition.html"/>
+<link rel="next" href="chapter-arima.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="index.html#소개하기">소개하기<span></span></a></li>
+<li class="chapter" data-level="1" data-path="chapter-ts-plot.html"><a href="chapter-ts-plot.html"><i class="fa fa-check"></i><b>1</b> 시계열 그래프<span></span></a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="chapter-ts-plot.html"><a href="chapter-ts-plot.html#시계열-자료"><i class="fa fa-check"></i><b>1.1</b> 시계열 자료<span></span></a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="chapter-ts-plot.html"><a href="chapter-ts-plot.html#종단-자료cross-sectional-data와의-비교"><i class="fa fa-check"></i><b>1.1.1</b> 종단 자료(cross-sectional data)와의 비교<span></span></a></li>
+<li class="chapter" data-level="1.1.2" data-path="chapter-ts-plot.html"><a href="chapter-ts-plot.html#시계열-예측"><i class="fa fa-check"></i><b>1.1.2</b> 시계열 예측<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="chapter-ts-plot.html"><a href="chapter-ts-plot.html#시계열-그래프-작성"><i class="fa fa-check"></i><b>1.2</b> 시계열 그래프 작성<span></span></a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="chapter-ts-plot.html"><a href="chapter-ts-plot.html#ts-객체-생성"><i class="fa fa-check"></i><b>1.2.1</b> <code>ts</code> 객체 생성<span></span></a></li>
+<li class="chapter" data-level="1.2.2" data-path="chapter-ts-plot.html"><a href="chapter-ts-plot.html#section-ts-plot"><i class="fa fa-check"></i><b>1.2.2</b> 시계열 그래프 작성<span></span></a></li>
+<li class="chapter" data-level="1.2.3" data-path="chapter-ts-plot.html"><a href="chapter-ts-plot.html#section-seasonal-plot"><i class="fa fa-check"></i><b>1.2.3</b> Seasonal 그래프<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="chapter-decomposition.html"><a href="chapter-decomposition.html"><i class="fa fa-check"></i><b>2</b> 시계열 분해<span></span></a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="chapter-decomposition.html"><a href="chapter-decomposition.html#시계열-분해-모형"><i class="fa fa-check"></i><b>2.1</b> 시계열 분해 모형<span></span></a></li>
+<li class="chapter" data-level="2.2" data-path="chapter-decomposition.html"><a href="chapter-decomposition.html#전통적-시계열-분해-기법"><i class="fa fa-check"></i><b>2.2</b> 전통적 시계열 분해 기법<span></span></a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="chapter-decomposition.html"><a href="chapter-decomposition.html#이동-평균법"><i class="fa fa-check"></i><b>2.2.1</b> 이동 평균법<span></span></a></li>
+<li class="chapter" data-level="2.2.2" data-path="chapter-decomposition.html"><a href="chapter-decomposition.html#전통적-분해-기법"><i class="fa fa-check"></i><b>2.2.2</b> 전통적 분해 기법<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="chapter-decomposition.html"><a href="chapter-decomposition.html#stl-분해-기법"><i class="fa fa-check"></i><b>2.3</b> STL 분해 기법<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="chapter-ets.html"><a href="chapter-ets.html"><i class="fa fa-check"></i><b>3</b> ETS 모형<span></span></a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="chapter-ets.html"><a href="chapter-ets.html#section-accuracy"><i class="fa fa-check"></i><b>3.1</b> 예측 모형의 평가<span></span></a></li>
+<li class="chapter" data-level="3.2" data-path="chapter-ets.html"><a href="chapter-ets.html#section-exponential"><i class="fa fa-check"></i><b>3.2</b> 전통적 지수평활법<span></span></a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="chapter-ets.html"><a href="chapter-ets.html#simple-exponential-smoothing"><i class="fa fa-check"></i><b>3.2.1</b> Simple exponential smoothing<span></span></a></li>
+<li class="chapter" data-level="3.2.2" data-path="chapter-ets.html"><a href="chapter-ets.html#trend-method"><i class="fa fa-check"></i><b>3.2.2</b> Trend method<span></span></a></li>
+<li class="chapter" data-level="3.2.3" data-path="chapter-ets.html"><a href="chapter-ets.html#holt-winters-seasonal-method"><i class="fa fa-check"></i><b>3.2.3</b> Holt-Winters’ seasonal method<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="chapter-ets.html"><a href="chapter-ets.html#section-ets"><i class="fa fa-check"></i><b>3.3</b> ETS 모형<span></span></a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="chapter-ets.html"><a href="chapter-ets.html#전통적-지수평활법의-확장"><i class="fa fa-check"></i><b>3.3.1</b> 전통적 지수평활법의 확장<span></span></a></li>
+<li class="chapter" data-level="3.3.2" data-path="chapter-ets.html"><a href="chapter-ets.html#모형-적합-및-최적-모형-선택"><i class="fa fa-check"></i><b>3.3.2</b> 모형 적합 및 최적 모형 선택<span></span></a></li>
+<li class="chapter" data-level="3.3.3" data-path="chapter-ets.html"><a href="chapter-ets.html#예측"><i class="fa fa-check"></i><b>3.3.3</b> 예측<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="chapter-ets.html"><a href="chapter-ets.html#모형의-가정-만족-여부-확인"><i class="fa fa-check"></i><b>3.4</b> 모형의 가정 만족 여부 확인<span></span></a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="chapter-ets.html"><a href="chapter-ets.html#자기상관과-부분자기상관"><i class="fa fa-check"></i><b>3.4.1</b> 자기상관과 부분자기상관<span></span></a></li>
+<li class="chapter" data-level="3.4.2" data-path="chapter-ets.html"><a href="chapter-ets.html#독립성-검정"><i class="fa fa-check"></i><b>3.4.2</b> 독립성 검정<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="chapter-ets.html"><a href="chapter-ets.html#예제"><i class="fa fa-check"></i><b>3.5</b> 예제<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="chapter-arima.html"><a href="chapter-arima.html"><i class="fa fa-check"></i><b>4</b> ARIMA 모형<span></span></a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="chapter-arima.html"><a href="chapter-arima.html#시계열자료의-정상성"><i class="fa fa-check"></i><b>4.1</b> 시계열자료의 정상성<span></span></a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="chapter-arima.html"><a href="chapter-arima.html#정상-시계열자료"><i class="fa fa-check"></i><b>4.1.1</b> 정상 시계열자료<span></span></a></li>
+<li class="chapter" data-level="4.1.2" data-path="chapter-arima.html"><a href="chapter-arima.html#section-make-stationary"><i class="fa fa-check"></i><b>4.1.2</b> 비정상 시계열 자료의 정상화<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="chapter-arima.html"><a href="chapter-arima.html#정상-시계열-모형"><i class="fa fa-check"></i><b>4.2</b> 정상 시계열 모형<span></span></a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="chapter-arima.html"><a href="chapter-arima.html#자기회귀모형-autoregressive-model-ar-model"><i class="fa fa-check"></i><b>4.2.1</b> 자기회귀모형 (Autoregressive model; AR model)<span></span></a></li>
+<li class="chapter" data-level="4.2.2" data-path="chapter-arima.html"><a href="chapter-arima.html#이동평균모형-moving-average-model-ma-model"><i class="fa fa-check"></i><b>4.2.2</b> 이동평균모형 (Moving average model; MA model)<span></span></a></li>
+<li class="chapter" data-level="4.2.3" data-path="chapter-arima.html"><a href="chapter-arima.html#자기회귀이동평균모형-autoregressive-moving-average-model-arma-model"><i class="fa fa-check"></i><b>4.2.3</b> 자기회귀이동평균모형 (Autoregressive moving average model; ARMA model)<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="chapter-arima.html"><a href="chapter-arima.html#section-nonseasonal-arima"><i class="fa fa-check"></i><b>4.3</b> 비계절형 ARIMA 모형<span></span></a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="chapter-arima.html"><a href="chapter-arima.html#모형-식별"><i class="fa fa-check"></i><b>4.3.1</b> 모형 식별<span></span></a></li>
+<li class="chapter" data-level="4.3.2" data-path="chapter-arima.html"><a href="chapter-arima.html#모형-추정-및-진단"><i class="fa fa-check"></i><b>4.3.2</b> 모형 추정 및 진단<span></span></a></li>
+<li class="chapter" data-level="4.3.3" data-path="chapter-arima.html"><a href="chapter-arima.html#예측-1"><i class="fa fa-check"></i><b>4.3.3</b> 예측<span></span></a></li>
+<li class="chapter" data-level="4.3.4" data-path="chapter-arima.html"><a href="chapter-arima.html#실습-예제"><i class="fa fa-check"></i><b>4.3.4</b> 실습 예제<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="chapter-arima.html"><a href="chapter-arima.html#section-seasonal-arima"><i class="fa fa-check"></i><b>4.4</b> 계절형 ARIMA 모형<span></span></a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="chapter-arima.html"><a href="chapter-arima.html#계절형-arima-모형-적합-절차"><i class="fa fa-check"></i><b>4.4.1</b> 계절형 ARIMA 모형 적합 절차<span></span></a></li>
+<li class="chapter" data-level="4.4.2" data-path="chapter-arima.html"><a href="chapter-arima.html#실습-예제-1"><i class="fa fa-check"></i><b>4.4.2</b> 실습 예제<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="chapter-regression.html"><a href="chapter-regression.html"><i class="fa fa-check"></i><b>5</b> 회귀모형<span></span></a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="chapter-regression.html"><a href="chapter-regression.html#section-arma-reg"><i class="fa fa-check"></i><b>5.1</b> ARMA 오차 회귀모형<span></span></a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="chapter-regression.html"><a href="chapter-regression.html#section-ts-reg"><i class="fa fa-check"></i><b>5.1.1</b> 시계열 회귀모형<span></span></a></li>
+<li class="chapter" data-level="5.1.2" data-path="chapter-regression.html"><a href="chapter-regression.html#section-arma-ts-reg"><i class="fa fa-check"></i><b>5.1.2</b> ARMA 오차 시계열 회귀모형<span></span></a></li>
+<li class="chapter" data-level="5.1.3" data-path="chapter-regression.html"><a href="chapter-regression.html#실습-예제-2"><i class="fa fa-check"></i><b>5.1.3</b> 실습 예제<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="chapter-regression.html"><a href="chapter-regression.html#section-arma-dynamic"><i class="fa fa-check"></i><b>5.2</b> Dynamic 회귀모형<span></span></a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="chapter-regression.html"><a href="chapter-regression.html#arma-오차-dynamic-회귀모형"><i class="fa fa-check"></i><b>5.2.1</b> ARMA 오차 Dynamic 회귀모형<span></span></a></li>
+<li class="chapter" data-level="5.2.2" data-path="chapter-regression.html"><a href="chapter-regression.html#실습-예제-3"><i class="fa fa-check"></i><b>5.2.2</b> 실습 예제<span></span></a></li>
+</ul></li>
+</ul></li>
+<li><a href="참고-문헌.html#참고-문헌">참고 문헌<span></span></a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R에 의한 시계열분석</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="chapter-ets" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">3</span> ETS 모형<a href="chapter-ets.html#chapter-ets" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>지수평활법 (Exponential smoothing)은 1950년대에 개발된 예측 기법이다. 단순하지만 나름 상당히 효과적인 예측이 가능한 기법으로 알려져 있다. 기본적인 예측 방식은 과거 자료의 가중평균을 이용하는 것인데, 예측 시점에서 멀어질수록 가중값이 지수적으로 감소하는 형식을 취하고 있다.</p>
+<p>전통적인 지수평활법은 시계열자료에 추세 또는 계절 성분이 포함되어 있는지 여부를 사용자가 결정하고, 그 결과에 따라 가장 적합한 방법을 선택해야 한다. 추세와 계절 성분이 모두 없다고 판단되면 simple exponential smoothing을, 추세 성분이 있다고 본다면 Holt’s linear trend method를, 추세 및 계절 성분이 모두 있다고 본다면 Holt-Winter’s seasonal method를 선택해야 한다. 그런데 시계열자료 중에는 각 성분의 포함 여부가 명확하게 구분되지 않는 경우가 많이 있을 수 있으며, 따라서 사용자가 주관적인 기준으로 모형을 선택해야 하는 상황이 종종 발생하게 된다.</p>
+<p>전통적인 지수평활법에 오차모형을 도입하여 통계적 모형으로 확장한 모형이 최근들어 제시되었다. ETS 모형이라고 불리는 이 모형은 전통적 지수평활법의 한계를 확실하게 극복한 새로운 통계적 모형으로써, 최근에 가장 많이 사용되고 있는 예측 모형 중 하나이다.</p>
+<p>ETS 모형을 시작으로 우리는 앞으로 다양한 시계열 예측 모형을 살펴볼 것이다. 각 예측 모형의 원리와 작동 방식 및 실제 적용 방법 등을 자세히 알아볼 것인데, 더 먼저 살펴봐야 하는 것은 예측모형의 평가 방법이다. 실제 상황에서 우리는 주어진 시계열자료에 대하여 다양한 예측모형을 사용하여 예측을 실시하게 된다. 문제는 예측모형이 다르면 예측 결과도 당연히 다르게 되는데, 그 중 어떤 것이 최선의 예측인지 선택해야 한다는 것이다.</p>
+<div id="section-accuracy" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> 예측 모형의 평가<a href="chapter-ets.html#section-accuracy" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>미래 시점에 대한 예측 결과의 평가는 시간이 흘러 해당 시점에 대한 관측이 이루어져야 정확하게 이루어질 수 있지만, 이것에 준하는 현실적인 방안이 필요하다고 하겠다. 예측 모형의 평가에 사용되는 가장 일반적인 방법은 전체 자료를 training data와 test data로 분리해서, training data만으로 예측 모형을 적합하고 test data에 대한 예측을 실시하고 평가하는 것이다.</p>
+<p>시계열자료는 자료의 순서가 그대로 유지되어야 하는 구조이기 때문에, <span class="math inline">\(y_{1}, \ldots, y_{T}\)</span>를 training data로 사용하고, <span class="math inline">\(y_{T+1}, y_{T+2}, \ldots\)</span>를 test data로 설정하게 된다. Test data의 크기는 대략 전체 자료의 20% 정도로 선택하는 것이 일반적이지만, 자료의 전체 크기나 예측 시차 <code>h</code> 등을 고려해서 사용자가 결정해야 한다.</p>
+<p>Training data <span class="math inline">\((y_{1}, \ldots, y_{T})\)</span>는 모수 추정 등을 통한 예측 모형의 적합에 사용되는 자료이며, 적합값 <span class="math inline">\((\hat{y}_{t})\)</span>와 관측값 <span class="math inline">\((y_{t})\)</span>의 차이가 잔차 <span class="math inline">\((e_{t} = y_{t} - \hat{y}_{t})\)</span>, <span class="math inline">\(t=1,\ldots, T~\)</span>가 된다. Training data에 적합이 잘되는 예측 모형이라면 전체적으로 잔차의 값이 작을 텐데, 그렇다고 해서 test data에 대한 예측도 반드시 잘된다는 것을 의미하지는 않는다. 오히려 training data에 대해 너무 완벽하게 적합이 잘되는 모형은 over-fitting된 모형일 가능성이 높고, 그렇다면 전혀 새로운 test data에 대해서는 예측이 매우 좋지 않을 수 있다.</p>
+<p>Test data <span class="math inline">\((y_{T+1}, y_{T+2}, \ldots)\)</span>는 예측 모형의 예측력을 평가하기 위해 남겨 놓은 자료이다. 예측의 정확도는 예측 오차 <span class="math inline">\((e_{T+h} = y_{T+h} - \hat{y}_{T+h}, ~~h=1, 2, 3, \ldots)\)</span>를 대상으로 평가 측도를 계산함으로써 평가할 수 있는데, 우선 생각할 수 있는 측도에는 예측 오차의 평균적인 크기를 계산하는 것이다.</p>
+<ul>
+<li><p>MAE (Mean Absolute Error) : <span class="math inline">\(mean(~|e_{t}|~)\)</span></p></li>
+<li><p>RMSE (Root Mean Squared Error) : <span class="math inline">\(\sqrt{mean(e_{t}^{2})}\)</span></p></li>
+</ul>
+<p>MAE와 RMSE는 보편적으로 많이 사용되는 평가 측도이다. 다만, 자료의 스케일에 영향을 받는 측도이어서, 단위가 서로 다른 자료를 대상으로 하는 예측 비교에는 사용할 수 없다.</p>
+<p>자료의 스케일에 영향을 받지 않는 측도로써 퍼센트 오차를 생각할 수 있다.</p>
+<ul>
+<li>MAPE (Mean Absolute Percentage Error) : <span class="math inline">\(mean(|100 \times \frac{e_{t}}{y_{y}}|)\)</span></li>
+</ul>
+<p>MAPE는 자료의 단위에 관계 없이 비교가 가능하다는 장점이 있으나, 개별 자료값이 측도의 분모로 들어가기 때문에 0 또는 0에 가까운 값이 있는 자료에는 사용하기 어려운 문제가 있다.</p>
+<p>오차 크기를 상대화 시키는 기준으로 training data에 대한 naive forecast <span class="math inline">\((\hat{y}_{t+1} = y_{t})\)</span>의 MAE를 사용하는 것이 좋은 방법이 될 수 있다.</p>
+<ul>
+<li>MASE (Mean Absolute Scaled Error) : <span class="math inline">\(mean(|\frac{e_{t}}{E}|)\)</span>, <span class="math inline">\(~~~E=\frac{1}{T-1}\sum_{t=2}^{T}|y_{t}-y_{t-1}|\)</span></li>
+</ul>
+<p>MASE는 자료의 스케일에 영향을 받지 않는 측도이고, MAPE가 갖고 있는 문제도 없는 측도이다. MASE가 1보다 값이 크다면, training data를 대상으로 계산된 naive forecast보다 예측력이 떨어진다는 의미가 된다.</p>
+<p>예측 오차의 다양한 평가 측도의 계산은 함수 <code>forecast::accuracy()</code>로 할 수 있다. 자세한 사용법은 예제와 함께 살펴보겠다.</p>
+</div>
+<div id="section-exponential" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> 전통적 지수평활법<a href="chapter-ets.html#section-exponential" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>전통적 지수평활법에는 simple exponential smmothing과 Holt’s trend method, 그리고 Holt-Winter’s seasonal method가 있다. 각 방법의 기본 개념과 살행 방법 등을 살펴보도록 하자.</p>
+<div id="simple-exponential-smoothing" class="section level3 hasAnchor" number="3.2.1">
+<h3><span class="header-section-number">3.2.1</span> Simple exponential smoothing<a href="chapter-ets.html#simple-exponential-smoothing" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>명확한 추세나 계절 성분은 없으며, 국지적으로는 자료의 평균수준 (level)이 일정하지만 전체적으로는 평균수준에 변화가 있는 시계열자료의 예측에 적합한 평활 기법이다.</p>
+<p>Simple exponential smoothing에서는 주어진 시계열자료 <span class="math inline">\(y_{1}, \ldots, y_{t}\)</span>를 이용한 <span class="math inline">\((t+1)\)</span> 시점에 대한 1-시차 후 예측값 <span class="math inline">\(\hat{y}_{t+1|t}\)</span>을 다음과 같이 계산한다.</p>
+<span class="math display" id="eq:ses-1">\[\begin{equation}
+\hat{y}_{t+1|t} = \alpha y_{t} + \alpha(1-\alpha) y_{t-1} + \alpha(1-\alpha)^{2} y_{t-2} + \cdots
+\tag{3.1}
+\end{equation}\]</span>
+<p>단, <span class="math inline">\(0 \leq \alpha \leq 1\)</span>는 평활상수이다.</p>
+<p>식 <a href="chapter-ets.html#eq:ses-1">(3.1)</a>에 표현된 simple exponential smoothing에 의한 1-시차 후 예측값은 기본적으로 과거 자료의 가중 평균이다. 또한 가중값은 시점 <span class="math inline">\(t\)</span>에서 멀어질수록, 즉 더 먼 과거 자료일수록 지수적으로 감소한다는 것도 알 수 있다. 평활상수 <span class="math inline">\(\alpha\)</span>의 역할은 가중값의 감소 정도를 조절하는 것으로써, 값이 작아질수록 과거 자료에 더 큰 비중을 두게 되지만, 1에 가까운 큰 값을 갖게 되면 예측값 계산에 최근 관찰값의 정보를 주로 사용하게 된다.</p>
+<p>식 <a href="chapter-ets.html#eq:ses-1">(3.1)</a>은 다른 형태로 다시 표현할 수 있는데, 우선 다음과 같이 <span class="math inline">\(y_{t}\)</span>와 <span class="math inline">\(\hat{y}_{t|t-1}\)</span>의 가중 평균으로 표현될 수 있다.</p>
+<span class="math display" id="eq:ses-2">\[\begin{equation}
+\hat{y}_{t+1|t} = \alpha y_{t} + (1-\alpha) \hat{y}_{t|t-1} \tag{3.2}
+\end{equation}\]</span>
+<p>Simple exponential smoothing은 추세와 계절 성분은 없고, 단지 국지적으로 일정한 평균수준 (level)만이 있는 모형이다. 따라서 식 <a href="chapter-ets.html#eq:ses-2">(3.2)</a>는 다음과 같이 모형 추정식과 예측식으로 구분해서 표현할 수 있다.</p>
+<ul>
+<li><code>h</code> 시차 후 예측값 추정식</li>
+</ul>
+<span class="math display">\[\begin{equation}
+\hat{y}_{t+h|t} = l_{t}
+\end{equation}\]</span>
+<ul>
+<li>평균수준 추정식</li>
+</ul>
+<span class="math display">\[\begin{equation}
+l_{t} = \alpha y_{y} + (1-\alpha) l_{t-1}
+\end{equation}\]</span>
+<p>단, <span class="math inline">\(l_{t}\)</span>는 <span class="math inline">\(t\)</span> 시점에서의 평균수준이고, <span class="math inline">\(\alpha\)</span>는 평균수준에 대한 평활상수이다.</p>
+<p>Simple exponential smoothing을 실시하기 위한 함수는 <code>forecast::ses()</code>이며, 대략적인 사용법은 <code>ses(y, h = 10, level = c(80, 95))</code>이다. <code>y</code>에는 숫자형 벡터이거나 <code>ts</code> 개체를 지정하고, <code>h</code>는 예측 시차를 지정하는 것으로써 10 시차까지의 예측이 디폴트이다. <code>level</code>은 예측구간에 대한 신뢰계수를 지정하는 것인데, 전통적 지수평활법으로는 예측구간을 계산할 수 없기 때문에, <a href="chapter-ets.html#section-ets">3.3</a>절에서 소개되는 ETS 모형 중 simple exponential smoothing에 대응되는 모형으로 계산한다.</p>
+<ul>
+<li>예제: <code>fpp2::oil</code></li>
+</ul>
+<p><code>fpp2::oil</code>은 1965년부터 2013년까지 Saudi Arabia의 연간 원유 생산량 자료이다. 1996년 이후 자료에 대해 simple exponential smoothing을 적용해 보자.</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="chapter-ets.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">library</span>(fpp2)</span>
+<span id="cb23-2"><a href="chapter-ets.html#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> oil_1996 <span class="ot">&lt;-</span> <span class="fu">window</span>(oil, <span class="at">start =</span> <span class="dv">1996</span>)</span></code></pre></div>
+<p>1996년 이후 연간 원유 생산량 자료의 시계열 그래프를 작성해 보자.</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="chapter-ets.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">autoplot</span>(oil_1996) <span class="sc">+</span> </span>
+<span id="cb24-2"><a href="chapter-ets.html#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Annual oil production in Saudi Arabia since 1996&quot;</span>, <span class="at">y =</span> <span class="cn">NULL</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:oil-1996"></span>
+<img src="_main_files/figure-html/oil-1996-1.png" alt="1996년 이후 Saudi Arabia 연간 원유 생산량" width="576" />
+<p class="caption">
+Figure 3.1: 1996년 이후 Saudi Arabia 연간 원유 생산량
+</p>
+</div>
+<p>함수 <code>ses()</code>를 사용하여 2014 ~ 2016의 원유 생산량을 예측해 보자.</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="chapter-ets.html#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">ses</span>(oil_1996, <span class="at">h =</span> <span class="dv">3</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb25-2"><a href="chapter-ets.html#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">summary</span>()</span>
+<span id="cb25-3"><a href="chapter-ets.html#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="chapter-ets.html#cb25-4" aria-hidden="true" tabindex="-1"></a>Forecast method<span class="sc">:</span> Simple exponential smoothing</span>
+<span id="cb25-5"><a href="chapter-ets.html#cb25-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-6"><a href="chapter-ets.html#cb25-6" aria-hidden="true" tabindex="-1"></a>Model Information<span class="sc">:</span></span>
+<span id="cb25-7"><a href="chapter-ets.html#cb25-7" aria-hidden="true" tabindex="-1"></a>Simple exponential smoothing </span>
+<span id="cb25-8"><a href="chapter-ets.html#cb25-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-9"><a href="chapter-ets.html#cb25-9" aria-hidden="true" tabindex="-1"></a>Call<span class="sc">:</span></span>
+<span id="cb25-10"><a href="chapter-ets.html#cb25-10" aria-hidden="true" tabindex="-1"></a> <span class="fu">ses</span>(<span class="at">y =</span> oil_1996, <span class="at">h =</span> <span class="dv">3</span>) </span>
+<span id="cb25-11"><a href="chapter-ets.html#cb25-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-12"><a href="chapter-ets.html#cb25-12" aria-hidden="true" tabindex="-1"></a>  Smoothing parameters<span class="sc">:</span></span>
+<span id="cb25-13"><a href="chapter-ets.html#cb25-13" aria-hidden="true" tabindex="-1"></a>    alpha <span class="ot">=</span> <span class="fl">0.8339</span> </span>
+<span id="cb25-14"><a href="chapter-ets.html#cb25-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-15"><a href="chapter-ets.html#cb25-15" aria-hidden="true" tabindex="-1"></a>  Initial states<span class="sc">:</span></span>
+<span id="cb25-16"><a href="chapter-ets.html#cb25-16" aria-hidden="true" tabindex="-1"></a>    l <span class="ot">=</span> <span class="fl">446.5868</span> </span>
+<span id="cb25-17"><a href="chapter-ets.html#cb25-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-18"><a href="chapter-ets.html#cb25-18" aria-hidden="true" tabindex="-1"></a>  sigma<span class="sc">:</span>  <span class="fl">29.8282</span></span>
+<span id="cb25-19"><a href="chapter-ets.html#cb25-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-20"><a href="chapter-ets.html#cb25-20" aria-hidden="true" tabindex="-1"></a>     AIC     AICc      BIC </span>
+<span id="cb25-21"><a href="chapter-ets.html#cb25-21" aria-hidden="true" tabindex="-1"></a><span class="fl">178.1430</span> <span class="fl">179.8573</span> <span class="fl">180.8141</span> </span>
+<span id="cb25-22"><a href="chapter-ets.html#cb25-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-23"><a href="chapter-ets.html#cb25-23" aria-hidden="true" tabindex="-1"></a>Error measures<span class="sc">:</span></span>
+<span id="cb25-24"><a href="chapter-ets.html#cb25-24" aria-hidden="true" tabindex="-1"></a>                   ME     RMSE     MAE      MPE     MAPE      MASE        ACF1</span>
+<span id="cb25-25"><a href="chapter-ets.html#cb25-25" aria-hidden="true" tabindex="-1"></a>Training set <span class="fl">6.401975</span> <span class="fl">28.12234</span> <span class="fl">22.2587</span> <span class="fl">1.097574</span> <span class="fl">4.610635</span> <span class="fl">0.9256774</span> <span class="sc">-</span><span class="fl">0.03377748</span></span>
+<span id="cb25-26"><a href="chapter-ets.html#cb25-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-27"><a href="chapter-ets.html#cb25-27" aria-hidden="true" tabindex="-1"></a>Forecasts<span class="sc">:</span></span>
+<span id="cb25-28"><a href="chapter-ets.html#cb25-28" aria-hidden="true" tabindex="-1"></a>     Point Forecast    Lo <span class="dv">80</span>    Hi <span class="dv">80</span>    Lo <span class="dv">95</span>    Hi <span class="dv">95</span></span>
+<span id="cb25-29"><a href="chapter-ets.html#cb25-29" aria-hidden="true" tabindex="-1"></a><span class="dv">2014</span>       <span class="fl">542.6806</span> <span class="fl">504.4541</span> <span class="fl">580.9070</span> <span class="fl">484.2183</span> <span class="fl">601.1429</span></span>
+<span id="cb25-30"><a href="chapter-ets.html#cb25-30" aria-hidden="true" tabindex="-1"></a><span class="dv">2015</span>       <span class="fl">542.6806</span> <span class="fl">492.9073</span> <span class="fl">592.4539</span> <span class="fl">466.5589</span> <span class="fl">618.8023</span></span>
+<span id="cb25-31"><a href="chapter-ets.html#cb25-31" aria-hidden="true" tabindex="-1"></a><span class="dv">2016</span>       <span class="fl">542.6806</span> <span class="fl">483.5747</span> <span class="fl">601.7864</span> <span class="fl">452.2860</span> <span class="fl">633.0752</span></span></code></pre></div>
+<p>Level에 대한 평활상수가 <span class="math inline">\(\alpha = 0.8339\)</span>으로 추정되었다는 것은 level에 큰 변화가 있는 자료를 의미한다. 이제 예측 결과를 그래프로 나타내 보자.</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="chapter-ets.html#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">ses</span>(oil_1996, <span class="at">h =</span> <span class="dv">3</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb26-2"><a href="chapter-ets.html#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">autoplot</span>() <span class="sc">+</span> </span>
+<span id="cb26-3"><a href="chapter-ets.html#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">labs</span>(<span class="at">y =</span> <span class="cn">NULL</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:oil-1996-fore"></span>
+<img src="_main_files/figure-html/oil-1996-fore-1.png" alt="1996년 이후 Saudi Arabia 연간 원유 생산량 및 2014년 이후 예측 결과" width="576" />
+<p class="caption">
+Figure 3.2: 1996년 이후 Saudi Arabia 연간 원유 생산량 및 2014년 이후 예측 결과
+</p>
+</div>
+<p>파란 실선으로 표시된 예측값은 마지막 level 추정값으로써, 모든 <code>h</code>에 대하여 동일하다는 것을 알 수 있다. 예측값을 표시한 실선을 포함하고 있는 짙은 파란 색 영역은 80% 예측 구간을 표시한 것이고, 옅은 파란 색 영역은 95% 예측 구간을 표시한 것이다. 예측 시차가 증가함에 따라 예측 구간의 폭은 계속 넓어지고 있음을 알 수 있다.</p>
+</div>
+<div id="trend-method" class="section level3 hasAnchor" number="3.2.2">
+<h3><span class="header-section-number">3.2.2</span> Trend method<a href="chapter-ets.html#trend-method" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>추세 성분이 있는 시계열자료의 예측에 적합한 평활기법이며, 두 가지 방식이 주로 사용된다. 먼저 Holt’s linear trend method는 일정한 추세가 계속 유지된다는 가정에서 예측을 실시하는 기법이다. 단기 예측에서는 큰 문제가 없겠지만, 장기 예측에서는 over-forecast의 가능성이 있다. 두 번째는 Damped Holt’s trend method인데, 여기에서는 추세를 항상 일정하게 두지 않고, 추세의 기울기가 점차 감소한다는 가정에서 예측을 실시한다. 많은 경우에 성공적인 예측 결과를 보이고 있는 기법으로 알려져 있다.</p>
+<ol style="list-style-type: decimal">
+<li>Holt’s linear trend method</li>
+</ol>
+<p>모형을 구성하고 있는 성분은 level 부분과 trend 부분으로 구분된다. 두 구성 요소의 추정식과 <code>h</code> 시차 이후의 예측값 추정식은 다음과 같이 주어진다.</p>
+<ul>
+<li><span class="math inline">\(t\)</span> 시점에서의 level 추정식</li>
+</ul>
+<span class="math display">\[\begin{equation}
+l_{t} = \alpha y_{t} + (1-\alpha) (l_{t-1} + b_{t-1})
+\end{equation}\]</span>
+<ul>
+<li><span class="math inline">\(t\)</span> 시점에서의 trend 추정식</li>
+</ul>
+<span class="math display">\[\begin{equation}
+b_{t} = \beta (l_{t} - l_{t-1}) + (1-\beta) b_{t-1}
+\end{equation}\]</span>
+<ul>
+<li>예측값 추정식</li>
+</ul>
+<span class="math display" id="eq:holt">\[\begin{equation}
+\hat{y}_{t+h|t} = l_{t} + h b_{t} \tag{3.3}
+\end{equation}\]</span>
+<p>단, <span class="math inline">\(0 \leq \alpha \leq 1\)</span>는 level에 대한 평활상수이고, <span class="math inline">\(0 \leq \beta \leq 1\)</span>은 trend에 대한 평활상수이다.</p>
+<p>식 <a href="chapter-ets.html#eq:holt">(3.3)</a>에서 <code>h</code> 시차 이후 예측값은 level의 마지막 추정 값과 trend 마지막 추정 값에 예측 시차 h를 곱한 결과의 덧셈으로 계산된다는 것을 볼 수 있다. 즉, 예측값은 예측 시차 h가 증가함에 따라 계속 증가하거나 (<span class="math inline">\(b_{t} &gt; 0\)</span>) 혹은 감소하게 되어서 (<span class="math inline">\(b_{t} &lt; 0\)</span>), 장기 예측의 경우에는 over-forecast의 가능성이 있는 것이다.</p>
+<ol start="2" style="list-style-type: decimal">
+<li>Damped Holt’s trend method</li>
+</ol>
+<p>Holt’s linear trend method의 over-forecast 문제를 해결하기 위해 제안된 방법이다. 모형을 구성하고 있는 level 부분과 trend 부분 요소의 추정식 및 <code>h</code> 시차 이후의 예측값 추정식은 다음과 같이 주어진다.</p>
+<ul>
+<li><span class="math inline">\(t\)</span> 시점에서의 level 추정식</li>
+</ul>
+<span class="math display">\[\begin{equation}
+l_{t} = \alpha y_{t} + (1-\alpha) (l_{t-1} + \phi b_{t-1})
+\end{equation}\]</span>
+<ul>
+<li><span class="math inline">\(t\)</span> 시점에서의 trend 추정식</li>
+</ul>
+<span class="math display">\[\begin{equation}
+b_{t} = \beta (l_{t} - l_{t-1}) + (1-\beta) \phi b_{t-1}
+\end{equation}\]</span>
+<ul>
+<li>예측값 추정식</li>
+</ul>
+<span class="math display" id="eq:damp-holt">\[\begin{equation}
+\hat{y}_{t+h|t} = l_{t} + (\phi + \phi^{2} + \cdots + \phi^{h}) b_{t} \tag{3.4}
+\end{equation}\]</span>
+<p>단, <span class="math inline">\(0 \leq \alpha \leq 1\)</span>는 level에 대한 평활 상수이고, <span class="math inline">\(0 \leq \beta \leq 1\)</span>은 trend에 대한 평활 상수이다. 또한 <span class="math inline">\(0 \leq \phi \leq 1\)</span>은 damping 모수로써, 예측에서 추세의 영향력 약화 정도를 조절하는 역할을 한다. <span class="math inline">\(\phi = 1\)</span>이면 Holt’s linear trend method와 동일한 모형이 된다.</p>
+<p>식 <a href="chapter-ets.html#eq:damp-holt">(3.4)</a>에서 볼 수 있는 것은 예측 시차 <code>h</code>가 큰 값을 갖게 되는 장기 예측에서는 예측값이 계속 증가하거나 감소하는 것이 아니라, 일정한 값으로 수렴한다는 것이다. 이것이 의미하는 것은 단기 예측에서는 추세 성분이 명확하게 영향을 주게 되지만 장기 예측에서는 추세 성분의 영향력이 점점 약해지고, 따라서 over-forecast의 문제가 발생하지 않게 된다는 점이다.</p>
+<p>Trend method를 적용하기 위한 함수는 <code>forecast::holt()</code>이며, 사용법은 <code>holt(y, h = 10, damped = FALSE, level = c(80, 95))</code>이다. Holt’s linear trend method를 사용한다면, <code>damped = FALSE</code>를 지정하면 되고, damped Holt’s trend method를 사용하려면, <code>damped = TRUE</code>를 지정하면 된다.</p>
+<ul>
+<li>예제: <code>fpp2::ausair</code></li>
+</ul>
+<p><code>fpp2::ausair</code>는 1970년부터 2016년까지 호주의 연간 항공기 승객 수 자료이다. Holt’s linear trend와 damped Holt’s trend 모형을 이용해서 예측을 실시해 보자.</p>
+<p>먼저 시계열 그래프를 작성해 보자.</p>
+<div class="figure"><span style="display:block;" id="fig:aus-air"></span>
+<img src="_main_files/figure-html/aus-air-1.png" alt="1970년부터 2016년까지 호주의 연간 항공기 승객 수" width="576" />
+<p class="caption">
+Figure 3.3: 1970년부터 2016년까지 호주의 연간 항공기 승객 수
+</p>
+</div>
+<p>Holt’s linear trend 모형을 함수 <code>holt()</code>를 사용해서 적합시키고, 15 시차에 대한 예측 결과를 그래프에 나타내 보자.</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="chapter-ets.html#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">holt</span>(ausair, <span class="at">h =</span> <span class="dv">15</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb27-2"><a href="chapter-ets.html#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">autoplot</span>()</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:aus-air-fore1"></span>
+<img src="_main_files/figure-html/aus-air-fore1-1.png" alt="`ausair` 자료에 대한 Holt's linear trend method의 예측 결과" width="576" />
+<p class="caption">
+Figure 3.4: <code>ausair</code> 자료에 대한 Holt’s linear trend method의 예측 결과
+</p>
+</div>
+<p>Damped Holt’s trend 모형에 의한 예측 결과도 그래프로 나타내 보자.</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="chapter-ets.html#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">holt</span>(ausair, <span class="at">h =</span> <span class="dv">15</span>, <span class="at">damped =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb28-2"><a href="chapter-ets.html#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">autoplot</span>()</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:aus-air-fore2"></span>
+<img src="_main_files/figure-html/aus-air-fore2-1.png" alt="`ausair` 자료에 대한 damped Holt's trend method의 예측 결과" width="576" />
+<p class="caption">
+Figure 3.5: <code>ausair</code> 자료에 대한 damped Holt’s trend method의 예측 결과
+</p>
+</div>
+<p>Figure <a href="chapter-ets.html#fig:aus-air-fore1">3.4</a>에서 볼 수 있듯이 Holt’s linear trend method에 의한 예측 결과는 지속적으로 증가하고 있으며, 반면에 damped Holt’s trend method에 의한 예측 결과는 상승 기울기가 점점 줄어들고 있다는 것을 Figure <a href="chapter-ets.html#fig:aus-air-fore2">3.5</a>에서 볼 수 있다.</p>
+</div>
+<div id="holt-winters-seasonal-method" class="section level3 hasAnchor" number="3.2.3">
+<h3><span class="header-section-number">3.2.3</span> Holt-Winters’ seasonal method<a href="chapter-ets.html#holt-winters-seasonal-method" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Holt-Winters’ seasonal method는 계절성분을 설명하기 위해서 Holt’s trend method를 확장한 것이다. 따라서 모형은 level과 trend 그리고 season 성분으로 구성되어 있고, 이것으로 예측값을 추정하게 된다.</p>
+<p>Holt-Winters’ method는 계절 요소의 형태에 따라서 가법 모형과 승법 모형으로 구분되는데, 가법 모형은 계절 변동 폭이 대략 일정한 모습을 보이는 자료에 적합한 모형이고, 승법 모형은 계절 변동 폭이 자료의 평균 수준 (level)에 비례해서 변하는 경우에 적합한 모형이다. 따라서 증가하는 추세를 갖고 있는 자료의 경우에, 시간이 흐름에 따라 변동 폭이 함께 증가는 모습을 보인다면, 승법 모형이 더 적합한 모형이 될 것이다.</p>
+<p>Holt-Winters’ additive seasonal method의 성분은 다음과 같이 표현된다.</p>
+<ul>
+<li><span class="math inline">\(t\)</span> 시점에서의 level 추정식</li>
+</ul>
+<span class="math display">\[\begin{equation}
+l_{t} = \alpha (y_{t} - s_{t-m}) + (1-\alpha)(l_{t-1}+b_{t-1})
+\end{equation}\]</span>
+<ul>
+<li><span class="math inline">\(t\)</span> 시점에서의 trend 추정식</li>
+</ul>
+<span class="math display">\[\begin{equation}
+b_{t} = \beta (l_{t} - l_{t-1}) + (1-\beta)b_{t-1}
+\end{equation}\]</span>
+<ul>
+<li><span class="math inline">\(t\)</span> 시점에서의 season 추정식</li>
+</ul>
+<span class="math display">\[\begin{equation}
+s_{t} = \gamma (y_{t} - l_{t-1} - b_{t-1}) + (1-\gamma) s_{t-m}
+\end{equation}\]</span>
+<ul>
+<li>예측값 추정식</li>
+</ul>
+<span class="math display">\[\begin{equation}
+\hat{y}_{t+h} = l_{t} + hb_{t} + s_{t+h-m(k+1)}
+\end{equation}\]</span>
+<p>단, <span class="math inline">\(\alpha, \beta, \gamma\)</span>는 평활 상수이고, <span class="math inline">\(m\)</span>은 계절 성분의 주기로써 예컨대 월별 자료이면 <span class="math inline">\(m=12\)</span>, 분기별 자료이면 <span class="math inline">\(m=4\)</span>가 된다. 또한 예측값 추정식에 있는 <span class="math inline">\(k\)</span>는 <span class="math inline">\((h-1)/m\)</span>의 정수 부분이다.</p>
+<p>Holt-Winters’ multiplicative seasonal method의 성분은 다음과 같이 표현된다.</p>
+<ul>
+<li><span class="math inline">\(t\)</span> 시점에서의 level 추정식</li>
+</ul>
+<span class="math display">\[\begin{equation}
+l_{t} = \alpha \frac{y_{t}}{s_{t-m}} + (1-\alpha)(l_{t-1}+b_{t-1})
+\end{equation}\]</span>
+<ul>
+<li><span class="math inline">\(t\)</span> 시점에서의 trend 추정식</li>
+</ul>
+<span class="math display">\[\begin{equation}
+b_{t} = \beta (l_{t} - l_{t-1}) + (1-\beta)b_{t-1}
+\end{equation}\]</span>
+<ul>
+<li><span class="math inline">\(t\)</span> 시점에서의 season 추정식</li>
+</ul>
+<span class="math display">\[\begin{equation}
+s_{t} = \gamma \frac{y_{t}}{(l_{t-1} + b_{t-1}} + (1-\gamma) s_{t-m}
+\end{equation}\]</span>
+<ul>
+<li>예측값 추정식</li>
+</ul>
+<span class="math display">\[\begin{equation}
+\hat{y}_{t+h} = (l_{t} + hb_{t}) s_{t+h-m(k+1)}
+\end{equation}\]</span>
+<p>또한 Holt-Winters’ seasonal method에서도 추세 성분에 대한 damping이 가법 모형과 승법 모형 모두에서 가능하다. 따라서 Holt-Winters’ seasonal method는 계절 성분의 형태와 damping 유무에 따라 additive seasonal method, damped additive seasonal method, multiplicative seasonal method, 그리고 damped multiplicative seasonal method의 4가지 모형으로 구분된다.</p>
+<p>모형 적합 및 예측은 함수 <code>forecast::hw()</code>로 할 수 있으며, 사용법은 다음과 같다.</p>
+<p><code>hw(y, damped = FALSE, h = 2*frequency(y), level = c(80, 95), seasonal = c("additive", "multiplicative"))</code></p>
+<ul>
+<li>예제: <code>fpp2::austourists</code></li>
+</ul>
+<p><code>fpp2::austourists</code>는 199년부터 2015년까지 분기별 호주에 입국한 외국인 관광객 수 자료이다. Holt-Winters’ seasonal 모형을 이용해서 예측을 실시해 보자. 먼저 시계열 그래프를 작성해 보자.</p>
+<div class="figure"><span style="display:block;" id="fig:austour-1"></span>
+<img src="_main_files/figure-html/austour-1-1.png" alt="199년부터 2015년까지 분기별 호주에 입국한 외국인 관광객 수" width="576" />
+<p class="caption">
+Figure 3.6: 199년부터 2015년까지 분기별 호주에 입국한 외국인 관광객 수
+</p>
+</div>
+<p>먼저 가법 모형으로 예측을 실시하고 결과를 그래프에 나타내 보자.</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="chapter-ets.html#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">hw</span>(austourists) <span class="sc">%&gt;%</span> </span>
+<span id="cb29-2"><a href="chapter-ets.html#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">autoplot</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">y =</span> <span class="cn">NULL</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:austour-2"></span>
+<img src="_main_files/figure-html/austour-2-1.png" alt="`austourists` 자료에 대한 Holt-Winters' additive seasonal method의 예측 결과" width="576" />
+<p class="caption">
+Figure 3.7: <code>austourists</code> 자료에 대한 Holt-Winters’ additive seasonal method의 예측 결과
+</p>
+</div>
+<p>이번에는 승법 모형으로 예측을 실시하고 결과를 그래프로 나타내 보자.</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="chapter-ets.html#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">hw</span>(austourists, <span class="at">seasonal =</span> <span class="st">&quot;multiplicative&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb30-2"><a href="chapter-ets.html#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">autoplot</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">y =</span> <span class="cn">NULL</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:austour-3"></span>
+<img src="_main_files/figure-html/austour-3-1.png" alt="`austourists` 자료에 대한 Holt-Winters' multiplicative seasonal method의 예측 결과" width="576" />
+<p class="caption">
+Figure 3.8: <code>austourists</code> 자료에 대한 Holt-Winters’ multiplicative seasonal method의 예측 결과
+</p>
+</div>
+</div>
+</div>
+<div id="section-ets" class="section level2 hasAnchor" number="3.3">
+<h2><span class="header-section-number">3.3</span> ETS 모형<a href="chapter-ets.html#section-ets" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="전통적-지수평활법의-확장" class="section level3 hasAnchor" number="3.3.1">
+<h3><span class="header-section-number">3.3.1</span> 전통적 지수평활법의 확장<a href="chapter-ets.html#전통적-지수평활법의-확장" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><a href="chapter-ets.html#section-exponential">3.2</a>절에서 우리는 전통적 지수평활법에 의한 예측 방식을 살펴보았다. 전통적 지수평활법을 사용하면 <code>h</code> 시차 후 예측값은 산출할 수 있으나, 예측 구간은 추정할 방법이 없었다. 이것은 전통적 지수평활법이 예측값을 산출하는 단순 수식에 불과하기 때문인데, 따라서 오차모형을 포함한 통계적 모형으로 확장할 필요가 있는 것이다.</p>
+<p>최근에 개발된 ETS 모형은 전통적인 지수평활법에 기반으로 두고 있는 통계적 모형이다. 따라서 ETS 모형을 사용하면 전통적인 지수평활법과 동일한 예측값을 산출하며, 예측 구간도 추정할 수 있는 것이다.</p>
+<ul>
+<li>지수평활법 구성 요소의 분해</li>
+</ul>
+<p>지수평활법에 속한 여러 모형에서 추세 성분은 None (N)과 Additive (A), 그리고 Damped additive (A<sub>d</sub>)의 형태를 취하고 있다. 또한 계절 성분도 None (N)과 Additive (A), 그리고 Multiplicative (M)의 형태를 취하고 있다. 각각 3가지 형태의 추세 및 계절 성분의 조합을 구성하면, 모두 9가지 모형을 구성할 수 있다. 즉, (Trend, Seasonal)의 가능한 조합은 (N, N), (N, A), (N, M), (A, N), (A, A), (A, M), (A<sub>d</sub>, N), (A<sub>d</sub>, A), (A<sub>d</sub>, M)와 같다.</p>
+<p><a href="chapter-ets.html#section-exponential">3.2</a>절에서 살펴본 모형을 (Trend, Seasonal) 조합의 형태로 표현하면 다음과 같다.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">(Trend, Seasonal) 조합</th>
+<th align="left">전통적 지수평활법 모형</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">(N , N)</td>
+<td align="left">Simple exponential smoothing</td>
+</tr>
+<tr class="even">
+<td align="center">(A , N)</td>
+<td align="left">Holt’s linear trend model</td>
+</tr>
+<tr class="odd">
+<td align="center">(A<sub>d</sub> , N)</td>
+<td align="left">Damped Holt’s trend model</td>
+</tr>
+<tr class="even">
+<td align="center">(A, A)</td>
+<td align="left">Additive Holt-Winters’ seasonal model</td>
+</tr>
+<tr class="odd">
+<td align="center">(A<sub>d</sub> , A)</td>
+<td align="left">Additive Holt-Winters’ damped model</td>
+</tr>
+<tr class="even">
+<td align="center">(A, M)</td>
+<td align="left">Multiplicative Holt-Winters’ seasonal model</td>
+</tr>
+<tr class="odd">
+<td align="center">(A<sub>d</sub> , M)</td>
+<td align="left">Multiplicative Holt-Winters’ damped model</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>오차 모형의 도입</li>
+</ul>
+<p>지수평활법을 통계적 모형으로 확장하기 위해서는 1시차 후 예측 오차가 확률분포를 갖는다는 가정이 필요하다. 확률 오차 모형이 도입되면 각 모형의 모수를 최우추정법으로 추정할 수 있으며, 예측 구간도 추정할 수 있다. 또한 최적 모형 선택을 위한 기준을 마련할 수 있게 된다.</p>
+<p>예측 오차에 대한 일반적인 가정은 <span class="math inline">\(\epsilon_{t}\)</span>는 서로 독립이며, 평균이 0이고 분산이 <span class="math inline">\(\sigma^{2}\)</span>인 정규분포라는 것이다.<br />
+또한 예측 오차는 가법 오차와 승법 오차로 구분할 수 있는데, 가법 오차는 <span class="math inline">\(\epsilon_{t} = y_{t} - \hat{y}_{t|t-1}\)</span>으로 표현되고, 승법 오차는 <span class="math inline">\(\epsilon_{t} = (y_{t} - \hat{y}_{t|t-1})/\hat{y}_{t|t-1}\)</span>으로 표현된다.</p>
+<ul>
+<li>ETS 모형 설정</li>
+</ul>
+<p>ETS 모형은 추세와 계절 및 오차 성분의 각 형태를 모두 조합하여 구성한다. 앞에서 (Trend, Seasonal)의 조합에 의해 9개 모형이 설정되는 것을 보았다. 여기에 두 가지 오차 성분인 Additive (A)와 Multiplicative (M)를 추가하면, 모두 18개 모형을 구성할 수 있게 되는데, 이렇게 구성되는 모형은 <code>ETS(Error, Trend, Seasonal)</code>의 형태로 각 성분을 표시한다. 예를 들어, <code>ETS(A, N, N)</code> 모형은 simple exponential smoothing with additive error model이 되고, <code>ETS(A, A, A)</code>는 additive Holt-Winters’ seasonal method with additive error model이 된다.</p>
+</div>
+<div id="모형-적합-및-최적-모형-선택" class="section level3 hasAnchor" number="3.3.2">
+<h3><span class="header-section-number">3.3.2</span> 모형 적합 및 최적 모형 선택<a href="chapter-ets.html#모형-적합-및-최적-모형-선택" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>모수 추정</li>
+</ul>
+<p>ETS 모형의 모수에는 평활상수인 <span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\beta\)</span>, <span class="math inline">\(\gamma\)</span>, <span class="math inline">\(\phi\)</span>와 level, trend 및 seasonal 요소의 초기값들이 있다. 예측 오차의 분포를 가정했기 때문에, ETS 모형의 모수들은 최우추정법 (Maximum likelihood estimation)으로 추정할 수 있다. 추정 과정에 대한 자세한 설명은 <span class="citation">Hyndman and Athanasopoulos (<a href="#ref-hyndman2018" role="doc-biblioref">2018</a>)</span> 을 참조하면 된다.</p>
+<ul>
+<li>모형 선택</li>
+</ul>
+<p>통계적 모형이 갖고 있는 큰 장점 중 하나는 모형 선택 기준으로 AIC와 같은 information criteria를 사용할 수 있다는 점이다. 따라서 ETS 모형 중 주어진 시계열자료에 가장 적합한 모형을 선택할 때, 사용자의 주관적인 기준이 아닌 객관적인 기준을 사용할 수 있게 되었다.</p>
+<p>모형 선택 기준으로 많이 사용하는 통계량에는 AIC, AIC<sub>c</sub> , 그리고 BIC가 있다. 각 통계량의 정의는 다음과 같다.</p>
+<p><span class="math display">\[AIC = -2\log(L) + 2k\]</span></p>
+<p><span class="math display">\[AIC_{c} = AIC + \frac{2k(k+1)}{T-k-1}\]</span></p>
+<p><span class="math display">\[
+BIC = -2\log(L) + k\log(T)
+\]</span></p>
+<p>단, <span class="math inline">\(L\)</span> 은 모형의 우도 함수 (Likelihood of model)이고, <span class="math inline">\(k\)</span> 는 모형의 모수 개수, 그리고 <span class="math inline">\(T\)</span> 는 시계열자료의 크기, 즉 자료의 개수이다. 자료의 수가 충분히 크지 않는 경우에는 <span class="math inline">\(AIC_{c}\)</span> 의 사용이 추천된다. 따라서 ETS 모형 중 <span class="math inline">\(AIC_{c}\)</span> 의 값이 가장 작은 모형을 예측모형으로 선택하면 된다.</p>
+<ul>
+<li>최적 ETS 모형 선택을 위한 함수: <code>forecast::ets()</code></li>
+</ul>
+<p>ETS 모형 적합 및 최적 모형 선택은 함수 <code>forecast::ets()</code>로 진행할 수 있으며, 사용법은 다음과 같다.</p>
+<p><img src="Figures/ets.PNG" width="300" /></p>
+<p><code>y</code>는 숫자형 벡터 또는 <code>ts</code> 객체이고,</p>
+<p><code>model</code>에는 세 가지 ETS 모형 요소 (Error, Trend, Seasonal)의 형태를 지정하는 문자를 차례로 입력한다. <code>"N"</code>, <code>"A"</code>, <code>"M"</code>을 입력하면 사용자가 모형의 요소를 직접 결정하는 것이고, <code>"Z"</code> (디폴트)를 입력하면 information criteria에 의한 선택이 이루어진다. 예를 들어, <code>model = "ANN"</code>은 additive error, no trend, no seasonal model을 지정하는 것이고, <code>model = "AZN"</code>은 additive error, no seasonal, trend는 information criteria로 선택하는 모형을 지정한 것이다.</p>
+<p><code>damped</code>에 <code>TRUE</code>를 입력하면 damped trend 모형을 지정하는 것이고, <code>NULL</code> (디폴트)이면 information criteria로, damped trend 혹은 non-damped trend를 선택한다.</p>
+<p><code>lambda</code>에는 Box-Cox 변환 모수의 값을 지정한다. 사용자가 직접 입력할 수도 있고, 함수 <code>forecast::BoxCox.lambda()</code>가 선택한 변환 모수를 자동 지정하려면 <code>"auto"</code>를 입력하면 된다. 디폴트인 <code>NULL</code> 을 유지하면 변환은 이루어지지 않는다.</p>
+<p><code>lambda</code>에 값이 지정되어 Box-Cox 변환이 이루어지면, 변환된 자료를 이용하여 모수를 추정하게 되는데, 이어서 이루어지는 예측 과정에서는 예측 결과를 변환 이전의 원래 스케일로 역변환을 해주어야 한다. 이러한 역변환에서 발생되는 bias의 조정 여부를 선택하는 것이 <code>biasadj</code>의 역할이다. <code>TRUE</code>를 입력하면 bias가 조정된 예측값을 산출하게 된다.</p>
+<p><code>ic</code>는 모형 선택 과정에서 사용할 information criteria를 지정하는 것이며, <code>"aicc"</code>가 디폴트이다.</p>
+</div>
+<div id="예측" class="section level3 hasAnchor" number="3.3.3">
+<h3><span class="header-section-number">3.3.3</span> 예측<a href="chapter-ets.html#예측" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>ETS 모형의 점 예측값 (point forecast)은 각 모형의 예측값 계산식을 <span class="math inline">\(t=T+1, \ldots, T+h\)</span>에 대하여 <span class="math inline">\(\epsilon_{t}=0\)</span>인 상태애서 반복적으로 적용하여 산출한다. 예측 구간은 점 예측값 <span class="math inline">\(\hat{y}_{T+h|T}\)</span>을 중심으로 예측값의 분산과 정규분포의 분위수를 이용하여 계산할 수 있다. 단, 예측값의 분산을 유도할 수 없는 모형의 경우에는 모의실험을 통하여 예측구간을 계산하게 된다.</p>
+<ul>
+<li>ETS 모형 예측을 위한 함수: <code>forecast::forecast()</code></li>
+</ul>
+<p>함수의 사용법은 다음과 같다.</p>
+<p><img src="Figures/forecast.PNG" width="350" /></p>
+<p><code>object</code>는 함수 <code>ets()</code>로 생성된 객체이고, <code>object$m</code>은 시계열자료의 주기이다. 따라서 예측 시차 <code>h</code>의 디폴트 값은 주기가 1보다 크면 주기의 2배가 되고, 주기가 1인 경우에는 10이 되는 것이다. <code>simulate = TRUE</code>가 되면 예측 구간이 공식이 아닌 서로 독립인 정규분포 오차에 의한 모의실험으로 계산된다. 예측값의 분산을 유도할 수 없는 모형에 대해서는 <code>TRUE</code>가 디폴트가 된다. <code>bootstrap = TRUE</code>가 되면, 예측 구간이 서로 독립인 정규분포 오차에 의한 모의실험이 아닌 예측오차 (잔차)에 대한 Bootstrap을 이용한 모의실험으로 계산된다.</p>
+</div>
+</div>
+<div id="모형의-가정-만족-여부-확인" class="section level2 hasAnchor" number="3.4">
+<h2><span class="header-section-number">3.4</span> 모형의 가정 만족 여부 확인<a href="chapter-ets.html#모형의-가정-만족-여부-확인" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>ETS 모형을 포함한 모든 통계적 모형에는 오차에 대한 가정 사항이 있다. 주어진 자료로 모수를 추정하여 적합시킨 모형이 가정을 만족하고 있는지 확인하는 작업은 예측 모형의 타당성을 확보하기 위해 반드시 이루어져야 한다.</p>
+<p>오차 <span class="math inline">\(\epsilon_{1}, \ldots ,\epsilon_{T}\)</span>에 대한 가정은 다음과 같다.</p>
+<ol style="list-style-type: decimal">
+<li><p>오차는 서로 독립</p></li>
+<li><p>오차의 평균은 0</p></li>
+<li><p>오차의 분산은 동일</p></li>
+<li><p>오차는 모두 정규분포</p></li>
+</ol>
+<p>오차는 모형에는 포함되어 있지만, 실제로는 관측할 수 없는 성분이다. 따라서 오차의 가정 만족 여부는 잔차를 대상으로 이루어지게 된다. 평균이 0이고 분산이 동일한 정규분포를 하고 있다는 가정은 잔차의 시계열 그래프와 히스토그램을 작성하면 확인할 수 있다. 독립성 가정은 잔차의 Autocorrelation을 이용해서 이루어진다.</p>
+<div id="자기상관과-부분자기상관" class="section level3 hasAnchor" number="3.4.1">
+<h3><span class="header-section-number">3.4.1</span> 자기상관과 부분자기상관<a href="chapter-ets.html#자기상관과-부분자기상관" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>자기상관 (Autocorrelation)</li>
+</ul>
+<p>시계열자료의 자기상관이란 인접한 자료들 사이에 존재하는 상관을 의미한다. <span class="math inline">\(k\)</span>차 자기상관계수 <span class="math inline">\(\rho_{k}\)</span>는 시차가 <span class="math inline">\(k\)</span>인 시계열자료 사이에 존재하는 상관계수로써, 자기상관함수 (Autocorrelation function; ACF)라고 불린다.</p>
+<p><span class="math display">\[
+\rho_{k} = \frac{Cov(y_{t}, y_{t-k})}{\sqrt{Var(y_{t})}\sqrt{Var(y_{t-k})}}, ~~~k=1, 2, \ldots
+\]</span></p>
+<p>상관계수는 서로 다른 두 변수의 선형관계 정도를 측정하는 측도이다. 자기상관계수도 두 변수 사이의 관계 측정이라고 생각할 수 있는데, 예를 들어 <span class="math inline">\(\rho_{1}\)</span>은 <span class="math inline">\(y_{t}\)</span>과 <span class="math inline">\(y_{t-1}\)</span>라는 두 변수의 상관계수이고, <span class="math inline">\(\rho_{2}\)</span>는 <span class="math inline">\(y_{t}\)</span>와 <span class="math inline">\(y_{t-2}\)</span>라는 두 변수의 상관계수로 볼 수 있는 것이다.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center"><span class="math inline">\(t\)</span></th>
+<th align="center"><span class="math inline">\(y_{t}\)</span></th>
+<th align="center"><span class="math inline">\(y_{t-1}\)</span></th>
+<th align="center"><span class="math inline">\(y_{t-2}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">1</td>
+<td align="center"><span class="math inline">\(y_{1}\)</span></td>
+<td align="center">NA</td>
+<td align="center">NA</td>
+</tr>
+<tr class="even">
+<td align="center">2</td>
+<td align="center"><span class="math inline">\(y_{2}\)</span></td>
+<td align="center"><span class="math inline">\(y_{1}\)</span></td>
+<td align="center">NA</td>
+</tr>
+<tr class="odd">
+<td align="center">3</td>
+<td align="center"><span class="math inline">\(y_{3}\)</span></td>
+<td align="center"><span class="math inline">\(y_{2}\)</span></td>
+<td align="center"><span class="math inline">\(y_{1}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">4</td>
+<td align="center"><span class="math inline">\(y_{4}\)</span></td>
+<td align="center"><span class="math inline">\(y_{3}\)</span></td>
+<td align="center"><span class="math inline">\(y_{2}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">5</td>
+<td align="center"><span class="math inline">\(y_{5}\)</span></td>
+<td align="center"><span class="math inline">\(y_{4}\)</span></td>
+<td align="center"><span class="math inline">\(y_{3}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(\vdots\)</span></td>
+<td align="center"><span class="math inline">\(\vdots\)</span></td>
+<td align="center"><span class="math inline">\(\vdots\)</span></td>
+<td align="center"><span class="math inline">\(\vdots\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>주어진 시계열자료에 대한 표본 자기상관함수 (Sample ACF), <span class="math inline">\(r_{k}\)</span>는 다음과 같이 계산된다.</p>
+<p><span class="math display">\[
+r_{k} = \frac{\sum_{t=k+1}^{T}(y_{t}-\bar{y})(y_{t-k}-\bar{y})}{\sum_{t=1}^{T}(y_{t}-\bar{y})^{2}}
+\]</span></p>
+<p>표본 자기상관함수는 함수 <code>forecast::ggAcf()</code>로 작성할 수 있다.</p>
+<p>예제로 시계열자료 <code>fpp2::oil</code>의 표본 자기상관함수를 작성해 보자. 먼저 시계열 그래프를 작성해 보자.</p>
+<p><img src="_main_files/figure-html/unnamed-chunk-12-1.png" width="576" /></p>
+<p>표본 ACF 값을 계산하기 전에 시차가 1, 2, 3인 자료끼리의 산점도를 먼저 작성해 보자. 시차가 증가함에 따라 산점도의 점들이 점점 더 흩어지는 것을 볼 수 있다. 따라서 시차가 증감함에 따라 표본 ACF의 값은 점점 즐어들 것이다.</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="chapter-ets.html#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">gglagplot</span>(oil, <span class="at">lags =</span> <span class="dv">3</span>, <span class="at">do.lines =</span> <span class="cn">FALSE</span>) <span class="sc">+</span> </span>
+<span id="cb31-2"><a href="chapter-ets.html#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:oil-lagged"></span>
+<img src="_main_files/figure-html/oil-lagged-1.png" alt="`oil` 자료의 lagged 산점도" width="576" />
+<p class="caption">
+Figure 3.9: <code>oil</code> 자료의 lagged 산점도
+</p>
+</div>
+<p>이제 함수 <code>ggAcf()</code>로 표본 ACF를 작성해 보자.</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="chapter-ets.html#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">ggAcf</span>(oil)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:oil-acf"></span>
+<img src="_main_files/figure-html/oil-acf-1.png" alt="`oil` 자료의 표본 ACF" width="576" />
+<p class="caption">
+Figure 3.10: <code>oil</code> 자료의 표본 ACF
+</p>
+</div>
+<p>시차 (lag) <span class="math inline">\(k\)</span> 에 대한 <span class="math inline">\(r_{k}\)</span> 의 값이 수직 선분으로 표시되었다. 그래프에는 두 개의 파란 색 수평 점선이 있는데, 이것은 독립성 가정에서 계산한 <span class="math inline">\(\rho_{k}\)</span>의 95% 신뢰구간이다. 따라서 <span class="math inline">\(r_{k}\)</span> 의 값을 표시한 수직 선분이 파란 색 수평선 밖으로 뻗어 있다면, 해당 시점의 자기상관계수는 유의한 것이다.</p>
+<ul>
+<li>부분자기상관 (Partial autocorrelation)</li>
+</ul>
+<p><span class="math inline">\(k\)</span> 차 부분자기상관 (PACF)이란 <span class="math inline">\(y_{t}\)</span>와 <span class="math inline">\(y_{t-k}\)</span> 사이의 상관 관계에서 중간 시점인 <span class="math inline">\(y_{t-1}\)</span>, <span class="math inline">\(y_{t-2}\)</span>, <span class="math inline">\(\ldots\)</span>, <span class="math inline">\(y_{t-(k-1)}\)</span>의 영향력을 제거한 <span class="math inline">\(y_{t}\)</span> 와 <span class="math inline">\(y_{t-k}\)</span> 의 직접적인 상관 관계를 의미한다. 따라서 중간 시점이 없는 1차 부분자기상관계수는 1차 자기상관계수와 동일하게 된다.</p>
+<p>표본 부분자기상관함수 (PACF)는 함수 <code>forecast::ggPacf()</code>로 작성할 수 있다. 예제로 시계열자료 <code>fpp2::oil</code>의 표본 부분자기상관함수를 작성해 보자.</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="chapter-ets.html#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">ggPacf</span>(oil)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:oil-pacf"></span>
+<img src="_main_files/figure-html/oil-pacf-1.png" alt="`oil` 자료의 표본 PACF" width="576" />
+<p class="caption">
+Figure 3.11: <code>oil</code> 자료의 표본 PACF
+</p>
+</div>
+<p>파란 수평 점선은 독립성 가정에서 구한 <span class="math inline">\(k\)</span> 차 부분자기상관계수의 95% 신뢰구간이다. Figure <a href="chapter-ets.html#fig:oil-pacf">3.11</a>의 경우에는 1차 부분자기상관계수만이 유의적임을 알 수 있다.</p>
+<p>어떤 시계열 분석을 실시하든지 주어진 시계열자료에 대한 시계열 그래프와 표본 ACF, 그리고 PACF는 반드시 작성해야할 그래프이다. 따로 작성하는 것도 좋겠지만, 세 가지 그래프를 한 번에 작성하려면, 함수 <code>forecast::ggtsdisplay()</code>를 사용하면 된다. 옵션 <code>lag.max</code>에 충분히 큰 수를 지정하면 긴 시차에 대한 그래프를 작성할 수 있다.</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="chapter-ets.html#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">ggtsdisplay</span>(AirPassengers, <span class="at">lag.max =</span> <span class="dv">48</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:AP-ggtsdisplay"></span>
+<img src="_main_files/figure-html/AP-ggtsdisplay-1.png" alt="시계열 그래프, 표본 ACF, PACF 작성" width="576" />
+<p class="caption">
+Figure 3.12: 시계열 그래프, 표본 ACF, PACF 작성
+</p>
+</div>
+<p>Figure <a href="chapter-ets.html#fig:AP-ggtsdisplay">3.12</a>에서 볼 수 있는 것은 먼저 명확하게 증가하는 추세와 계절 성분이 있으며, 자료의 level이 증가하면 계절 성분의 변동 폭도 함께 증가하고 있다.<br />
+또한 표본 ACF가 매우 천천히 감소하는 형태를 갖고 있으며, ACF의 값이 주기 <span class="math inline">\((m = 12)\)</span> 의 배수인 12, 24, 36에서 다시 상승하며 비교적 큰 값을 갖고 있다는 점이다.</p>
+</div>
+<div id="독립성-검정" class="section level3 hasAnchor" number="3.4.2">
+<h3><span class="header-section-number">3.4.2</span> 독립성 검정<a href="chapter-ets.html#독립성-검정" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>오차가 독립성 가정을 만족하고 있는지 확인하는 방법에 대해 살펴보자. 먼저 표본 ACF를 활용한 검정이 있다. 표본 ACF의 그래프로 간편하게 확인하는 방법이지만, 다중검정의 문제가 있기 때문에 조심해서 사용해야 한다. 다른 방법으로는 포트맨토 (Portmanteau) 검정을 사용하는 것이다.</p>
+<ul>
+<li>표본 ACF를 이용한 독립성 검정</li>
+</ul>
+<p>Figure <a href="chapter-ets.html#fig:oil-acf">3.10</a>과 같은 표본 ACF 그래프에 표시된 95% 신뢰구간을 이용하는 방법이다. 신뢰구간과 양측검정의 관계에 의해서, 만일 <span class="math inline">\(r_{k}\)</span> 의 값이 점선을 벗어나 있다면, 가설 <span class="math inline">\(H_{0}:\rho_{k} = 0\)</span>, <span class="math inline">\(H_{1}: \rho \ne 0\)</span> 에서 <span class="math inline">\(H_{0}\)</span> 을 5% 유의수준에서 기각할 수 있다. 따라서 표본 ACF 그래프에 표시된 모든 <span class="math inline">\(r_{k}\)</span> 가 점선 안에 있다면 독립이라고 판단할 수 있다는 것이다.</p>
+<p>그러나 이 방법은 실질적으로 다중검정에 해당되기 때문에 일종 오류의 확률이 증가하는 문제가 있다. 다중검정이란 여러 개의 독립된 검정을 실시해서 하나의 결론을 내리는 상황을 의미하는데, 예를 들어, 3개의 귀무가설 <span class="math inline">\(H_{0}: \rho_{k} = 0\)</span>, <span class="math inline">\(k=1, 2, 3\)</span> 이 모두 사실이라고 가정해 보자. 3개의 독립된 검정을 각각 유의수준 <span class="math inline">\(\alpha\)</span> 에서 실시했을 때, 3개 검정 모두에서 옳은 결론인, <span class="math inline">\(H_{0}\)</span> 을 기각하지 않을 확률은 <span class="math inline">\((1-\alpha)^{3}\)</span> 이 된다. 다중검정의 일종오류는 3개의 독립된 검정 중 한 번이라도 <span class="math inline">\(H_{0}\)</span> 을 기각하는 사건이 된다. 따라서 다중검정의 일종오류 확률은 다음과 같다.</p>
+<span class="math display">\[\begin{align*}
+P(다중검정~일종오류) &amp;= P(3개~검정에서~적어도~한~번은~H_{0}~기각) \\
+                     &amp;= 1-P(3개~검정~모두에서~H_{0}~기각~못함) \\
+                     &amp;= 1-(1-\alpha)^{3} &gt; (1-\alpha)
+\end{align*}\]</span>
+<p>예를 들어, <span class="math inline">\(k=3\)</span> 이면 다중검정의 일종오류 확률은 <span class="math inline">\(1-(1-0.05)^{3} = 0.1426\)</span> 이고, <span class="math inline">\(k=15\)</span> 이면 <span class="math inline">\(1-(1-0.05)^{15} = 0.5367\)</span> 이 된다. Figure <a href="chapter-ets.html#fig:oil-acf">3.10</a>에는 <span class="math inline">\(k=16\)</span> 까지 표시되어 있기 때문에, 이 그래프를 근거로 독립성 검정을 실시하면 상당히 높은 일종오류의 확률을 감수해야 하는 것이다.</p>
+<p>요약하자면, 표본 ACF에 의한 독립성 검정은 실시할 수는 있지만, 이 방법만으로 결론을 내리는 것은 피하는 것이 좋을 것이다.</p>
+<ul>
+<li>포트맨토 검정</li>
+</ul>
+<p>포트맨토 검정이란 귀무가설은 명확하게 정의되어 있으나, 대립가설은 상대적으로 느슨하게 정의된 가설에 대한 검정을 의미한다. 오차의 독립성 검정에 대한 귀무가설은 <span class="math inline">\(K\)</span> 차 자기상관계수까지 모두 0이라고 설정한다.</p>
+<p><span class="math display">\[
+H_{0}: \rho_{1}=\rho_{2} = \cdots =\rho_{K}=0
+\]</span> 단, <span class="math inline">\(K\)</span> 에는 충분히 큰 값의 시차를 지정한다.</p>
+<p>대립가설은 ‘귀무가설은 사실이 아니다’. 또는 ’독립이 아니다’인데 구체적인 상관관계의 구조를 명시할 필요가 없는 상황이다.</p>
+<p>오차의 독립성 가설에 대한 포트맨토 검정으로 많이 사용되는 검정은 Ljung-Box 검정이다. 검정통계량은 <span class="math inline">\(Q=T(T+2)\sum_{k=1}^{K} r_{k}^{2} / (T-k)\)</span> 이며, 잔차 사이에 유의한 자기상관계수가 존재하면 검정통계량 <span class="math inline">\(Q\)</span> 가 큰 값을 갖게 될 것이다. 귀무가설이 사실인 경우 <span class="math inline">\(Q\)</span> 의 분포는 카이제곱 분포를 하며, 자유도는 <span class="math inline">\(K - N_{par}\)</span> 가 되는데, <span class="math inline">\(N_{par}\)</span> 는 모형에 포함된 모수의 개수이다.</p>
+<p>포트맨토 검정을 실시하기 위한 함수는 <code>forecast::checkresiduals()</code>이며, 사용법은 <code>checkresiduals(object, lag, ...)</code>이다. <code>object</code>는 함수 <code>ets()</code> 등으로 생성된 시계열 모형 객체이고, <code>lag</code>는 독립성 검정의 최고 시차 <span class="math inline">\(K\)</span> 값을 지정하는 것이다. 사용자가 직접 지정할 수 있고, 디폴트 값은 계절 요소가 없는 경우에는 <span class="math inline">\(\min(10, T/5)\)</span> 이고, 계절 요소가 있는 경우에는 <span class="math inline">\(\min(2m, T/5)\)</span> 이다. 단, <span class="math inline">\(T\)</span> 는 자료의 크기이고 <span class="math inline">\(m\)</span> 은 계절 주기이다.</p>
+<p>결과물은 잔차의 시계열 그래프와 ACF 그래프, 히스토그램이 작성되고, Ljung-Box 검정 결과가 출력된다.</p>
+</div>
+</div>
+<div id="예제" class="section level2 hasAnchor" number="3.5">
+<h2><span class="header-section-number">3.5</span> 예제<a href="chapter-ets.html#예제" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>예제 1: 1970년부터 2016년까지 연간 항공기 이용객 수 (<code>fpp2::ausair</code>)</li>
+</ul>
+<p><code>fpp2::ausair</code>는 1970년부터 2016년까지 호주의 연간 항공기 승객 수 자료이다. 먼저 전체 자료 중 1970년부터 2011년까지의 자료를 training data로 하고, 2012년 이후자료를 test data로 분리하자.</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="chapter-ets.html#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> train_air <span class="ot">&lt;-</span> <span class="fu">window</span>(ausair, <span class="at">end =</span> <span class="dv">2011</span>)</span>
+<span id="cb35-2"><a href="chapter-ets.html#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> test_air <span class="ot">&lt;-</span> <span class="fu">window</span>(ausair, <span class="at">start =</span> <span class="dv">2012</span>)</span></code></pre></div>
+<p><code>train_air</code>와 <code>test_air</code>의 시계열 그래프는 다음과 같다. <code>test_air</code>는 빨간 선으로 나타냈다.</p>
+<p><img src="_main_files/figure-html/unnamed-chunk-14-1.png" width="576" /></p>
+<p>함수 <code>ets()</code>로 ETS 모형을 적합하고, 그 결과를 확인해 보자.</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="chapter-ets.html#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> fit_air <span class="ot">&lt;-</span> <span class="fu">ets</span>(train_air)</span>
+<span id="cb36-2"><a href="chapter-ets.html#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">summary</span>(fit_air)</span>
+<span id="cb36-3"><a href="chapter-ets.html#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ETS</span>(M,A,N) </span>
+<span id="cb36-4"><a href="chapter-ets.html#cb36-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-5"><a href="chapter-ets.html#cb36-5" aria-hidden="true" tabindex="-1"></a>Call<span class="sc">:</span></span>
+<span id="cb36-6"><a href="chapter-ets.html#cb36-6" aria-hidden="true" tabindex="-1"></a> <span class="fu">ets</span>(<span class="at">y =</span> train_air) </span>
+<span id="cb36-7"><a href="chapter-ets.html#cb36-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-8"><a href="chapter-ets.html#cb36-8" aria-hidden="true" tabindex="-1"></a>  Smoothing parameters<span class="sc">:</span></span>
+<span id="cb36-9"><a href="chapter-ets.html#cb36-9" aria-hidden="true" tabindex="-1"></a>    alpha <span class="ot">=</span> <span class="fl">0.9999</span> </span>
+<span id="cb36-10"><a href="chapter-ets.html#cb36-10" aria-hidden="true" tabindex="-1"></a>    beta  <span class="ot">=</span> <span class="fl">0.024</span> </span>
+<span id="cb36-11"><a href="chapter-ets.html#cb36-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-12"><a href="chapter-ets.html#cb36-12" aria-hidden="true" tabindex="-1"></a>  Initial states<span class="sc">:</span></span>
+<span id="cb36-13"><a href="chapter-ets.html#cb36-13" aria-hidden="true" tabindex="-1"></a>    l <span class="ot">=</span> <span class="fl">6.5399</span> </span>
+<span id="cb36-14"><a href="chapter-ets.html#cb36-14" aria-hidden="true" tabindex="-1"></a>    b <span class="ot">=</span> <span class="fl">0.7358</span> </span>
+<span id="cb36-15"><a href="chapter-ets.html#cb36-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-16"><a href="chapter-ets.html#cb36-16" aria-hidden="true" tabindex="-1"></a>  sigma<span class="sc">:</span>  <span class="fl">0.08</span></span>
+<span id="cb36-17"><a href="chapter-ets.html#cb36-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-18"><a href="chapter-ets.html#cb36-18" aria-hidden="true" tabindex="-1"></a>     AIC     AICc      BIC </span>
+<span id="cb36-19"><a href="chapter-ets.html#cb36-19" aria-hidden="true" tabindex="-1"></a><span class="fl">206.1828</span> <span class="fl">207.8495</span> <span class="fl">214.8712</span> </span>
+<span id="cb36-20"><a href="chapter-ets.html#cb36-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-21"><a href="chapter-ets.html#cb36-21" aria-hidden="true" tabindex="-1"></a>Training set error measures<span class="sc">:</span></span>
+<span id="cb36-22"><a href="chapter-ets.html#cb36-22" aria-hidden="true" tabindex="-1"></a>                    ME     RMSE    MAE       MPE     MAPE      MASE        ACF1</span>
+<span id="cb36-23"><a href="chapter-ets.html#cb36-23" aria-hidden="true" tabindex="-1"></a>Training set <span class="fl">0.5550369</span> <span class="fl">2.138179</span> <span class="fl">1.3146</span> <span class="fl">0.7893247</span> <span class="fl">5.399428</span> <span class="fl">0.7649321</span> <span class="sc">-</span><span class="fl">0.09163575</span></span></code></pre></div>
+<p>최적 모형은 ETS(M,A,N)으로 선정되었다. 추세는 additive이고 오차는 multiplicative인 모형이다. 평활모수는 <span class="math inline">\(\alpha=0.999\)</span> , <span class="math inline">\(\beta=0.024\)</span> 로 추정되었다. 따라서 시계열자료의 level에는 큰 변화가 있으나, 추세의 기울기에는 큰 변화 없이 일정하다는 것을 알 수 있다.</p>
+<p>ETS 모형의 각 요소에 대한 추정 결과를 그래프로 나타내 보자.</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="chapter-ets.html#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">autoplot</span>(fit_air)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-16-1.png" width="576" /></p>
+<p>모형의 가정 만족 여부를 확인해 보자.</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="chapter-ets.html#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">checkresiduals</span>(fit_air)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-17-1.png" width="576" /></p>
+<pre><code>
+    Ljung-Box test
+
+data:  Residuals from ETS(M,A,N)
+Q* = 3.5236, df = 4, p-value = 0.4743
+
+Model df: 4.   Total lags used: 8</code></pre>
+<p>특별히 문제가 되는 가정 사항은 없는 것으로 보인다.</p>
+<p>이제 예측을 실시하고 예측 오차에 대한 평가를 실시해 보자.</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="chapter-ets.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> fc_air <span class="ot">&lt;-</span> <span class="fu">forecast</span>(fit_air, <span class="at">h =</span> <span class="fu">length</span>(test_air))</span>
+<span id="cb40-2"><a href="chapter-ets.html#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">accuracy</span>(fc_air, test_air)</span>
+<span id="cb40-3"><a href="chapter-ets.html#cb40-3" aria-hidden="true" tabindex="-1"></a>                    ME     RMSE     MAE       MPE     MAPE      MASE</span>
+<span id="cb40-4"><a href="chapter-ets.html#cb40-4" aria-hidden="true" tabindex="-1"></a>Training set <span class="fl">0.5550369</span> <span class="fl">2.138179</span> <span class="fl">1.31460</span> <span class="fl">0.7893247</span> <span class="fl">5.399428</span> <span class="fl">0.7649321</span></span>
+<span id="cb40-5"><a href="chapter-ets.html#cb40-5" aria-hidden="true" tabindex="-1"></a>Test set     <span class="fl">1.7629504</span> <span class="fl">1.888573</span> <span class="fl">1.76295</span> <span class="fl">2.5419343</span> <span class="fl">2.541934</span> <span class="fl">1.0258159</span></span>
+<span id="cb40-6"><a href="chapter-ets.html#cb40-6" aria-hidden="true" tabindex="-1"></a>                    ACF1 Theil<span class="st">&#39;s U</span></span>
+<span id="cb40-7"><a href="chapter-ets.html#cb40-7" aria-hidden="true" tabindex="-1"></a><span class="st">Training set -0.09163575        NA</span></span>
+<span id="cb40-8"><a href="chapter-ets.html#cb40-8" aria-hidden="true" tabindex="-1"></a><span class="st">Test set     -0.22513230  1.034042</span></span></code></pre></div>
+<p>함수 <code>accuracy()</code>의 결과 중 <code>RMSE</code>, <code>MAE</code>, <code>MAPE</code>와 <code>MASE</code>는 <a href="chapter-ets.html#section-accuracy">3.1</a>절에서 살펴보았다. 그 외의 측도로 <code>ME</code>는 Mean Error이고 <code>MPE</code>는 Mean Percentage Error를 의미한다. 또한 <code>ACF1</code>은 잔차의 1시차 자기상관계수이고, <code>Theil's U</code>는 naive forecast의 예측 오차와 비교하는 것으로써 <code>MASE</code>와 유사한 특징을 갖고 있다.</p>
+<p>예측 결과를 그래프로 나타내 보자. 함수 <code>autoplot()</code>에 함수 <code>forecast()</code>의 결과인 객체 <code>fc_air</code>를 입력하면 training data와 예측 결과를 함께 나타낸다. 옵션 <code>include</code>는 그래프에 포함시킬 training data의 개수를 지정하는 것이다. 따라서 <code>include = 0</code>을 입력하면 예측 부분만을 확대한 효과를 볼 수 있다.</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="chapter-ets.html#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">library</span>(patchwork)</span>
+<span id="cb41-2"><a href="chapter-ets.html#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> p1 <span class="ot">&lt;-</span> <span class="fu">autoplot</span>(fc_air) <span class="sc">+</span> </span>
+<span id="cb41-3"><a href="chapter-ets.html#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">autolayer</span>(test_air, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb41-4"><a href="chapter-ets.html#cb41-4" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">labs</span>(<span class="at">y =</span> <span class="cn">NULL</span>, <span class="at">x =</span> <span class="cn">NULL</span>) </span>
+<span id="cb41-5"><a href="chapter-ets.html#cb41-5" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> p2 <span class="ot">&lt;-</span> <span class="fu">autoplot</span>(fc_air, <span class="at">include =</span> <span class="dv">0</span>) <span class="sc">+</span> </span>
+<span id="cb41-6"><a href="chapter-ets.html#cb41-6" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">autolayer</span>(test_air, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">size=</span><span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb41-7"><a href="chapter-ets.html#cb41-7" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">labs</span>(<span class="at">y =</span> <span class="cn">NULL</span>, <span class="at">x =</span> <span class="cn">NULL</span>) </span>
+<span id="cb41-8"><a href="chapter-ets.html#cb41-8" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> p1 <span class="sc">+</span> p2</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:aus-ETS-fore"></span>
+<img src="_main_files/figure-html/aus-ETS-fore-1.png" alt="`fpp2::ausair` 자료에 대한 ETS 모형의 예측 결과" width="768" />
+<p class="caption">
+Figure 3.13: <code>fpp2::ausair</code> 자료에 대한 ETS 모형의 예측 결과
+</p>
+</div>
+<ul>
+<li>예제 2: 1999년부터 2015년까지 분기별 호주 입국 외국인 관광객 수 (<code>fpp2::austourists</code>)</li>
+</ul>
+<p><code>fpp2::austourists</code>는 1999년부터 2015년까지 분기별로 호주에 입국한 외국인 관광객 수 자료이다. 2013년 4분기까지를 training data로 분리하고 2014년 1분기부터를 test data로 분리하자.</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="chapter-ets.html#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> train_tour <span class="ot">&lt;-</span> <span class="fu">window</span>(austourists, <span class="at">end =</span> <span class="fu">c</span>(<span class="dv">2013</span>, <span class="dv">4</span>))</span>
+<span id="cb42-2"><a href="chapter-ets.html#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> test_tour <span class="ot">&lt;-</span> <span class="fu">window</span>(austourists, <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">2014</span>, <span class="dv">1</span>))</span></code></pre></div>
+<p>두 자료의 시계열 그래프는 다음과 같다.</p>
+<p><img src="_main_files/figure-html/unnamed-chunk-20-1.png" width="576" /></p>
+<p>함수 <code>ets()</code>로 최적 모형을 적합해 보자.</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="chapter-ets.html#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> fit_tour <span class="ot">&lt;-</span> <span class="fu">ets</span>(train_tour)</span>
+<span id="cb43-2"><a href="chapter-ets.html#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">summary</span>(fit_tour)</span>
+<span id="cb43-3"><a href="chapter-ets.html#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ETS</span>(M,A,M) </span>
+<span id="cb43-4"><a href="chapter-ets.html#cb43-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-5"><a href="chapter-ets.html#cb43-5" aria-hidden="true" tabindex="-1"></a>Call<span class="sc">:</span></span>
+<span id="cb43-6"><a href="chapter-ets.html#cb43-6" aria-hidden="true" tabindex="-1"></a> <span class="fu">ets</span>(<span class="at">y =</span> train_tour) </span>
+<span id="cb43-7"><a href="chapter-ets.html#cb43-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-8"><a href="chapter-ets.html#cb43-8" aria-hidden="true" tabindex="-1"></a>  Smoothing parameters<span class="sc">:</span></span>
+<span id="cb43-9"><a href="chapter-ets.html#cb43-9" aria-hidden="true" tabindex="-1"></a>    alpha <span class="ot">=</span> <span class="fl">0.4189</span> </span>
+<span id="cb43-10"><a href="chapter-ets.html#cb43-10" aria-hidden="true" tabindex="-1"></a>    beta  <span class="ot">=</span> <span class="fl">1e-04</span> </span>
+<span id="cb43-11"><a href="chapter-ets.html#cb43-11" aria-hidden="true" tabindex="-1"></a>    gamma <span class="ot">=</span> <span class="fl">1e-04</span> </span>
+<span id="cb43-12"><a href="chapter-ets.html#cb43-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-13"><a href="chapter-ets.html#cb43-13" aria-hidden="true" tabindex="-1"></a>  Initial states<span class="sc">:</span></span>
+<span id="cb43-14"><a href="chapter-ets.html#cb43-14" aria-hidden="true" tabindex="-1"></a>    l <span class="ot">=</span> <span class="fl">24.2672</span> </span>
+<span id="cb43-15"><a href="chapter-ets.html#cb43-15" aria-hidden="true" tabindex="-1"></a>    b <span class="ot">=</span> <span class="fl">0.5179</span> </span>
+<span id="cb43-16"><a href="chapter-ets.html#cb43-16" aria-hidden="true" tabindex="-1"></a>    s <span class="ot">=</span> <span class="fl">1.0367</span> <span class="fl">0.9578</span> <span class="fl">0.7697</span> <span class="fl">1.2358</span></span>
+<span id="cb43-17"><a href="chapter-ets.html#cb43-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-18"><a href="chapter-ets.html#cb43-18" aria-hidden="true" tabindex="-1"></a>  sigma<span class="sc">:</span>  <span class="fl">0.0612</span></span>
+<span id="cb43-19"><a href="chapter-ets.html#cb43-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-20"><a href="chapter-ets.html#cb43-20" aria-hidden="true" tabindex="-1"></a>     AIC     AICc      BIC </span>
+<span id="cb43-21"><a href="chapter-ets.html#cb43-21" aria-hidden="true" tabindex="-1"></a><span class="fl">353.3882</span> <span class="fl">356.9882</span> <span class="fl">372.2373</span> </span>
+<span id="cb43-22"><a href="chapter-ets.html#cb43-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-23"><a href="chapter-ets.html#cb43-23" aria-hidden="true" tabindex="-1"></a>Training set error measures<span class="sc">:</span></span>
+<span id="cb43-24"><a href="chapter-ets.html#cb43-24" aria-hidden="true" tabindex="-1"></a>                      ME     RMSE      MAE        MPE     MAPE      MASE</span>
+<span id="cb43-25"><a href="chapter-ets.html#cb43-25" aria-hidden="true" tabindex="-1"></a>Training set <span class="fl">0.004642325</span> <span class="fl">1.966538</span> <span class="fl">1.474615</span> <span class="sc">-</span><span class="fl">0.4054666</span> <span class="fl">4.196005</span> <span class="fl">0.5206241</span></span>
+<span id="cb43-26"><a href="chapter-ets.html#cb43-26" aria-hidden="true" tabindex="-1"></a>                   ACF1</span>
+<span id="cb43-27"><a href="chapter-ets.html#cb43-27" aria-hidden="true" tabindex="-1"></a>Training set <span class="sc">-</span><span class="fl">0.0243205</span></span></code></pre></div>
+<p>ETS(M,A,M) 모형이 선택되었다. 승법 계절 성분이 선택되었다는 것은 계절 요소의 변동 폭이 증가한다는 의미가 된다. 이런 경우에 시계열자료를 로그변환 시킨 후 다시 ETS 모형을 적합시키면 가법 계절 모형이 선택될 것이다. 함수 <code>ets()</code>의 Box_Cox 변환 모수인 옵션 <code>lambda</code>에 0을 입력하면 로그변환을 실행하게 된다.</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="chapter-ets.html#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> fit_lntour <span class="ot">&lt;-</span> <span class="fu">ets</span>(train_tour, <span class="at">lambda =</span> <span class="dv">0</span>)</span>
+<span id="cb44-2"><a href="chapter-ets.html#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">summary</span>(fit_lntour)</span>
+<span id="cb44-3"><a href="chapter-ets.html#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ETS</span>(A,A,A) </span>
+<span id="cb44-4"><a href="chapter-ets.html#cb44-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-5"><a href="chapter-ets.html#cb44-5" aria-hidden="true" tabindex="-1"></a>Call<span class="sc">:</span></span>
+<span id="cb44-6"><a href="chapter-ets.html#cb44-6" aria-hidden="true" tabindex="-1"></a> <span class="fu">ets</span>(<span class="at">y =</span> train_tour, <span class="at">lambda =</span> <span class="dv">0</span>) </span>
+<span id="cb44-7"><a href="chapter-ets.html#cb44-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-8"><a href="chapter-ets.html#cb44-8" aria-hidden="true" tabindex="-1"></a>  Box<span class="sc">-</span>Cox transformation<span class="sc">:</span> lambda<span class="ot">=</span> <span class="dv">0</span> </span>
+<span id="cb44-9"><a href="chapter-ets.html#cb44-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-10"><a href="chapter-ets.html#cb44-10" aria-hidden="true" tabindex="-1"></a>  Smoothing parameters<span class="sc">:</span></span>
+<span id="cb44-11"><a href="chapter-ets.html#cb44-11" aria-hidden="true" tabindex="-1"></a>    alpha <span class="ot">=</span> <span class="fl">0.337</span> </span>
+<span id="cb44-12"><a href="chapter-ets.html#cb44-12" aria-hidden="true" tabindex="-1"></a>    beta  <span class="ot">=</span> <span class="fl">1e-04</span> </span>
+<span id="cb44-13"><a href="chapter-ets.html#cb44-13" aria-hidden="true" tabindex="-1"></a>    gamma <span class="ot">=</span> <span class="fl">0.0137</span> </span>
+<span id="cb44-14"><a href="chapter-ets.html#cb44-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-15"><a href="chapter-ets.html#cb44-15" aria-hidden="true" tabindex="-1"></a>  Initial states<span class="sc">:</span></span>
+<span id="cb44-16"><a href="chapter-ets.html#cb44-16" aria-hidden="true" tabindex="-1"></a>    l <span class="ot">=</span> <span class="fl">3.2161</span> </span>
+<span id="cb44-17"><a href="chapter-ets.html#cb44-17" aria-hidden="true" tabindex="-1"></a>    b <span class="ot">=</span> <span class="fl">0.0122</span> </span>
+<span id="cb44-18"><a href="chapter-ets.html#cb44-18" aria-hidden="true" tabindex="-1"></a>    s <span class="ot">=</span> <span class="fl">0.055</span> <span class="sc">-</span><span class="fl">0.0254</span> <span class="sc">-</span><span class="fl">0.2477</span> <span class="fl">0.2181</span></span>
+<span id="cb44-19"><a href="chapter-ets.html#cb44-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-20"><a href="chapter-ets.html#cb44-20" aria-hidden="true" tabindex="-1"></a>  sigma<span class="sc">:</span>  <span class="fl">0.0639</span></span>
+<span id="cb44-21"><a href="chapter-ets.html#cb44-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-22"><a href="chapter-ets.html#cb44-22" aria-hidden="true" tabindex="-1"></a>      AIC      AICc       BIC </span>
+<span id="cb44-23"><a href="chapter-ets.html#cb44-23" aria-hidden="true" tabindex="-1"></a><span class="sc">-</span><span class="fl">75.06808</span> <span class="sc">-</span><span class="fl">71.46808</span> <span class="sc">-</span><span class="fl">56.21898</span> </span>
+<span id="cb44-24"><a href="chapter-ets.html#cb44-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-25"><a href="chapter-ets.html#cb44-25" aria-hidden="true" tabindex="-1"></a>Training set error measures<span class="sc">:</span></span>
+<span id="cb44-26"><a href="chapter-ets.html#cb44-26" aria-hidden="true" tabindex="-1"></a>                    ME     RMSE      MAE        MPE     MAPE      MASE</span>
+<span id="cb44-27"><a href="chapter-ets.html#cb44-27" aria-hidden="true" tabindex="-1"></a>Training set <span class="fl">0.1640202</span> <span class="fl">2.014686</span> <span class="fl">1.562901</span> <span class="fl">0.04389638</span> <span class="fl">4.399828</span> <span class="fl">0.5517943</span></span>
+<span id="cb44-28"><a href="chapter-ets.html#cb44-28" aria-hidden="true" tabindex="-1"></a>                   ACF1</span>
+<span id="cb44-29"><a href="chapter-ets.html#cb44-29" aria-hidden="true" tabindex="-1"></a>Training set <span class="fl">0.01619145</span></span></code></pre></div>
+<p>모형 <code>fit_tour</code>와 <code>fit_lntour</code>의 가정 만족 여부를 확인해 보자.</p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="chapter-ets.html#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">checkresiduals</span>(fit_tour)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-23-1.png" width="576" /></p>
+<pre><code>
+    Ljung-Box test
+
+data:  Residuals from ETS(M,A,M)
+Q* = 5.3591, df = 3, p-value = 0.1473
+
+Model df: 8.   Total lags used: 11</code></pre>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="chapter-ets.html#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">checkresiduals</span>(fit_lntour)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-24-1.png" width="576" /></p>
+<pre><code>
+    Ljung-Box test
+
+data:  Residuals from ETS(A,A,A)
+Q* = 7.2993, df = 3, p-value = 0.06294
+
+Model df: 8.   Total lags used: 11</code></pre>
+<p>두 모형 모두 가정은 만족시키는 것으로 보인다. 이제 두 모형의 예측을 실시하고, 그 결과를 비교해 보자.</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="chapter-ets.html#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> fc_tour <span class="ot">&lt;-</span> <span class="fu">forecast</span>(fit_tour, <span class="at">h =</span> <span class="fu">length</span>(test_tour)) </span>
+<span id="cb49-2"><a href="chapter-ets.html#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> fc_lntour <span class="ot">&lt;-</span> <span class="fu">forecast</span>(fit_lntour, <span class="at">h =</span> <span class="fu">length</span>(test_tour))</span></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="chapter-ets.html#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">accuracy</span>(fc_tour, test_tour)</span>
+<span id="cb50-2"><a href="chapter-ets.html#cb50-2" aria-hidden="true" tabindex="-1"></a>                      ME     RMSE      MAE        MPE     MAPE      MASE</span>
+<span id="cb50-3"><a href="chapter-ets.html#cb50-3" aria-hidden="true" tabindex="-1"></a>Training set <span class="fl">0.004642325</span> <span class="fl">1.966538</span> <span class="fl">1.474615</span> <span class="sc">-</span><span class="fl">0.4054666</span> <span class="fl">4.196005</span> <span class="fl">0.5206241</span></span>
+<span id="cb50-4"><a href="chapter-ets.html#cb50-4" aria-hidden="true" tabindex="-1"></a>Test set     <span class="fl">1.541295202</span> <span class="fl">2.989673</span> <span class="fl">2.414226</span>  <span class="fl">2.6022154</span> <span class="fl">3.958845</span> <span class="fl">0.8523613</span></span>
+<span id="cb50-5"><a href="chapter-ets.html#cb50-5" aria-hidden="true" tabindex="-1"></a>                   ACF1 Theil<span class="st">&#39;s U</span></span>
+<span id="cb50-6"><a href="chapter-ets.html#cb50-6" aria-hidden="true" tabindex="-1"></a><span class="st">Training set -0.0243205        NA</span></span>
+<span id="cb50-7"><a href="chapter-ets.html#cb50-7" aria-hidden="true" tabindex="-1"></a><span class="st">Test set      0.5001355 0.2077632</span></span>
+<span id="cb50-8"><a href="chapter-ets.html#cb50-8" aria-hidden="true" tabindex="-1"></a><span class="st">&gt; accuracy(fc_lntour, test_tour)</span></span>
+<span id="cb50-9"><a href="chapter-ets.html#cb50-9" aria-hidden="true" tabindex="-1"></a><span class="st">                    ME     RMSE      MAE        MPE     MAPE      MASE</span></span>
+<span id="cb50-10"><a href="chapter-ets.html#cb50-10" aria-hidden="true" tabindex="-1"></a><span class="st">Training set 0.1640202 2.014686 1.562901 0.04389638 4.399828 0.5517943</span></span>
+<span id="cb50-11"><a href="chapter-ets.html#cb50-11" aria-hidden="true" tabindex="-1"></a><span class="st">Test set     0.6115065 2.128486 1.722829 1.03590923 2.853023 0.6082580</span></span>
+<span id="cb50-12"><a href="chapter-ets.html#cb50-12" aria-hidden="true" tabindex="-1"></a><span class="st">                   ACF1 Theil&#39;</span>s U</span>
+<span id="cb50-13"><a href="chapter-ets.html#cb50-13" aria-hidden="true" tabindex="-1"></a>Training set <span class="fl">0.01619145</span>        <span class="cn">NA</span></span>
+<span id="cb50-14"><a href="chapter-ets.html#cb50-14" aria-hidden="true" tabindex="-1"></a>Test set     <span class="fl">0.47705974</span> <span class="fl">0.1348746</span></span></code></pre></div>
+<p>모형 ETS(A,A,A)인 <code>fit_lntour</code>의 test data에 대한 예측 오차가 조금 더 작은 것을 볼 수 있다. 두 모형의 예측 결과를 그래프로 비교해 보자. 함수 <code>autolayer()</code>에 <code>PI = FALSE</code>를 입력하면 예측 구간이 생략된다. 이것은 두 모형의 예측 구간이 함께 표시되면 서로 겹쳐지는 현상이 발생하기 때문에 생략한 것이다.</p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="chapter-ets.html#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">autoplot</span>(train_tour) <span class="sc">+</span></span>
+<span id="cb51-2"><a href="chapter-ets.html#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">autolayer</span>(test_tour, <span class="at">series =</span> <span class="st">&quot;Test data&quot;</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb51-3"><a href="chapter-ets.html#cb51-3" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">autolayer</span>(fc_tour, <span class="at">PI =</span> <span class="cn">FALSE</span>, <span class="at">series =</span> <span class="st">&quot;ETS(M,A,M)&quot;</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb51-4"><a href="chapter-ets.html#cb51-4" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">autolayer</span>(fc_lntour, <span class="at">PI =</span> <span class="cn">FALSE</span>, <span class="at">series =</span> <span class="st">&quot;ETS(A,A,A)&quot;</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb51-5"><a href="chapter-ets.html#cb51-5" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">labs</span>(<span class="at">y =</span> <span class="cn">NULL</span>, <span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">color =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb51-6"><a href="chapter-ets.html#cb51-6" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;top&quot;</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:tour-ets-fore1"></span>
+<img src="_main_files/figure-html/tour-ets-fore1-1.png" alt="`tourists` 자료에 대한 예측 결과 비교" width="576" />
+<p class="caption">
+Figure 3.14: <code>tourists</code> 자료에 대한 예측 결과 비교
+</p>
+</div>
+<p>Test data에 대한 예측만을 나타내 보자. 두 모형의 예측에는 큰 차이가 없음을 알 수 있다.</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="chapter-ets.html#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">autoplot</span>(test_tour, <span class="at">series =</span> <span class="st">&quot;Test data&quot;</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb52-2"><a href="chapter-ets.html#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">autolayer</span>(fc_tour, <span class="at">PI =</span> <span class="cn">FALSE</span>, <span class="at">series =</span> <span class="st">&quot;ETS(M,A,M)&quot;</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb52-3"><a href="chapter-ets.html#cb52-3" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">autolayer</span>(fc_lntour, <span class="at">PI =</span> <span class="cn">FALSE</span>, <span class="at">series =</span> <span class="st">&quot;ETS(A,A,A)&quot;</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb52-4"><a href="chapter-ets.html#cb52-4" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">labs</span>(<span class="at">y =</span> <span class="cn">NULL</span>, <span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">color =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb52-5"><a href="chapter-ets.html#cb52-5" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;top&quot;</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:tour-ets-fore2"></span>
+<img src="_main_files/figure-html/tour-ets-fore2-1.png" alt="`tourists` 자료에 대한 예측 결과 비교" width="576" />
+<p class="caption">
+Figure 3.15: <code>tourists</code> 자료에 대한 예측 결과 비교
+</p>
+</div>
+<p>모형 ETS(A,A,A)인 <code>fit_lntour</code>의 test data에 대한 예측 결과를 예측 구간과 함께 나타내 보자.</p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="chapter-ets.html#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">library</span>(patchwork)</span>
+<span id="cb53-2"><a href="chapter-ets.html#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> p1 <span class="ot">&lt;-</span> <span class="fu">autoplot</span>(fc_lntour) <span class="sc">+</span></span>
+<span id="cb53-3"><a href="chapter-ets.html#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">autolayer</span>(test_tour, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb53-4"><a href="chapter-ets.html#cb53-4" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="cn">NULL</span>) </span>
+<span id="cb53-5"><a href="chapter-ets.html#cb53-5" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> p2 <span class="ot">&lt;-</span> <span class="fu">autoplot</span>(fc_lntour, <span class="at">include =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb53-6"><a href="chapter-ets.html#cb53-6" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">autolayer</span>(test_tour, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb53-7"><a href="chapter-ets.html#cb53-7" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">labs</span>(<span class="at">y =</span> <span class="cn">NULL</span>, <span class="at">x =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb53-8"><a href="chapter-ets.html#cb53-8" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="fl">2014.0</span>, <span class="fl">2014.5</span>, <span class="fl">2015.0</span>, <span class="fl">2015.5</span>),</span>
+<span id="cb53-9"><a href="chapter-ets.html#cb53-9" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                      <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;2014.Q1&quot;</span>, <span class="st">&quot;2014.Q4&quot;</span>, <span class="st">&quot;2015.Q1&quot;</span>, <span class="st">&quot;2015.Q4&quot;</span>))</span>
+<span id="cb53-10"><a href="chapter-ets.html#cb53-10" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> p1 <span class="sc">+</span> p2</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:tour-ets-fore3"></span>
+<img src="_main_files/figure-html/tour-ets-fore3-1.png" alt="`tourists` 자료에 대한 예측 결과" width="768" />
+<p class="caption">
+Figure 3.16: <code>tourists</code> 자료에 대한 예측 결과
+</p>
+</div>
+<ul>
+<li>예제 3: 1965년 1월부터 1992년 7월까지 월별 실업 급여 수급 인원 수 (<code>fma::dole</code>)</li>
+</ul>
+<p><code>fma::dole</code>은 1965년 1월부터 1992년 7월까지 월별로 실업 급여를 받아간 인원 수 자료이다. 마지막 2년 자료를 test data로 분리해 보자.</p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="chapter-ets.html#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> train_d <span class="ot">&lt;-</span> <span class="fu">window</span>(dole, <span class="at">end =</span> <span class="fu">c</span>(<span class="dv">1990</span>, <span class="dv">7</span>))</span>
+<span id="cb54-2"><a href="chapter-ets.html#cb54-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> test_d <span class="ot">&lt;-</span> <span class="fu">window</span>(dole, <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">1990</span>, <span class="dv">8</span>))</span></code></pre></div>
+<p>두 자료에 대한 시계열 그래프는 다음과 같다.</p>
+<p><img src="_main_files/figure-html/unnamed-chunk-28-1.png" width="576" /></p>
+<p>1990년부터 갑작스런 증가세를 보이고 있으며, test data가 대부분 그 시기에 관측된 것이다. 따라서 예측이 상당히 어려운 것으로 보이는 상황이다.</p>
+<p>ETS 모형을 적합해 보자.</p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="chapter-ets.html#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> fit_d <span class="ot">&lt;-</span> <span class="fu">ets</span>(train_d)</span>
+<span id="cb55-2"><a href="chapter-ets.html#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">summary</span>(fit_d)</span>
+<span id="cb55-3"><a href="chapter-ets.html#cb55-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ETS</span>(M,Ad,M) </span>
+<span id="cb55-4"><a href="chapter-ets.html#cb55-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-5"><a href="chapter-ets.html#cb55-5" aria-hidden="true" tabindex="-1"></a>Call<span class="sc">:</span></span>
+<span id="cb55-6"><a href="chapter-ets.html#cb55-6" aria-hidden="true" tabindex="-1"></a> <span class="fu">ets</span>(<span class="at">y =</span> train_d) </span>
+<span id="cb55-7"><a href="chapter-ets.html#cb55-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-8"><a href="chapter-ets.html#cb55-8" aria-hidden="true" tabindex="-1"></a>  Smoothing parameters<span class="sc">:</span></span>
+<span id="cb55-9"><a href="chapter-ets.html#cb55-9" aria-hidden="true" tabindex="-1"></a>    alpha <span class="ot">=</span> <span class="fl">0.7057</span> </span>
+<span id="cb55-10"><a href="chapter-ets.html#cb55-10" aria-hidden="true" tabindex="-1"></a>    beta  <span class="ot">=</span> <span class="fl">0.1262</span> </span>
+<span id="cb55-11"><a href="chapter-ets.html#cb55-11" aria-hidden="true" tabindex="-1"></a>    gamma <span class="ot">=</span> <span class="fl">0.2942</span> </span>
+<span id="cb55-12"><a href="chapter-ets.html#cb55-12" aria-hidden="true" tabindex="-1"></a>    phi   <span class="ot">=</span> <span class="fl">0.8701</span> </span>
+<span id="cb55-13"><a href="chapter-ets.html#cb55-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-14"><a href="chapter-ets.html#cb55-14" aria-hidden="true" tabindex="-1"></a>  Initial states<span class="sc">:</span></span>
+<span id="cb55-15"><a href="chapter-ets.html#cb55-15" aria-hidden="true" tabindex="-1"></a>    l <span class="ot">=</span> <span class="fl">2693.6084</span> </span>
+<span id="cb55-16"><a href="chapter-ets.html#cb55-16" aria-hidden="true" tabindex="-1"></a>    b <span class="ot">=</span> <span class="fl">838.4198</span> </span>
+<span id="cb55-17"><a href="chapter-ets.html#cb55-17" aria-hidden="true" tabindex="-1"></a>    s <span class="ot">=</span> <span class="fl">1.0776</span> <span class="fl">0.9108</span> <span class="fl">0.9286</span> <span class="fl">0.9993</span> <span class="fl">1.0254</span> <span class="fl">1.0275</span></span>
+<span id="cb55-18"><a href="chapter-ets.html#cb55-18" aria-hidden="true" tabindex="-1"></a>           <span class="fl">1.0028</span> <span class="fl">0.9466</span> <span class="fl">1.0225</span> <span class="fl">0.9982</span> <span class="fl">1.0038</span> <span class="fl">1.0568</span></span>
+<span id="cb55-19"><a href="chapter-ets.html#cb55-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-20"><a href="chapter-ets.html#cb55-20" aria-hidden="true" tabindex="-1"></a>  sigma<span class="sc">:</span>  <span class="fl">0.0965</span></span>
+<span id="cb55-21"><a href="chapter-ets.html#cb55-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-22"><a href="chapter-ets.html#cb55-22" aria-hidden="true" tabindex="-1"></a>      AIC      AICc       BIC </span>
+<span id="cb55-23"><a href="chapter-ets.html#cb55-23" aria-hidden="true" tabindex="-1"></a> <span class="fl">9930.864</span>  <span class="fl">9932.591</span> <span class="fl">10003.373</span> </span>
+<span id="cb55-24"><a href="chapter-ets.html#cb55-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-25"><a href="chapter-ets.html#cb55-25" aria-hidden="true" tabindex="-1"></a>Training set error measures<span class="sc">:</span></span>
+<span id="cb55-26"><a href="chapter-ets.html#cb55-26" aria-hidden="true" tabindex="-1"></a>                  ME     RMSE      MAE       MPE     MAPE      MASE      ACF1</span>
+<span id="cb55-27"><a href="chapter-ets.html#cb55-27" aria-hidden="true" tabindex="-1"></a>Training set <span class="fl">307.438</span> <span class="fl">16094.96</span> <span class="fl">9474.828</span> <span class="fl">0.5940649</span> <span class="fl">6.112239</span> <span class="fl">0.2965093</span> <span class="fl">0.5103798</span></span></code></pre></div>
+<p>가정 만족 여부를 확인해 보니, 독립성 가정에 문제가 있는 것을 볼 수 있다. 이런 경우, 점 예측값 (point forecast)에는 별다른 문제가 없겠지만, 예측 구간을 신뢰하기 어렵다고 할 수 있다.</p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="chapter-ets.html#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">checkresiduals</span>(fit_d)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-30-1.png" width="576" /></p>
+<pre><code>
+    Ljung-Box test
+
+data:  Residuals from ETS(M,Ad,M)
+Q* = 270.13, df = 7, p-value &lt; 2.2e-16
+
+Model df: 17.   Total lags used: 24</code></pre>
+<p>예측을 실시하고 평가해 보자.</p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="chapter-ets.html#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> fc_d <span class="ot">&lt;-</span> <span class="fu">forecast</span>(fit_d, <span class="at">h =</span> <span class="fu">length</span>(test_d))</span>
+<span id="cb58-2"><a href="chapter-ets.html#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">accuracy</span>(fc_d, test_d)</span>
+<span id="cb58-3"><a href="chapter-ets.html#cb58-3" aria-hidden="true" tabindex="-1"></a>                     ME      RMSE        MAE        MPE      MAPE      MASE</span>
+<span id="cb58-4"><a href="chapter-ets.html#cb58-4" aria-hidden="true" tabindex="-1"></a>Training set    <span class="fl">307.438</span>  <span class="fl">16094.96</span>   <span class="fl">9474.828</span>  <span class="fl">0.5940649</span>  <span class="fl">6.112239</span> <span class="fl">0.2965093</span></span>
+<span id="cb58-5"><a href="chapter-ets.html#cb58-5" aria-hidden="true" tabindex="-1"></a>Test set     <span class="fl">208048.806</span> <span class="fl">234353.38</span> <span class="fl">208048.806</span> <span class="fl">28.7917875</span> <span class="fl">28.791788</span> <span class="fl">6.5107678</span></span>
+<span id="cb58-6"><a href="chapter-ets.html#cb58-6" aria-hidden="true" tabindex="-1"></a>                  ACF1 Theil<span class="st">&#39;s U</span></span>
+<span id="cb58-7"><a href="chapter-ets.html#cb58-7" aria-hidden="true" tabindex="-1"></a><span class="st">Training set 0.5103798        NA</span></span>
+<span id="cb58-8"><a href="chapter-ets.html#cb58-8" aria-hidden="true" tabindex="-1"></a><span class="st">Test set     0.8895083  8.715368</span></span></code></pre></div>
+<p>MASE 값이 지나치게 큰 값이라는 것을 알 수 있다. 예측 결과를 그래프로 니타내 보자.</p>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="chapter-ets.html#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">autoplot</span>(fc_d) <span class="sc">+</span></span>
+<span id="cb59-2"><a href="chapter-ets.html#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">autolayer</span>(test_d, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb59-3"><a href="chapter-ets.html#cb59-3" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">labs</span>(<span class="at">y =</span> <span class="cn">NULL</span>, <span class="at">x =</span> <span class="cn">NULL</span>) </span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:dole-fore1"></span>
+<img src="_main_files/figure-html/dole-fore1-1.png" alt="`dole` 자료에 대한 예측 결과" width="576" />
+<p class="caption">
+Figure 3.17: <code>dole</code> 자료에 대한 예측 결과
+</p>
+</div>
+<p>예측이 완벽하게 벗어난 것을 볼 수 있다. 이와 같이 실업자 수가 갑자스럽게 증가하는 상황에서는 과거 자료만을 이용하는 시계열 모형으로는 효율적인 예측이 불가능하다고 하겠다. Test data의 기간을 축소시켜보자. 그러면 증가 추세가 training data에도 어느 정도 반영될 수 있을 것이다. 마지막 1년만을 test data로 남겨 놓고 모형 적합을 시도해 보자. 자료분리는 함수 <code>subset()</code>으로도 진행할 수 있다. 옵션 <code>end</code>와 <code>start</code>에 벡터에서 적용되는 방식의 인덱스를 지정할 수 있다.</p>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="chapter-ets.html#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> train_d_1 <span class="ot">&lt;-</span> <span class="fu">subset</span>(dole, <span class="at">end =</span> <span class="fu">length</span>(dole) <span class="sc">-</span> <span class="dv">12</span>)</span>
+<span id="cb60-2"><a href="chapter-ets.html#cb60-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> test_d_1 <span class="ot">&lt;-</span> <span class="fu">subset</span>(dole, <span class="at">start =</span> <span class="fu">length</span>(dole) <span class="sc">-</span> <span class="dv">11</span>)</span></code></pre></div>
+<p>적합된 모형으로 예측을 실시한 결과, 훨씬 개선된 결과를 볼 수 있다.</p>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="chapter-ets.html#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> fc_d_1 <span class="ot">&lt;-</span> train_d_1 <span class="sc">%&gt;%</span> </span>
+<span id="cb61-2"><a href="chapter-ets.html#cb61-2" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">ets</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb61-3"><a href="chapter-ets.html#cb61-3" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">forecast</span>(<span class="at">h =</span> <span class="fu">length</span>(test_d_1))</span></code></pre></div>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="chapter-ets.html#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">accuracy</span>(fc_d_1, test_d_1)</span>
+<span id="cb62-2"><a href="chapter-ets.html#cb62-2" aria-hidden="true" tabindex="-1"></a>                    ME     RMSE      MAE       MPE     MAPE      MASE      ACF1</span>
+<span id="cb62-3"><a href="chapter-ets.html#cb62-3" aria-hidden="true" tabindex="-1"></a>Training set  <span class="fl">419.4624</span> <span class="fl">18184.20</span> <span class="fl">10856.63</span> <span class="fl">0.5111136</span> <span class="fl">6.268750</span> <span class="fl">0.3014767</span> <span class="fl">0.5191139</span></span>
+<span id="cb62-4"><a href="chapter-ets.html#cb62-4" aria-hidden="true" tabindex="-1"></a>Test set     <span class="fl">5143.1303</span> <span class="fl">46330.29</span> <span class="fl">40948.53</span> <span class="fl">1.0361996</span> <span class="fl">5.319935</span> <span class="fl">1.1370959</span> <span class="fl">0.8678915</span></span>
+<span id="cb62-5"><a href="chapter-ets.html#cb62-5" aria-hidden="true" tabindex="-1"></a>             Theil<span class="st">&#39;s U</span></span>
+<span id="cb62-6"><a href="chapter-ets.html#cb62-6" aria-hidden="true" tabindex="-1"></a><span class="st">Training set        NA</span></span>
+<span id="cb62-7"><a href="chapter-ets.html#cb62-7" aria-hidden="true" tabindex="-1"></a><span class="st">Test set      2.792915</span></span></code></pre></div>
+<p>이제 예측 결과를 그래프로 나타내 보자.</p>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="chapter-ets.html#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">library</span>(patchwork)</span>
+<span id="cb63-2"><a href="chapter-ets.html#cb63-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> p1 <span class="ot">&lt;-</span> <span class="fu">autoplot</span>(fc_d_1) <span class="sc">+</span> </span>
+<span id="cb63-3"><a href="chapter-ets.html#cb63-3" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">autolayer</span>(test_d_1, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb63-4"><a href="chapter-ets.html#cb63-4" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">labs</span>(<span class="at">y =</span> <span class="cn">NULL</span>, <span class="at">x =</span> <span class="cn">NULL</span>) </span>
+<span id="cb63-5"><a href="chapter-ets.html#cb63-5" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> p2 <span class="ot">&lt;-</span> <span class="fu">autoplot</span>(fc_d_1, <span class="at">include =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb63-6"><a href="chapter-ets.html#cb63-6" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">autolayer</span>(test_d_1, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb63-7"><a href="chapter-ets.html#cb63-7" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">labs</span>(<span class="at">y =</span> <span class="cn">NULL</span>, <span class="at">x =</span> <span class="cn">NULL</span>) </span>
+<span id="cb63-8"><a href="chapter-ets.html#cb63-8" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> p1 <span class="sc">+</span> p2</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:dole-fore-2"></span>
+<img src="_main_files/figure-html/dole-fore-2-1.png" alt="`dole` 자료에 대한 예측 결과" width="768" />
+<p class="caption">
+Figure 3.18: <code>dole</code> 자료에 대한 예측 결과
+</p>
+</div>
+<ul>
+<li>예제 4: 2014년 4월 30일부터 1년간 Hyndsight 블로그 일일 방문자 수 (<code>fpp2::hyndsight</code>)</li>
+</ul>
+<p><code>fpp2::hyndsight</code>는 2014년 4월 30일부터 1년간 Hyndman이 운영하는 블로그에 방문한 일일 방문자 수 자료이다.</p>
+<p><img src="_main_files/figure-html/unnamed-chunk-35-1.png" width="576" /></p>
+<p>일일 자료의 경우에, 요일의 영향을 받는 자료라면 우선 <span class="math inline">\(m=7\)</span>의 계절 주기를 갖게 된다. 자료 분리를 위해 2014년 4월 30일이 무슨 요일인지 확인해 보자.</p>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="chapter-ets.html#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> lubridate<span class="sc">::</span><span class="fu">wday</span>(<span class="fu">as.Date</span>(<span class="st">&quot;2014-4-30&quot;</span>), <span class="at">label =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb64-2"><a href="chapter-ets.html#cb64-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] 수</span>
+<span id="cb64-3"><a href="chapter-ets.html#cb64-3" aria-hidden="true" tabindex="-1"></a>Levels<span class="sc">:</span> 일 <span class="sc">&lt;</span> 월 <span class="sc">&lt;</span> 화 <span class="sc">&lt;</span> 수 <span class="sc">&lt;</span> 목 <span class="sc">&lt;</span> 금 <span class="sc">&lt;</span> 토</span>
+<span id="cb64-4"><a href="chapter-ets.html#cb64-4" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">start</span>(hyndsight)</span>
+<span id="cb64-5"><a href="chapter-ets.html#cb64-5" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1</span> <span class="dv">4</span></span>
+<span id="cb64-6"><a href="chapter-ets.html#cb64-6" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">end</span>(hyndsight)</span>
+<span id="cb64-7"><a href="chapter-ets.html#cb64-7" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">53</span>  <span class="dv">4</span></span></code></pre></div>
+<p>2014년 4월 30일은 수요일이며, 자료의 시작 시점은 1주 4일 (수)이고 종료 시점은 53주 4일 (수)이 된다. Training data는 1주 4일부터 48주 4일로 하고, test data는 48주 5일부터 53주 4일까지 5주간으로 설정하자.</p>
+<p>자료 분리는 함수 <code>window()</code>로 보통 진행하지만, 이렇게 자료의 개수로 분리하는 것이 더 편리한 경우에는 함수 <code>subset()</code>으로 진행 할 수 있다. 즉, 마지막 35일 자료를 test data로 분리해 보자.</p>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="chapter-ets.html#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> train_hyn <span class="ot">&lt;-</span> <span class="fu">subset</span>(hyndsight, <span class="at">end =</span> <span class="fu">length</span>(hyndsight)<span class="sc">-</span><span class="dv">35</span>)</span>
+<span id="cb65-2"><a href="chapter-ets.html#cb65-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> test_hyn <span class="ot">&lt;-</span> <span class="fu">subset</span>(hyndsight, <span class="at">start =</span> <span class="fu">length</span>(hyndsight)<span class="sc">-</span><span class="dv">34</span>)</span></code></pre></div>
+<p>ETS 모형을 적합해 보자. 추세는 없고, 오차와 계절 성분이 모두 가법 형태인 모형이 선택되었다.</p>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="chapter-ets.html#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> fit_hyn <span class="ot">&lt;-</span> <span class="fu">ets</span>(train_hyn)</span>
+<span id="cb66-2"><a href="chapter-ets.html#cb66-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">summary</span>(fit_hyn)</span>
+<span id="cb66-3"><a href="chapter-ets.html#cb66-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ETS</span>(A,N,A) </span>
+<span id="cb66-4"><a href="chapter-ets.html#cb66-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-5"><a href="chapter-ets.html#cb66-5" aria-hidden="true" tabindex="-1"></a>Call<span class="sc">:</span></span>
+<span id="cb66-6"><a href="chapter-ets.html#cb66-6" aria-hidden="true" tabindex="-1"></a> <span class="fu">ets</span>(<span class="at">y =</span> train_hyn) </span>
+<span id="cb66-7"><a href="chapter-ets.html#cb66-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-8"><a href="chapter-ets.html#cb66-8" aria-hidden="true" tabindex="-1"></a>  Smoothing parameters<span class="sc">:</span></span>
+<span id="cb66-9"><a href="chapter-ets.html#cb66-9" aria-hidden="true" tabindex="-1"></a>    alpha <span class="ot">=</span> <span class="fl">0.4426</span> </span>
+<span id="cb66-10"><a href="chapter-ets.html#cb66-10" aria-hidden="true" tabindex="-1"></a>    gamma <span class="ot">=</span> <span class="fl">1e-04</span> </span>
+<span id="cb66-11"><a href="chapter-ets.html#cb66-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-12"><a href="chapter-ets.html#cb66-12" aria-hidden="true" tabindex="-1"></a>  Initial states<span class="sc">:</span></span>
+<span id="cb66-13"><a href="chapter-ets.html#cb66-13" aria-hidden="true" tabindex="-1"></a>    l <span class="ot">=</span> <span class="fl">1173.6676</span> </span>
+<span id="cb66-14"><a href="chapter-ets.html#cb66-14" aria-hidden="true" tabindex="-1"></a>    s <span class="ot">=</span> <span class="fl">296.9907</span> <span class="sc">-</span><span class="fl">34.3415</span> <span class="sc">-</span><span class="fl">457.6839</span> <span class="sc">-</span><span class="fl">271.7606</span> <span class="fl">63.9589</span> <span class="fl">172.9509</span></span>
+<span id="cb66-15"><a href="chapter-ets.html#cb66-15" aria-hidden="true" tabindex="-1"></a>           <span class="fl">229.8854</span></span>
+<span id="cb66-16"><a href="chapter-ets.html#cb66-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-17"><a href="chapter-ets.html#cb66-17" aria-hidden="true" tabindex="-1"></a>  sigma<span class="sc">:</span>  <span class="fl">232.0085</span></span>
+<span id="cb66-18"><a href="chapter-ets.html#cb66-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-19"><a href="chapter-ets.html#cb66-19" aria-hidden="true" tabindex="-1"></a>     AIC     AICc      BIC </span>
+<span id="cb66-20"><a href="chapter-ets.html#cb66-20" aria-hidden="true" tabindex="-1"></a><span class="fl">5519.446</span> <span class="fl">5520.136</span> <span class="fl">5557.437</span> </span>
+<span id="cb66-21"><a href="chapter-ets.html#cb66-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-22"><a href="chapter-ets.html#cb66-22" aria-hidden="true" tabindex="-1"></a>Training set error measures<span class="sc">:</span></span>
+<span id="cb66-23"><a href="chapter-ets.html#cb66-23" aria-hidden="true" tabindex="-1"></a>                   ME     RMSE      MAE       MPE     MAPE     MASE      ACF1</span>
+<span id="cb66-24"><a href="chapter-ets.html#cb66-24" aria-hidden="true" tabindex="-1"></a>Training set <span class="fl">3.727848</span> <span class="fl">228.8229</span> <span class="fl">164.1102</span> <span class="sc">-</span><span class="fl">2.026679</span> <span class="fl">13.86475</span> <span class="fl">0.740402</span> <span class="fl">0.1874059</span></span></code></pre></div>
+<p>이제 예측을 진행해 보자.</p>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="chapter-ets.html#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> fc_hyn <span class="ot">&lt;-</span> <span class="fu">forecast</span>(fit_hyn, <span class="at">h =</span> <span class="fu">length</span>(test_hyn))</span>
+<span id="cb67-2"><a href="chapter-ets.html#cb67-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">accuracy</span>(fc_hyn, test_hyn)</span>
+<span id="cb67-3"><a href="chapter-ets.html#cb67-3" aria-hidden="true" tabindex="-1"></a>                     ME     RMSE      MAE       MPE     MAPE      MASE</span>
+<span id="cb67-4"><a href="chapter-ets.html#cb67-4" aria-hidden="true" tabindex="-1"></a>Training set   <span class="fl">3.727848</span> <span class="fl">228.8229</span> <span class="fl">164.1102</span> <span class="sc">-</span><span class="fl">2.026679</span> <span class="fl">13.86475</span> <span class="fl">0.7404020</span></span>
+<span id="cb67-5"><a href="chapter-ets.html#cb67-5" aria-hidden="true" tabindex="-1"></a>Test set     <span class="sc">-</span><span class="fl">73.167844</span> <span class="fl">231.3494</span> <span class="fl">180.9392</span> <span class="sc">-</span><span class="fl">8.044075</span> <span class="fl">13.09378</span> <span class="fl">0.8163279</span></span>
+<span id="cb67-6"><a href="chapter-ets.html#cb67-6" aria-hidden="true" tabindex="-1"></a>                  ACF1 Theil<span class="st">&#39;s U</span></span>
+<span id="cb67-7"><a href="chapter-ets.html#cb67-7" aria-hidden="true" tabindex="-1"></a><span class="st">Training set 0.1874059        NA</span></span>
+<span id="cb67-8"><a href="chapter-ets.html#cb67-8" aria-hidden="true" tabindex="-1"></a><span class="st">Test set     0.3712518 0.5878683</span></span></code></pre></div>
+<p>예측 결과 그래프로 작성해 보자.</p>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="chapter-ets.html#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">autoplot</span>(fc_hyn, <span class="at">include =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb68-2"><a href="chapter-ets.html#cb68-2" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">autolayer</span>(test_hyn, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb68-3"><a href="chapter-ets.html#cb68-3" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="cn">NULL</span>) </span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:hyn-fore"></span>
+<img src="_main_files/figure-html/hyn-fore-1.png" alt="`hynsight` 자료에 대한 예측 결과" width="576" />
+<p class="caption">
+Figure 3.19: <code>hynsight</code> 자료에 대한 예측 결과
+</p>
+</div>
+
+</div>
+</div>
+<h3>참고 문헌<a href="참고-문헌.html#참고-문헌" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-hyndman2018" class="csl-entry">
+Hyndman, Rob J, and George Athanasopoulos. 2018. <em>Forecasting: Priciples and Practice</em>. 2nd ed. OTexts. <a href="http://OTexts.com/fpp2/">http://OTexts.com/fpp2/</a>.
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="chapter-decomposition.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="chapter-arima.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

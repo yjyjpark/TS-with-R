@@ -4,7 +4,7 @@ editor_options:
     wrap: sentence
 ---
 
-# ARIMA 모형
+# ARIMA 모형{#chapter-arima}
 
 ARIMA 모형은 ETS 모형과 더불어 가장 많이 사용되는 예측 모형이다.
 ETS 모형은 자료에 있는 추세와 계절성분의 형태를 추정하고, 이것을 근거로 예측을 실시하는 방법이다.

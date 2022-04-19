@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>1 시계열 그래프 | R에 의한 시계열분석</title>
   <meta name="description" content="1 시계열 그래프 | R에 의한 시계열분석" />
-  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.25 and GitBook 2.6.7" />
 
   <meta property="og:title" content="1 시계열 그래프 | R에 의한 시계열분석" />
   <meta property="og:type" content="book" />
-  
   
   
   <meta name="github-repo" content="yjyjpark/TS-with-R" />
@@ -24,7 +23,7 @@
 <meta name="author" content="박동련" />
 
 
-<meta name="date" content="2022-03-19" />
+<meta name="date" content="2022-04-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +32,6 @@
   
 <link rel="prev" href="index.html"/>
 <link rel="next" href="chapter-decomposition.html"/>
-<script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -51,8 +49,9 @@
 
 
 
-<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
 <style type="text/css">
@@ -155,80 +154,94 @@ div.csl-indent {
       <nav role="navigation">
 
 <ul class="summary">
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>소개하기</a></li>
-<li class="chapter" data-level="1" data-path="chapter-ts-plot.html"><a href="chapter-ts-plot.html"><i class="fa fa-check"></i><b>1</b> 시계열 그래프</a>
+<li><a href="index.html#소개하기">소개하기<span></span></a></li>
+<li class="chapter" data-level="1" data-path="chapter-ts-plot.html"><a href="chapter-ts-plot.html"><i class="fa fa-check"></i><b>1</b> 시계열 그래프<span></span></a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="chapter-ts-plot.html"><a href="chapter-ts-plot.html#시계열-자료"><i class="fa fa-check"></i><b>1.1</b> 시계열 자료</a>
+<li class="chapter" data-level="1.1" data-path="chapter-ts-plot.html"><a href="chapter-ts-plot.html#시계열-자료"><i class="fa fa-check"></i><b>1.1</b> 시계열 자료<span></span></a>
 <ul>
-<li class="chapter" data-level="1.1.1" data-path="chapter-ts-plot.html"><a href="chapter-ts-plot.html#종단-자료cross-sectional-data와의-비교"><i class="fa fa-check"></i><b>1.1.1</b> 종단 자료(cross-sectional data)와의 비교</a></li>
-<li class="chapter" data-level="1.1.2" data-path="chapter-ts-plot.html"><a href="chapter-ts-plot.html#시계열-예측"><i class="fa fa-check"></i><b>1.1.2</b> 시계열 예측</a></li>
+<li class="chapter" data-level="1.1.1" data-path="chapter-ts-plot.html"><a href="chapter-ts-plot.html#종단-자료cross-sectional-data와의-비교"><i class="fa fa-check"></i><b>1.1.1</b> 종단 자료(cross-sectional data)와의 비교<span></span></a></li>
+<li class="chapter" data-level="1.1.2" data-path="chapter-ts-plot.html"><a href="chapter-ts-plot.html#시계열-예측"><i class="fa fa-check"></i><b>1.1.2</b> 시계열 예측<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="1.2" data-path="chapter-ts-plot.html"><a href="chapter-ts-plot.html#시계열-그래프-작성"><i class="fa fa-check"></i><b>1.2</b> 시계열 그래프 작성</a>
+<li class="chapter" data-level="1.2" data-path="chapter-ts-plot.html"><a href="chapter-ts-plot.html#시계열-그래프-작성"><i class="fa fa-check"></i><b>1.2</b> 시계열 그래프 작성<span></span></a>
 <ul>
-<li class="chapter" data-level="1.2.1" data-path="chapter-ts-plot.html"><a href="chapter-ts-plot.html#ts-객체-생성"><i class="fa fa-check"></i><b>1.2.1</b> <code>ts</code> 객체 생성</a></li>
-<li class="chapter" data-level="1.2.2" data-path="chapter-ts-plot.html"><a href="chapter-ts-plot.html#section-ts-plot"><i class="fa fa-check"></i><b>1.2.2</b> 시계열 그래프 작성</a></li>
-<li class="chapter" data-level="1.2.3" data-path="chapter-ts-plot.html"><a href="chapter-ts-plot.html#section-seasonal-plot"><i class="fa fa-check"></i><b>1.2.3</b> Seasonal 그래프</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="2" data-path="chapter-decomposition.html"><a href="chapter-decomposition.html"><i class="fa fa-check"></i><b>2</b> 시계열 분해</a>
-<ul>
-<li class="chapter" data-level="2.1" data-path="chapter-decomposition.html"><a href="chapter-decomposition.html#시계열-분해-모형"><i class="fa fa-check"></i><b>2.1</b> 시계열 분해 모형</a></li>
-<li class="chapter" data-level="2.2" data-path="chapter-decomposition.html"><a href="chapter-decomposition.html#전통적-시계열-분해-기법"><i class="fa fa-check"></i><b>2.2</b> 전통적 시계열 분해 기법</a>
-<ul>
-<li class="chapter" data-level="2.2.1" data-path="chapter-decomposition.html"><a href="chapter-decomposition.html#이동-평균법"><i class="fa fa-check"></i><b>2.2.1</b> 이동 평균법</a></li>
-<li class="chapter" data-level="2.2.2" data-path="chapter-decomposition.html"><a href="chapter-decomposition.html#전통적-분해-기법"><i class="fa fa-check"></i><b>2.2.2</b> 전통적 분해 기법</a></li>
-</ul></li>
-<li class="chapter" data-level="2.3" data-path="chapter-decomposition.html"><a href="chapter-decomposition.html#stl-분해-기법"><i class="fa fa-check"></i><b>2.3</b> STL 분해 기법</a></li>
-</ul></li>
-<li class="chapter" data-level="3" data-path="지수평활법.html"><a href="지수평활법.html"><i class="fa fa-check"></i><b>3</b> 지수평활법</a>
-<ul>
-<li class="chapter" data-level="3.1" data-path="지수평활법.html"><a href="지수평활법.html#section-accuracy"><i class="fa fa-check"></i><b>3.1</b> 예측 모형의 평가</a></li>
-<li class="chapter" data-level="3.2" data-path="지수평활법.html"><a href="지수평활법.html#section-exponential"><i class="fa fa-check"></i><b>3.2</b> 전통적 지수평활법</a>
-<ul>
-<li class="chapter" data-level="3.2.1" data-path="지수평활법.html"><a href="지수평활법.html#simple-exponential-smoothing"><i class="fa fa-check"></i><b>3.2.1</b> Simple exponential smoothing</a></li>
-<li class="chapter" data-level="3.2.2" data-path="지수평활법.html"><a href="지수평활법.html#trend-method"><i class="fa fa-check"></i><b>3.2.2</b> Trend method</a></li>
-<li class="chapter" data-level="3.2.3" data-path="지수평활법.html"><a href="지수평활법.html#holt-winters-seasonal-method"><i class="fa fa-check"></i><b>3.2.3</b> Holt-Winters’ seasonal method</a></li>
-</ul></li>
-<li class="chapter" data-level="3.3" data-path="지수평활법.html"><a href="지수평활법.html#section-ets"><i class="fa fa-check"></i><b>3.3</b> ETS 모형</a>
-<ul>
-<li class="chapter" data-level="3.3.1" data-path="지수평활법.html"><a href="지수평활법.html#전통적-지수평활법의-확장"><i class="fa fa-check"></i><b>3.3.1</b> 전통적 지수평활법의 확장</a></li>
-<li class="chapter" data-level="3.3.2" data-path="지수평활법.html"><a href="지수평활법.html#모형-적합-및-최적-모형-선택"><i class="fa fa-check"></i><b>3.3.2</b> 모형 적합 및 최적 모형 선택</a></li>
-<li class="chapter" data-level="3.3.3" data-path="지수평활법.html"><a href="지수평활법.html#예측"><i class="fa fa-check"></i><b>3.3.3</b> 예측</a></li>
-</ul></li>
-<li class="chapter" data-level="3.4" data-path="지수평활법.html"><a href="지수평활법.html#모형의-가정-만족-여부-확인"><i class="fa fa-check"></i><b>3.4</b> 모형의 가정 만족 여부 확인</a>
-<ul>
-<li class="chapter" data-level="3.4.1" data-path="지수평활법.html"><a href="지수평활법.html#자기상관과-부분자기상관"><i class="fa fa-check"></i><b>3.4.1</b> 자기상관과 부분자기상관</a></li>
-<li class="chapter" data-level="3.4.2" data-path="지수평활법.html"><a href="지수평활법.html#독립성-검정"><i class="fa fa-check"></i><b>3.4.2</b> 독립성 검정</a></li>
-</ul></li>
-<li class="chapter" data-level="3.5" data-path="지수평활법.html"><a href="지수평활법.html#예제"><i class="fa fa-check"></i><b>3.5</b> 예제</a></li>
-</ul></li>
-<li class="chapter" data-level="4" data-path="arima-모형.html"><a href="arima-모형.html"><i class="fa fa-check"></i><b>4</b> ARIMA 모형</a>
-<ul>
-<li class="chapter" data-level="4.1" data-path="arima-모형.html"><a href="arima-모형.html#시계열자료의-정상성"><i class="fa fa-check"></i><b>4.1</b> 시계열자료의 정상성</a>
-<ul>
-<li class="chapter" data-level="4.1.1" data-path="arima-모형.html"><a href="arima-모형.html#정상-시계열자료"><i class="fa fa-check"></i><b>4.1.1</b> 정상 시계열자료</a></li>
-<li class="chapter" data-level="4.1.2" data-path="arima-모형.html"><a href="arima-모형.html#section-make-stationary"><i class="fa fa-check"></i><b>4.1.2</b> 비정상 시계열 자료의 정상화</a></li>
-</ul></li>
-<li class="chapter" data-level="4.2" data-path="arima-모형.html"><a href="arima-모형.html#정상-시계열-모형"><i class="fa fa-check"></i><b>4.2</b> 정상 시계열 모형</a>
-<ul>
-<li class="chapter" data-level="4.2.1" data-path="arima-모형.html"><a href="arima-모형.html#자기회귀모형-autoregressive-model-ar-model"><i class="fa fa-check"></i><b>4.2.1</b> 자기회귀모형 (Autoregressive model; AR model)</a></li>
-<li class="chapter" data-level="4.2.2" data-path="arima-모형.html"><a href="arima-모형.html#이동평균모형-moving-average-model-ma-model"><i class="fa fa-check"></i><b>4.2.2</b> 이동평균모형 (Moving average model; MA model)</a></li>
-<li class="chapter" data-level="4.2.3" data-path="arima-모형.html"><a href="arima-모형.html#자기회귀이동평균모형-autoregressive-moving-average-model-arma-model"><i class="fa fa-check"></i><b>4.2.3</b> 자기회귀이동평균모형 (Autoregressive moving average model; ARMA model)</a></li>
-</ul></li>
-<li class="chapter" data-level="4.3" data-path="arima-모형.html"><a href="arima-모형.html#section-nonseasonal-arima"><i class="fa fa-check"></i><b>4.3</b> 비계절형 ARIMA 모형</a>
-<ul>
-<li class="chapter" data-level="4.3.1" data-path="arima-모형.html"><a href="arima-모형.html#모형-식별"><i class="fa fa-check"></i><b>4.3.1</b> 모형 식별</a></li>
-<li class="chapter" data-level="4.3.2" data-path="arima-모형.html"><a href="arima-모형.html#모형-추정-및-진단"><i class="fa fa-check"></i><b>4.3.2</b> 모형 추정 및 진단</a></li>
-<li class="chapter" data-level="4.3.3" data-path="arima-모형.html"><a href="arima-모형.html#예측-1"><i class="fa fa-check"></i><b>4.3.3</b> 예측</a></li>
-<li class="chapter" data-level="4.3.4" data-path="arima-모형.html"><a href="arima-모형.html#실습-예제"><i class="fa fa-check"></i><b>4.3.4</b> 실습 예제</a></li>
-</ul></li>
-<li class="chapter" data-level="4.4" data-path="arima-모형.html"><a href="arima-모형.html#section-seasonal-arima"><i class="fa fa-check"></i><b>4.4</b> 계절형 ARIMA 모형</a>
-<ul>
-<li class="chapter" data-level="4.4.1" data-path="arima-모형.html"><a href="arima-모형.html#계절형-arima-모형-적합-절차"><i class="fa fa-check"></i><b>4.4.1</b> 계절형 ARIMA 모형 적합 절차</a></li>
-<li class="chapter" data-level="4.4.2" data-path="arima-모형.html"><a href="arima-모형.html#실습-예제-1"><i class="fa fa-check"></i><b>4.4.2</b> 실습 예제</a></li>
+<li class="chapter" data-level="1.2.1" data-path="chapter-ts-plot.html"><a href="chapter-ts-plot.html#ts-객체-생성"><i class="fa fa-check"></i><b>1.2.1</b> <code>ts</code> 객체 생성<span></span></a></li>
+<li class="chapter" data-level="1.2.2" data-path="chapter-ts-plot.html"><a href="chapter-ts-plot.html#section-ts-plot"><i class="fa fa-check"></i><b>1.2.2</b> 시계열 그래프 작성<span></span></a></li>
+<li class="chapter" data-level="1.2.3" data-path="chapter-ts-plot.html"><a href="chapter-ts-plot.html#section-seasonal-plot"><i class="fa fa-check"></i><b>1.2.3</b> Seasonal 그래프<span></span></a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="참고-문헌.html"><a href="참고-문헌.html"><i class="fa fa-check"></i>참고 문헌</a></li>
+<li class="chapter" data-level="2" data-path="chapter-decomposition.html"><a href="chapter-decomposition.html"><i class="fa fa-check"></i><b>2</b> 시계열 분해<span></span></a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="chapter-decomposition.html"><a href="chapter-decomposition.html#시계열-분해-모형"><i class="fa fa-check"></i><b>2.1</b> 시계열 분해 모형<span></span></a></li>
+<li class="chapter" data-level="2.2" data-path="chapter-decomposition.html"><a href="chapter-decomposition.html#전통적-시계열-분해-기법"><i class="fa fa-check"></i><b>2.2</b> 전통적 시계열 분해 기법<span></span></a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="chapter-decomposition.html"><a href="chapter-decomposition.html#이동-평균법"><i class="fa fa-check"></i><b>2.2.1</b> 이동 평균법<span></span></a></li>
+<li class="chapter" data-level="2.2.2" data-path="chapter-decomposition.html"><a href="chapter-decomposition.html#전통적-분해-기법"><i class="fa fa-check"></i><b>2.2.2</b> 전통적 분해 기법<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="chapter-decomposition.html"><a href="chapter-decomposition.html#stl-분해-기법"><i class="fa fa-check"></i><b>2.3</b> STL 분해 기법<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="chapter-ets.html"><a href="chapter-ets.html"><i class="fa fa-check"></i><b>3</b> ETS 모형<span></span></a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="chapter-ets.html"><a href="chapter-ets.html#section-accuracy"><i class="fa fa-check"></i><b>3.1</b> 예측 모형의 평가<span></span></a></li>
+<li class="chapter" data-level="3.2" data-path="chapter-ets.html"><a href="chapter-ets.html#section-exponential"><i class="fa fa-check"></i><b>3.2</b> 전통적 지수평활법<span></span></a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="chapter-ets.html"><a href="chapter-ets.html#simple-exponential-smoothing"><i class="fa fa-check"></i><b>3.2.1</b> Simple exponential smoothing<span></span></a></li>
+<li class="chapter" data-level="3.2.2" data-path="chapter-ets.html"><a href="chapter-ets.html#trend-method"><i class="fa fa-check"></i><b>3.2.2</b> Trend method<span></span></a></li>
+<li class="chapter" data-level="3.2.3" data-path="chapter-ets.html"><a href="chapter-ets.html#holt-winters-seasonal-method"><i class="fa fa-check"></i><b>3.2.3</b> Holt-Winters’ seasonal method<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="chapter-ets.html"><a href="chapter-ets.html#section-ets"><i class="fa fa-check"></i><b>3.3</b> ETS 모형<span></span></a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="chapter-ets.html"><a href="chapter-ets.html#전통적-지수평활법의-확장"><i class="fa fa-check"></i><b>3.3.1</b> 전통적 지수평활법의 확장<span></span></a></li>
+<li class="chapter" data-level="3.3.2" data-path="chapter-ets.html"><a href="chapter-ets.html#모형-적합-및-최적-모형-선택"><i class="fa fa-check"></i><b>3.3.2</b> 모형 적합 및 최적 모형 선택<span></span></a></li>
+<li class="chapter" data-level="3.3.3" data-path="chapter-ets.html"><a href="chapter-ets.html#예측"><i class="fa fa-check"></i><b>3.3.3</b> 예측<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="chapter-ets.html"><a href="chapter-ets.html#모형의-가정-만족-여부-확인"><i class="fa fa-check"></i><b>3.4</b> 모형의 가정 만족 여부 확인<span></span></a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="chapter-ets.html"><a href="chapter-ets.html#자기상관과-부분자기상관"><i class="fa fa-check"></i><b>3.4.1</b> 자기상관과 부분자기상관<span></span></a></li>
+<li class="chapter" data-level="3.4.2" data-path="chapter-ets.html"><a href="chapter-ets.html#독립성-검정"><i class="fa fa-check"></i><b>3.4.2</b> 독립성 검정<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="chapter-ets.html"><a href="chapter-ets.html#예제"><i class="fa fa-check"></i><b>3.5</b> 예제<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="chapter-arima.html"><a href="chapter-arima.html"><i class="fa fa-check"></i><b>4</b> ARIMA 모형<span></span></a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="chapter-arima.html"><a href="chapter-arima.html#시계열자료의-정상성"><i class="fa fa-check"></i><b>4.1</b> 시계열자료의 정상성<span></span></a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="chapter-arima.html"><a href="chapter-arima.html#정상-시계열자료"><i class="fa fa-check"></i><b>4.1.1</b> 정상 시계열자료<span></span></a></li>
+<li class="chapter" data-level="4.1.2" data-path="chapter-arima.html"><a href="chapter-arima.html#section-make-stationary"><i class="fa fa-check"></i><b>4.1.2</b> 비정상 시계열 자료의 정상화<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="chapter-arima.html"><a href="chapter-arima.html#정상-시계열-모형"><i class="fa fa-check"></i><b>4.2</b> 정상 시계열 모형<span></span></a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="chapter-arima.html"><a href="chapter-arima.html#자기회귀모형-autoregressive-model-ar-model"><i class="fa fa-check"></i><b>4.2.1</b> 자기회귀모형 (Autoregressive model; AR model)<span></span></a></li>
+<li class="chapter" data-level="4.2.2" data-path="chapter-arima.html"><a href="chapter-arima.html#이동평균모형-moving-average-model-ma-model"><i class="fa fa-check"></i><b>4.2.2</b> 이동평균모형 (Moving average model; MA model)<span></span></a></li>
+<li class="chapter" data-level="4.2.3" data-path="chapter-arima.html"><a href="chapter-arima.html#자기회귀이동평균모형-autoregressive-moving-average-model-arma-model"><i class="fa fa-check"></i><b>4.2.3</b> 자기회귀이동평균모형 (Autoregressive moving average model; ARMA model)<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="chapter-arima.html"><a href="chapter-arima.html#section-nonseasonal-arima"><i class="fa fa-check"></i><b>4.3</b> 비계절형 ARIMA 모형<span></span></a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="chapter-arima.html"><a href="chapter-arima.html#모형-식별"><i class="fa fa-check"></i><b>4.3.1</b> 모형 식별<span></span></a></li>
+<li class="chapter" data-level="4.3.2" data-path="chapter-arima.html"><a href="chapter-arima.html#모형-추정-및-진단"><i class="fa fa-check"></i><b>4.3.2</b> 모형 추정 및 진단<span></span></a></li>
+<li class="chapter" data-level="4.3.3" data-path="chapter-arima.html"><a href="chapter-arima.html#예측-1"><i class="fa fa-check"></i><b>4.3.3</b> 예측<span></span></a></li>
+<li class="chapter" data-level="4.3.4" data-path="chapter-arima.html"><a href="chapter-arima.html#실습-예제"><i class="fa fa-check"></i><b>4.3.4</b> 실습 예제<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="chapter-arima.html"><a href="chapter-arima.html#section-seasonal-arima"><i class="fa fa-check"></i><b>4.4</b> 계절형 ARIMA 모형<span></span></a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="chapter-arima.html"><a href="chapter-arima.html#계절형-arima-모형-적합-절차"><i class="fa fa-check"></i><b>4.4.1</b> 계절형 ARIMA 모형 적합 절차<span></span></a></li>
+<li class="chapter" data-level="4.4.2" data-path="chapter-arima.html"><a href="chapter-arima.html#실습-예제-1"><i class="fa fa-check"></i><b>4.4.2</b> 실습 예제<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="chapter-regression.html"><a href="chapter-regression.html"><i class="fa fa-check"></i><b>5</b> 회귀모형<span></span></a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="chapter-regression.html"><a href="chapter-regression.html#section-arma-reg"><i class="fa fa-check"></i><b>5.1</b> ARMA 오차 회귀모형<span></span></a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="chapter-regression.html"><a href="chapter-regression.html#section-ts-reg"><i class="fa fa-check"></i><b>5.1.1</b> 시계열 회귀모형<span></span></a></li>
+<li class="chapter" data-level="5.1.2" data-path="chapter-regression.html"><a href="chapter-regression.html#section-arma-ts-reg"><i class="fa fa-check"></i><b>5.1.2</b> ARMA 오차 시계열 회귀모형<span></span></a></li>
+<li class="chapter" data-level="5.1.3" data-path="chapter-regression.html"><a href="chapter-regression.html#실습-예제-2"><i class="fa fa-check"></i><b>5.1.3</b> 실습 예제<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="chapter-regression.html"><a href="chapter-regression.html#section-arma-dynamic"><i class="fa fa-check"></i><b>5.2</b> Dynamic 회귀모형<span></span></a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="chapter-regression.html"><a href="chapter-regression.html#arma-오차-dynamic-회귀모형"><i class="fa fa-check"></i><b>5.2.1</b> ARMA 오차 Dynamic 회귀모형<span></span></a></li>
+<li class="chapter" data-level="5.2.2" data-path="chapter-regression.html"><a href="chapter-regression.html#실습-예제-3"><i class="fa fa-check"></i><b>5.2.2</b> 실습 예제<span></span></a></li>
+</ul></li>
+</ul></li>
+<li><a href="참고-문헌.html#참고-문헌">참고 문헌<span></span></a></li>
 </ul>
 
       </nav>
@@ -246,20 +259,20 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="chapter-ts-plot" class="section level1" number="1">
-<h1><span class="header-section-number">1</span> 시계열 그래프</h1>
+<div id="chapter-ts-plot" class="section level1 hasAnchor" number="1">
+<h1><span class="header-section-number">1</span> 시계열 그래프<a href="chapter-ts-plot.html#chapter-ts-plot" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>모든 통계자료 분석의 첫 번째 단계는 적절한 그래프를 작성하는 것이다.
 자료의 전체 모습을 확인하는데 자료의 시각화 만큼 효과적인 방법도 없을 것이다.
 시계열분석에서도 이 규칙은 예외 없이 적용된다고 할 수 있다.
 그럼 시계열 자료는 어떤 특징을 갖고 있으며, 일반적인 통계 자료와 어떤 차이가 있는지 알아보도록 하자.</p>
-<div id="시계열-자료" class="section level2" number="1.1">
-<h2><span class="header-section-number">1.1</span> 시계열 자료</h2>
+<div id="시계열-자료" class="section level2 hasAnchor" number="1.1">
+<h2><span class="header-section-number">1.1</span> 시계열 자료<a href="chapter-ts-plot.html#시계열-자료" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>동일한 대상을 시간의 흐름에 따라 계속해서 관측할 수 있는데, 이러한 과정에서 생성된 자료를 시계열자료라고 한다.
 시계열자료에는 기온과 같이 연속적으로 생성은 되지만 일정한 간격을 두고 관측하는 연속 시계열 자료가 있고, 일일 전기 소비량과 같이 자료의 생성 및 관측에 일정한 간격이 있는 이산 시계열 자료가 있다.
 이 책에서는 이산 시계열 자료를 대상으로 하는 분석 기법을 다루고자 한다.</p>
 <p>일정한 간격을 두고 관측되는 시계열 자료의 관측 시점의 차이를 시차 (time lag)라고 한다.</p>
-<div id="종단-자료cross-sectional-data와의-비교" class="section level3" number="1.1.1">
-<h3><span class="header-section-number">1.1.1</span> 종단 자료(cross-sectional data)와의 비교</h3>
+<div id="종단-자료cross-sectional-data와의-비교" class="section level3 hasAnchor" number="1.1.1">
+<h3><span class="header-section-number">1.1.1</span> 종단 자료(cross-sectional data)와의 비교<a href="chapter-ts-plot.html#종단-자료cross-sectional-data와의-비교" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>시계열 자료는 여러 시점에 걸쳐서 동일 개체에 대하여 반복해서 관측된 자료를 의미한다.
 반면에 종단 자료는 어느 특정 시점에서 여러 개체에 대해 관측된 자료를 의미한다.
 두 형태의 자료에 대한 예로써 다음의 표를 살펴보자.</p>
@@ -348,8 +361,8 @@ div.csl-indent {
 </tbody>
 </table>
 </div>
-<div id="시계열-예측" class="section level3" number="1.1.2">
-<h3><span class="header-section-number">1.1.2</span> 시계열 예측</h3>
+<div id="시계열-예측" class="section level3 hasAnchor" number="1.1.2">
+<h3><span class="header-section-number">1.1.2</span> 시계열 예측<a href="chapter-ts-plot.html#시계열-예측" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>통계적 추론을 위한 기본적인 가정은 자료가 서로 독립이고 동일한 분포를 갖고 있다는 것이다.
 따라서 통계 자료가 서로 독립이 아니라면 통계적 예측 모형을 효과적으로 적용하기 어렵다고 할 수 있다.</p>
 <p>앞 절에서 살펴본 종단자료는 거의 모든 경우에 행의 순서를 뒤섞어도 문제가 되지 않는 자료이기 때문에,
@@ -361,8 +374,8 @@ div.csl-indent {
 시계열 예측은 많은 분야에서 필수적인 사항이고, 따라서 전문가가 많이 필요한 분야라고 할 수 있다.</p>
 </div>
 </div>
-<div id="시계열-그래프-작성" class="section level2" number="1.2">
-<h2><span class="header-section-number">1.2</span> 시계열 그래프 작성</h2>
+<div id="시계열-그래프-작성" class="section level2 hasAnchor" number="1.2">
+<h2><span class="header-section-number">1.2</span> 시계열 그래프 작성<a href="chapter-ts-plot.html#시계열-그래프-작성" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>시계열자료는 관측 결과 뿐 아니라 관측이 시작된 시점과 끝난 시점, 관측 간격으로 이루어져 있으며,
 이러한 정보를 R에서는 ‘ts’ 객체에 저장할 수 있다.</p>
 <p>예를 들어 <code>AirPassengers</code>는 미국 Pam Am 항공사의 1949년부터 1960년까지 월별 항공기 탑승 승객 수가
@@ -393,8 +406,8 @@ div.csl-indent {
 <span id="cb2-8"><a href="chapter-ts-plot.html#cb2-8" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">12</span></span></code></pre></div>
 <p><code>AirPassengers</code>의 시작 시점은 1949년 1월이고, 종료 시점은 1960년 12월이다.
 함수 <code>frequency()</code>는 시계열자료의 주기, 즉 계절 요소의 반복 기간을 보여주고 있다.</p>
-<div id="ts-객체-생성" class="section level3" number="1.2.1">
-<h3><span class="header-section-number">1.2.1</span> <code>ts</code> 객체 생성</h3>
+<div id="ts-객체-생성" class="section level3 hasAnchor" number="1.2.1">
+<h3><span class="header-section-number">1.2.1</span> <code>ts</code> 객체 생성<a href="chapter-ts-plot.html#ts-객체-생성" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>만일 일반 벡터를 <code>ts</code> 객체로 변환하려고 한다면, 함수 <code>ts()</code>를 사용해야 한다.
 사용법은 <code>ts(data, start, end, frequency)</code>와 같은데, <code>data</code>는 시계열자료로 변환할 벡터이고
 <code>start</code>는 자료의 시작점을 지정하는 것으로써, 2020년 1월을 시작점으로 지정한다면 <code>start = c(2020, 1)</code>과 같이
@@ -416,8 +429,8 @@ div.csl-indent {
 <span id="cb3-8"><a href="chapter-ts-plot.html#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="dv">1987</span>  <span class="dv">622</span>  <span class="dv">636</span>  <span class="dv">874</span>  <span class="dv">831</span>  <span class="dv">769</span>  <span class="dv">779</span> <span class="dv">1142</span>  <span class="dv">764</span>  <span class="dv">718</span>  <span class="dv">930</span>  <span class="dv">943</span> <span class="dv">2039</span></span>
 <span id="cb3-9"><a href="chapter-ts-plot.html#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="dv">1988</span>  <span class="dv">736</span>  <span class="dv">752</span> <span class="dv">1057</span>  <span class="dv">947</span>  <span class="dv">868</span>  <span class="dv">931</span> <span class="dv">1311</span>  <span class="dv">896</span>  <span class="dv">867</span> <span class="dv">1073</span> <span class="dv">1069</span> <span class="dv">2333</span></span></code></pre></div>
 </div>
-<div id="section-ts-plot" class="section level3" number="1.2.2">
-<h3><span class="header-section-number">1.2.2</span> 시계열 그래프 작성</h3>
+<div id="section-ts-plot" class="section level3 hasAnchor" number="1.2.2">
+<h3><span class="header-section-number">1.2.2</span> 시계열 그래프 작성<a href="chapter-ts-plot.html#section-ts-plot" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>시계열 그래프란 시계열자료를 관측된 순서대로 선으로 연결한 그래프를 의미한다.
 작성 함수는 <code>ggplot2::autoplot()</code>인데, 이 함수는 입력되는 객체의 특성에 가장 적합한 그래프를 작성해 주는 함수로서
 앞으로 매우 유용하게 사용된다.
@@ -524,8 +537,8 @@ Figure 1.6: 다중 시계열 그래프
 </p>
 </div>
 </div>
-<div id="section-seasonal-plot" class="section level3" number="1.2.3">
-<h3><span class="header-section-number">1.2.3</span> Seasonal 그래프</h3>
+<div id="section-seasonal-plot" class="section level3 hasAnchor" number="1.2.3">
+<h3><span class="header-section-number">1.2.3</span> Seasonal 그래프<a href="chapter-ts-plot.html#section-seasonal-plot" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>시계열자료에 계절 변동 요소가 있는 경우에, 그 특성을 명확하게 나타낼 그래프가 있다면 많은 도움이 될 것이다.
 계절 요소가 있는 시계열자료에 대해서 <a href="chapter-ts-plot.html#section-ts-plot">1.2.2</a>절에서 살펴본 그래프를 작성해도 어느 정도 계절 요소를 확인할 수 있는 것은 사실이지만, 계절 요소만을 정밀하게 확인하기는 어려움이 있다고 하겠다.
 이 절에서 살펴볼 seasonal 그래프는 기본적으로 시계열자료를 측정된 주기 (월 또는 분기)별로 나타낸 그래프이다.<br />
