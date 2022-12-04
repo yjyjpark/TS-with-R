@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>1 시계열 그래프 | R에 의한 시계열분석</title>
-  <meta name="description" content="1 시계열 그래프 | R에 의한 시계열분석" />
-  <meta name="generator" content="bookdown 0.25 and GitBook 2.6.7" />
+  <title>1 장 시계열 그래프 | R로 알아가는 시계열분석</title>
+  <meta name="description" content="1 장 시계열 그래프 | R로 알아가는 시계열분석" />
+  <meta name="generator" content="bookdown 0.29 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="1 시계열 그래프 | R에 의한 시계열분석" />
+  <meta property="og:title" content="1 장 시계열 그래프 | R로 알아가는 시계열분석" />
   <meta property="og:type" content="book" />
   
   
   <meta name="github-repo" content="yjyjpark/TS-with-R" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="1 시계열 그래프 | R에 의한 시계열분석" />
+  <meta name="twitter:title" content="1 장 시계열 그래프 | R로 알아가는 시계열분석" />
   
   
   
@@ -23,7 +23,7 @@
 <meta name="author" content="박동련" />
 
 
-<meta name="date" content="2022-04-19" />
+<meta name="date" content="2022-11-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -119,28 +119,6 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
-<style type="text/css">
-/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-}
-.hanging div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}
-</style>
 
 </head>
 
@@ -154,94 +132,34 @@ div.csl-indent {
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="index.html#소개하기">소개하기<span></span></a></li>
-<li class="chapter" data-level="1" data-path="chapter-ts-plot.html"><a href="chapter-ts-plot.html"><i class="fa fa-check"></i><b>1</b> 시계열 그래프<span></span></a>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>머리말</a></li>
+<li class="chapter" data-level="1" data-path="chapter-ts-plot.html"><a href="chapter-ts-plot.html"><i class="fa fa-check"></i><b>1</b> 시계열 그래프</a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="chapter-ts-plot.html"><a href="chapter-ts-plot.html#시계열-자료"><i class="fa fa-check"></i><b>1.1</b> 시계열 자료<span></span></a>
+<li class="chapter" data-level="" data-path="chapter-ts-plot.html"><a href="chapter-ts-plot.html#ts-객체-생성"><i class="fa fa-check"></i><code>ts</code> 객체 생성</a></li>
+<li class="chapter" data-level="" data-path="chapter-ts-plot.html"><a href="chapter-ts-plot.html#시계열-그래프-작성"><i class="fa fa-check"></i>시계열 그래프 작성</a></li>
+<li class="chapter" data-level="" data-path="chapter-ts-plot.html"><a href="chapter-ts-plot.html#seasonal-그래프-작성"><i class="fa fa-check"></i>Seasonal 그래프 작성</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="chapter-decomposition.html"><a href="chapter-decomposition.html"><i class="fa fa-check"></i><b>2</b> 시계열 분해</a>
 <ul>
-<li class="chapter" data-level="1.1.1" data-path="chapter-ts-plot.html"><a href="chapter-ts-plot.html#종단-자료cross-sectional-data와의-비교"><i class="fa fa-check"></i><b>1.1.1</b> 종단 자료(cross-sectional data)와의 비교<span></span></a></li>
-<li class="chapter" data-level="1.1.2" data-path="chapter-ts-plot.html"><a href="chapter-ts-plot.html#시계열-예측"><i class="fa fa-check"></i><b>1.1.2</b> 시계열 예측<span></span></a></li>
+<li class="chapter" data-level="" data-path="chapter-decomposition.html"><a href="chapter-decomposition.html#전통적-시계열-분해-기법"><i class="fa fa-check"></i>전통적 시계열 분해 기법</a></li>
+<li class="chapter" data-level="" data-path="chapter-decomposition.html"><a href="chapter-decomposition.html#stl-분해-기법"><i class="fa fa-check"></i>STL 분해 기법</a></li>
 </ul></li>
-<li class="chapter" data-level="1.2" data-path="chapter-ts-plot.html"><a href="chapter-ts-plot.html#시계열-그래프-작성"><i class="fa fa-check"></i><b>1.2</b> 시계열 그래프 작성<span></span></a>
+<li class="chapter" data-level="3" data-path="chapter-ets.html"><a href="chapter-ets.html"><i class="fa fa-check"></i><b>3</b> ETS 모형</a>
 <ul>
-<li class="chapter" data-level="1.2.1" data-path="chapter-ts-plot.html"><a href="chapter-ts-plot.html#ts-객체-생성"><i class="fa fa-check"></i><b>1.2.1</b> <code>ts</code> 객체 생성<span></span></a></li>
-<li class="chapter" data-level="1.2.2" data-path="chapter-ts-plot.html"><a href="chapter-ts-plot.html#section-ts-plot"><i class="fa fa-check"></i><b>1.2.2</b> 시계열 그래프 작성<span></span></a></li>
-<li class="chapter" data-level="1.2.3" data-path="chapter-ts-plot.html"><a href="chapter-ts-plot.html#section-seasonal-plot"><i class="fa fa-check"></i><b>1.2.3</b> Seasonal 그래프<span></span></a></li>
+<li class="chapter" data-level="" data-path="chapter-ets.html"><a href="chapter-ets.html#전통적-지수평활법"><i class="fa fa-check"></i>전통적 지수평활법</a></li>
+<li class="chapter" data-level="" data-path="chapter-ets.html"><a href="chapter-ets.html#ets-모형"><i class="fa fa-check"></i>ETS 모형</a></li>
 </ul></li>
-</ul></li>
-<li class="chapter" data-level="2" data-path="chapter-decomposition.html"><a href="chapter-decomposition.html"><i class="fa fa-check"></i><b>2</b> 시계열 분해<span></span></a>
+<li class="chapter" data-level="4" data-path="chapter-arima.html"><a href="chapter-arima.html"><i class="fa fa-check"></i><b>4</b> ARIMA 모형</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="chapter-decomposition.html"><a href="chapter-decomposition.html#시계열-분해-모형"><i class="fa fa-check"></i><b>2.1</b> 시계열 분해 모형<span></span></a></li>
-<li class="chapter" data-level="2.2" data-path="chapter-decomposition.html"><a href="chapter-decomposition.html#전통적-시계열-분해-기법"><i class="fa fa-check"></i><b>2.2</b> 전통적 시계열 분해 기법<span></span></a>
+<li class="chapter" data-level="" data-path="chapter-arima.html"><a href="chapter-arima.html#시계열자료의-정상성"><i class="fa fa-check"></i>시계열자료의 정상성</a></li>
+<li class="chapter" data-level="" data-path="chapter-arima.html"><a href="chapter-arima.html#비계절형-arima-모형"><i class="fa fa-check"></i>비계절형 ARIMA 모형</a></li>
+<li class="chapter" data-level="" data-path="chapter-arima.html"><a href="chapter-arima.html#계절형-arima-모형"><i class="fa fa-check"></i>계절형 ARIMA 모형</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="chapter-regression.html"><a href="chapter-regression.html"><i class="fa fa-check"></i><b>5</b> 회귀모형</a>
 <ul>
-<li class="chapter" data-level="2.2.1" data-path="chapter-decomposition.html"><a href="chapter-decomposition.html#이동-평균법"><i class="fa fa-check"></i><b>2.2.1</b> 이동 평균법<span></span></a></li>
-<li class="chapter" data-level="2.2.2" data-path="chapter-decomposition.html"><a href="chapter-decomposition.html#전통적-분해-기법"><i class="fa fa-check"></i><b>2.2.2</b> 전통적 분해 기법<span></span></a></li>
+<li class="chapter" data-level="" data-path="chapter-regression.html"><a href="chapter-regression.html#arma-오차-회귀모형"><i class="fa fa-check"></i>ARMA 오차 회귀모형</a></li>
+<li class="chapter" data-level="" data-path="chapter-regression.html"><a href="chapter-regression.html#arma-오차-dynamic-회귀모형"><i class="fa fa-check"></i>ARMA 오차 Dynamic 회귀모형</a></li>
 </ul></li>
-<li class="chapter" data-level="2.3" data-path="chapter-decomposition.html"><a href="chapter-decomposition.html#stl-분해-기법"><i class="fa fa-check"></i><b>2.3</b> STL 분해 기법<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="3" data-path="chapter-ets.html"><a href="chapter-ets.html"><i class="fa fa-check"></i><b>3</b> ETS 모형<span></span></a>
-<ul>
-<li class="chapter" data-level="3.1" data-path="chapter-ets.html"><a href="chapter-ets.html#section-accuracy"><i class="fa fa-check"></i><b>3.1</b> 예측 모형의 평가<span></span></a></li>
-<li class="chapter" data-level="3.2" data-path="chapter-ets.html"><a href="chapter-ets.html#section-exponential"><i class="fa fa-check"></i><b>3.2</b> 전통적 지수평활법<span></span></a>
-<ul>
-<li class="chapter" data-level="3.2.1" data-path="chapter-ets.html"><a href="chapter-ets.html#simple-exponential-smoothing"><i class="fa fa-check"></i><b>3.2.1</b> Simple exponential smoothing<span></span></a></li>
-<li class="chapter" data-level="3.2.2" data-path="chapter-ets.html"><a href="chapter-ets.html#trend-method"><i class="fa fa-check"></i><b>3.2.2</b> Trend method<span></span></a></li>
-<li class="chapter" data-level="3.2.3" data-path="chapter-ets.html"><a href="chapter-ets.html#holt-winters-seasonal-method"><i class="fa fa-check"></i><b>3.2.3</b> Holt-Winters’ seasonal method<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="3.3" data-path="chapter-ets.html"><a href="chapter-ets.html#section-ets"><i class="fa fa-check"></i><b>3.3</b> ETS 모형<span></span></a>
-<ul>
-<li class="chapter" data-level="3.3.1" data-path="chapter-ets.html"><a href="chapter-ets.html#전통적-지수평활법의-확장"><i class="fa fa-check"></i><b>3.3.1</b> 전통적 지수평활법의 확장<span></span></a></li>
-<li class="chapter" data-level="3.3.2" data-path="chapter-ets.html"><a href="chapter-ets.html#모형-적합-및-최적-모형-선택"><i class="fa fa-check"></i><b>3.3.2</b> 모형 적합 및 최적 모형 선택<span></span></a></li>
-<li class="chapter" data-level="3.3.3" data-path="chapter-ets.html"><a href="chapter-ets.html#예측"><i class="fa fa-check"></i><b>3.3.3</b> 예측<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="3.4" data-path="chapter-ets.html"><a href="chapter-ets.html#모형의-가정-만족-여부-확인"><i class="fa fa-check"></i><b>3.4</b> 모형의 가정 만족 여부 확인<span></span></a>
-<ul>
-<li class="chapter" data-level="3.4.1" data-path="chapter-ets.html"><a href="chapter-ets.html#자기상관과-부분자기상관"><i class="fa fa-check"></i><b>3.4.1</b> 자기상관과 부분자기상관<span></span></a></li>
-<li class="chapter" data-level="3.4.2" data-path="chapter-ets.html"><a href="chapter-ets.html#독립성-검정"><i class="fa fa-check"></i><b>3.4.2</b> 독립성 검정<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="3.5" data-path="chapter-ets.html"><a href="chapter-ets.html#예제"><i class="fa fa-check"></i><b>3.5</b> 예제<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="4" data-path="chapter-arima.html"><a href="chapter-arima.html"><i class="fa fa-check"></i><b>4</b> ARIMA 모형<span></span></a>
-<ul>
-<li class="chapter" data-level="4.1" data-path="chapter-arima.html"><a href="chapter-arima.html#시계열자료의-정상성"><i class="fa fa-check"></i><b>4.1</b> 시계열자료의 정상성<span></span></a>
-<ul>
-<li class="chapter" data-level="4.1.1" data-path="chapter-arima.html"><a href="chapter-arima.html#정상-시계열자료"><i class="fa fa-check"></i><b>4.1.1</b> 정상 시계열자료<span></span></a></li>
-<li class="chapter" data-level="4.1.2" data-path="chapter-arima.html"><a href="chapter-arima.html#section-make-stationary"><i class="fa fa-check"></i><b>4.1.2</b> 비정상 시계열 자료의 정상화<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="4.2" data-path="chapter-arima.html"><a href="chapter-arima.html#정상-시계열-모형"><i class="fa fa-check"></i><b>4.2</b> 정상 시계열 모형<span></span></a>
-<ul>
-<li class="chapter" data-level="4.2.1" data-path="chapter-arima.html"><a href="chapter-arima.html#자기회귀모형-autoregressive-model-ar-model"><i class="fa fa-check"></i><b>4.2.1</b> 자기회귀모형 (Autoregressive model; AR model)<span></span></a></li>
-<li class="chapter" data-level="4.2.2" data-path="chapter-arima.html"><a href="chapter-arima.html#이동평균모형-moving-average-model-ma-model"><i class="fa fa-check"></i><b>4.2.2</b> 이동평균모형 (Moving average model; MA model)<span></span></a></li>
-<li class="chapter" data-level="4.2.3" data-path="chapter-arima.html"><a href="chapter-arima.html#자기회귀이동평균모형-autoregressive-moving-average-model-arma-model"><i class="fa fa-check"></i><b>4.2.3</b> 자기회귀이동평균모형 (Autoregressive moving average model; ARMA model)<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="4.3" data-path="chapter-arima.html"><a href="chapter-arima.html#section-nonseasonal-arima"><i class="fa fa-check"></i><b>4.3</b> 비계절형 ARIMA 모형<span></span></a>
-<ul>
-<li class="chapter" data-level="4.3.1" data-path="chapter-arima.html"><a href="chapter-arima.html#모형-식별"><i class="fa fa-check"></i><b>4.3.1</b> 모형 식별<span></span></a></li>
-<li class="chapter" data-level="4.3.2" data-path="chapter-arima.html"><a href="chapter-arima.html#모형-추정-및-진단"><i class="fa fa-check"></i><b>4.3.2</b> 모형 추정 및 진단<span></span></a></li>
-<li class="chapter" data-level="4.3.3" data-path="chapter-arima.html"><a href="chapter-arima.html#예측-1"><i class="fa fa-check"></i><b>4.3.3</b> 예측<span></span></a></li>
-<li class="chapter" data-level="4.3.4" data-path="chapter-arima.html"><a href="chapter-arima.html#실습-예제"><i class="fa fa-check"></i><b>4.3.4</b> 실습 예제<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="4.4" data-path="chapter-arima.html"><a href="chapter-arima.html#section-seasonal-arima"><i class="fa fa-check"></i><b>4.4</b> 계절형 ARIMA 모형<span></span></a>
-<ul>
-<li class="chapter" data-level="4.4.1" data-path="chapter-arima.html"><a href="chapter-arima.html#계절형-arima-모형-적합-절차"><i class="fa fa-check"></i><b>4.4.1</b> 계절형 ARIMA 모형 적합 절차<span></span></a></li>
-<li class="chapter" data-level="4.4.2" data-path="chapter-arima.html"><a href="chapter-arima.html#실습-예제-1"><i class="fa fa-check"></i><b>4.4.2</b> 실습 예제<span></span></a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="5" data-path="chapter-regression.html"><a href="chapter-regression.html"><i class="fa fa-check"></i><b>5</b> 회귀모형<span></span></a>
-<ul>
-<li class="chapter" data-level="5.1" data-path="chapter-regression.html"><a href="chapter-regression.html#section-arma-reg"><i class="fa fa-check"></i><b>5.1</b> ARMA 오차 회귀모형<span></span></a>
-<ul>
-<li class="chapter" data-level="5.1.1" data-path="chapter-regression.html"><a href="chapter-regression.html#section-ts-reg"><i class="fa fa-check"></i><b>5.1.1</b> 시계열 회귀모형<span></span></a></li>
-<li class="chapter" data-level="5.1.2" data-path="chapter-regression.html"><a href="chapter-regression.html#section-arma-ts-reg"><i class="fa fa-check"></i><b>5.1.2</b> ARMA 오차 시계열 회귀모형<span></span></a></li>
-<li class="chapter" data-level="5.1.3" data-path="chapter-regression.html"><a href="chapter-regression.html#실습-예제-2"><i class="fa fa-check"></i><b>5.1.3</b> 실습 예제<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="5.2" data-path="chapter-regression.html"><a href="chapter-regression.html#section-arma-dynamic"><i class="fa fa-check"></i><b>5.2</b> Dynamic 회귀모형<span></span></a>
-<ul>
-<li class="chapter" data-level="5.2.1" data-path="chapter-regression.html"><a href="chapter-regression.html#arma-오차-dynamic-회귀모형"><i class="fa fa-check"></i><b>5.2.1</b> ARMA 오차 Dynamic 회귀모형<span></span></a></li>
-<li class="chapter" data-level="5.2.2" data-path="chapter-regression.html"><a href="chapter-regression.html#실습-예제-3"><i class="fa fa-check"></i><b>5.2.2</b> 실습 예제<span></span></a></li>
-</ul></li>
-</ul></li>
-<li><a href="참고-문헌.html#참고-문헌">참고 문헌<span></span></a></li>
 </ul>
 
       </nav>
@@ -251,7 +169,7 @@ div.csl-indent {
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R에 의한 시계열분석</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R로 알아가는 시계열분석</a>
           </h1>
         </div>
 
@@ -260,351 +178,198 @@ div.csl-indent {
 
             <section class="normal" id="section-">
 <div id="chapter-ts-plot" class="section level1 hasAnchor" number="1">
-<h1><span class="header-section-number">1</span> 시계열 그래프<a href="chapter-ts-plot.html#chapter-ts-plot" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>모든 통계자료 분석의 첫 번째 단계는 적절한 그래프를 작성하는 것이다.
-자료의 전체 모습을 확인하는데 자료의 시각화 만큼 효과적인 방법도 없을 것이다.
-시계열분석에서도 이 규칙은 예외 없이 적용된다고 할 수 있다.
-그럼 시계열 자료는 어떤 특징을 갖고 있으며, 일반적인 통계 자료와 어떤 차이가 있는지 알아보도록 하자.</p>
-<div id="시계열-자료" class="section level2 hasAnchor" number="1.1">
-<h2><span class="header-section-number">1.1</span> 시계열 자료<a href="chapter-ts-plot.html#시계열-자료" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>동일한 대상을 시간의 흐름에 따라 계속해서 관측할 수 있는데, 이러한 과정에서 생성된 자료를 시계열자료라고 한다.
-시계열자료에는 기온과 같이 연속적으로 생성은 되지만 일정한 간격을 두고 관측하는 연속 시계열 자료가 있고, 일일 전기 소비량과 같이 자료의 생성 및 관측에 일정한 간격이 있는 이산 시계열 자료가 있다.
-이 책에서는 이산 시계열 자료를 대상으로 하는 분석 기법을 다루고자 한다.</p>
-<p>일정한 간격을 두고 관측되는 시계열 자료의 관측 시점의 차이를 시차 (time lag)라고 한다.</p>
-<div id="종단-자료cross-sectional-data와의-비교" class="section level3 hasAnchor" number="1.1.1">
-<h3><span class="header-section-number">1.1.1</span> 종단 자료(cross-sectional data)와의 비교<a href="chapter-ts-plot.html#종단-자료cross-sectional-data와의-비교" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>시계열 자료는 여러 시점에 걸쳐서 동일 개체에 대하여 반복해서 관측된 자료를 의미한다.
-반면에 종단 자료는 어느 특정 시점에서 여러 개체에 대해 관측된 자료를 의미한다.
-두 형태의 자료에 대한 예로써 다음의 표를 살펴보자.</p>
-<p>첫 번째 표는 특정 시점에 4개 기업에 대한 주가, 유동자산 및 부채를 조사한 모의 자료이다.
-회귀분석 등으로 분석이 가능한 형태의 자료라고 할 수 있다.</p>
-<table style="width:56%;">
-<caption>종단자료</caption>
-<colgroup>
-<col width="12%" />
-<col width="12%" />
-<col width="15%" />
-<col width="15%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th align="center">기업</th>
-<th align="center">주가</th>
-<th align="center">유동자산</th>
-<th align="center">부채</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="center">A</td>
-<td align="center">56,500</td>
-<td align="center">95</td>
-<td align="center">55</td>
-</tr>
-<tr class="even">
-<td align="center">B</td>
-<td align="center">24,000</td>
-<td align="center">20</td>
-<td align="center">23</td>
-</tr>
-<tr class="odd">
-<td align="center">C</td>
-<td align="center">86,000</td>
-<td align="center">110</td>
-<td align="center">98</td>
-</tr>
-<tr class="even">
-<td align="center">D</td>
-<td align="center">12,000</td>
-<td align="center">32</td>
-<td align="center">13</td>
-</tr>
-</tbody>
-</table>
-<p>두 번째 표는 3월 2일부터 3월 5일까지 A 기업과 B 기업의 주가 자료라고 하자.
-일일 간격으로 4일 동안 두 기업의 주가를 반복해서 관측한 자료이므로 시계열 자료에 해당한다.</p>
-<table style="width:62%;">
-<caption>시계열자료</caption>
-<colgroup>
-<col width="18%" />
-<col width="22%" />
-<col width="22%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th align="center">일시</th>
-<th align="center">A 기업의 주가</th>
-<th align="center">B 기업의 주가</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="center">3.2</td>
-<td align="center">56,500</td>
-<td align="center">24,000</td>
-</tr>
-<tr class="even">
-<td align="center">3.3</td>
-<td align="center">54,200</td>
-<td align="center">23,100</td>
-</tr>
-<tr class="odd">
-<td align="center">3.4</td>
-<td align="center">54,600</td>
-<td align="center">22,300</td>
-</tr>
-<tr class="even">
-<td align="center">3.5</td>
-<td align="center">52,100</td>
-<td align="center">23,200</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div id="시계열-예측" class="section level3 hasAnchor" number="1.1.2">
-<h3><span class="header-section-number">1.1.2</span> 시계열 예측<a href="chapter-ts-plot.html#시계열-예측" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>통계적 추론을 위한 기본적인 가정은 자료가 서로 독립이고 동일한 분포를 갖고 있다는 것이다.
-따라서 통계 자료가 서로 독립이 아니라면 통계적 예측 모형을 효과적으로 적용하기 어렵다고 할 수 있다.</p>
-<p>앞 절에서 살펴본 종단자료는 거의 모든 경우에 행의 순서를 뒤섞어도 문제가 되지 않는 자료이기 때문에,
-독립성에는 큰 문제가 없는 것이 일반적인 상황이다. 따라서 이러한 형태의 자료에 대해서는 무리 없이
-선형회귀모형 등을 적합시켜 예측을 효과적으로 실시할 수 있다.</p>
-<p>반면에 시계열자료의 경우에는 예컨대 3월 3일 주가는 3월 2일 주가와 독립이 될 수 없는 상황이다.
-따라서 시계열자료에 대한 예측모형은 독립성을 가정하고 있는 일반적인 통계모형을 사용할 수 없는 것이다.</p>
-<p>우리는 앞으로 시계열자료를 대상으로 효과적인 예측을 실시할 수 있는 다양한 모형을 살펴볼 것이다.
-시계열 예측은 많은 분야에서 필수적인 사항이고, 따라서 전문가가 많이 필요한 분야라고 할 수 있다.</p>
-</div>
-</div>
-<div id="시계열-그래프-작성" class="section level2 hasAnchor" number="1.2">
-<h2><span class="header-section-number">1.2</span> 시계열 그래프 작성<a href="chapter-ts-plot.html#시계열-그래프-작성" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>시계열자료는 관측 결과 뿐 아니라 관측이 시작된 시점과 끝난 시점, 관측 간격으로 이루어져 있으며,
-이러한 정보를 R에서는 ‘ts’ 객체에 저장할 수 있다.</p>
-<p>예를 들어 <code>AirPassengers</code>는 미국 Pam Am 항공사의 1949년부터 1960년까지 월별 항공기 탑승 승객 수가
-천 명 단위로 입력되어 있다.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="chapter-ts-plot.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> AirPassengers</span>
-<span id="cb1-2"><a href="chapter-ts-plot.html#cb1-2" aria-hidden="true" tabindex="-1"></a>     Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec</span>
-<span id="cb1-3"><a href="chapter-ts-plot.html#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="dv">1949</span> <span class="dv">112</span> <span class="dv">118</span> <span class="dv">132</span> <span class="dv">129</span> <span class="dv">121</span> <span class="dv">135</span> <span class="dv">148</span> <span class="dv">148</span> <span class="dv">136</span> <span class="dv">119</span> <span class="dv">104</span> <span class="dv">118</span></span>
-<span id="cb1-4"><a href="chapter-ts-plot.html#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="dv">1950</span> <span class="dv">115</span> <span class="dv">126</span> <span class="dv">141</span> <span class="dv">135</span> <span class="dv">125</span> <span class="dv">149</span> <span class="dv">170</span> <span class="dv">170</span> <span class="dv">158</span> <span class="dv">133</span> <span class="dv">114</span> <span class="dv">140</span></span>
-<span id="cb1-5"><a href="chapter-ts-plot.html#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="dv">1951</span> <span class="dv">145</span> <span class="dv">150</span> <span class="dv">178</span> <span class="dv">163</span> <span class="dv">172</span> <span class="dv">178</span> <span class="dv">199</span> <span class="dv">199</span> <span class="dv">184</span> <span class="dv">162</span> <span class="dv">146</span> <span class="dv">166</span></span>
-<span id="cb1-6"><a href="chapter-ts-plot.html#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="dv">1952</span> <span class="dv">171</span> <span class="dv">180</span> <span class="dv">193</span> <span class="dv">181</span> <span class="dv">183</span> <span class="dv">218</span> <span class="dv">230</span> <span class="dv">242</span> <span class="dv">209</span> <span class="dv">191</span> <span class="dv">172</span> <span class="dv">194</span></span>
-<span id="cb1-7"><a href="chapter-ts-plot.html#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="dv">1953</span> <span class="dv">196</span> <span class="dv">196</span> <span class="dv">236</span> <span class="dv">235</span> <span class="dv">229</span> <span class="dv">243</span> <span class="dv">264</span> <span class="dv">272</span> <span class="dv">237</span> <span class="dv">211</span> <span class="dv">180</span> <span class="dv">201</span></span>
-<span id="cb1-8"><a href="chapter-ts-plot.html#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="dv">1954</span> <span class="dv">204</span> <span class="dv">188</span> <span class="dv">235</span> <span class="dv">227</span> <span class="dv">234</span> <span class="dv">264</span> <span class="dv">302</span> <span class="dv">293</span> <span class="dv">259</span> <span class="dv">229</span> <span class="dv">203</span> <span class="dv">229</span></span>
-<span id="cb1-9"><a href="chapter-ts-plot.html#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="dv">1955</span> <span class="dv">242</span> <span class="dv">233</span> <span class="dv">267</span> <span class="dv">269</span> <span class="dv">270</span> <span class="dv">315</span> <span class="dv">364</span> <span class="dv">347</span> <span class="dv">312</span> <span class="dv">274</span> <span class="dv">237</span> <span class="dv">278</span></span>
-<span id="cb1-10"><a href="chapter-ts-plot.html#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="dv">1956</span> <span class="dv">284</span> <span class="dv">277</span> <span class="dv">317</span> <span class="dv">313</span> <span class="dv">318</span> <span class="dv">374</span> <span class="dv">413</span> <span class="dv">405</span> <span class="dv">355</span> <span class="dv">306</span> <span class="dv">271</span> <span class="dv">306</span></span>
-<span id="cb1-11"><a href="chapter-ts-plot.html#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="dv">1957</span> <span class="dv">315</span> <span class="dv">301</span> <span class="dv">356</span> <span class="dv">348</span> <span class="dv">355</span> <span class="dv">422</span> <span class="dv">465</span> <span class="dv">467</span> <span class="dv">404</span> <span class="dv">347</span> <span class="dv">305</span> <span class="dv">336</span></span>
-<span id="cb1-12"><a href="chapter-ts-plot.html#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="dv">1958</span> <span class="dv">340</span> <span class="dv">318</span> <span class="dv">362</span> <span class="dv">348</span> <span class="dv">363</span> <span class="dv">435</span> <span class="dv">491</span> <span class="dv">505</span> <span class="dv">404</span> <span class="dv">359</span> <span class="dv">310</span> <span class="dv">337</span></span>
-<span id="cb1-13"><a href="chapter-ts-plot.html#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="dv">1959</span> <span class="dv">360</span> <span class="dv">342</span> <span class="dv">406</span> <span class="dv">396</span> <span class="dv">420</span> <span class="dv">472</span> <span class="dv">548</span> <span class="dv">559</span> <span class="dv">463</span> <span class="dv">407</span> <span class="dv">362</span> <span class="dv">405</span></span>
-<span id="cb1-14"><a href="chapter-ts-plot.html#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="dv">1960</span> <span class="dv">417</span> <span class="dv">391</span> <span class="dv">419</span> <span class="dv">461</span> <span class="dv">472</span> <span class="dv">535</span> <span class="dv">622</span> <span class="dv">606</span> <span class="dv">508</span> <span class="dv">461</span> <span class="dv">390</span> <span class="dv">432</span></span></code></pre></div>
-<p><code>AirPassengers</code>는 <code>ts</code> 객체이다. 출력된 형태는 2차원 구조로 보이지만, 벡터와 같은 1차원 배열이다.
-<code>ts</code> 객체의 특성은 다음과 같이 알아볼 수 있다.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="chapter-ts-plot.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">class</span>(AirPassengers)</span>
-<span id="cb2-2"><a href="chapter-ts-plot.html#cb2-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;ts&quot;</span></span>
-<span id="cb2-3"><a href="chapter-ts-plot.html#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">start</span>(AirPassengers)</span>
-<span id="cb2-4"><a href="chapter-ts-plot.html#cb2-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1949</span>    <span class="dv">1</span></span>
-<span id="cb2-5"><a href="chapter-ts-plot.html#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">end</span>(AirPassengers)</span>
-<span id="cb2-6"><a href="chapter-ts-plot.html#cb2-6" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1960</span>   <span class="dv">12</span></span>
-<span id="cb2-7"><a href="chapter-ts-plot.html#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">frequency</span>(AirPassengers)</span>
-<span id="cb2-8"><a href="chapter-ts-plot.html#cb2-8" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">12</span></span></code></pre></div>
-<p><code>AirPassengers</code>의 시작 시점은 1949년 1월이고, 종료 시점은 1960년 12월이다.
-함수 <code>frequency()</code>는 시계열자료의 주기, 즉 계절 요소의 반복 기간을 보여주고 있다.</p>
-<div id="ts-객체-생성" class="section level3 hasAnchor" number="1.2.1">
-<h3><span class="header-section-number">1.2.1</span> <code>ts</code> 객체 생성<a href="chapter-ts-plot.html#ts-객체-생성" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>만일 일반 벡터를 <code>ts</code> 객체로 변환하려고 한다면, 함수 <code>ts()</code>를 사용해야 한다.
-사용법은 <code>ts(data, start, end, frequency)</code>와 같은데, <code>data</code>는 시계열자료로 변환할 벡터이고
-<code>start</code>는 자료의 시작점을 지정하는 것으로써, 2020년 1월을 시작점으로 지정한다면 <code>start = c(2020, 1)</code>과 같이
-지정하면 된다. <code>end</code>는 자료의 종료 시점을 지정하는 것이며, 방법은 <code>start</code>와 동일하다.
-만일 <code>end</code>를 생략한다면 <code>data</code>에 있는 모든 자료가 시계열자료로 변환된다.
-<code>frequency</code>는 자료의 주기를 지정하는 것으로써, 연간 자료는 1, 분기별 자료는 4, 월별 자료는 12를 지정하면 된다.</p>
+<h1><span class="header-section-number">1 장</span> 시계열 그래프<a href="chapter-ts-plot.html#chapter-ts-plot" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="chapter-ts-plot.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fpp2)</span>
+<span id="cb3-2"><a href="chapter-ts-plot.html#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<div id="ts-객체-생성" class="section level2 unnumbered hasAnchor">
+<h2><code>ts</code> 객체 생성<a href="chapter-ts-plot.html#ts-객체-생성" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
 <li>예제: 백화점 매출액 자료</li>
 </ul>
 <p><code>depart.txt</code>는 어떤 백화점의 1984년 1월부터 1988년 12월까지의 월별 매출액이 입력되어 있다.
-이것을 R로 불러와서 <code>ts</code> 객체로 변환시켜보자.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="chapter-ts-plot.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> depart <span class="ot">&lt;-</span> <span class="fu">scan</span>(<span class="st">&quot;https://raw.githubusercontent.com/yjyjpark/TS-with-R/main/Data/depart.txt&quot;</span>)</span>
-<span id="cb3-2"><a href="chapter-ts-plot.html#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> depart.ts <span class="ot">&lt;-</span> <span class="fu">ts</span>(depart, <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">1984</span>, <span class="dv">1</span>), <span class="at">frequency =</span> <span class="dv">12</span>)</span>
-<span id="cb3-3"><a href="chapter-ts-plot.html#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> depart.ts</span>
-<span id="cb3-4"><a href="chapter-ts-plot.html#cb3-4" aria-hidden="true" tabindex="-1"></a>      Jan  Feb  Mar  Apr  May  Jun  Jul  Aug  Sep  Oct  Nov  Dec</span>
-<span id="cb3-5"><a href="chapter-ts-plot.html#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="dv">1984</span>  <span class="dv">423</span>  <span class="dv">458</span>  <span class="dv">607</span>  <span class="dv">564</span>  <span class="dv">536</span>  <span class="dv">536</span>  <span class="dv">804</span>  <span class="dv">540</span>  <span class="dv">488</span>  <span class="dv">627</span>  <span class="dv">672</span> <span class="dv">1447</span></span>
-<span id="cb3-6"><a href="chapter-ts-plot.html#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="dv">1985</span>  <span class="dv">514</span>  <span class="dv">518</span>  <span class="dv">699</span>  <span class="dv">654</span>  <span class="dv">612</span>  <span class="dv">612</span>  <span class="dv">884</span>  <span class="dv">605</span>  <span class="dv">547</span>  <span class="dv">705</span>  <span class="dv">698</span> <span class="dv">1555</span></span>
-<span id="cb3-7"><a href="chapter-ts-plot.html#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="dv">1986</span>  <span class="dv">561</span>  <span class="dv">564</span>  <span class="dv">773</span>  <span class="dv">717</span>  <span class="dv">665</span>  <span class="dv">667</span>  <span class="dv">994</span>  <span class="dv">661</span>  <span class="dv">616</span>  <span class="dv">786</span>  <span class="dv">806</span> <span class="dv">1754</span></span>
-<span id="cb3-8"><a href="chapter-ts-plot.html#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="dv">1987</span>  <span class="dv">622</span>  <span class="dv">636</span>  <span class="dv">874</span>  <span class="dv">831</span>  <span class="dv">769</span>  <span class="dv">779</span> <span class="dv">1142</span>  <span class="dv">764</span>  <span class="dv">718</span>  <span class="dv">930</span>  <span class="dv">943</span> <span class="dv">2039</span></span>
-<span id="cb3-9"><a href="chapter-ts-plot.html#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="dv">1988</span>  <span class="dv">736</span>  <span class="dv">752</span> <span class="dv">1057</span>  <span class="dv">947</span>  <span class="dv">868</span>  <span class="dv">931</span> <span class="dv">1311</span>  <span class="dv">896</span>  <span class="dv">867</span> <span class="dv">1073</span> <span class="dv">1069</span> <span class="dv">2333</span></span></code></pre></div>
+함수 <code>scan()</code>을 사용하여 자료를 R로 불러오자.
+함수 <code>scan()</code>은 한 변수로 이루어진 텍스트 파일을 R로 불러올 때 사용할 수 있는 함수이다.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="chapter-ts-plot.html#cb4-1" aria-hidden="true" tabindex="-1"></a>depart <span class="ot">&lt;-</span> <span class="fu">scan</span>(<span class="st">&quot;https://raw.githubusercontent.com/yjyjpark/TS-with-R/main/Data/depart.txt&quot;</span>)</span></code></pre></div>
+<p>이제 벡터 <code>depart</code>를 함수 <code>ts()</code>를 사용하여 <code>ts</code> 객체로 변환시켜보자.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="chapter-ts-plot.html#cb5-1" aria-hidden="true" tabindex="-1"></a>depart.ts <span class="ot">&lt;-</span> <span class="fu">ts</span>(depart, <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">1984</span>, <span class="dv">1</span>), <span class="at">frequency =</span> <span class="dv">12</span>)</span>
+<span id="cb5-2"><a href="chapter-ts-plot.html#cb5-2" aria-hidden="true" tabindex="-1"></a>depart.ts</span></code></pre></div>
+<pre><code>##       Jan  Feb  Mar  Apr  May  Jun  Jul  Aug  Sep  Oct  Nov
+## 1984  423  458  607  564  536  536  804  540  488  627  672
+## 1985  514  518  699  654  612  612  884  605  547  705  698
+## 1986  561  564  773  717  665  667  994  661  616  786  806
+## 1987  622  636  874  831  769  779 1142  764  718  930  943
+## 1988  736  752 1057  947  868  931 1311  896  867 1073 1069
+##       Dec
+## 1984 1447
+## 1985 1555
+## 1986 1754
+## 1987 2039
+## 1988 2333</code></pre>
 </div>
-<div id="section-ts-plot" class="section level3 hasAnchor" number="1.2.2">
-<h3><span class="header-section-number">1.2.2</span> 시계열 그래프 작성<a href="chapter-ts-plot.html#section-ts-plot" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>시계열 그래프란 시계열자료를 관측된 순서대로 선으로 연결한 그래프를 의미한다.
-작성 함수는 <code>ggplot2::autoplot()</code>인데, 이 함수는 입력되는 객체의 특성에 가장 적합한 그래프를 작성해 주는 함수로서
-앞으로 매우 유용하게 사용된다.
-함수 <code>autoplot()</code>으로 시계열 그래프를 작성하기 위해서는 패키지 <code>forecast</code>도 필요한데,
-패키지 <code>fpp2</code>를 불러오면 필요한 패키지가 모두 같이 로딩된다.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="chapter-ts-plot.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">library</span>(fpp2)</span>
-<span id="cb4-2"><a href="chapter-ts-plot.html#cb4-2" aria-hidden="true" tabindex="-1"></a>Registered S3 method overwritten by <span class="st">&#39;quantmod&#39;</span><span class="sc">:</span></span>
-<span id="cb4-3"><a href="chapter-ts-plot.html#cb4-3" aria-hidden="true" tabindex="-1"></a>  method            from</span>
-<span id="cb4-4"><a href="chapter-ts-plot.html#cb4-4" aria-hidden="true" tabindex="-1"></a>  as.zoo.data.frame zoo </span>
-<span id="cb4-5"><a href="chapter-ts-plot.html#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="sc">--</span> Attaching packages <span class="sc">----------------------------------------------</span> fpp2 <span class="fl">2.4</span> <span class="sc">--</span></span>
-<span id="cb4-6"><a href="chapter-ts-plot.html#cb4-6" aria-hidden="true" tabindex="-1"></a>v ggplot2   <span class="dv">3</span>.<span class="fl">3.5</span>     v fma       <span class="fl">2.4</span>  </span>
-<span id="cb4-7"><a href="chapter-ts-plot.html#cb4-7" aria-hidden="true" tabindex="-1"></a>v forecast  <span class="fl">8.16</span>      v expsmooth <span class="fl">2.3</span>  </span></code></pre></div>
+<div id="시계열-그래프-작성" class="section level2 unnumbered hasAnchor">
+<h2>시계열 그래프 작성<a href="chapter-ts-plot.html#시계열-그래프-작성" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
 <li>예제: 백화점 매출액 자료</li>
 </ul>
-<p>백화점 매출액 자료인 <code>depart.ts</code>의 시계열 그래프를 작성해 보자.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="chapter-ts-plot.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">autoplot</span>(depart.ts) <span class="sc">+</span></span>
-<span id="cb5-2"><a href="chapter-ts-plot.html#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Monthly sales of a department store&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Year&quot;</span>, <span class="at">y =</span> <span class="cn">NULL</span>)</span></code></pre></div>
+<p>백화점 매출액 자료인 <code>depart.ts</code>의 시계열 그래프를 그림 <a href="chapter-ts-plot.html#fig:depart">1.1</a>에 작성해 보자.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="chapter-ts-plot.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(depart.ts) <span class="sc">+</span></span>
+<span id="cb7-2"><a href="chapter-ts-plot.html#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Monthly sales of a department store&quot;</span>, </span>
+<span id="cb7-3"><a href="chapter-ts-plot.html#cb7-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Year&quot;</span>, <span class="at">y =</span> <span class="cn">NULL</span>)</span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:depart"></span>
 <img src="_main_files/figure-html/depart-1.png" alt="백화점 월별 매출액" width="576" />
 <p class="caption">
-Figure 1.1: 백화점 월별 매출액
+그림 1.1: 백화점 월별 매출액
 </p>
 </div>
 <ul>
 <li>예제: 지구 온도 자료</li>
 </ul>
 <p>1856년 1월부터 2005년 12월까지 지구 온도 자료가 <code>global.txt</code>에 입력되어 있다.
-이 자료의 시계열 그래프를 작성해 보자.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="chapter-ts-plot.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> global <span class="ot">&lt;-</span> <span class="fu">scan</span>(<span class="st">&quot;https://raw.githubusercontent.com/yjyjpark/TS-with-R/main/Data/global.txt&quot;</span>)</span>
-<span id="cb6-2"><a href="chapter-ts-plot.html#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> global.ts <span class="ot">&lt;-</span> <span class="fu">ts</span>(global, <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">1856</span>, <span class="dv">1</span>), <span class="at">frequency =</span> <span class="dv">12</span>)</span>
-<span id="cb6-3"><a href="chapter-ts-plot.html#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">autoplot</span>(global.ts) <span class="sc">+</span></span>
-<span id="cb6-4"><a href="chapter-ts-plot.html#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Global Temperature 1985 ~ 2005&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Year&quot;</span>, <span class="at">y =</span> <span class="cn">NULL</span>)</span></code></pre></div>
+이 자료의 시계열 그래프를 그림 <a href="chapter-ts-plot.html#fig:global">1.2</a>에 작성해 보자.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="chapter-ts-plot.html#cb8-1" aria-hidden="true" tabindex="-1"></a>global <span class="ot">&lt;-</span> <span class="fu">scan</span>(<span class="st">&quot;https://raw.githubusercontent.com/yjyjpark/TS-with-R/main/Data/global.txt&quot;</span>)</span>
+<span id="cb8-2"><a href="chapter-ts-plot.html#cb8-2" aria-hidden="true" tabindex="-1"></a>global.ts <span class="ot">&lt;-</span> <span class="fu">ts</span>(global, <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">1856</span>, <span class="dv">1</span>), <span class="at">frequency =</span> <span class="dv">12</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="chapter-ts-plot.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(global.ts) <span class="sc">+</span></span>
+<span id="cb9-2"><a href="chapter-ts-plot.html#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Global Temperature 1985 ~ 2005&quot;</span>, </span>
+<span id="cb9-3"><a href="chapter-ts-plot.html#cb9-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Year&quot;</span>, <span class="at">y =</span> <span class="cn">NULL</span>)</span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:global"></span>
 <img src="_main_files/figure-html/global-1.png" alt="1856년부터 2005년까지 지구 온도 시계열 그래프" width="576" />
 <p class="caption">
-Figure 1.2: 1856년부터 2005년까지 지구 온도 시계열 그래프
+그림 1.2: 1856년부터 2005년까지 지구 온도 시계열 그래프
 </p>
 </div>
-<p>Figure <a href="chapter-ts-plot.html#fig:global">1.2</a>에서 볼 수 있는 것은 대략 1970년 이후로 지속적인 상승 패턴이 있다는 점이다.
+<p>그림 <a href="chapter-ts-plot.html#fig:global">1.2</a>에서 볼 수 있는 것은 대략 1970년 이후로 지속적인 상승 패턴이 있다는 점이다.
 1970년 이후 자료에 대한 시계열 그래프를 다시 작성해 보자.
-이것을 위해서는 이미 생성된 <code>ts</code> 객체에서 일부분을 선택해야 하는데, 이 작업은 함수 <code>window()</code>로 할 수 있다.
-사용법은 <code>window(ts, start, end)</code>이다.</p>
-<p>이제 1970년 1월 이후 자료에 대한 시계열 그래프를 작성해 보자.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="chapter-ts-plot.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> global<span class="fl">.1970</span> <span class="ot">&lt;-</span> <span class="fu">window</span>(global.ts, <span class="at">start =</span> <span class="dv">1970</span>)</span>
-<span id="cb7-2"><a href="chapter-ts-plot.html#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">autoplot</span>(global<span class="fl">.1970</span>) <span class="sc">+</span></span>
-<span id="cb7-3"><a href="chapter-ts-plot.html#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Global Temperature 1970 ~ 2005&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Year&quot;</span>, <span class="at">y =</span> <span class="cn">NULL</span>)</span></code></pre></div>
+이것을 위해서는 이미 생성된 <code>ts</code> 객체에서 일부분을 선택해야 하는데, 이 작업은 함수 <code>window()</code>로 할 수 있다.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="chapter-ts-plot.html#cb10-1" aria-hidden="true" tabindex="-1"></a>global<span class="fl">.1970</span> <span class="ot">&lt;-</span> <span class="fu">window</span>(global.ts, <span class="at">start =</span> <span class="dv">1970</span>)</span></code></pre></div>
+<p>이제 1970년 1월 이후 자료에 대한 시계열 그래프를 그림 <a href="chapter-ts-plot.html#fig:global-1970">1.3</a>에 작성해 보자.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="chapter-ts-plot.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(global<span class="fl">.1970</span>) <span class="sc">+</span></span>
+<span id="cb11-2"><a href="chapter-ts-plot.html#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Global Temperature 1970 ~ 2005&quot;</span>, </span>
+<span id="cb11-3"><a href="chapter-ts-plot.html#cb11-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Year&quot;</span>, <span class="at">y =</span> <span class="cn">NULL</span>)</span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:global-1970"></span>
 <img src="_main_files/figure-html/global-1970-1.png" alt="1970년부터 2005년까지 지구 온도 시계열 그래프" width="576" />
 <p class="caption">
-Figure 1.3: 1970년부터 2005년까지 지구 온도 시계열 그래프
+그림 1.3: 1970년부터 2005년까지 지구 온도 시계열 그래프
 </p>
 </div>
-<p>Figure <a href="chapter-ts-plot.html#fig:global-1970">1.3</a>의 시계열 그래프에 회귀직선을 추가하면, 상승 추세를 조금 더 명확하게 확인할 수 있다.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="chapter-ts-plot.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">autoplot</span>(global<span class="fl">.1970</span>) <span class="sc">+</span></span>
-<span id="cb8-2"><a href="chapter-ts-plot.html#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb8-3"><a href="chapter-ts-plot.html#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Global Temperature 1970 ~ 2005&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Year&quot;</span>, <span class="at">y =</span> <span class="cn">NULL</span>)</span></code></pre></div>
+<p>그림 <a href="chapter-ts-plot.html#fig:global-1970">1.3</a>의 시계열 그래프에 회귀직선을 추가하면, 상승 추세를 조금 더 명확하게 확인할 수 있다.
+회귀직선을 추가한 그래프를 그림 <a href="chapter-ts-plot.html#fig:global-1970-lm">1.4</a>에 작성해 보자.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="chapter-ts-plot.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(global<span class="fl">.1970</span>) <span class="sc">+</span></span>
+<span id="cb12-2"><a href="chapter-ts-plot.html#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb12-3"><a href="chapter-ts-plot.html#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Global Temperature 1970 ~ 2005&quot;</span>, </span>
+<span id="cb12-4"><a href="chapter-ts-plot.html#cb12-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Year&quot;</span>, <span class="at">y =</span> <span class="cn">NULL</span>)</span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:global-1970-lm"></span>
 <img src="_main_files/figure-html/global-1970-lm-1.png" alt="시계열 그래프에 회귀직선 추가" width="576" />
 <p class="caption">
-Figure 1.4: 시계열 그래프에 회귀직선 추가
+그림 1.4: 시계열 그래프에 회귀직선 추가
 </p>
 </div>
 <ul>
 <li>예제: 다중 시계열 그래프</li>
 </ul>
-<p><code>cbe.txt</code>에는 호주에서 1958년부터 초콜릿, 맥주 및 전기의 월별 생산량이 입력되어 있다.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="chapter-ts-plot.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> CBE <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_table</span>(<span class="st">&quot;https://raw.githubusercontent.com/yjyjpark/TS-with-R/main/Data/cbe.txt&quot;</span>)</span>
-<span id="cb9-2"><a href="chapter-ts-plot.html#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> CBE <span class="sc">%&gt;%</span> <span class="fu">print</span>(<span class="at">n =</span> <span class="dv">3</span>)</span>
-<span id="cb9-3"><a href="chapter-ts-plot.html#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"># A tibble: 396 x 3</span></span>
-<span id="cb9-4"><a href="chapter-ts-plot.html#cb9-4" aria-hidden="true" tabindex="-1"></a>   choc  beer  elec</span>
-<span id="cb9-5"><a href="chapter-ts-plot.html#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="sc">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span></span>
-<span id="cb9-6"><a href="chapter-ts-plot.html#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>  <span class="dv">1451</span>  <span class="fl">96.3</span>  <span class="dv">1497</span></span>
-<span id="cb9-7"><a href="chapter-ts-plot.html#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span>  <span class="dv">2037</span>  <span class="fl">84.4</span>  <span class="dv">1463</span></span>
-<span id="cb9-8"><a href="chapter-ts-plot.html#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span>  <span class="dv">2477</span>  <span class="fl">91.2</span>  <span class="dv">1648</span></span>
-<span id="cb9-9"><a href="chapter-ts-plot.html#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="co"># ... with 393 more rows</span></span></code></pre></div>
+<p><code>cbe.txt</code>에는 호주에서 1958년부터 생산된 초콜릿, 맥주 및 전기의 월별 생산량이 입력되어 있다.
+파일은 행과 열의 구조를 갖고 있으며, 각 자료는 빈 칸으로 구분되어 있다.
+이런 구조의 텍스트 파일을 불러오기 위해서 패키지 <code>readr</code>의 함수 <code>read_table()</code>을 사용하였다.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="chapter-ts-plot.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb13-2"><a href="chapter-ts-plot.html#cb13-2" aria-hidden="true" tabindex="-1"></a>CBE <span class="ot">&lt;-</span> <span class="fu">read_table</span>(<span class="st">&quot;https://raw.githubusercontent.com/yjyjpark/TS-with-R/main/Data/cbe.txt&quot;</span>)</span>
+<span id="cb13-3"><a href="chapter-ts-plot.html#cb13-3" aria-hidden="true" tabindex="-1"></a>CBE <span class="sc">%&gt;%</span> <span class="fu">print</span>(<span class="at">n =</span> <span class="dv">3</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 396 × 3
+##    choc  beer  elec
+##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1  1451  96.3  1497
+## 2  2037  84.4  1463
+## 3  2477  91.2  1648
+## # … with 393 more rows</code></pre>
 <p>tibble로 입력된 자료를 <code>ts</code> 객체로 변환해 보자.
-함수 <code>ts()</code>에 데이터 프레임을 입력하면 행렬로 변환되어 처리되는데, 열을 구성하는 벡터를 각각 <code>ts</code> 객체로 변환시킨다.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="chapter-ts-plot.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> cbe <span class="ot">&lt;-</span> <span class="fu">ts</span>(CBE, <span class="at">start =</span> <span class="dv">1958</span>, <span class="at">frequency =</span> <span class="dv">12</span>)</span>
-<span id="cb10-2"><a href="chapter-ts-plot.html#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">head</span>(CBE, <span class="at">n =</span> <span class="dv">3</span>)</span>
-<span id="cb10-3"><a href="chapter-ts-plot.html#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co"># A tibble: 3 x 3</span></span>
-<span id="cb10-4"><a href="chapter-ts-plot.html#cb10-4" aria-hidden="true" tabindex="-1"></a>   choc  beer  elec</span>
-<span id="cb10-5"><a href="chapter-ts-plot.html#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="sc">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span></span>
-<span id="cb10-6"><a href="chapter-ts-plot.html#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>  <span class="dv">1451</span>  <span class="fl">96.3</span>  <span class="dv">1497</span></span>
-<span id="cb10-7"><a href="chapter-ts-plot.html#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span>  <span class="dv">2037</span>  <span class="fl">84.4</span>  <span class="dv">1463</span></span>
-<span id="cb10-8"><a href="chapter-ts-plot.html#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span>  <span class="dv">2477</span>  <span class="fl">91.2</span>  <span class="dv">1648</span></span></code></pre></div>
+함수 <code>ts()</code>에 데이터 프레임을 입력하면 열을 구성하는 벡터를 각각 개별 <code>ts</code> 객체로 변환시킨다.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="chapter-ts-plot.html#cb15-1" aria-hidden="true" tabindex="-1"></a>cbe <span class="ot">&lt;-</span> <span class="fu">ts</span>(CBE, <span class="at">start =</span> <span class="dv">1958</span>, <span class="at">frequency =</span> <span class="dv">12</span>)</span>
+<span id="cb15-2"><a href="chapter-ts-plot.html#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(CBE, <span class="at">n =</span> <span class="dv">3</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 3 × 3
+##    choc  beer  elec
+##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1  1451  96.3  1497
+## 2  2037  84.4  1463
+## 3  2477  91.2  1648</code></pre>
 <p><code>cbe</code>에는 시계열자료 <code>choc</code>, <code>beer</code>와 <code>elec</code>로 구성되어 있음을 알 수 있다.
-이러한 다중 시계열 자료를 함수 <code>autoplot()</code>에 입력하면 다중 시계열 그래프가 작성된다.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="chapter-ts-plot.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">autoplot</span>(cbe) <span class="sc">+</span></span>
-<span id="cb11-2"><a href="chapter-ts-plot.html#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">ylab</span>(<span class="cn">NULL</span>)</span></code></pre></div>
+이러한 다중 시계열 자료를 함수 <code>autoplot()</code>에 입력한 다중 시계열 그래프를 그림 <a href="chapter-ts-plot.html#fig:cbe-1">1.5</a>에 작성해 보자.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="chapter-ts-plot.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(cbe) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="cn">NULL</span>)</span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:cbe-1"></span>
 <img src="_main_files/figure-html/cbe-1-1.png" alt="다중 시계열 그래프" width="576" />
 <p class="caption">
-Figure 1.5: 다중 시계열 그래프
+그림 1.5: 다중 시계열 그래프
 </p>
 </div>
-<p>만일 다중 시계열자료의 scale에 큰 차이가 있다면 하나의 그래프에 작성하는 것보다는 facet 그래프를 작성하는 것이 더 효과적이다.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="chapter-ts-plot.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">autoplot</span>(cbe, <span class="at">facets =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
-<span id="cb12-2"><a href="chapter-ts-plot.html#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">ylab</span>(<span class="cn">NULL</span>)</span></code></pre></div>
+<p>만일 다중 시계열자료의 scale에 큰 차이가 있다면 하나의 그래프에 작성하는 것보다는 facet 그래프를 작성하는 것이 더 효과적이다. Facet 다중 시계열 그래프를 그림 <a href="chapter-ts-plot.html#fig:cbe-2">1.6</a>에 작성해 보자.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="chapter-ts-plot.html#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(cbe, <span class="at">facets =</span> <span class="cn">TRUE</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="cn">NULL</span>)</span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:cbe-2"></span>
 <img src="_main_files/figure-html/cbe-2-1.png" alt="다중 시계열 그래프" width="576" />
 <p class="caption">
-Figure 1.6: 다중 시계열 그래프
+그림 1.6: 다중 시계열 그래프
 </p>
 </div>
 </div>
-<div id="section-seasonal-plot" class="section level3 hasAnchor" number="1.2.3">
-<h3><span class="header-section-number">1.2.3</span> Seasonal 그래프<a href="chapter-ts-plot.html#section-seasonal-plot" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>시계열자료에 계절 변동 요소가 있는 경우에, 그 특성을 명확하게 나타낼 그래프가 있다면 많은 도움이 될 것이다.
-계절 요소가 있는 시계열자료에 대해서 <a href="chapter-ts-plot.html#section-ts-plot">1.2.2</a>절에서 살펴본 그래프를 작성해도 어느 정도 계절 요소를 확인할 수 있는 것은 사실이지만, 계절 요소만을 정밀하게 확인하기는 어려움이 있다고 하겠다.
-이 절에서 살펴볼 seasonal 그래프는 기본적으로 시계열자료를 측정된 주기 (월 또는 분기)별로 나타낸 그래프이다.<br />
-이러한 그래프를 작성하면 계절 변동의 패턴을 쉽게 확인 할 수 있으며, 또한 전체 측정 기간 동안 계절 패턴에 어떤 변화가 있었는지, 변화가 있었던 시점 등을 쉽게 확인할 수 있게 된다.</p>
-<p>살펴볼 그래프는 <code>forecast::ggseasonplot()</code>과 <code>forecast::ggsubseriesplot()</code>으로 작성되는 그래프와 분기별 나란히 서 있는 상자그림이다.</p>
+<div id="seasonal-그래프-작성" class="section level2 unnumbered hasAnchor">
+<h2>Seasonal 그래프 작성<a href="chapter-ts-plot.html#seasonal-그래프-작성" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
 <li>예제: <code>AirPassengers</code></li>
 </ul>
-<p>우선 함수 <code>ggseasonplot()</code>으로 그래프를 작성해 보자.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="chapter-ts-plot.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">ggseasonplot</span>(AirPassengers)</span></code></pre></div>
+<p>우선 함수 <code>ggseasonplot()</code>에 의한 seasonal 그래프를 그림 <a href="chapter-ts-plot.html#fig:season-AP-1">1.7</a>에 작성해 보자.</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="chapter-ts-plot.html#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggseasonplot</span>(AirPassengers)</span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:season-AP-1"></span>
 <img src="_main_files/figure-html/season-AP-1-1.png" alt="함수 `ggseasonalplot()`으로 작성된 seasonal 그래프" width="576" />
 <p class="caption">
-Figure 1.7: 함수 <code>ggseasonalplot()</code>으로 작성된 seasonal 그래프
+그림 1.7: 함수 <code>ggseasonalplot()</code>으로 작성된 seasonal 그래프
 </p>
 </div>
-<p>X축 변수는 이 자료의 주기인 월이고, 각 연도는 색으로 구분되어 있다.
-각 연도에 적용된 색은 그래프 오른쪽에 범례로 정리되어 있다.
-연도에 대한 범례를 그래프 안에 일종의 라벨로 표시하고자 한다면 옵션 <code>year.labels = TRUE</code>를 포함시키면 된다.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="chapter-ts-plot.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">ggseasonplot</span>(AirPassengers, <span class="at">year.labels =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p>연도 범례를 포함시킨 seasonal 그래프를 그림 <a href="chapter-ts-plot.html#fig:season-AP-2">1.8</a>에 작성해 보자.</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="chapter-ts-plot.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggseasonplot</span>(AirPassengers, <span class="at">year.labels =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:season-AP-2"></span>
 <img src="_main_files/figure-html/season-AP-2-1.png" alt="함수 `ggseasonalplot()`으로 작성된 seasonal 그래프" width="576" />
 <p class="caption">
-Figure 1.8: 함수 <code>ggseasonalplot()</code>으로 작성된 seasonal 그래프
+그림 1.8: 함수 <code>ggseasonalplot()</code>으로 작성된 seasonal 그래프
 </p>
 </div>
-<p>연도에 대한 라벨을 왼쪽에도 함께 나타낼 필요가 있다면 옵션 <code>year.labels.left = TRUE</code>를 포함시키면 된다.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="chapter-ts-plot.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">ggseasonplot</span>(AirPassengers, <span class="at">year.labels =</span> <span class="cn">TRUE</span>, <span class="at">year.labels.left =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p>그래프 양쪽에 연도 범례를 포함시킨 seasonal 그래프를 그림 <a href="chapter-ts-plot.html#fig:season-AP-3">1.9</a>에 작성해 보자.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="chapter-ts-plot.html#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggseasonplot</span>(AirPassengers, </span>
+<span id="cb21-2"><a href="chapter-ts-plot.html#cb21-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">year.labels =</span> <span class="cn">TRUE</span>, <span class="at">year.labels.left =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:season-AP-3"></span>
-<img src="_main_files/figure-html/season-AP-3-1.png" alt="함수 `ggseasonalplot()`으로 작성된 seasonal 그래프" width="576" />
+<img src="_main_files/figure-html/season-AP-3-1.png" alt="함수 `ggseasonalplot()`에서 `year.labels.left = TRUE`를 포함시킨 seasonal 그래프" width="576" />
 <p class="caption">
-Figure 1.9: 함수 <code>ggseasonalplot()</code>으로 작성된 seasonal 그래프
+그림 1.9: 함수 <code>ggseasonalplot()</code>에서 <code>year.labels.left = TRUE</code>를 포함시킨 seasonal 그래프
 </p>
 </div>
-<p>극좌표 형태롤 나타내고자 한다면, 옵션 <code>polar = TRUE</code>를 포함시키면 된다.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="chapter-ts-plot.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">ggseasonplot</span>(AirPassengers, <span class="at">polar =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p>극좌표 형태의 seasonal 그래프를 그림 <a href="chapter-ts-plot.html#fig:season-AP-4">1.10</a>에 작성해 보자.</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="chapter-ts-plot.html#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggseasonplot</span>(AirPassengers, <span class="at">polar =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:season-AP-4"></span>
-<img src="_main_files/figure-html/season-AP-4-1.png" alt="함수 `ggseasonalplot()`으로 작성된 seasonal 그래프" width="576" />
+<img src="_main_files/figure-html/season-AP-4-1.png" alt="함수 `ggseasonalplot()`에서 `polar = TRUE`를 포함시킨 seasonal 그래프" width="576" />
 <p class="caption">
-Figure 1.10: 함수 <code>ggseasonalplot()</code>으로 작성된 seasonal 그래프
+그림 1.10: 함수 <code>ggseasonalplot()</code>에서 <code>polar = TRUE</code>를 포함시킨 seasonal 그래프
 </p>
 </div>
-<p>이번에는 함수 <code>ggsubseriesplot()</code>으로 그래프를 작성해 보자.
+<p>이번에는 함수 <code>ggsubseriesplot()</code>으로 그래프를 그림 <a href="chapter-ts-plot.html#fig:season-AP-5">1.11</a>에 작성해 보자.
 월별로 자료를 구분해서 선 그래프를 작성하고, 파란 선으로 월별 평균을 표시한 그래프이다.</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="chapter-ts-plot.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">ggsubseriesplot</span>(AirPassengers)</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="chapter-ts-plot.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsubseriesplot</span>(AirPassengers)</span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:season-AP-5"></span>
 <img src="_main_files/figure-html/season-AP-5-1.png" alt="함수 `ggsubseriesplot()`으로 작성된 seasonal 그래프" width="576" />
 <p class="caption">
-Figure 1.11: 함수 <code>ggsubseriesplot()</code>으로 작성된 seasonal 그래프
+그림 1.11: 함수 <code>ggsubseriesplot()</code>으로 작성된 seasonal 그래프
 </p>
 </div>
 <p>월별로 구분된 자료를 대상으로 상자그림을 작성해서 보는 것도 의미있는 분석이 될 수 있을 것이다.
 상자그림을 작성하기 위해서는 <code>ts</code> 객체인 <code>AirPassengers</code>를 숫자형 벡터로 변환시키고,
-각 자료를 주기를 함수 <code>cycle()</code>로 추출해서 요인으로 변환시키는 것이 필요하다.</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="chapter-ts-plot.html#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> tibble<span class="sc">::</span><span class="fu">tibble</span>(<span class="at">AP =</span> <span class="fu">as.numeric</span>(AirPassengers), <span class="at">mon =</span> <span class="fu">as.factor</span>(<span class="fu">cycle</span>(AirPassengers))) <span class="sc">%&gt;%</span> </span>
-<span id="cb18-2"><a href="chapter-ts-plot.html#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> mon, <span class="at">y =</span> AP)) <span class="sc">+</span></span>
-<span id="cb18-3"><a href="chapter-ts-plot.html#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="cb18-4"><a href="chapter-ts-plot.html#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Month&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Air Passengers&quot;</span>)</span></code></pre></div>
+각 자료의 주기를 함수 <code>cycle()</code>로 추출해서 요인으로 변환시키는 것이 필요하다.
+상자그림으로 계절 요소의 변동을 그림 <a href="chapter-ts-plot.html#fig:season-AP-6">1.12</a>에 작성해 보자.</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="chapter-ts-plot.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">AP =</span> <span class="fu">as.numeric</span>(AirPassengers), </span>
+<span id="cb24-2"><a href="chapter-ts-plot.html#cb24-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">mon =</span> <span class="fu">as.factor</span>(<span class="fu">cycle</span>(AirPassengers))) <span class="sc">%&gt;%</span> </span>
+<span id="cb24-3"><a href="chapter-ts-plot.html#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> mon, <span class="at">y =</span> AP)) <span class="sc">+</span></span>
+<span id="cb24-4"><a href="chapter-ts-plot.html#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb24-5"><a href="chapter-ts-plot.html#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Month&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Air Passengers&quot;</span>)</span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:season-AP-6"></span>
 <img src="_main_files/figure-html/season-AP-6-1.png" alt="상자그림으로 나타낸 계절 변동 요소" width="576" />
 <p class="caption">
-Figure 1.12: 상자그림으로 나타낸 계절 변동 요소
+그림 1.12: 상자그림으로 나타낸 계절 변동 요소
 </p>
 </div>
 
-</div>
 </div>
 </div>
             </section>
@@ -655,7 +420,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": null,
+"download": ["_main.pdf"],
 "search": {
 "engine": "fuse",
 "options": null
@@ -673,7 +438,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');
