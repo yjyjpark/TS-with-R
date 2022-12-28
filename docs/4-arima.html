@@ -1,0 +1,1305 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.280">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>arima</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body class="nav-sidebar docked">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">머리말</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./1-tsplot.html" class="sidebar-item-text sidebar-link">시계열 그래프</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./2-decomposition.html" class="sidebar-item-text sidebar-link">시계열 분해</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./3-ets.html" class="sidebar-item-text sidebar-link">ETS 모형</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./4-arima.html" class="sidebar-item-text sidebar-link active">ARIMA 모형</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./5-regression.html" class="sidebar-item-text sidebar-link">회귀모형</a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#sec-arima" id="toc-sec-arima" class="nav-link active" data-scroll-target="#sec-arima">ARIMA 모형</a>
+  <ul class="collapse">
+  <li><a href="#시계열자료의-정상성" id="toc-시계열자료의-정상성" class="nav-link" data-scroll-target="#시계열자료의-정상성">시계열자료의 정상성</a></li>
+  <li><a href="#비계절형-arima-모형" id="toc-비계절형-arima-모형" class="nav-link" data-scroll-target="#비계절형-arima-모형">비계절형 ARIMA 모형</a></li>
+  <li><a href="#계절형-arima-모형" id="toc-계절형-arima-모형" class="nav-link" data-scroll-target="#계절형-arima-모형">계절형 ARIMA 모형</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+
+<section id="sec-arima" class="level1">
+<h1>ARIMA 모형</h1>
+<div class="cell">
+
+</div>
+<section id="시계열자료의-정상성" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="시계열자료의-정상성">시계열자료의 정상성</h2>
+<ul>
+<li>분산 안정화 변환 예제: 호주의 1956년 1월부터 1995년 8월까지 월별 전기 생산량 자료 (<code>fma::elec</code>)</li>
+</ul>
+<p>분산 안정화 변환이 필요한 자료의 예로써 1956년 1월부터 1995년 8월까지 호주의 월별 전기 생산량 자료인 <code>fma::elec</code>을 살펴보자. 시계열 그래프는 <a href="#fig-elec-1">Figure&nbsp;1</a> 에서 볼 수 있다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(elec) <span class="sc">+</span> </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="cn">NULL</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-elec-1" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="4-arima_files/figure-html/fig-elec-1-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;1: <code>elec</code> 자료의 시계열 그래프</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>증가하는 추세가 있으며, 명확한 계절 성분이 있는 자료임을 알 수 있다. 또한 계절 성분의 변동 폭이 추세가 증가함에 따라 함께 증가하는 현상도 볼 수 있다.</p>
+<p>Box-Cox 변환을 위한 함수에는 패키지 <code>forecast</code>의 함수 <code>BoxCox.lambda()</code>와 <code>BoxCox()</code>가 있다. 함수 <code>BoxCox.lambda()</code>는 주어진 자료에 대한 변환 모수 <span class="math inline">\(\lambda\)</span> 의 적정 값을 추정하고, 함수 <code>BoxCox()</code>는 입력된 <span class="math inline">\(\lambda\)</span> 값으로 자료의 변환을 실시한다.</p>
+<p>이제 <code>elec</code> 자료에 대해 Box-Cox 변화을 실시해 보자.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>(lambda <span class="ot">&lt;-</span> <span class="fu">BoxCox.lambda</span>(elec))</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 0.2654076</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>변환된 자료의 시계열 그래프를 <a href="#fig-elec-2">Figure&nbsp;2</a> 에 작성해 보자.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(<span class="fu">BoxCox</span>(elec, lambda)) <span class="sc">+</span> </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="cn">NULL</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-elec-2" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="4-arima_files/figure-html/fig-elec-2-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;2: <code>elec</code> 자료에 Box-Cox 변환 실시</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p><a href="#fig-elec-2">Figure&nbsp;2</a> 에서 볼 수 있듯이 Box-Cox 변환된 자료는 전체적으로 일정한 변동 폭을 유지하고 있음을 알 수 있다. 그러나 변환된 자료인 <span class="math inline">\(y_{t}^{0.2654}\)</span> 에 대한 의미가 명확하지 않아서 해석에 문제가 있을 수 있다. 비교 차원에서 로그 변환을 실시해 보고, 결과를 비교해 보자.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">autoplot</span>(<span class="fu">BoxCox</span>(elec, <span class="fu">BoxCox.lambda</span>(elec))) <span class="sc">+</span> </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="cn">NULL</span>, <span class="at">title =</span> <span class="st">"Box-Cox transformation"</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">autoplot</span>(<span class="fu">log</span>(elec)) <span class="sc">+</span> </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="cn">NULL</span>, <span class="at">title =</span> <span class="st">"log transformation"</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">+</span> p2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-elec-3" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="4-arima_files/figure-html/fig-elec-3-1.png" class="img-fluid figure-img" width="768"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;3: <code>elec</code> 자료에 대한 분산안정화 변환의 비교</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>두 변환 결과에는 큰 차이가 없다는 것을 <a href="#fig-elec-3">Figure&nbsp;3</a> 에서 확인 할 수 있다. 따라서 이 경우에는 승법 모형을 가법 모형으로 변환한다는 의미를 갖고 있어서 해석이 비교적 용이한 로그 변환을 사용하는 것이 더 좋을 것으로 보인다.</p>
+<ul>
+<li>차분 예제 : Google 주가 자료 (<code>fpp2::goog200</code>)</li>
+</ul>
+<p>Google 주가 자료인 <code>goog200</code>의 시계열 그래프와 표본 ACF를 작성해 보자. 대체적으로 증가하는 추세가 있으며, 표본 ACF가 매우 천천히 감소하고 있다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">autoplot</span>(goog200) <span class="sc">+</span> </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="cn">NULL</span>, <span class="at">title =</span> <span class="st">"Google stock price"</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggAcf</span>(goog200) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">""</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">+</span> p2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-goog200-1" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="4-arima_files/figure-html/fig-goog200-1-1.png" class="img-fluid figure-img" width="768"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;4: <code>goog200</code> 자료의 시계열 그래프와 ACF</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>이제 <code>goog200</code> 자료를 1차 차분하고 결과를 확인해 보자.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>goog200_1 <span class="ot">&lt;-</span> <span class="fu">diff</span>(goog200)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>p3 <span class="ot">&lt;-</span> <span class="fu">autoplot</span>(goog200_1) <span class="sc">+</span> </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="cn">NULL</span>, <span class="at">title =</span> <span class="st">"Google stock price"</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>p4 <span class="ot">&lt;-</span> <span class="fu">ggAcf</span>(goog200_1) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">""</span>)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>p3 <span class="sc">+</span> p4</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-goog200-2" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="4-arima_files/figure-html/fig-goog200-2-1.png" class="img-fluid figure-img" width="768"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;5: <code>goog200</code>의 1차 차분된 자료의 시계열 그래프와 ACF</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>차분된 자료는 하나의 이상값을 제외하면 일정한 level을 유지하고 있으며, 표본 ACF의 모든 값들이 신뢰구간 안에 존재하고 있음을 알 수 있다. 따라서 차분된 자료는 백색잡음 자료로 보이며, 이것은 원자료가 확률보행 자료임을 나타내는 것이 된다.</p>
+<p><code>goog200</code> 자료를 대상으로 단위근 검정을 실시해 보자. 단위근 검정은 <code>urca::ur.kpss()</code>로 실시할 수 있지만, 함수 <code>forecast::ndiffs()</code>를 사용하면 정상성을 만족시키기 위한 차분의 횟수를 단위근 검정에 근거를 두고 추정해 준다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ndiffs</span>(goog200)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>즉, 1차 차분을 실시하면 정상성을 만족시킬 수 있다고 제안하는 것이다. 물론 <code>urca::ur.kpss()</code>로 단위근 검정을 실시해서 주어진 자료의 정상성 여부를 확인할 수 있다. <code>|&gt;</code> 기호는 base R의 pipe 연산자이며, 기본적인 사용법은 <code>%&gt;%</code>와 동일하다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(urca)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>goog200  <span class="sc">|&gt;</span> </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ur.kpss</span>() <span class="sc">|&gt;</span>  </span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>()</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="do">## ####################### </span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="do">## # KPSS Unit Root Test # </span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="do">## ####################### </span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="do">## Test is of type: mu with 4 lags. </span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="do">## Value of test-statistic is: 2.7441 </span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="do">## Critical value for a significance level of: </span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="do">##                 10pct  5pct 2.5pct  1pct</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="do">## critical values 0.347 0.463  0.574 0.739</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>계산된 검정 통계량 값이 1% 유의수준의 임계값보다 크기 때문에 정상이라는 귀무가설을 기각할 수 있다. 1차 차분을 실시한 자료를 대상으로 단위근 검정을 실시해 보면, 귀무가설을 기각할 수 없기 때문에 1차 차분으로 정상성을 확보했다고 볼 수 있다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>goog200 <span class="sc">|&gt;</span>  </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">diff</span>() <span class="sc">|&gt;</span>  </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ur.kpss</span>() <span class="sc">|&gt;</span>  </span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>()</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="do">## ####################### </span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="do">## # KPSS Unit Root Test # </span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="do">## ####################### </span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="do">## Test is of type: mu with 4 lags. </span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="do">## Value of test-statistic is: 0.1163 </span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="do">## Critical value for a significance level of: </span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="do">##                 10pct  5pct 2.5pct  1pct</span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a><span class="do">## critical values 0.347 0.463  0.574 0.739</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>예제 : 호주의 1956년 1월부터 1995년 8월까지 월별 전기 생산량 자료 (<code>fma::elec</code>)</li>
+</ul>
+<p><a href="#fig-elec-1">Figure&nbsp;1</a> 에서 살펴본 <code>elec</code>는 증가하는 추세와 뚜렷한 계절 성분이 있으며, 분산이 시간이 흐름에 따라 증가하는 자료이다. 정상성을 만족시키기 위한 변환 절차에서 분산 안정화는 항상 가장 먼저 시행해야 한다. 로그 변환을 시행해서 분산을 안정화 시킨 자료의 시계열 그래프와 ACF는 <a href="#fig-elec-d1">Figure&nbsp;6</a> 에서 볼 수 있다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>ln_elec <span class="ot">&lt;-</span> <span class="fu">log</span>(elec)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">autoplot</span>(ln_elec) <span class="sc">+</span> </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="cn">NULL</span>, <span class="at">title =</span> <span class="st">"log transformed data"</span>)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span>  <span class="fu">ggAcf</span>(ln_elec) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">""</span>)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">+</span> p2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-elec-d1" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="4-arima_files/figure-html/fig-elec-d1-1.png" class="img-fluid figure-img" width="768"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;6: <code>elec</code>에 로그 변환한 자료의 시계열 그래프와 ACF</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>뚜렷하게 존재하는 계절 성분을 제거하기 위해 계절 차분을 실시할 필요가 있는 것으로 보인다. 계절 차분의 경우에는 함수 <code>forecast::nsdiffs()</code>를 사용하면 계절 단위근 검정을 근거로 하여 계절 차분 횟수를 추정할 수 있다. 함수 <code>nsdiffs()</code>는 seasonal strength를 측정하는 통계량을 근거로 하여 차분 횟수를 추정하는 것이 디폴트이다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>elec <span class="sc">|&gt;</span>  </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">log</span>() <span class="sc">|&gt;</span>  </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nsdiffs</span>()</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>계절 차분을 실시한 자료를 대상으로 시계열 그래프와 ACF를 작성해 보자. 작성된 그래프는 <a href="#fig-elec-d2">Figure&nbsp;7</a> 에서 확인할 수 있다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>ln_elec_m <span class="ot">&lt;-</span> <span class="fu">log</span>(elec) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">diff</span>(<span class="at">lag =</span> <span class="dv">12</span>)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>p3 <span class="ot">&lt;-</span> <span class="fu">autoplot</span>(ln_elec_m) <span class="sc">+</span> </span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="cn">NULL</span>, <span class="at">title =</span> <span class="st">"log transformed and seasonally differenced data"</span>)</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>p4 <span class="ot">&lt;-</span>  <span class="fu">ggAcf</span>(ln_elec_m) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">""</span>)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>p3 <span class="sc">+</span> p4</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-elec-d2" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="4-arima_files/figure-html/fig-elec-d2-1.png" class="img-fluid figure-img" width="768"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;7: 로그 변환된<code>elec</code>에 계절차분을 실시한 자료의 시계열 그래프와 ACF</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p><a href="#fig-elec-d2">Figure&nbsp;7</a> 에서 볼 수 있듯이 추세 성분이 아직 남아 있는 것으로 보인다. 이제 계절 차분된 자료에 1차 차분을 더 실시한 결과를 살펴보자. <a href="#fig-elec-d3">Figure&nbsp;8</a> 에 나타난 패턴을 보면, 비정상 요소가 모두 제거되었음을 알 수 있다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>ln_elec_m_1 <span class="ot">&lt;-</span> <span class="fu">log</span>(elec) <span class="sc">%&gt;%</span> </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">diff</span>(<span class="at">lag =</span> <span class="dv">12</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">diff</span>()</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>p5 <span class="ot">&lt;-</span> <span class="fu">autoplot</span>(ln_elec_m_1) <span class="sc">+</span> </span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="cn">NULL</span>, <span class="at">title =</span> <span class="st">"log transformed and doubly differenced data"</span>)</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>p6 <span class="ot">&lt;-</span>  <span class="fu">ggAcf</span>(ln_elec_m_1) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">""</span>)</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>p5 <span class="sc">+</span> p6</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-elec-d3" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="4-arima_files/figure-html/fig-elec-d3-1.png" class="img-fluid figure-img" width="768"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;8: 로그 변환된 <code>elec</code>에 계절차분과 1차 차분을 실시한 자료의 시계열 그래프와 ACF</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="비계절형-arima-모형" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="비계절형-arima-모형">비계절형 ARIMA 모형</h2>
+<ul>
+<li>예제 1: gas 자료</li>
+</ul>
+<p>자료 파일 <code>gas.csv</code>에는 9초 간격으로 측정된 입력 가스 비율 (<code>rate</code>)에 따른 이산화탄소 배출 농도 (<code>co2</code>)가 입력되어 있다. 먼저 자료를 입력해 보자.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>gas <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://raw.githubusercontent.com/yjyjpark/TS-with-R/main/Data/gas.csv"</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>gas <span class="sc">%&gt;%</span> </span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="at">n =</span> <span class="dv">5</span>)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 296 × 2</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="do">##     rate   co2</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="do">##    &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 -0.109  53.8</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="do">## 2  0      53.6</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="do">## 3  0.178  53.5</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 4  0.339  53.5</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="do">## 5  0.373  53.4</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="do">## # … with 291 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>데이터 프레임 <code>gas</code>에는 변수 <code>rate</code>와 <code>co2</code>가 있는 것을 알 수 있다. 변수 <code>rate</code>를 <code>ts</code> 객체로 변환해야 하는데 시작 시점과 종료 시점에 대한 정보가 없는 상태이어서, 시점을 <span class="math inline">\(t=1, 2, 3, \ldots\)</span> 로 지정하고 주기도 1로 지정하도록 하자. 이런 작업은 함수 <code>as.ts()</code>를 사용하면 간편하게 할 수 있다. 이어서 시계열 그래프도 <a href="#fig-gas-plot">Figure&nbsp;9</a> 에 작성해 보자.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>rate.ts <span class="ot">&lt;-</span> <span class="fu">as.ts</span>(gas<span class="sc">$</span>rate)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(rate.ts) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">y =</span> <span class="cn">NULL</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-gas-plot" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="4-arima_files/figure-html/fig-gas-plot-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;9: <code>gas</code> 자료의 시계열 그래프</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p><code>rate.ts</code>에 대한 ARIMA 모형을 적합해 보자. 먼저 전체 자료를 training data와 test data로 분리하자. Test data는 마지막 10개 자료로 한다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>train_r <span class="ot">&lt;-</span> <span class="fu">window</span>(rate.ts, <span class="at">end =</span> <span class="fu">length</span>(rate.ts) <span class="sc">-</span> <span class="dv">10</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>test_r <span class="ot">&lt;-</span> <span class="fu">window</span>(rate.ts, <span class="at">start =</span> <span class="fu">length</span>(rate.ts) <span class="sc">-</span> <span class="dv">9</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Training data를 대상으로 최적의 모형을 적합해 보자. 먼저 자료의 정상성 여부를 시계열 그래프와 ACF로 확인해 보자. 필요한 그래프는 <a href="#fig-train-r-1">Figure&nbsp;10</a> 에서 볼 수 있다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtsdisplay</span>(train_r)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-train-r-1" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="4-arima_files/figure-html/fig-train-r-1-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;10: 자료 <code>train_r</code>의 정상성 여부 확인을 위한 그래프</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p><a href="#fig-train-r-1">Figure&nbsp;10</a> 의 시계열 그래프에는 명확한 추세가 없는 것으로 보이지만, 표본 ACF가 비교적 천천히 모습이 보인다. 단위근 검정 결과는 차분이 필요한 것으로 나온다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ndiffs</span>(train_r)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>단위근 검정 결과에 따라 정상성이 만족되지 않는 것으로 보고 차분을 실시할 수 있지만, 시계열 그래프와 ACF를 근거로 정상성이 만족된 것으로 볼 수도 있기 때문에, 차분을 실시하는 것과 실시하지 않는 두 가지 상황을 모두 고려해서 모형 식별을 진행하는 것이 좋을 것으로 보인다.</p>
+<p>먼저 차분을 실시하지 않는 경우에 대해서 모형 적합을 진행해 보자. 차분을 실시하지 않기 위해서 <code>d = 0</code>을 입력하고, 이어서 <code>stepwise</code>, <code>approximation</code>, <code>seasonal</code>을 모두 <code>FALSE</code>로 지정하자. <code>trace = TRUE</code>를 추가하면 비교 대상 모형의 AICc 값이 출력된다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>fit1 <span class="ot">&lt;-</span> <span class="fu">auto.arima</span>(train_r, <span class="at">d =</span> <span class="dv">0</span>, <span class="at">stepwise =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">approximation =</span> <span class="cn">FALSE</span>, <span class="at">seasonal =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>                   <span class="at">trace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="do">##  ARIMA(0,0,0) with zero mean     : 862.9984</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="do">##  ARIMA(0,0,0) with non-zero mean : 864.2264</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="do">##  ARIMA(0,0,1) with zero mean     : 502.5603</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="do">##  ARIMA(0,0,1) with non-zero mean : 503.849</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="do">##  ARIMA(0,0,2) with zero mean     : 245.7837</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  ARIMA(0,0,2) with non-zero mean : 247.1783</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  ARIMA(0,0,3) with zero mean     : 81.487</span></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  ARIMA(0,0,3) with non-zero mean : 83.02667</span></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a><span class="do">##  ARIMA(0,0,4) with zero mean     : -20.65077</span></span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a><span class="do">##  ARIMA(0,0,4) with non-zero mean : -19.01766</span></span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a><span class="do">##  ARIMA(0,0,5) with zero mean     : -84.62715</span></span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a><span class="do">##  ARIMA(0,0,5) with non-zero mean : -82.85418</span></span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a><span class="do">##  ARIMA(1,0,0) with zero mean     : 184.3482</span></span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a><span class="do">##  ARIMA(1,0,0) with non-zero mean : 186.3166</span></span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a><span class="do">##  ARIMA(1,0,1) with zero mean     : -16.72114</span></span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a><span class="do">##  ARIMA(1,0,1) with non-zero mean : -14.73886</span></span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a><span class="do">##  ARIMA(1,0,2) with zero mean     : -74.34891</span></span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a><span class="do">##  ARIMA(1,0,2) with non-zero mean : -72.35703</span></span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a><span class="do">##  ARIMA(1,0,3) with zero mean     : -115.7122</span></span>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a><span class="do">##  ARIMA(1,0,3) with non-zero mean : -113.7137</span></span>
+<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a><span class="do">##  ARIMA(1,0,4) with zero mean     : -133.8983</span></span>
+<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a><span class="do">##  ARIMA(1,0,4) with non-zero mean : -131.9025</span></span>
+<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a><span class="do">##  ARIMA(2,0,0) with zero mean     : -89.86221</span></span>
+<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a><span class="do">##  ARIMA(2,0,0) with non-zero mean : -88.00051</span></span>
+<span id="cb20-29"><a href="#cb20-29" aria-hidden="true" tabindex="-1"></a><span class="do">##  ARIMA(2,0,1) with zero mean     : -113.8044</span></span>
+<span id="cb20-30"><a href="#cb20-30" aria-hidden="true" tabindex="-1"></a><span class="do">##  ARIMA(2,0,1) with non-zero mean : -111.8785</span></span>
+<span id="cb20-31"><a href="#cb20-31" aria-hidden="true" tabindex="-1"></a><span class="do">##  ARIMA(2,0,2) with zero mean     : -116.6196</span></span>
+<span id="cb20-32"><a href="#cb20-32" aria-hidden="true" tabindex="-1"></a><span class="do">##  ARIMA(2,0,2) with non-zero mean : -114.6669</span></span>
+<span id="cb20-33"><a href="#cb20-33" aria-hidden="true" tabindex="-1"></a><span class="do">##  ARIMA(2,0,3) with zero mean     : -130.7106</span></span>
+<span id="cb20-34"><a href="#cb20-34" aria-hidden="true" tabindex="-1"></a><span class="do">##  ARIMA(2,0,3) with non-zero mean : -128.7274</span></span>
+<span id="cb20-35"><a href="#cb20-35" aria-hidden="true" tabindex="-1"></a><span class="do">##  ARIMA(3,0,0) with zero mean     : -123.114</span></span>
+<span id="cb20-36"><a href="#cb20-36" aria-hidden="true" tabindex="-1"></a><span class="do">##  ARIMA(3,0,0) with non-zero mean : -121.1507</span></span>
+<span id="cb20-37"><a href="#cb20-37" aria-hidden="true" tabindex="-1"></a><span class="do">##  ARIMA(3,0,1) with zero mean     : -125.3355</span></span>
+<span id="cb20-38"><a href="#cb20-38" aria-hidden="true" tabindex="-1"></a><span class="do">##  ARIMA(3,0,1) with non-zero mean : -123.3294</span></span>
+<span id="cb20-39"><a href="#cb20-39" aria-hidden="true" tabindex="-1"></a><span class="do">##  ARIMA(3,0,2) with zero mean     : -123.8663</span></span>
+<span id="cb20-40"><a href="#cb20-40" aria-hidden="true" tabindex="-1"></a><span class="do">##  ARIMA(3,0,2) with non-zero mean : -121.8527</span></span>
+<span id="cb20-41"><a href="#cb20-41" aria-hidden="true" tabindex="-1"></a><span class="do">##  ARIMA(4,0,0) with zero mean     : -125.2705</span></span>
+<span id="cb20-42"><a href="#cb20-42" aria-hidden="true" tabindex="-1"></a><span class="do">##  ARIMA(4,0,0) with non-zero mean : -123.2711</span></span>
+<span id="cb20-43"><a href="#cb20-43" aria-hidden="true" tabindex="-1"></a><span class="do">##  ARIMA(4,0,1) with zero mean     : -123.4833</span></span>
+<span id="cb20-44"><a href="#cb20-44" aria-hidden="true" tabindex="-1"></a><span class="do">##  ARIMA(4,0,1) with non-zero mean : -121.4641</span></span>
+<span id="cb20-45"><a href="#cb20-45" aria-hidden="true" tabindex="-1"></a><span class="do">##  ARIMA(5,0,0) with zero mean     : -124.0066</span></span>
+<span id="cb20-46"><a href="#cb20-46" aria-hidden="true" tabindex="-1"></a><span class="do">##  ARIMA(5,0,0) with non-zero mean : -121.9828</span></span>
+<span id="cb20-47"><a href="#cb20-47" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb20-48"><a href="#cb20-48" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb20-49"><a href="#cb20-49" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb20-50"><a href="#cb20-50" aria-hidden="true" tabindex="-1"></a><span class="do">##  Best model: ARIMA(1,0,4) with zero mean</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>적합 결과를 확인해 보면, ARMA(1,4) 모형이 선택된 것을 알 수 있다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>fit1</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Series: train_r </span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="do">## ARIMA(1,0,4) with zero mean </span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Coefficients:</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="do">##          ar1     ma1     ma2     ma3     ma4</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="do">##       0.7769  1.1456  1.0384  0.7892  0.3022</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="do">## s.e.  0.0450  0.0657  0.0922  0.0880  0.0627</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="do">## sigma^2 = 0.03511:  log likelihood = 73.1</span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a><span class="do">## AIC=-134.2   AICc=-133.9   BIC=-112.26</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>이번에는 차분을 실시하는 경우에 대한 모형 적합을 진행해 보면, ARIMA(3,1,1) 모형이 선택된 것을 볼 수 있다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>fit2 <span class="ot">&lt;-</span> <span class="fu">auto.arima</span>(train_r, <span class="at">stepwise =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">approximation =</span> <span class="cn">FALSE</span>, <span class="at">seasonal =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>fit2</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Series: train_r </span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="do">## ARIMA(3,1,1) </span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Coefficients:</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="do">##          ar1      ar2     ar3      ma1</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="do">##       1.9589  -1.3503  0.3304  -0.9855</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="do">## s.e.  0.0580   0.1032  0.0576   0.0148</span></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a><span class="do">## sigma^2 = 0.03717:  log likelihood = 65.4</span></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a><span class="do">## AIC=-120.81   AICc=-120.59   BIC=-102.55</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>차분을 실시하지 않은 모형 <code>fit1</code>의 모형 진단을 실시해 보자. 모든 가정을 만족하는 것으로 보인다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">checkresiduals</span>(fit1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="4-arima_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid" width="672"></p>
+</div>
+<pre><code>## 
+##  Ljung-Box test
+## 
+## data:  Residuals from ARIMA(1,0,4) with zero mean
+## Q* = 1.5628, df = 5, p-value = 0.9057
+## 
+## Model df: 5.   Total lags used: 10</code></pre>
+</div>
+<p>차분을 실시한 모형 <code>fit2</code>의 모형 진단을 실시해 보자. 가정 만족에는 문제가 없는 것으로 보인다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">checkresiduals</span>(fit2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="4-arima_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid" width="672"></p>
+</div>
+<pre><code>## 
+##  Ljung-Box test
+## 
+## data:  Residuals from ARIMA(3,1,1)
+## Q* = 11.352, df = 6, p-value = 0.07809
+## 
+## Model df: 4.   Total lags used: 10</code></pre>
+</div>
+<p>두 모형 모두 예측모형으로 사용이 가능한 모형으로 보인다. 이제 두 모형 중 한 모형을 최종 예측모형으로 선택하는 것이 필요한데, 모형 <code>fit1</code>은 차분을 하지 않은 자료를 사용한 것이고, 모형 <code>fit2</code>는 차분을 실시한 자료를 사용한 것이다. 즉, 서로 다른 자료를 사용하여 적합한 모형이기 때문에, 두 모형의 AICc 등의 값을 비교하는 것은 의미가 없다. 이런 경우, 최종 예측모형 선택에 사용할 수 있는 방법은 test data에 대한 예측 결과를 근거로 하는 것이다. 두 모형을 사용하여 예측을 실시하고 test data와 비교해 보자.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>fc1 <span class="ot">&lt;-</span> <span class="fu">forecast</span>(fit1)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>fc2 <span class="ot">&lt;-</span> <span class="fu">forecast</span>(fit2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">accuracy</span>(fc1, test_r)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="do">##                        ME      RMSE       MAE      MPE     MAPE      MASE</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Training set -0.003485182 0.1857419 0.1308396      NaN      Inf 0.5071232</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Test set      0.197714969 0.2984918 0.2589217 261.7854 282.7786 1.0035587</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="do">##                    ACF1 Theil's U</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="do">## Training set 0.01278907        NA</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="do">## Test set     0.63693511  1.231509</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">accuracy</span>(fc2, test_r)</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="do">##                        ME      RMSE       MAE      MPE     MAPE      MASE</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Training set -0.008064075 0.1911149 0.1333927      NaN      Inf 0.5170188</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Test set      0.325580419 0.3713446 0.3255804 390.3076 437.7347 1.2619224</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="do">##                     ACF1 Theil's U</span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="do">## Training set -0.03694615        NA</span></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="do">## Test set      0.57275035  1.400976</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>함수 <code>accuracy()</code>의 결과를 보면, ARMA(1,4) 모형인 <code>fit1</code>의 예측 오차가 조금 더 작은 것으로 보인다. 따라서 이 모형을 최종 예측모형으로 선택하기로 하자. 최종 예측모형의 모형식은 다음과 같다.</p>
+<p><span class="math display">\[
+(1-0.7769B)~y_{t} = (1+1.145B+1.038B^{2}+0.789B^{3}+0.302B^{4})~\varepsilon_{t}
+\]</span></p>
+<p>예측 결과를 그래프로 나타내 보자. Test data와 함께 표시하는 것이 비교하기 좋을 것이며, 작성된 그래프는 <a href="#fig-test-r-1">Figure&nbsp;11</a> 에서 확인할 수 있다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(fc1, <span class="at">include =</span> <span class="dv">20</span>) <span class="sc">+</span> </span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(test_r, <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">size =</span> .<span class="dv">8</span>) <span class="sc">+</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"rate"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-test-r-1" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="4-arima_files/figure-html/fig-test-r-1-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;11: <code>rate</code> 자료에 대한 예측 결과 그래프</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li>예제 2 : 1996년 1월부터 2012년 3월까지 Euro 지역에서의 월별 전자 제품 생산량 자료 (<code>fpp2::elecequip</code>)</li>
+</ul>
+<p>자료 <code>elecequip</code>은 계절 요인이 존재하는 월별 자료이다. 비계절형 ARIMA 모형을 적합하기 위해서는 계절 요소를 자료에서 제거해야 한다. 함수 <code>stl()</code>로 자료를 분해하고, 이어서 함수 <code>forecast::seasadj()</code>를 적용해서 계절 요소를 제거해 보자.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>elecequip_desea <span class="ot">&lt;-</span> <span class="fu">stl</span>(elecequip, <span class="at">s.window=</span><span class="st">"periodic"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">seasadj</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>원자료와 계절 조정된 자료의 시계열 그래프를 <a href="#fig-equip-1">Figure&nbsp;12</a> 에서 비교해 보자.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(elecequip, <span class="at">series =</span> <span class="st">"Monthly data"</span>) <span class="sc">+</span> </span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(elecequip_desea, </span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">series =</span> <span class="st">"Seasonally adjusted"</span>, <span class="at">size =</span> .<span class="dv">8</span>) <span class="sc">+</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Monthly data"</span> <span class="ot">=</span> <span class="st">"blue"</span>, </span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>                                <span class="st">"Seasonally adjusted"</span> <span class="ot">=</span> <span class="st">"red"</span>)) <span class="sc">+</span></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"top"</span>) <span class="sc">+</span></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="cn">NULL</span>, <span class="at">color =</span> <span class="cn">NULL</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-equip-1" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="4-arima_files/figure-html/fig-equip-1-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;12: <code>elecequip</code> 원자료와 계절 조정된 자료의 비교</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>계절 조정된 자료를 대상으로 자료 분리를 실시해 보자. Test data는 마지막 2년 자료로 한다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>train_eq <span class="ot">&lt;-</span> <span class="fu">window</span>(elecequip_desea, <span class="at">end =</span> <span class="fu">c</span>(<span class="dv">2010</span>,<span class="dv">3</span>))</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>test_eq <span class="ot">&lt;-</span> <span class="fu">window</span>(elecequip_desea, <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">2010</span>,<span class="dv">4</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>정상성 판단을 위한 그래프를 <a href="#fig-equip-acf-1">Figure&nbsp;13</a> 에 작성해 보자.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtsdisplay</span>(train_eq)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-equip-acf-1" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="4-arima_files/figure-html/fig-equip-acf-1-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;13: <code>train_eq</code>의 정상성 여부 확인을 위한 그래프</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>시간에 따른 level의 변화가 보이고, 표본 ACF가 매우 천천히 감소하는 것도 알 수 있다. 단위근 검정에서도 차분이 필요한 것으로 나타난다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ndiffs</span>(train_eq)</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>차분된 자료를 대상으로 시계열 그래프와 ACF를 <a href="#fig-equip-acf-2">Figure&nbsp;14</a> 에 작성해 보자.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>train_eq <span class="sc">%&gt;%</span> </span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">diff</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtsdisplay</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-equip-acf-2" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="4-arima_files/figure-html/fig-equip-acf-2-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;14: <code>train_eq</code>의 차분한 자료의 정상성 여부 확인을 위한 그래프</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>차분된 자료는 정상성을 만족하는 것으로 보인다. 또한 ACF는 지수적 감소, PACF는 3시차 이후 절단으로 볼 수 있기 때문에 차분된 자료는 AR(3) 모형으로 식별할 수 있고, 따라서 원자료는 ARIMA(3,1,0) 모형으로 식별할 수 있다.</p>
+<p>함수 <code>auto.arima()</code>에 의한 모형 선택을 실시해 보자.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>fit1 <span class="ot">&lt;-</span> <span class="fu">auto.arima</span>(train_eq, <span class="at">stepwise =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">approximation =</span> <span class="cn">FALSE</span>, <span class="at">seasonal =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>fit1</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Series: train_eq </span></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a><span class="do">## ARIMA(3,1,0) </span></span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a><span class="do">## Coefficients:</span></span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a><span class="do">##           ar1      ar2     ar3</span></span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a><span class="do">##       -0.2922  -0.0635  0.3710</span></span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a><span class="do">## s.e.   0.0713   0.0748  0.0718</span></span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a><span class="do">## sigma^2 = 9.169:  log likelihood = -428.36</span></span>
+<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a><span class="do">## AIC=864.73   AICc=864.97   BIC=877.27</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>ACF와 PACF에 의해 선택한 결과와 동일하게 ARIMA(3,1,0) 모형이 선택되었다. 모형식은 다음과 같다.</p>
+<p><span class="math display">\[
+(1+0.292B+0.064B^{2}-0.371B^{3})(1-B)~y_{t}=\varepsilon_{t}
+\]</span></p>
+<p>적합된 모형의 검진을 실시해 보자. 잔차는 백색잡음 자료라고 할 수 있으며, 정규분포 가정에도 문제가 없는 것으로 보인다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">checkresiduals</span>(fit1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="4-arima_files/figure-html/unnamed-chunk-38-1.png" class="img-fluid" width="672"></p>
+</div>
+<pre><code>## 
+##  Ljung-Box test
+## 
+## data:  Residuals from ARIMA(3,1,0)
+## Q* = 20.702, df = 21, p-value = 0.4772
+## 
+## Model df: 3.   Total lags used: 24</code></pre>
+</div>
+<p>예측을 실시하고, 예측 오차를 확인해 보자.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>fc1 <span class="ot">&lt;-</span> <span class="fu">forecast</span>(fit1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">accuracy</span>(fc1, test_eq)</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="do">##                        ME     RMSE      MAE         MPE     MAPE      MASE</span></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Training set -0.002219982 2.992424 2.301026 -0.05081691 2.411491 0.2786977</span></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Test set      8.727507127 9.330976 8.727507  9.28015517 9.280155 1.0570657</span></span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a><span class="do">##                     ACF1 Theil's U</span></span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a><span class="do">## Training set -0.03178277        NA</span></span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a><span class="do">## Test set      0.38874430  2.481532</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>예측 결과를 <a href="#fig-equip-2">Figure&nbsp;15</a> 에 그래프로 나타내 보자. 예측 결과가 test data와는 차이가 있음을 알 수 있다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(fc1, <span class="at">include =</span> <span class="dv">20</span>) <span class="sc">+</span> </span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(test_eq, <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">size =</span> .<span class="dv">8</span>) <span class="sc">+</span></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Electrical equipment manufactured"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-equip-2" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="4-arima_files/figure-html/fig-equip-2-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;15: <code>elecequip</code> 자료에 대한 예측 결과</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="계절형-arima-모형" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="계절형-arima-모형">계절형 ARIMA 모형</h2>
+<ul>
+<li>예제 1 : 1984년 1월부터 1988년 12월 국내 백화점 매출액</li>
+</ul>
+<p>1984년 1월부터 1988년 12월까지 국내 어떤 백화점의 매출액 자료를 계절형 ARIMA 모형으로 적합하고 예측을 실시해 보자. 비교적 소규모 자료이기 때문에 자료를 training data와 test data로 분리하지 않고 전체 자료를 모두 사용하여 모형 적합을 진행하기로 하자. 먼저 자료를 불러오고 <code>ts</code> 객체로 변환시키자.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>depart <span class="ot">&lt;-</span> <span class="fu">scan</span>(<span class="st">"https://raw.githubusercontent.com/yjyjpark/TS-with-R/main/Data/depart.txt"</span>)</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>depart.ts <span class="ot">&lt;-</span> <span class="fu">ts</span>(depart, <span class="at">start =</span> <span class="dv">1984</span>, <span class="at">freq =</span> <span class="dv">12</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>시계열 객체 <code>depart.ts</code>의 시계열 그래프를 작성해 보자. <a href="#fig-depart-1">Figure&nbsp;16</a> 의 시계열 그래프에서 뚜렷한 증가 추세와 계절 요소가 있음을 확인할 수 있다. 또한 계절 요소의 변동 폭이 증가 추세에 따라 함께 증가하고 있는 것도 볼 수 있다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(depart.ts) <span class="sc">+</span> </span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="cn">NULL</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-depart-1" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="4-arima_files/figure-html/fig-depart-1-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;16: 국내 백화점 매출액 자료</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>따라서 백화점 매출액 자료는 분산이 동일하지 않고, 추세와 계절 요소가 모두 있는 비정상 시계열자료임을 알 수 있다. 우선 로그변환을 실시한 자료의 시계열 그래프를 <a href="#fig-depart-2">Figure&nbsp;17</a> 에 작성해서 분산이 일정하게 되었는지 확인해 보자.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>lndepart <span class="ot">&lt;-</span> <span class="fu">log</span>(depart.ts)</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(lndepart) <span class="sc">+</span> </span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"log(depart.ts)"</span>, <span class="at">y =</span> <span class="cn">NULL</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-depart-2" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="4-arima_files/figure-html/fig-depart-2-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;17: 로그 변환된 백화점 매출액 자료</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>계절 요소의 변동 폭이 일정하게 유지되고 있음을 알 수 있다. 이제 추세와 계절 요소를 제거하기 위한 차분 차수를 결정해 보자. 차분 차수는 시계열 그래프와 표본 ACF, 그리고 단위근 검정 결과를 모두 반영해서 결정하는 것이 좋다. 먼저 단위근 검정 결과를 확인해 보자. 1차 차분과 계절 차분이 모두 필요한 것으로 나타났다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ndiffs</span>(lndepart)</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 1</span></span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="fu">nsdiffs</span>(lndepart)</span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>이제 시계열 그래프와 표본 ACF의 형태를 <a href="#fig-depart-2">Figure&nbsp;17</a> 에서 확인해 보자.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtsdisplay</span>(lndepart, <span class="at">lag.max =</span> <span class="dv">36</span>, </span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">main =</span> <span class="st">"lndepart: log transformed data"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-depart-3" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="4-arima_files/figure-html/fig-depart-3-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;18: <code>lndepart</code>의 시계열 그래프, ACF와 PACF</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>차분과 계절 차분이 모두 필요한 것으로 보이는 경우에는 계절 차분을 먼저 실시하는 것이 좋다. 계절차분을 실시한 자료를 대상으로 시계열 그래프와 ACF를 작성해 보자. <a href="#fig-depart-4">Figure&nbsp;19</a> 에서 표본 ACF가 1시차에서 6시차까지 매우 천천히 감소하는 것을 볼 수 있고, 따라서 일반 차분도 필요한 것으로 보인다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>lndepart_12 <span class="ot">&lt;-</span> <span class="fu">diff</span>(lndepart, <span class="at">lag =</span> <span class="dv">12</span>)</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtsdisplay</span>(lndepart_12, <span class="at">lag.max =</span> <span class="dv">36</span>, </span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">main =</span> <span class="st">"Seasonally differenced lndepart"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-depart-4" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="4-arima_files/figure-html/fig-depart-4-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;19: 계절 차분을 실시한 <code>lndepart</code>의 시계열 그래프, ACF와 PACF</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>1차 차분과 계절 차분을 모두 실시한 자료의 시계열 그래프와 ACF를 작성해 보자. 더 이상 비정상성 요소가 남아 있지 않다는 것을 <a href="#fig-depart-5">Figure&nbsp;20</a> 에서 확인할 수 있다. 즉, 단위근 검정과 시계열 그래프, 그리고 표본 ACF를 근거로 계절 차분과 1차 차분이 모두 필요한 것으로 결정할 수 있다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>lndepart_12_1 <span class="ot">&lt;-</span> <span class="fu">diff</span>(lndepart_12)</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtsdisplay</span>(lndepart_12_1, <span class="at">lag.max =</span> <span class="dv">36</span>, </span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">main =</span> <span class="st">"Doubly differenced lndepart"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-depart-5" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="4-arima_files/figure-html/fig-depart-5-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;20: 계절 차분과 1차 차분을 실시한 <code>lndepart</code>의 시계열 그래프, ACF와 PACF</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>로그 변환과 계절 차분 및 1차 차분으로 비장상성을 모두 제거한 후에는 변환된 자료에 가장 적합한 모형을 식별해야 한다. <a href="#fig-depart-5">Figure&nbsp;20</a> 에서 볼 수 있는 표본 ACF와 PACF를 근거로 모형을 식별해 보자. 비계절형 AR 차수와 MA 차수는 시차 1에서 시차 6까지의 패턴을 보고 결정해야 하는데, 표본 ACF는 1 시차만 유의한 값이고, 이후 시차는 모두 파란 점선 안으로 들어와 있음을 알 수 있고, 표본 PACF는 1, 2 시차가 비교적 큰 값이고, 이후 시차는 모두 점선 안으로 확실하게 들어와 있는 작은 값이다. 따라서 ACF는 1시차 이후 절단, PACF는 감소 형태로 판단할 수 있어서, 비계절형은 <code>p=0, q=1</code>인 MA(1)으로 식별할 수 있다.</p>
+<p>계절형 요소는 시차 12, 24, 36의 패턴으로 판단해야 하는데, ACF와 PACF가 12, 24, 36 시차에서 모두 작은 값을 보이고 있는 것을 볼 수 있다. 이러한 경우에는 <code>P=0, Q=0</code>으로 식별할 수도 있지만, <code>P=1, Q=0</code> 또는 <code>P=0, Q=1</code>으로 식별하는 것도 가능하다.</p>
+<p>따라서 표본 ACF와 PACF를 근거로 식별을 시도한다면, ARIMA(0,1,1)(0,1,0)<sub>12</sub> 모형과 ARIMA(0,1,1)(1,1,0)<sub>12</sub> 모형, 그리고 ARIMA(0,1,1)(0,1,1)<sub>12</sub> 모형으로 식별할 수 있다.</p>
+<p>이제 함수 <code>auto.arima()</code>를 사용하여 최적 모형을 식별해 보자. 함수 <code>auto.arima()</code>에서는 차분 차수를 단위근 검정에 의해 결정하는 것이 디폴트이며, 백화점 자료의 경우에는 가장 적절한 차분 차수가 단위근 검정 결과와 일치하기 때문에, <code>d</code>와 <code>D</code>에 다른 값을 지정할 필요는 없다. 또한 분산 안정화를 위해 로그 변환을 시행해야 하기 때문에 <code>lambda</code>에 로그변환에 해당하는 값인 0을 지정해야 한다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>fit_d <span class="ot">&lt;-</span> <span class="fu">auto.arima</span>(depart.ts, <span class="at">lambda =</span> <span class="dv">0</span>, </span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>                    <span class="at">stepwise =</span> <span class="cn">FALSE</span>, <span class="at">approximation =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_d)</span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Series: depart.ts </span></span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a><span class="do">## ARIMA(0,1,1)(0,1,1)[12] </span></span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Box Cox transformation: lambda= 0 </span></span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a><span class="do">## Coefficients:</span></span>
+<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a><span class="do">##           ma1     sma1</span></span>
+<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a><span class="do">##       -0.5840  -0.4159</span></span>
+<span id="cb52-9"><a href="#cb52-9" aria-hidden="true" tabindex="-1"></a><span class="do">## s.e.   0.1093   0.1946</span></span>
+<span id="cb52-10"><a href="#cb52-10" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb52-11"><a href="#cb52-11" aria-hidden="true" tabindex="-1"></a><span class="do">## sigma^2 = 0.0005401:  log likelihood = 110.29</span></span>
+<span id="cb52-12"><a href="#cb52-12" aria-hidden="true" tabindex="-1"></a><span class="do">## AIC=-214.59   AICc=-214.03   BIC=-209.04</span></span>
+<span id="cb52-13"><a href="#cb52-13" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb52-14"><a href="#cb52-14" aria-hidden="true" tabindex="-1"></a><span class="do">## Training set error measures:</span></span>
+<span id="cb52-15"><a href="#cb52-15" aria-hidden="true" tabindex="-1"></a><span class="do">##                     ME    RMSE      MAE       MPE    MAPE      MASE       ACF1</span></span>
+<span id="cb52-16"><a href="#cb52-16" aria-hidden="true" tabindex="-1"></a><span class="do">## Training set -1.937472 16.9307 11.60509 -0.200563 1.36766 0.1084166 0.04358066</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>ACF와 PACF를 근거로 식별한 후보 모형 중 하나인 ARIMA(0,1,1)(0,1,1)<sub>12</sub>가 선택되었음을 알 수 있다.</p>
+<p>추정된 모형식은 다음과 같다.</p>
+<p><span class="math display">\[
+(1-B^{12})(1-B)~\log y_{t} = (1-0.584B)(1-0.4159B^{12})~\varepsilon_{t}
+\]</span> 적합된 모형 <code>fit_d</code>의 모형의 진단을 실시해 보자. 잔차가 정규분포 백색잡음을 하는 것으로 보여서, 가정이 만족된다고 할 수 있다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">checkresiduals</span>(fit_d)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="4-arima_files/figure-html/unnamed-chunk-51-1.png" class="img-fluid" width="672"></p>
+</div>
+<pre><code>## 
+##  Ljung-Box test
+## 
+## data:  Residuals from ARIMA(0,1,1)(0,1,1)[12]
+## Q* = 12.817, df = 10, p-value = 0.2341
+## 
+## Model df: 2.   Total lags used: 12</code></pre>
+</div>
+<p>예측 결과를 <a href="#fig-depart-6">Figure&nbsp;21</a> 에 그래프로 나타내보자. 예측 결과는 정상성 확보 과정에서 이루어진 변환의 역변환을 실시해서 얻어진 것이다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">forecast</span>(fit_d) <span class="sc">%&gt;%</span> </span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autoplot</span>() <span class="sc">+</span> <span class="fu">ylab</span>(<span class="cn">NULL</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-depart-6" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="4-arima_files/figure-html/fig-depart-6-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;21: 백화점 자료 예측 결과</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li>예제 2 : 1981년 1월부터 1992년 12월까지 국내에 입국한 월별 관광객 수</li>
+</ul>
+<p>1981년 1월부터 1992년 12월까지 12년 동안 국내에 입국한 월별 관광객 수 자료를 대상으로 ARIMA 모형과 ETS 모형으로 예측 모형을 각각 적합하고, 예측 결과를 비교해 보자. 예측 결과의 비교를 위해 마지막 2년 자료를 test data로 남겨두고, 이전 10년 동안의 자료를 이용하여 모형 적합을 실시해 보자.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>tour <span class="ot">&lt;-</span> <span class="fu">scan</span>(<span class="st">"https://raw.githubusercontent.com/yjyjpark/TS-with-R/main/Data/Ktour.txt"</span>)</span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>tour.ts <span class="ot">&lt;-</span> <span class="fu">ts</span>(tour, <span class="at">start =</span> <span class="dv">1981</span>, <span class="at">freq =</span> <span class="dv">12</span>)</span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>train_K <span class="ot">&lt;-</span> <span class="fu">window</span>(tour.ts, <span class="at">end =</span> <span class="fu">c</span>(<span class="dv">1990</span>,<span class="dv">12</span>))</span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>test_K <span class="ot">&lt;-</span> <span class="fu">window</span>(tour.ts, <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">1991</span>,<span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Training data에 대한 시계열 그래프를 <a href="#fig-tour-1">Figure&nbsp;22</a> 에 작성해 보자.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(train_K) <span class="sc">+</span></span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="cn">NULL</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-tour-1" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="4-arima_files/figure-html/fig-tour-1-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;22: 국내 입국 관광객 수 자료</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>계절형 ARIMA 모형을 먼저 적합시켜 보자. 시계열자료가 증가하는 추세가 있고, 뚜렷한 계절 요소가 있으며, 계절 변동 폭이 점차 증가하는 모습을 보이는 비정상 시계열자료이다. 분산 안정화 변화가 필요한 것으로 보이며, 적절한 변환 형태를 결정하기 위해 Box-Cox 변환 모수 <span class="math inline">\(\lambda\)</span> 의 값을 추정해 보자.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">BoxCox.lambda</span>(train_K) </span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 0.09573094</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+
+</div>
+<p><span class="math inline">\(\hat{\lambda}=\)</span> 0.096 로 추정되었는데, 이 결과를 그대로 적용해서 <span class="math inline">\(y_{t}^{0.09}\)</span> 로 변환시키는 것보다는 변환의 해석이 가능하면서 추정된 <span class="math inline">\(\lambda\)</span> 값과 큰 차이가 없는 <span class="math inline">\(\hat{\lambda}=0\)</span> 에 해당하는 로그 변환을 선택하는 것이 더 좋을 듯 하다.</p>
+<p>로그 변환된 자료에 대한 차분 차수를 결정해 보자. 먼저 로그 변환된 시계열자료의 시계열 그래프와 ACF를 <a href="#fig-tour-2">Figure&nbsp;23</a> 에 작성해 보자.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>lntrain_K <span class="ot">&lt;-</span> <span class="fu">log</span>(train_K)</span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtsdisplay</span>(lntrain_K, </span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">main =</span> <span class="st">"log transformed:lntrain_K"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-tour-2" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="4-arima_files/figure-html/fig-tour-2-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;23: <code>lntrain_K</code>의 시계열 그래프, ACF와 PACF</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>계절 차분을 먼저 실시해 보고, 그 결과를 살펴보자. <a href="#fig-tour-3">Figure&nbsp;24</a> 의 시계열 그래프에서 추세 성분이 남아 있는 것을 볼 수 있고, ACF의 1~6시차에서 상당히 큰 값을 볼 수 있다. 1차 차분이 필요한 것으로 보인다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>lntrain_K_12 <span class="ot">&lt;-</span> <span class="fu">diff</span>(lntrain_K, <span class="at">lag =</span> <span class="dv">12</span>)</span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtsdisplay</span>(lntrain_K_12, </span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">main =</span> <span class="st">"Seasonally differenced"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-tour-3" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="4-arima_files/figure-html/fig-tour-3-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;24: 계절 차분된 <code>lntrain_K</code>의 시계열 그래프, ACF와 PACF</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>계절 차분된 자료에 다시 1차 차분을 실시하고, 그 결과를 살펴보자. <a href="#fig-tour-4">Figure&nbsp;25</a> 의 그래프에서 비정상 요소가 모두 사라진 것을 알 수 있다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>lntrain_K_12_1 <span class="ot">&lt;-</span> <span class="fu">diff</span>(lntrain_K_12)</span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtsdisplay</span>(lntrain_K_12_1, </span>
+<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">main =</span> <span class="st">"Doubly differenced"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-tour-4" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="4-arima_files/figure-html/fig-tour-4-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;25: 계절 차분과 1차 차분된 <code>lntrain_K</code>의 시계열 그래프, ACF와 PACF</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>단위근 검정에서도 일치된 결과를 볼 수 있다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ndiffs</span>(lntrain_K)</span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 1</span></span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a><span class="fu">nsdiffs</span>(lntrain_K)</span>
+<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>로그변환과 차분을 통해 정산성을 만족한 자료의 ACF와 PACF인 <a href="#fig-tour-4">Figure&nbsp;25</a> 를 이용하여 모형 식별을 시도해 보자. 1시차에서 6시차까지의 패턴으로 비계절 ARIMA 성분을 파악해 보자. ACF는 2시차까지 유의한 값을 보이고 있고, PACF는 1시차는 유의하고, 2시차의 값은 기준이 되는 파란 점선보다 약간 작은 값으로 보인다. 이런 경우에는 둘 중 하나를 절단으로 보든지, 아니면 둘 다 감소로 보는 것이 가능하기 떄문에 AR(1), AR(2), MA(2), 또는 ARMA(1,1) 등이 가능한 것으로 보인다.</p>
+<p>계절형 ARIMA 성분은 ACF와 PACF 모두 12시차에서 유의한 값을 보이지만, 24시차와 36시차에서는 매우 작은 값을 보이고 있기 때문에 ACF와 PACF 중 하나를 절단으로 보든지, 둘 다 감소로 보는 것이 가능하며, AR(1)<sub>12</sub>, MA(1)<sub>12</sub>, 또는 ARMA(1,1)<sub>12</sub> 등이 가능한 것으로 보인다.</p>
+<p>식별된 비계절형과 계절형을 조합해서 보면, 많은 모형이 가능한 것으로 보인다. ARIMA(1,1,0)(1,1,0)<sub>12</sub>모형, ARIMA(1,1,0)(0,1,1)<sub>12</sub>모형, ARIMA(1,1,0)(1,1,1)<sub>12</sub>모형과 ARIMA(2,1,0)(1,1,0)<sub>12</sub>모형, ARIMA(2,1,0)(0,1,1)<sub>12</sub>모형, ARIMA(2,1,0)(1,1,1)<sub>12</sub>모형, 그리고 ARIMA(1,1,1)(1,1,0)<sub>12</sub>모형, ARIMA(1,1,1)(0,1,1)<sub>12</sub>모형, ARIMA(1,1,1)(1,1,1)<sub>12</sub>모형 등이 가능한 모형으로 보인다.</p>
+<p>ACF와 PACF를 근거로 직접 모형 식별하는 것은 이렇듯 명확한 결과가 나오는 것이 아니어서, 많은 후보 모형을 식별하고 이어서 그 모형들을 비교하는 과정을 거쳐서 최종 모형을 선택해야 하는 어렵고 긴 작업 절차가 필요한 방법임을 알 수 있다. 따라서 이 과정이 모든 분석에서 반드시 필요하다고 생각하지는 않지만, 함수 <code>auto.arima()</code>로 선택된 모형이 ACF와 PACF를 근거로 식별된 후보 모형 중에 포함되는지 여부는 확인하는 것이 필요하다고 본다.</p>
+<p>이제 함수 <code>auto.arima()</code>로 모형을 선택해 보자.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>fit_K <span class="ot">&lt;-</span> <span class="fu">auto.arima</span>(train_K, <span class="at">lambda =</span> <span class="dv">0</span>, </span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>                    <span class="at">stepwise =</span> <span class="cn">FALSE</span>, <span class="at">approximation =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_K)</span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Series: train_K </span></span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a><span class="do">## ARIMA(2,1,0)(1,1,1)[12] </span></span>
+<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Box Cox transformation: lambda= 0 </span></span>
+<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb64-6"><a href="#cb64-6" aria-hidden="true" tabindex="-1"></a><span class="do">## Coefficients:</span></span>
+<span id="cb64-7"><a href="#cb64-7" aria-hidden="true" tabindex="-1"></a><span class="do">##           ar1      ar2     sar1     sma1</span></span>
+<span id="cb64-8"><a href="#cb64-8" aria-hidden="true" tabindex="-1"></a><span class="do">##       -0.6995  -0.2496  -0.2892  -0.3817</span></span>
+<span id="cb64-9"><a href="#cb64-9" aria-hidden="true" tabindex="-1"></a><span class="do">## s.e.   0.0956   0.0947   0.1695   0.1736</span></span>
+<span id="cb64-10"><a href="#cb64-10" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb64-11"><a href="#cb64-11" aria-hidden="true" tabindex="-1"></a><span class="do">## sigma^2 = 0.002917:  log likelihood = 159.82</span></span>
+<span id="cb64-12"><a href="#cb64-12" aria-hidden="true" tabindex="-1"></a><span class="do">## AIC=-309.63   AICc=-309.04   BIC=-296.27</span></span>
+<span id="cb64-13"><a href="#cb64-13" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb64-14"><a href="#cb64-14" aria-hidden="true" tabindex="-1"></a><span class="do">## Training set error measures:</span></span>
+<span id="cb64-15"><a href="#cb64-15" aria-hidden="true" tabindex="-1"></a><span class="do">##                     ME     RMSE      MAE        MPE     MAPE      MASE</span></span>
+<span id="cb64-16"><a href="#cb64-16" aria-hidden="true" tabindex="-1"></a><span class="do">## Training set -117.8446 8079.833 5752.686 -0.1325567 3.815935 0.3223641</span></span>
+<span id="cb64-17"><a href="#cb64-17" aria-hidden="true" tabindex="-1"></a><span class="do">##                   ACF1</span></span>
+<span id="cb64-18"><a href="#cb64-18" aria-hidden="true" tabindex="-1"></a><span class="do">## Training set 0.1387895</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>ARIMA(2,1,0)(1,1,1)<sub>12</sub>모형이 선택되었고, 이 모형은 ACF와 PACF를 근거로 선택한 후보 모형 중에 하나이다. 적합된 모형식은 다음과 같다.</p>
+<p><span class="math display">\[
+(1+0.69B+0.25B^{2})(1+0.29B^{12})(1-B)(1-B^{12})~\log y_{t} = (1-0.382^{12})~\varepsilon_{t}
+\]</span></p>
+<p>이제는 ETS 모형을 적합해 보자. ETS 모형에서는 승법모형이 가능하기 때문에 분산안정화를 위한 변환이 반드시 필요한 것은 아니다. 따라서 원자료에 의한 ETS 모형과 로그 변환된 자료의 ETS 모형을 모두 적합시켜 보자.</p>
+<p>먼저 로그 변환된 자료를 대상으로 모형을 적합해 보자.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>fit_K_ets1 <span class="ot">&lt;-</span> <span class="fu">ets</span>(train_K, <span class="at">lambda =</span> <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_K_ets1)</span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a><span class="do">## ETS(A,Ad,A) </span></span>
+<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Call:</span></span>
+<span id="cb66-5"><a href="#cb66-5" aria-hidden="true" tabindex="-1"></a><span class="do">##  ets(y = train_K, lambda = 0) </span></span>
+<span id="cb66-6"><a href="#cb66-6" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb66-7"><a href="#cb66-7" aria-hidden="true" tabindex="-1"></a><span class="do">##   Box-Cox transformation: lambda= 0 </span></span>
+<span id="cb66-8"><a href="#cb66-8" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb66-9"><a href="#cb66-9" aria-hidden="true" tabindex="-1"></a><span class="do">##   Smoothing parameters:</span></span>
+<span id="cb66-10"><a href="#cb66-10" aria-hidden="true" tabindex="-1"></a><span class="do">##     alpha = 0.3998 </span></span>
+<span id="cb66-11"><a href="#cb66-11" aria-hidden="true" tabindex="-1"></a><span class="do">##     beta  = 0.0242 </span></span>
+<span id="cb66-12"><a href="#cb66-12" aria-hidden="true" tabindex="-1"></a><span class="do">##     gamma = 1e-04 </span></span>
+<span id="cb66-13"><a href="#cb66-13" aria-hidden="true" tabindex="-1"></a><span class="do">##     phi   = 0.978 </span></span>
+<span id="cb66-14"><a href="#cb66-14" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb66-15"><a href="#cb66-15" aria-hidden="true" tabindex="-1"></a><span class="do">##   Initial states:</span></span>
+<span id="cb66-16"><a href="#cb66-16" aria-hidden="true" tabindex="-1"></a><span class="do">##     l = 11.3617 </span></span>
+<span id="cb66-17"><a href="#cb66-17" aria-hidden="true" tabindex="-1"></a><span class="do">##     b = 0.0098 </span></span>
+<span id="cb66-18"><a href="#cb66-18" aria-hidden="true" tabindex="-1"></a><span class="do">##     s = -0.2089 -0.0012 0.1585 0.0577 0.1123 0.035</span></span>
+<span id="cb66-19"><a href="#cb66-19" aria-hidden="true" tabindex="-1"></a><span class="do">##            0.0516 0.1154 0.0989 0.0121 -0.2092 -0.2221</span></span>
+<span id="cb66-20"><a href="#cb66-20" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb66-21"><a href="#cb66-21" aria-hidden="true" tabindex="-1"></a><span class="do">##   sigma:  0.0548</span></span>
+<span id="cb66-22"><a href="#cb66-22" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb66-23"><a href="#cb66-23" aria-hidden="true" tabindex="-1"></a><span class="do">##        AIC       AICc        BIC </span></span>
+<span id="cb66-24"><a href="#cb66-24" aria-hidden="true" tabindex="-1"></a><span class="do">## -104.72171  -97.94943  -54.54685 </span></span>
+<span id="cb66-25"><a href="#cb66-25" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb66-26"><a href="#cb66-26" aria-hidden="true" tabindex="-1"></a><span class="do">## Training set error measures:</span></span>
+<span id="cb66-27"><a href="#cb66-27" aria-hidden="true" tabindex="-1"></a><span class="do">##                    ME     RMSE      MAE       MPE     MAPE      MASE       ACF1</span></span>
+<span id="cb66-28"><a href="#cb66-28" aria-hidden="true" tabindex="-1"></a><span class="do">## Training set 1116.089 8322.678 5764.589 0.4909287 3.788076 0.3230311 0.09314822</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>ETS(A,Ad,A) 모형이 선택되었다.</p>
+<p>이제 원자료를 대상으로 모형을 적합해 보자.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>fit_K_ets2 <span class="ot">&lt;-</span> <span class="fu">ets</span>(train_K)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_K_ets2)</span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a><span class="do">## ETS(M,Ad,M) </span></span>
+<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb68-4"><a href="#cb68-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Call:</span></span>
+<span id="cb68-5"><a href="#cb68-5" aria-hidden="true" tabindex="-1"></a><span class="do">##  ets(y = train_K) </span></span>
+<span id="cb68-6"><a href="#cb68-6" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb68-7"><a href="#cb68-7" aria-hidden="true" tabindex="-1"></a><span class="do">##   Smoothing parameters:</span></span>
+<span id="cb68-8"><a href="#cb68-8" aria-hidden="true" tabindex="-1"></a><span class="do">##     alpha = 0.4275 </span></span>
+<span id="cb68-9"><a href="#cb68-9" aria-hidden="true" tabindex="-1"></a><span class="do">##     beta  = 0.0306 </span></span>
+<span id="cb68-10"><a href="#cb68-10" aria-hidden="true" tabindex="-1"></a><span class="do">##     gamma = 1e-04 </span></span>
+<span id="cb68-11"><a href="#cb68-11" aria-hidden="true" tabindex="-1"></a><span class="do">##     phi   = 0.9799 </span></span>
+<span id="cb68-12"><a href="#cb68-12" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb68-13"><a href="#cb68-13" aria-hidden="true" tabindex="-1"></a><span class="do">##   Initial states:</span></span>
+<span id="cb68-14"><a href="#cb68-14" aria-hidden="true" tabindex="-1"></a><span class="do">##     l = 89459.3204 </span></span>
+<span id="cb68-15"><a href="#cb68-15" aria-hidden="true" tabindex="-1"></a><span class="do">##     b = 291.8495 </span></span>
+<span id="cb68-16"><a href="#cb68-16" aria-hidden="true" tabindex="-1"></a><span class="do">##     s = 0.808 0.9953 1.172 1.0557 1.1073 1.0353</span></span>
+<span id="cb68-17"><a href="#cb68-17" aria-hidden="true" tabindex="-1"></a><span class="do">##            1.0453 1.1046 1.0949 0.9939 0.7992 0.7886</span></span>
+<span id="cb68-18"><a href="#cb68-18" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb68-19"><a href="#cb68-19" aria-hidden="true" tabindex="-1"></a><span class="do">##   sigma:  0.0562</span></span>
+<span id="cb68-20"><a href="#cb68-20" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb68-21"><a href="#cb68-21" aria-hidden="true" tabindex="-1"></a><span class="do">##      AIC     AICc      BIC </span></span>
+<span id="cb68-22"><a href="#cb68-22" aria-hidden="true" tabindex="-1"></a><span class="do">## 2738.255 2745.028 2788.430 </span></span>
+<span id="cb68-23"><a href="#cb68-23" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb68-24"><a href="#cb68-24" aria-hidden="true" tabindex="-1"></a><span class="do">## Training set error measures:</span></span>
+<span id="cb68-25"><a href="#cb68-25" aria-hidden="true" tabindex="-1"></a><span class="do">##                    ME     RMSE      MAE       MPE     MAPE      MASE       ACF1</span></span>
+<span id="cb68-26"><a href="#cb68-26" aria-hidden="true" tabindex="-1"></a><span class="do">## Training set 1147.204 8155.819 5774.677 0.5763675 3.839131 0.3235964 0.02357097</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>ETS(M,Ad,M) 모형이 선택되었다. 두 ETS 모형 모두 추세는 ’damped additive’가 선택되었지만, 로그 변환된 자료에 대해서는 계절 요소와 오차항이 모두 ’additive’이고, 원자료에 대해서는 계절 요소와 오차항이 모두 ’multiplicative’임을 알 수 있다.</p>
+<p>이제 적합된 ARIMA 모형과 ETS 모형의 모형 진단을 각각 실시해 보자. 먼저 ARIMA 모형의 경우에는 오차에 대한 가정이 모두 만족되는 것으로 보인다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">checkresiduals</span>(fit_K)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="4-arima_files/figure-html/unnamed-chunk-67-1.png" class="img-fluid" width="672"></p>
+</div>
+<pre><code>## 
+##  Ljung-Box test
+## 
+## data:  Residuals from ARIMA(2,1,0)(1,1,1)[12]
+## Q* = 27.495, df = 20, p-value = 0.1219
+## 
+## Model df: 4.   Total lags used: 24</code></pre>
+</div>
+<p>ETS 모형의 경우에는 Ljung-Box 검정의 p-value가 매우 작은 값으로 계산되었고, 따라서 오차의 독립성은 만족되지 않았다. 이런 경우에는 ETS 모형으로 예측된 결과에 대한 신빙성이 떨어진다고 볼 수 있는데, 점 예측값보다는 예측 구간에 대한 신뢰도에 더 큰 손상이 있었다고 할 수 있다.</p>
+<p>구제적인 검진 결과를 살펴보자. 우선 ETS(A,Ad,A) 모형인 <code>fit_K_ets1</code> 모형의 검진 결과이다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="fu">checkresiduals</span>(fit_K_ets1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="4-arima_files/figure-html/unnamed-chunk-68-1.png" class="img-fluid" width="672"></p>
+</div>
+<pre><code>## 
+##  Ljung-Box test
+## 
+## data:  Residuals from ETS(A,Ad,A)
+## Q* = 36.158, df = 7, p-value = 6.769e-06
+## 
+## Model df: 17.   Total lags used: 24</code></pre>
+</div>
+<p>ETS(M,Ad,M) 모형인 <code>fit_K_ets2</code> 모형의 검진 결과도 살펴보자.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fu">checkresiduals</span>(fit_K_ets2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="4-arima_files/figure-html/unnamed-chunk-69-1.png" class="img-fluid" width="672"></p>
+</div>
+<pre><code>## 
+##  Ljung-Box test
+## 
+## data:  Residuals from ETS(M,Ad,M)
+## Q* = 34.451, df = 7, p-value = 1.418e-05
+## 
+## Model df: 17.   Total lags used: 24</code></pre>
+</div>
+<p>이제 test data에 대한 예측을 실시하고 예측 오차를 비교해 보자.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a>fc_K <span class="ot">&lt;-</span> <span class="fu">forecast</span>(fit_K)</span>
+<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a><span class="fu">accuracy</span>(fc_K, test_K)</span>
+<span id="cb75-3"><a href="#cb75-3" aria-hidden="true" tabindex="-1"></a><span class="do">##                       ME      RMSE       MAE         MPE      MAPE      MASE</span></span>
+<span id="cb75-4"><a href="#cb75-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Training set   -117.8446  8079.833  5752.686  -0.1325567  3.815935 0.3223641</span></span>
+<span id="cb75-5"><a href="#cb75-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Test set     -33473.2740 45118.350 37348.980 -12.4581745 13.967241 2.0929303</span></span>
+<span id="cb75-6"><a href="#cb75-6" aria-hidden="true" tabindex="-1"></a><span class="do">##                   ACF1 Theil's U</span></span>
+<span id="cb75-7"><a href="#cb75-7" aria-hidden="true" tabindex="-1"></a><span class="do">## Training set 0.1387895        NA</span></span>
+<span id="cb75-8"><a href="#cb75-8" aria-hidden="true" tabindex="-1"></a><span class="do">## Test set     0.6467465   1.67741</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a>fc_K_ets1 <span class="ot">&lt;-</span> <span class="fu">forecast</span>(fit_K_ets1)</span>
+<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a><span class="fu">accuracy</span>(fc_K_ets1, test_K)</span>
+<span id="cb76-3"><a href="#cb76-3" aria-hidden="true" tabindex="-1"></a><span class="do">##                      ME      RMSE       MAE        MPE      MAPE      MASE</span></span>
+<span id="cb76-4"><a href="#cb76-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Training set   1116.089  8322.678  5764.589  0.4909287  3.788076 0.3230311</span></span>
+<span id="cb76-5"><a href="#cb76-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Test set     -26763.496 38813.714 33571.599 -9.9007782 12.507782 1.8812566</span></span>
+<span id="cb76-6"><a href="#cb76-6" aria-hidden="true" tabindex="-1"></a><span class="do">##                    ACF1 Theil's U</span></span>
+<span id="cb76-7"><a href="#cb76-7" aria-hidden="true" tabindex="-1"></a><span class="do">## Training set 0.09314822        NA</span></span>
+<span id="cb76-8"><a href="#cb76-8" aria-hidden="true" tabindex="-1"></a><span class="do">## Test set     0.55156580  1.469369</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a>fc_K_ets2 <span class="ot">&lt;-</span> <span class="fu">forecast</span>(fit_K_ets2)</span>
+<span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a><span class="fu">accuracy</span>(fc_K_ets2, test_K)</span>
+<span id="cb77-3"><a href="#cb77-3" aria-hidden="true" tabindex="-1"></a><span class="do">##                      ME      RMSE       MAE        MPE      MAPE      MASE</span></span>
+<span id="cb77-4"><a href="#cb77-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Training set   1147.204  8155.819  5774.677  0.5763675  3.839131 0.3235964</span></span>
+<span id="cb77-5"><a href="#cb77-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Test set     -25539.311 37954.952 32640.675 -9.4299420 12.153867 1.8290903</span></span>
+<span id="cb77-6"><a href="#cb77-6" aria-hidden="true" tabindex="-1"></a><span class="do">##                    ACF1 Theil's U</span></span>
+<span id="cb77-7"><a href="#cb77-7" aria-hidden="true" tabindex="-1"></a><span class="do">## Training set 0.02357097        NA</span></span>
+<span id="cb77-8"><a href="#cb77-8" aria-hidden="true" tabindex="-1"></a><span class="do">## Test set     0.54315176  1.439223</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>큰 차이는 없지만 ETS(M,Ad,M) 모형인 <code>fit_K_ets2</code> 모형의 예측 오차가 조금 더 작은 것으로 나타났다. ARIMA 모형과 ETS(M,Ad,M) 모형의 예측 결과를 <a href="#fig-tour-5">Figure&nbsp;26</a> 의 그래프로 비교해 보자.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">autoplot</span>(fc_K, <span class="at">include =</span> <span class="dv">24</span>) <span class="sc">+</span></span>
+<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(test_K, <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">size =</span> .<span class="dv">8</span>) <span class="sc">+</span></span>
+<span id="cb78-3"><a href="#cb78-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="cn">NULL</span>)</span>
+<span id="cb78-4"><a href="#cb78-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb78-5"><a href="#cb78-5" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">autoplot</span>(fc_K_ets2, <span class="at">include =</span> <span class="dv">24</span>) <span class="sc">+</span></span>
+<span id="cb78-6"><a href="#cb78-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(test_K, <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">size =</span> .<span class="dv">8</span>) <span class="sc">+</span></span>
+<span id="cb78-7"><a href="#cb78-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="cn">NULL</span>)</span>
+<span id="cb78-8"><a href="#cb78-8" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">/</span> p2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-tour-5" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="4-arima_files/figure-html/fig-tour-5-1.png" class="img-fluid figure-img" width="768"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;26: 국내 입국 관광객 수 자료에 대한 예측 결과</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

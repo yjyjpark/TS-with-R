@@ -1,0 +1,47 @@
+project:
+  type: website
+  output-dir: docs
+
+website: 
+  sidebar: 
+    style: "docked"
+    search: true
+    contents: 
+      - index.qmd
+      - 1-tsplot.qmd
+      - 2-decomposition.qmd
+      - 3-ets.qmd
+      - 4-arima.qmd
+      - 5-regression.qmd
+
+book:
+  title: "R로 알아가는 시계열분석"
+  author: "박동련"
+  cover-image: cover.png
+  chapters:
+    - index.qmd
+    - 1-tsplot.qmd
+    - 2-decomposition.qmd
+    - 3-ets.qmd
+    - 4-arima.qmd
+    - 5-regression.qmd
+
+
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    theme: cosmo
+  pdf:
+    documentclass: scrreprt
+knitr:
+  opts_chunk: 
+    collapse: true
+    comment: "##" 
+execute: 
+  message: false
+  warning: false
+  
+
+
+
