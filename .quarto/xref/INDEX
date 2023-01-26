@@ -3,16 +3,19 @@
     "index.html": "a37f83a6"
   },
   "1-tsplot.qmd": {
-    "1-tsplot.html": "c6c6c55c"
+    "1-tsplot.html": "c6c6c55c",
+    "1-tsplot.tex": "0beeb640"
   },
   "2-decomposition.qmd": {
     "2-decomposition.html": "3895c1f5"
   },
   "3-ets.qmd": {
-    "3-ets.html": "afede83d"
+    "3-ets.html": "afede83d",
+    "3-ets.tex": "36d31350"
   },
   "4-arima.qmd": {
-    "4-arima.html": "c7b30ad2"
+    "4-arima.html": "c7b30ad2",
+    "4-arima.tex": "7034c062"
   },
   "5-regression.qmd": {
     "5-regression.html": "285d38b4"

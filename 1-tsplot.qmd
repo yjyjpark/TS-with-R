@@ -195,11 +195,35 @@ tibble(AP = as.numeric(AirPassengers),
 ```
 
 
+## 연습문제 {-}
+
+1. 백화점 매출액 자료인 `depart.ts`에 대한 다음의 seasonal 그래프를 각각 작성하고, 계절 변동의 패턴에 대해 설명해 보자. 
+
+```{r}
+#| echo: false
+#| layout-ncol: 2
+depart <- scan("https://raw.githubusercontent.com/yjyjpark/TS-with-R/main/Data/depart.txt")
+depart.ts <- ts(depart, start=1984, freq=12)
+
+ggseasonplot(depart.ts)
+ggseasonplot(depart.ts, polar = TRUE)
+ggsubseriesplot(depart.ts)
+
+data.frame(value = as.vector(depart.ts), 
+           mon = as.factor(cycle(depart.ts))) |> 
+  ggplot(aes(x = mon, y = value)) +
+  geom_boxplot() +
+  labs(x = "Month", y = NULL)
+```
 
 
+2. 1981년 1월부터 1992년 12월까지 국내에 입국한 월별 관광객 수가 입력되어 있는 `Ktour.txt`에 대하여, 다음의 작업을 진행해 보자. 
 
+- ts 객체로 변환
 
+- 시계열 그래프 작성
 
+- seasonal 그래프 작성
 
 
 
