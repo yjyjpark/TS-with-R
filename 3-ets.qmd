@@ -445,3 +445,28 @@ autoplot(fc_hyn, include = 0) +
   labs(x = NULL, y = NULL) 
 ```
 
+
+
+## 연습문제 {-}
+
+1. 다음의 자료에 대하여 ETS 모형을 적합하고, 적합 결과를 설명해 보자. 
+
+- `fma::chicken`
+
+- `fma::ibmclose`
+
+2. `Seoul_temp.xlsx`와 `Suwon_temp.xlsx`는 각각 서울시와 수원시의 월별 평균 기온 자료이며,
+웹 서버 `https://raw.githubusercontent.com/yjyjpark/TS-with-R/main/Data/` 에서 불러올 수 있다.
+두 자료에 대하여 각각 ETS 모형을 적합하고 예측을 실시해 보자. 
+Test data는 마지막 2년으로 한다. 
+적합 및 예측 결과에 대해 설명해 보자. 
+
+3. `Baek_pm10.xlsx`와 `Seoul_pm10.xlsx`, 그리고 `Suwon_pm10.xlsx`는 백령도와 서울, 그리고 수원에서 각각 측정된 미세먼지 농도 자료이며,
+웹 서버 `https://raw.githubusercontent.com/yjyjpark/TS-with-R/main/Data/` 에서 불러올 수 있다.
+세 자료에 대하여 각각 ETS 모형을 적합하고 예측을 실시해 보자. 
+Test data는 마지막 2년으로 한다. 
+적합 및 예측 결과에 대해 설명해 보자. 
+
+
+
+

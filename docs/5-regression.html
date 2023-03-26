@@ -766,9 +766,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  Ljung-Box test
 ## 
 ## data:  Residuals from ETS(A,N,N)
-## Q* = 39.376, df = 22, p-value = 0.01277
+## Q* = 39.376, df = 24, p-value = 0.02493
 ## 
-## Model df: 2.   Total lags used: 24</code></pre>
+## Model df: 0.   Total lags used: 24</code></pre>
 </div>
 <p>독립성 가정에 문제가 있는 것으로 나타났다. 독립성 가정을 만족시키지 못하는 모형의 경우에는 예측의 신빙성에 문제가 있을 수 있는데, 점 예측 (point forecast) 결과보다 예측 구간에 더 큰 문제가 있을 수 있다. 간혹 모든 가정을 만족시키는 모형을 찾지 못하는 경우도 있는데, 이런 경우에는 예측 결과를 적용할 때 조심할 필요가 있다.</p>
 <p>이제 세 가지 모형인 <code>fit_reg</code>, <code>fit_arima</code>, <code>fit_ets</code>에 의한 예측을 실시하고, 결과를 비교해 보자.</p>
@@ -918,9 +918,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  Ljung-Box test
 ## 
 ## data:  Residuals from ETS(A,A,A)
-## Q* = 39.722, df = 8, p-value = 3.61e-06
+## Q* = 39.722, df = 24, p-value = 0.02291
 ## 
-## Model df: 16.   Total lags used: 24</code></pre>
+## Model df: 0.   Total lags used: 24</code></pre>
 </div>
 <p><strong>2. ARMA 오차 회귀모형 적합</strong></p>
 <p>회귀모형은 분산 안정화가 필수적인 모형이며, 변환 결과에 대한 해석도 필요한 모형이다. 따라서 로그 변환된 자료를 대상으로 모형 적합을 진행해 보자.</p>
@@ -1557,9 +1557,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  Ljung-Box test
 ## 
 ## data:  Residuals from ETS(A,N,N)
-## Q* = 15.865, df = 6, p-value = 0.0145
+## Q* = 15.865, df = 8, p-value = 0.04436
 ## 
-## Model df: 2.   Total lags used: 8</code></pre>
+## Model df: 0.   Total lags used: 8</code></pre>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb137"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb137-1"><a href="#cb137-1" aria-hidden="true" tabindex="-1"></a><span class="fu">checkresiduals</span>(fit_reg)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
