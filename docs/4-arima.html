@@ -425,7 +425,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="do">## 3  0.178  53.5</span></span>
 <span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 4  0.339  53.5</span></span>
 <span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="do">## 5  0.373  53.4</span></span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="do">## # … with 291 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="do">## # ℹ 291 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>데이터 프레임 <code>gas</code>에는 변수 <code>rate</code>와 <code>co2</code>가 있는 것을 알 수 있다. 변수 <code>rate</code>를 <code>ts</code> 객체로 변환해야 하는데 시작 시점과 종료 시점에 대한 정보가 없는 상태이어서, 시점을 <span class="math inline">\(t=1, 2, 3, \ldots\)</span> 로 지정하고 주기도 1로 지정하도록 하자. 이런 작업은 함수 <code>as.ts()</code>를 사용하면 간편하게 할 수 있다. 이어서 시계열 그래프도 <a href="#fig-gas-plot">Figure&nbsp;9</a> 에 작성해 보자.</p>
 <div class="cell">
@@ -1215,6 +1215,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p><code>arima_ex2_3.txt</code></p></li>
 <li><p><code>arima_ex2_4.txt</code></p></li>
 <li><p><code>fpp2::ausair</code></p></li>
+</ul>
+<ol start="3" type="1">
+<li>다음의 자료에 대하여 계절형 ARIMA 모형과 ETS 모형에 의한 예측을 실시하고 예측 오차를 비교해 보자. Test data는 마지막 2년으로 한다.</li>
+</ol>
+<ul>
+<li><p><code>Seoul_temp.csv</code> (서울시 월별 평균 기온)</p></li>
+<li><p><code>Baek_pm10.csv</code> (백령도 월별 평균 미세먼지 농도)</p></li>
+<li><p><code>arima_ex2_4.txt</code> (주기 = 4)</p></li>
+<li><p><code>fpp2::elecequip</code></p></li>
 </ul>
 
 

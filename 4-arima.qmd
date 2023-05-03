@@ -852,6 +852,17 @@ Test data는 마지막 10개 시점으로 한다.
 - `fpp2::ausair`
 
 
+3. 다음의 자료에 대하여 계절형 ARIMA 모형과 ETS 모형에 의한 예측을 실시하고 예측 오차를 비교해 보자. 
+Test data는 마지막 2년으로 한다.
+
+- `Seoul_temp.csv` (서울시 월별 평균 기온)
+
+- `Baek_pm10.csv` (백령도 월별 평균 미세먼지 농도)
+
+- `arima_ex2_4.txt` (주기 = 4)
+
+- `fpp2::elecequip`
+
 
 
 
