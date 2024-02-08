@@ -126,7 +126,7 @@ fit4 <- auto.arima(train_b,
 ```
 
 ```{r}
-summary(fit4)
+fit4
 ```
 
 잔차에 가장 적합한 모형은 ARIMA(3,0,0)(1,0,0)~4~가 선택되었다. 즉, 잔차에 비계절형 요소 뿐 아니라 계절형 요소도 남아 있다는 것이다.
@@ -324,8 +324,8 @@ nsdiffs(train_g)
 1차 차분은 필요하지만, 계절 차분은 필요 없는 것로 나타났다. 이제 1차 차분을 실시한 자료를 대상으로 시계열 그래프와 ACF, PACF를 작성해 보자. 정상성이 만족된 것으로 보인다.
 
 ```{r}
-train_g %>% 
-  diff() %>% 
+train_g |> 
+  diff() |> 
   ggtsdisplay()
 ```
 
@@ -454,11 +454,11 @@ autoplot(train_AP) +
 #| fig-cap: 분산 안정화 변환
 #| fig-width: 8
 #| fig-height: 4
-p1 <- BoxCox(train_AP, lambda = lam) %>% 
+p1 <- BoxCox(train_AP, lambda = lam) |> 
   autoplot() + 
   labs(title = paste("Box-Cox", "lambda = ", signif(lam, 3)), x = NULL)
-p2 <- train_AP %>% 
-  log() %>% 
+p2 <- train_AP |> 
+  log() |> 
   autoplot() + labs(title = "Log", x = NULL)
 p1+p2
 ```
@@ -585,17 +585,17 @@ fit_reg <- fit_r2
 ARIMA 모형도 회귀모형의 경우처럼 분산 안정화가 필수적인 모형이며, 변환 결과에 대한 해석도 필요한 모형이다. 따라서 로그 변환된 자료를 대상으로 모형 적합을 진행해 보자. 우선 로그 변환된 자료에 대한 시계열 그래프와 표본 ACF를 작성해 보자.
 
 ```{r}
-train_AP %>% 
-  log() %>% 
+train_AP |> 
+  log() |> 
   ggtsdisplay()
 ```
 
 뚜렷한 추세와 계절 성분이 있는 자료임을 알 수 있다. 계절 차분을 실시하고, 그 결과를 확인해 보자.
 
 ```{r}
-train_AP %>% 
-  log() %>% 
-  diff(lag = 12) %>% 
+train_AP |> 
+  log() |> 
+  diff(lag = 12) |> 
   ggtsdisplay()
 ```
 
@@ -605,24 +605,24 @@ train_AP %>%
 계절 차분된 자료에 1차 차분을 추가로 실시하고, 그 결과를 확인해 보자. 비정상성 요소가 완전히 제거된 것을 볼 수 있다.
 
 ```{r}
-train_AP %>% 
-  log() %>% 
-  diff(lag = 12) %>% 
-  diff() %>% 
+train_AP |> 
+  log() |> 
+  diff(lag = 12) |> 
+  diff() |> 
   ggtsdisplay()
 ```
 
 단위근 검정 결과를 확인해 보자. 계절 차분과 1차 차분이 모두 필요한 것으로 나타난다.
 
 ```{r}
-train_AP %>% 
-  log() %>% 
+train_AP |> 
+  log() |> 
   ndiffs()
 ```
 
 ```{r}
-train_AP %>% 
-  log() %>% 
+train_AP |> 
+  log() |> 
   nsdiffs()
 ```
 
@@ -782,12 +782,12 @@ wday(ymd("2014-1-1"), label = TRUE)
 반응변수인 `Demand`와 셜명변수인 `Temp`의 정상성 만족 여부를 확인해 보자. 두 변수 모두 차분이 필요한 것으로 보인다.
 
 ```{r}
-Demand %>% 
+Demand |> 
   ggtsdisplay(main = "Demand")
 ```
 
 ```{r}
-Temp %>% 
+Temp |> 
   ggtsdisplay(main = "Temperature")
 ```
 
@@ -803,7 +803,7 @@ ndiffs(Temp)
 ```{r}
 #| label: fig-elecd-2
 #| fig-cap: "`Demand`와 `Temperature`의 산점도"
-tibble(Demand, Temp) %>% 
+tibble(Demand, Temp) |> 
   ggplot(aes(x = as.numeric(Temp), y = as.numeric(Demand))) +
   geom_point() +
   geom_smooth(se = FALSE) +
@@ -895,7 +895,7 @@ Dynamic 회귀모형에서 설명변수로 사용할 수 있는 시계열자료�
 #| fig-cap: "`uschange`의 다섯 시계열자료의 산점도 행렬"
 #| fig-width: 8
 #| fig-height: 6
-GGally::ggpairs(as_tibble(uschange) %>% 
+GGally::ggpairs(as_tibble(uschange) |> 
                   relocate(Consumption, .after=last_col()),
                 lower=list(continuous="smooth_loess"))
 ```
@@ -1041,4 +1041,52 @@ p4 <- autoplot(fc_dyn, include = 8) +
 
 (p1 + p2) / (p3 + p4)
 ```
+
+
+
+## 연습문제 {-}
+
+**1.** 파일 `total_energy.csv`에는 1997년 1월부터 2023년 2월까지 연료원별 발전된 전기의 월별 소비량 자료가 입력되어 있으며,
+웹 서버 `https://raw.githubusercontent.com/yjyjpark/TS-with-R/main/Data/` 에서 불러올 수 있다.
+
+```{r}
+#| echo: false
+total_energy <- read_csv("Data/total_energy.csv")
+```
+
+변수로는 관측 시점(`time`)과 석탄(`coal`), 석유(`oil`), 액화천연가스(`gas`), 수력(`water`), 원자력(`neclear`), 신재생 및 기타(`renewal`)를 원료로 발전된 전기의 소비량이다.
+자료의 처음과 마지막 5 케이스는 다음과 같다.
+
+```{r}
+total_energy |> slice_head(n = 5)
+```
+
+```{r}
+total_energy |> slice_tail(n = 5)
+```
+
+
+**1)** `total_energy`에 있는 6가지 원료별 전기 소비량의 추이를 살펴보고 서로 비교할 수 있는 그래프를 작성하라. 6가지 연료별 전기 소비량에는 어떤 변화가 있었는지 설명하라. 
+
+**2)** 석탄(`coal`)과 신재생 에너지(`renewal`) 시계열자료에 대한 예측 모형을 수립하고자 한다. 모형 적합을 위한 training data는 2010년 1월부터 2020년 12월까지로 하고, 예측 결과의 확인을 위한 test data는 2021년 1월 이후 자료로 한다. 
+
+- 자료 `renewal`과 `coal`을 구성하고 있는 추세, 계절 및 불규칙 성분을 분해하고, 그 특징을 설명하라.
+
+- 자료 `renewal`에 대하여 ETS 모형, 계절형 ARIMA 모형, ARMA 오차 회귀모형을 각각 적합하고 적합 결과를 설명하며, test data에 대한 예측을 실시하고 그 결과를 비교해 보자.  
+
+- 자료 `coal`에 대하여 ETS 모형, 계절형 ARIMA 모형, ARMA 오차 회귀모형, `renewal`을 설명변수로 사용하는 ARMA 오차 dynamic 회귀모형을 각각 적합하고 적합 결과를 설명하며, test data에 대한 예측을 실시하고 그 결과를 비교해 보자.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

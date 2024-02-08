@@ -37,13 +37,13 @@ autoplot(elecsales, series = "Data") +
 #| fig-width: 8
 #| fig-height: 5
 library(patchwork)
-p1 <- autoplot(elecsales) + autolayer(ma(elecsales, 3), size = .8, color = "red") + 
+p1 <- autoplot(elecsales) + autolayer(ma(elecsales, 3), linewidth = .8, color = "red") + 
   labs(y = NULL, title = "3-MA")
-p2 <- autoplot(elecsales) + autolayer(ma(elecsales, 5), size = .8, color = "red") + 
+p2 <- autoplot(elecsales) + autolayer(ma(elecsales, 5), linewidth = .8, color = "red") + 
   labs(y = NULL, title = "5-MA")
-p3 <- autoplot(elecsales) + autolayer(ma(elecsales, 7), size = .8, color = "red") + 
+p3 <- autoplot(elecsales) + autolayer(ma(elecsales, 7), linewidth = .8, color = "red") + 
   labs(y = NULL, title = "7-MA")
-p4 <- autoplot(elecsales) + autolayer(ma(elecsales, 9), size = .8, color = "red") + 
+p4 <- autoplot(elecsales) + autolayer(ma(elecsales, 9), linewidth = .8, color = "red") + 
   labs(y = NULL, title = "9-MA")
 (p1+p2)/(p3+p4)
 ```
@@ -58,13 +58,13 @@ p4 <- autoplot(elecsales) + autolayer(ma(elecsales, 9), size = .8, color = "red"
 #| fig-height: 5
 
 library(patchwork)
-p1 <- autoplot(ausbeer) + autolayer(ma(ausbeer, 4), size = .8, color = "red") + 
+p1 <- autoplot(ausbeer) + autolayer(ma(ausbeer, 4), linewidth = .8, color = "red") + 
   labs(y = NULL, title = "4-MA")
-p2 <- autoplot(ausbeer) + autolayer(ma(ausbeer, 8), size = .8, color = "red") + 
+p2 <- autoplot(ausbeer) + autolayer(ma(ausbeer, 8), linewidth = .8, color = "red") + 
   labs(y = NULL, title = "8-MA")
-p3 <- autoplot(ausbeer) + autolayer(ma(ausbeer, 12), size = .8, color = "red") + 
+p3 <- autoplot(ausbeer) + autolayer(ma(ausbeer, 12), linewidth = .8, color = "red") + 
   labs(y = NULL, title = "12-MA")
-p4 <- autoplot(ausbeer) + autolayer(ma(ausbeer, 24), size = .8, color = "red") + 
+p4 <- autoplot(ausbeer) + autolayer(ma(ausbeer, 24), linewidth = .8, color = "red") + 
   labs(y = NULL, title = "24-MA")
 (p1+p2)/(p3+p4)
 ```
@@ -117,4 +117,45 @@ p4 <- stl(elecequip, s.window = "periodic", t.window = 11) %>%
   autoplot() + labs(title = "t.window = 11")
 p3 + p4
 ```
+
+
+## 연습문제 {-}
+
+**1.** 백화점 매출액 자료 `depart.txt`에 대한 다음의 작업을 진행해 보자. 
+
+- 매출액 자료를 구성하고 있는 추세성분과 계절성분 및 불규칙성분을 분해법으로 추출해서 각 성분의 특징을 설명하라.
+
+- 전통적 분해기법과 STL 기법에 의한 분석 결과를 비교하고, 차이가 있다면 그 이유를 설명하라. 
+
+
+**2.** 국내 월별 관광객 자료 `Ktour.txt`에 대한 다음의 작업을 진행해 보자. 
+
+- 관광객 자료를 구성하고 있는 추세성분과 계절성분 및 불규칙성분을 분해법으로 추출해서 각 성분의 특징을 설명하라.
+
+- 전통적 분해기법과 STL 기법에 의한 분석 결과를 비교하고, 차이가 있다면 그 이유를 설명하라. 
+
+
+**3.** 파일 `Won_USD.csv`에는 2000년 1월부터 2023년 3월까지 미국 달러에 대한 한국 원화의 월 평균 환율 자료가 입력되어 있다. 
+자료는 웹 서버 `https://raw.githubusercontent.com/yjyjpark/TS-with-R/main/Data/` 에서 불러올 수 있다.
+
+- 환율 자료에 대한 시계열 그래프를 작성하고, 자료의 특징을 설명하라.
+
+- 환율 자료를 구성하고 있는 추세성분과 계절성분 및 불규칙성분을 분해법으로 추출해서 각 성분의 특징을 설명하라.
+
+- 전통적 분해기법과 STL 기법에 의한 분석 결과를 비교하고, 차이가 있다면 그 이유를 설명하라. 
+
+
+**4.** 파일 `Credit_card.csv`에는 2003년 1월부터 2022년 12월까지 월별 신용카드 개인 사용금액이 입력되어 있다.
+자료는 웹 서버 `https://raw.githubusercontent.com/yjyjpark/TS-with-R/main/Data/` 에서 불러올 수 있다.
+
+- 신용카드 자료에 대한 시계열 그래프를 작성하고, 자료의 특징을 설명하라.
+
+- 신용카드 자료는 가법모형과 승법모형 중 어떤 모형이 더 적절한 모형이라고 보는가? 분해법에 의한 분석을 근거로 설명하라.
+
+- 계절성분을 나타내는 그래프를 모두 작성하고, 특징을 설명하라. 
+
+
+
+
+
 
