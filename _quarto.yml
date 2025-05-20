@@ -32,8 +32,7 @@ format:
     toc: true
     toc-depth: 3
     theme: cosmo
-  pdf:
-    documentclass: scrreprt
+
 knitr:
   opts_chunk: 
     collapse: true

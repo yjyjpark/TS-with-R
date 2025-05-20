@@ -1077,6 +1077,259 @@ total_energy |> slice_tail(n = 5)
 - 자료 `coal`에 대하여 ETS 모형, 계절형 ARIMA 모형, ARMA 오차 회귀모형, `renewal`을 설명변수로 사용하는 ARMA 오차 dynamic 회귀모형을 각각 적합하고 적합 결과를 설명하며, test data에 대한 예측을 실시하고 그 결과를 비교해 보자.
 
 
+**2.** 파일 `PCI.csv`의 변수 `income`에는 우리나라 1인당 국민소득 자료가 입력되어 있고, 변수 `time`에는 자료의 관측 시점이 입력되어 있으며, 웹 서버 `https://raw.githubusercontent.com/yjyjpark/TS-with-R/main/Data/` 에서 불러올 수 있다. 국민소득 자료에 대한 시계열 그래프는 다음과 같다. 
+
+```{r}
+#| echo: false
+read_csv("https://raw.githubusercontent.com/yjyjpark/TS-with-R/main/Data/PCI.csv") |> 
+  pull(income) |> 
+  ts(start = 1953) |>
+  autoplot() + labs(y = NULL)
+```
+
+
+**1)** 1990년부터 2023년까지 관측된 자료를 대상으로 분석을 실시하고자 한다. 가장 최근 7년 자료는 모형 평가를 위한 test data로 분리하고, 나머지 자료만으로 모형 적합을 실시하기로 한다. 모형 적합에 사용될 자료의 자료의 특성을 그래프를 이용해서 설명하라. 
+
+```{r}
+#| echo: false
+avg <- read_csv("https://raw.githubusercontent.com/yjyjpark/TS-with-R/main/Data/PCI.csv") |> 
+  pull(income) |> 
+  ts(start = 1953) |> 
+  window(start = 1990)
+```
+
+```{r}
+#| echo: false
+avg_tr <- subset(avg, end = length(avg) - 7)
+avg_te <- subset(avg, start = length(avg) - 6)
+```
+
+```{r}
+#| include: false
+avg_tr |> autoplot()
+```
+
+**2)** 자료가 정상상을 만족하고 있는지 판단하라. 만일 만족되지 않는다고 생각한다면, 어떤 변환을 실시해야 정상성을 만족시킬 수 있는지 확인하라. 
+
+```{r}
+#| include: false
+avg_tr |> ggtsdisplay()
+avg_tr |> diff() |> ggtsdisplay()
+```
+
+**3)** 1인당 국민소득 자료에 대해 ETS 모형을 적합하고, 적합 결과를 설명하라. 모형 검진은 생략한다.
+
+```{r}
+#| echo: false
+fit_ets <- avg_tr |> ets()
+```
+
+```{r}
+#| include: false
+fit_ets
+```
+
+**4)** 1인당 국민소득 자료에 대해 ARIMA 모형을 적합해 보자. 표본 ACF와 PACF를 근거로 모형식별을 진행하고, 함수 `auto.arima()`에 의한 결과와 비교하라. 추정된 모형식을 작성하고, 적합 결과를 설명하라. 함수 `auto.arima()`에서 `stepwise`와 `approximation`은 모두 `FALSE`로 지정한다. 또한 모형 검진은 생략한다.
+
+```{r}
+#| echo: false
+fit_arima <- auto.arima(avg_tr, stepwise = FALSE, approximation = FALSE)
+```
+
+```{r}
+#| include: false
+fit_arima
+```
+
+
+**5)** 1인당 국민소득 자료에 대해 ARMA 오차 회귀모형을 적합하라. 적합된 회귀모형식을 작성하고, 결과를 설명하라. 모형 검진은 생략한다.
+
+```{r}
+#| echo: false
+Time <- time(avg_tr)
+fit_reg <- auto.arima(avg_tr, xreg = Time)
+```
+
+```{r}
+#| include: false
+fit_reg
+```
+
+
+**6)** 추정된 ETS 모형, ARIMA 모형, ARMA 오차 회귀모형을 이용해서 test data에 대한 예측을 실시하라. 예측 오차와 예측결과 그래프를 이용해서, 세 예측 모형의 예측 결과를 비교, 평가하라. 
+
+```{r}
+#| echo: false
+fc_ets <- forecast(fit_ets, h = length(avg_te))
+fc_arima <- forecast(fit_arima, h = length(avg_te))
+Time <- time(avg_te)
+fc_reg <- forecast(fit_reg, xreg = Time)
+```
+
+```{r}
+#| include: false
+accuracy(fc_ets, avg_te)
+accuracy(fc_arima, avg_te)
+accuracy(fc_reg, avg_te)
+```
+
+```{r}
+#| include: false
+autoplot(avg_te) +
+  autolayer(fc_ets, series = "ETS", size = 1, PI = FALSE) +
+  autolayer(fc_arima, series = "ARIMA", size = 1, PI = FALSE) +
+  autolayer(fc_reg, series = "REG", size = 1, PI = FALSE)
+```
+
+
+**3.** 파일 `Credit_card2.csv`의 `num`에는 우리나라 신용카드 개인 할부구매 이용 건수 자료가 입력되어 있고, `time`에는 관측 시점이 입력되어 있으며,  웹 서버 `https://raw.githubusercontent.com/yjyjpark/TS-with-R/main/Data/` 에서 불러올 수 있다. 신용카드 개인 할부구매 이용 건수 자료에 대한 시계열 그래프는 다음과 같다.
+
+```{r}
+#| echo: false
+read_csv("https://raw.githubusercontent.com/yjyjpark/TS-with-R/main/Data/Credit_card2.csv") |> 
+  pull(num) |> 
+  ts(start = 2003, frequency = 12) |> 
+  autoplot() +
+  labs(y = NULL)
+```
+
+
+**1)** 마지막 24개월 자료는 모형 평가를 위한 test data로 분리하고, 나머지 자료만으로 모형 적합을 실시하기로 한다. 
+모형 적합에 사용될 자료의 특성이 잘 나타날 수 있는 그래프를 작성하고, 파악된 자료의 특성을 설명하라. 
+
+```{r}
+#| echo: false
+d1 <- read_csv("https://raw.githubusercontent.com/yjyjpark/TS-with-R/main/Data/Credit_card2.csv") |> 
+  pull(num) |> 
+  ts(start = 2003, frequency = 12)
+```
+
+```{r}
+#| echo: false
+d1.tr <- subset(d1, end = length(d1) - 24)
+d1.te <- subset(d1, start = length(d1) - 23)
+```
+
+```{r}
+#| include: false
+d1.tr |> autoplot()
+```
+
+```{r}
+#| include: false
+d1.tr |> stl(s.window = 11) |> autoplot()
+```
+
+
+**2)** 신용카드 할부 구매 건수 자료는 정상성이 만족되지 않는 자료이다. 정상성 조건 중 위반되는 조건이 무엇인지 보여줄 근거를 제시하라. 
+
+```{r}
+#| include: false
+BoxCox.lambda(d1.tr)
+d1.tr |> ggtsdisplay()
+```
+
+
+**3)** 신용카드 할부 구매 건수 자료에 대해 ETS 모형을 적합하고, 적합 결과를 설명하라. 모형 검진은 생략한다. 
+
+```{r}
+#| echo: false
+f1.ets <- ets(d1.tr)
+```
+
+```{r}
+#| include: false
+f1.ets
+```
+
+
+**4)** 신용카드 할부 구매 건수 자료에 대해 ARIMA 모형을 적합해 보자. 함수 `auto.arima()`에 의해 모형을 선택하되, 표본 ACF와 PACF에 의한 모형식별 결과와 비교해서, 필요한 수정 사항이 있는지 확인하라. 또한 추정된 계수 중 비유의적인 계수가 있는 경우, 해당 계수의 제외 가능성도 확인하라. 최종 추정된 모형의 모형식을 작성하라. 함수 `auto.arima()`에서 `stepwise`와 `approximation`은 모두 `FALSE`로 지정한다. 또한 모형 검진은 생략한다.
+
+```{r}
+#| include: false
+d1.tr |> ggtsdisplay()
+d1.tr |> diff(lag = 12) |> ggtsdisplay()
+d1.tr |> diff(lag = 12) |> diff() |> ggtsdisplay()
+ndiffs(d1.tr); nsdiffs(d1.tr)
+```
+
+```{r}
+#| include: false
+auto.arima(d1.tr, stepwise = FALSE, approximation = FALSE)
+```
+
+```{r}
+#| include: false
+auto.arima(d1.tr, d = 1, stepwise = FALSE, approximation = FALSE)
+```
+
+```{r}
+#| echo: false
+f1.arima <- Arima(d1.tr, order = c(3,1,0), seasonal = c(0,1,2),
+                  fixed = c(NA, 0, NA, NA, NA))
+```
+
+**5)** 신용카드 할부 구매 건수 자료에 대해 ARMA 오차 회귀모형을 적합하라. 계절성분에 대해서는 dummy 변수를 사용하는 모형과 Fourier 변수를 사용하는 모형을 비교해서, 한 모형을 선택하라. 적합 결과에 대해 설명하라. 모형 검진은 생략한다.
+
+```{r}
+#| echo: false
+Time <- time(d1.tr)
+Month <- seasonaldummy(d1.tr)
+
+f1.reg <- auto.arima(d1.tr, xreg = cbind(Time, Month))
+```
+
+```{r}
+#| include: false
+f1.reg
+```
+
+
+```{r}
+#| include: false
+res <- vector("numeric",6)
+for(i in seq(res)){
+  xreg <- cbind(Time, fourier(d1.tr, K=i))
+  fit <- auto.arima(d1.tr, xreg = xreg)
+  res[i] <- fit$aicc
+}
+(min_k <- which.min(res))
+```
+
+
+**6)** Test data에 대해서 추정된 세 가지 예측모형의 예측을 실시하고, 예측 결과를 비교해서 최선의 결과를 보이는 예측 모형을 선택하라. 선택된 최적 예측모형의 예측 결과를 평가하라.   
+
+```{r}
+#| echo: false
+fc.ets <- forecast(f1.ets, h = length(d1.te))
+fc.arima <- forecast(f1.arima, h = length(d1.te))
+fc.reg <- forecast(f1.reg, xreg = cbind(Time = time(d1.te), 
+                                        Month = seasonaldummy(d1.te)))
+```
+
+```{r}
+#| include: false
+accuracy(fc.ets, d1.te)
+accuracy(fc.arima, d1.te)
+accuracy(fc.reg, d1.te)
+```
+
+```{r}
+#| include: false
+autoplot(d1.te, size = 1.5) +
+  autolayer(fc.ets, PI = FALSE, series = "ETS", size = 1) +
+  autolayer(fc.arima, PI = FALSE, series = "ARIMA", size = 1) +
+  autolayer(fc.reg, PI = FALSE, series = "Reg", size = 1)
+```
+
+```{r}
+#| include: false
+autoplot(fc.arima, include = 48) +
+  autolayer(d1.te, size = 1, color = "red")
+```
+
+
+
 
 
 

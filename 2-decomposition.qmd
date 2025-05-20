@@ -72,7 +72,7 @@ p4 <- autoplot(ausbeer) + autolayer(ma(ausbeer, 24), linewidth = .8, color = "re
 
 * 전통적 분해 기법 적용 예제: `fpp2::elecequip`
 
-```{r decompose-1, }
+```{r}
 #| label: fig-decompose-1
 #| fig-cap: "`elecequip` 자료에 대한 전통적 분해 기법 적용 결과"
 decompose(elecequip) %>% 
